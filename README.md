@@ -1,6 +1,6 @@
 # KAUExtensions
 
-Additional extension for [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
+Additional extensions for [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
 
 ## Documentation
 
