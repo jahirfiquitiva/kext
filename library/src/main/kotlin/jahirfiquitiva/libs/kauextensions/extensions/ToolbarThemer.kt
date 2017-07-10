@@ -31,12 +31,14 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import ca.allanwang.kau.utils.statusBarLight
+import ca.allanwang.kau.utils.tint
+import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.activities.ThemedActivity
 import jahirfiquitiva.libs.kauextensions.views.callbacks.CollapsingToolbarCallback
 import java.lang.reflect.Field
 import java.math.BigDecimal
 import java.math.RoundingMode
-import jahirfiquitiva.libs.kauextensions.R
 
 fun round(value:Double, places:Int):Double {
     if (places < 0) throw IllegalArgumentException()
@@ -46,11 +48,12 @@ fun round(value:Double, places:Int):Double {
 }
 
 fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
+
     (0..toolbar.childCount).forEach { i ->
         val v = toolbar.getChildAt(i)
 
         //Step 1 : Changing the color of back button (or open drawer button).
-        (v as? ImageButton)?.drawable?.tintWithColor(ColorStateList.valueOf(color))
+        (v as? ImageButton)?.drawable?.tint(ColorStateList.valueOf(color))
 
         if (v is ActionMenuView) {
             //Step 2: Changing the color of any ActionMenuViews - icons that are not back
@@ -64,7 +67,7 @@ fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
                         innerView.compoundDrawables.forEach {
                             if (it != null) {
                                 innerView.post {
-                                    it.tintWithColor(ColorStateList.valueOf(color))
+                                    it.tint(ColorStateList.valueOf(color))
                                 }
                             }
                         }
@@ -77,7 +80,7 @@ fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
     toolbar.setSubtitleTextColor(getSecondaryTextColorFor(primaryColor))
 
     // Step 4: Change the color of overflow menu icon.
-    toolbar.overflowIcon?.tintWithColor(ColorStateList.valueOf(color))
+    toolbar.overflowIcon?.tint(ColorStateList.valueOf(color))
     setOverflowButtonColor(toolbar, color)
 
     // Step 5: Tint toolbar menu.
@@ -92,7 +95,7 @@ fun ThemedActivity.tintToolbarMenu(toolbar:Toolbar?, menu:Menu?, @ColorInt icons
         val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
         field.isAccessible = true
         val collapseIcon = field.get(toolbar) as Drawable
-        field.set(toolbar, collapseIcon.tintWithColor(iconsColor))
+        field.set(toolbar, collapseIcon.tint(iconsColor))
     } catch (e:Exception) {
         e.printStackTrace()
     }
@@ -127,7 +130,7 @@ private fun setOverflowButtonColor(toolbar:Toolbar, @ColorInt color:Int) {
             outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
     if (outViews.isEmpty()) return
     val overflow = outViews[0] as AppCompatImageView
-    overflow.setImageDrawable(overflow.drawable.tintWithColor(color))
+    overflow.setImageDrawable(overflow.drawable.tint(color))
 }
 
 private fun ThemedActivity.themeSearchView(tintColor:Int, view:SearchView) {
@@ -158,7 +161,7 @@ private fun ThemedActivity.themeSearchView(tintColor:Int, view:SearchView) {
 
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
-        field.set(view, (field.get(view) as Drawable).tintWithColor(tintColor))
+        field.set(view, (field.get(view) as Drawable).tint(tintColor))
     } catch (e:Exception) {
         e.printStackTrace()
     }
@@ -166,9 +169,9 @@ private fun ThemedActivity.themeSearchView(tintColor:Int, view:SearchView) {
 
 private fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
     if (state === CollapsingToolbarCallback.State.COLLAPSED) {
-        setStatusBarMode(primaryDarkColor.isColorLight())
+        statusBarLight = primaryDarkColor.isColorLight()
     } else {
-        setStatusBarMode()
+        statusBarLight = false
     }
 }
 
@@ -176,7 +179,7 @@ private fun tintImageView(target:Any, field:Field, tintColor:Int) {
     field.isAccessible = true
     val imageView = field.get(target) as ImageView
     if (imageView.drawable != null) {
-        imageView.setImageDrawable(imageView.drawable.tintWithColor(tintColor))
+        imageView.setImageDrawable(imageView.drawable.tint(tintColor))
     }
 }
 
@@ -192,10 +195,8 @@ private fun setCursorTint(editText:EditText, @ColorInt color:Int) {
         val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
         fCursorDrawable.isAccessible = true
         val drawables = arrayOfNulls<Drawable>(2)
-        drawables[0] = ContextCompat.getDrawable(editText.context,
-                                                 mCursorDrawableRes)?.tintWithColor(color)
-        drawables[1] = ContextCompat.getDrawable(editText.context,
-                                                 mCursorDrawableRes)?.tintWithColor(color)
+        drawables[0] = ContextCompat.getDrawable(editText.context, mCursorDrawableRes)?.tint(color)
+        drawables[1] = ContextCompat.getDrawable(editText.context, mCursorDrawableRes)?.tint(color)
         fCursorDrawable.set(editor, drawables)
     } catch (e:Exception) {
         e.printStackTrace()
