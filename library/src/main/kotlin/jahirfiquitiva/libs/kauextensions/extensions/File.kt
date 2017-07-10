@@ -17,24 +17,17 @@
  * 	https://github.com/jahirfiquitiva/Blueprint#special-thanks
  */
 
-ext.versions = [
-        // Core app details
-        appId          : "KAUExtensions",
-        appGroup       : "jahirfiquitiva.apps",
-        libGroup       : "jahirfiquitiva.libs",
-        minSdk         : 16,
-        targetSdk      : 26,
-        compileSdk     : 26,
-        buildTools     : '26.0.0',
-        versionCode    : 200,
-        versionName    : '2.0.0',
-        gradlePlugin   : '2.3.3',
-        libPubPlugin   : '1.5',
-        kotlin         : '1.1.3-2',
-        // Libraries versions
-        supportLibs    : '25.3.1',
-        supportLibsTest: '26.+',
-        archComponents : '1.0.0-alpha3',
-        glide          : '3.7.0',
-        kau            : 'v2.0'
-]
+package jahirfiquitiva.libs.kauextensions.extensions
+
+import android.content.Context
+import android.net.Uri
+import android.support.v4.content.FileProvider
+import java.io.File
+
+fun File.getUri(context:Context):Uri? {
+    try {
+        return FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
+    } catch (e:Exception) {
+        return null
+    }
+}

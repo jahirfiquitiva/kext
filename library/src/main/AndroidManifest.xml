@@ -1,2 +1,5 @@
-<manifest package="jahirfiquitiva.libs.kauextensions">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="jahirfiquitiva.libs.kauextensions">
+
+    <uses-sdk tools:overrideLibrary="ca.allanwang.kau"/>
 </manifest>
