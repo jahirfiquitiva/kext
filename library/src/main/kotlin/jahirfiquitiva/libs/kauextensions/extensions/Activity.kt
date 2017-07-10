@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Jahir Fiquitiva
+ * Copyright (c) 2017.  Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -12,9 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Special thanks to the project contributors and collaborators
- * 	https://github.com/jahirfiquitiva/Blueprint#special-thanks
  */
 
 package jahirfiquitiva.libs.kauextensions.extensions
@@ -23,8 +20,9 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.view.View
 import android.view.WindowManager
+import ca.allanwang.kau.utils.statusBarColor
+import ca.allanwang.kau.utils.statusBarLight
 
 fun Activity.setupStatusBarStyle(translucent:Boolean = true,
                                  lightMode:Boolean = primaryDarkColor.isColorLight()) {
@@ -41,21 +39,8 @@ fun Activity.setupStatusBarStyle(translucent:Boolean = true,
         window.attributes = params
     }
     if (Build.VERSION.SDK_INT >= 21) {
-        window.statusBarColor = Color.TRANSPARENT
-        setStatusBarMode(lightMode)
-    }
-}
-
-fun Activity.setStatusBarMode(lightMode:Boolean = primaryDarkColor.isColorLight()) {
-    val view = window.decorView
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        var flags = view.systemUiVisibility
-        if (lightMode) {
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        }
-        view.systemUiVisibility = flags
+        statusBarColor = Color.TRANSPARENT
+        statusBarLight = lightMode
     }
 }
 
