@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017.  Jahir Fiquitiva
+ * Copyright (c) 2017. Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jahirfiquitiva.libs.kauextensions.views.callbacks
+package jahirfiquitiva.libs.kauextensions.ui.views.callbacks
 
 import android.support.design.widget.AppBarLayout
 
@@ -22,26 +22,23 @@ abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
 
     var currentState = State.IDLE
 
-    override fun onOffsetChanged(appBarLayout:AppBarLayout?, verticalOffset:Int) {
+    override fun onOffsetChanged(appBarLayout:AppBarLayout, verticalOffset:Int) {
         onVerticalOffsetChanged(appBarLayout, Math.abs(verticalOffset))
         if (verticalOffset == 0) {
-            if (currentState != State.EXPANDED)
-                onStateChanged(appBarLayout, State.EXPANDED)
+            if (currentState != State.EXPANDED) onStateChanged(appBarLayout, State.EXPANDED)
             currentState = State.EXPANDED
-        } else if (Math.abs(verticalOffset) > appBarLayout?.totalScrollRange ?: 0) {
-            if (currentState != State.COLLAPSED)
-                onStateChanged(appBarLayout, State.COLLAPSED)
+        } else if (Math.abs(verticalOffset) > appBarLayout.totalScrollRange) {
+            if (currentState != State.COLLAPSED) onStateChanged(appBarLayout, State.COLLAPSED)
             currentState = State.COLLAPSED
         } else {
-            if (currentState != State.IDLE)
-                onStateChanged(appBarLayout, State.IDLE)
+            if (currentState != State.IDLE) onStateChanged(appBarLayout, State.IDLE)
             currentState = State.IDLE
         }
     }
 
-    open fun onStateChanged(appBar:AppBarLayout?, state:State) {}
+    open fun onStateChanged(appBar:AppBarLayout, state:State) {}
 
-    open fun onVerticalOffsetChanged(appBar:AppBarLayout?, verticalOffset:Int) {}
+    open fun onVerticalOffsetChanged(appBar:AppBarLayout, verticalOffset:Int) {}
 
     enum class State {
         EXPANDED, COLLAPSED, IDLE

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017.  Jahir Fiquitiva
+ * Copyright (c) 2017. Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -35,7 +35,7 @@ import ca.allanwang.kau.utils.statusBarLight
 import ca.allanwang.kau.utils.tint
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.activities.ThemedActivity
-import jahirfiquitiva.libs.kauextensions.views.callbacks.CollapsingToolbarCallback
+import jahirfiquitiva.libs.kauextensions.ui.views.callbacks.CollapsingToolbarCallback
 import java.lang.reflect.Field
 import java.math.BigDecimal
 import java.math.RoundingMode

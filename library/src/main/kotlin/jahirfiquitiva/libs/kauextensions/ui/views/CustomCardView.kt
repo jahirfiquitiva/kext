@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kauextensions.ui.views
 
+import android.annotation.TargetApi
 import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
+import android.os.Build
+import android.support.v7.widget.CardView
+import android.util.AttributeSet
+import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 
-fun File.getUri(context:Context):Uri? {
-    try {
-        return FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e:Exception) {
-        return null
+class CustomCardView:CardView {
+    constructor(context:Context):super(context)
+    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
+    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
+            :super(context, attributeSet, defStyleAttr)
+
+    override fun setBackgroundColor(color:Int) {
+        super.setBackgroundColor(context.cardBackgroundColor)
     }
 }

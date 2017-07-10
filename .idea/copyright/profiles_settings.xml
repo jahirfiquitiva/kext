@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="Frames">
+  <settings default="CC-BY-SA">
     <module2copyright>
-      <element module="All" copyright="Frames" />
+      <element module="All" copyright="CC-BY-SA" />
     </module2copyright>
   </settings>
 </component>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017.  Jahir Fiquitiva
+ * Copyright (c) 2017. Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -16,9 +16,10 @@
 
 package jahirfiquitiva.libs.kauextensions.extensions
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
-import android.support.design.widget.FloatingActionButton
+import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -41,3 +42,6 @@ fun ImageView.loadFromUrl(url:String, error:Drawable? = null) {
         Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(this)
     }
 }
+
+fun Context.inflateView(@LayoutRes layout:Int, root:ViewGroup, attachToRoot:Boolean = false):View =
+        LayoutInflater.from(this).inflate(layout, root, attachToRoot)
