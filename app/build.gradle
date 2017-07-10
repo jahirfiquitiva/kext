@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    versions.appId + "-v${variant.versionName}-${variant.name}.apk")
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        disable 'GoogleAppIndexingWarning'
+    }
+    
+    defaultConfig {
+        applicationId versions.appGroup + "." + versions.appId.replaceAll(" ", "").toLowerCase()
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs += 'src/main/kotlin'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // KAU Extensions
+    compile project(path: ':library')
+    // Kotlin
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:' + versions.kotlin
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("lint") || task.name.contains("test")) {
+        task.enabled = false
+    }
+}
