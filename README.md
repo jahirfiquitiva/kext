@@ -25,7 +25,7 @@ allprojects {
 Add the dependency
 ```groovy
 dependencies {
-		compile 'me.jahirfiquitiva:KAUExtensions:712d264'
+		compile 'me.jahirfiquitiva:KAUExtensions:b36be86'
 }
 ```
 
