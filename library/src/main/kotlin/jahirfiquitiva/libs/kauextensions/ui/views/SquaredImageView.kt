@@ -22,7 +22,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.ImageView
 
-class SquaredImageView:ImageView {
+open class SquaredImageView:ImageView {
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)

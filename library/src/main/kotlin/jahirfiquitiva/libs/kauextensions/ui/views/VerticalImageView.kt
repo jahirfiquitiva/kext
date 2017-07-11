@@ -23,7 +23,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import jahirfiquitiva.libs.kauextensions.R
 
-class VerticalImageView:ImageView {
+open class VerticalImageView:ImageView {
 
     var heightMultiplier = 2
 

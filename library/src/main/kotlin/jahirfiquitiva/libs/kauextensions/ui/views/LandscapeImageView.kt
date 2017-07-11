@@ -23,7 +23,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import jahirfiquitiva.libs.kauextensions.R
 
-class LandscapeImageView:ImageView {
+open class LandscapeImageView:ImageView {
 
     var heightDivider = 3
 

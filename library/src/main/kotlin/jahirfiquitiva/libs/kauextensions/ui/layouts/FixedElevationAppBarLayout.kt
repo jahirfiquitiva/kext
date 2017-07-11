@@ -22,7 +22,7 @@ import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 
-class FixedElevationAppBarLayout:AppBarLayout {
+open class FixedElevationAppBarLayout:AppBarLayout {
 
     var fElevation:Int = 4
 

@@ -23,7 +23,7 @@ import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 
-class CustomCardView:CardView {
+open class CustomCardView:CardView {
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)

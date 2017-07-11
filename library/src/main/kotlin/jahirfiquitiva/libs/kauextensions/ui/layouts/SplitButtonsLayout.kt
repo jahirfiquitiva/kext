@@ -27,7 +27,7 @@ import jahirfiquitiva.libs.kauextensions.extensions.inflateView
 /**
  * Originally created by Aidan Follestad
  */
-class SplitButtonsLayout:LinearLayout {
+open class SplitButtonsLayout:LinearLayout {
 
     var buttonCount:Int = 0
 

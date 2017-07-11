@@ -22,7 +22,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
-class CustomCoordinatorLayout:CoordinatorLayout {
+open class CustomCoordinatorLayout:CoordinatorLayout {
 
     var allowScroll = true
 

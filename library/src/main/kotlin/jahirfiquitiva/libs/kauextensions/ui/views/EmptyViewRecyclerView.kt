@@ -28,7 +28,7 @@ import ca.allanwang.kau.utils.visible
 import ca.allanwang.kau.utils.visibleIf
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
-class EmptyViewRecyclerView:RecyclerView {
+open class EmptyViewRecyclerView:RecyclerView {
     var loadingView:View? = null
     var emptyView:View? = null
     var textView:TextView? = null
