@@ -25,7 +25,7 @@ Add it in your root build.gradle at the end of repositories:
 Add the dependency
 ```groovy
 	dependencies {
-	        compile 'me.jahirfiquitiva:KAUExtensions:c9347c9'
+	        compile 'me.jahirfiquitiva:KAUExtensions:712d264'
 	}
 ```
 
