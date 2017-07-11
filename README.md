@@ -14,19 +14,19 @@ Yet to be added, but I think functions are easy to understand at least while I g
 
 Add it in your root build.gradle at the end of repositories:
 ```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 Add the dependency
 ```groovy
-	dependencies {
-	        compile 'me.jahirfiquitiva:KAUExtensions:712d264'
-	}
+dependencies {
+		compile 'me.jahirfiquitiva:KAUExtensions:712d264'
+}
 ```
 
 
