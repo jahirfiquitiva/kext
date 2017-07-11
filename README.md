@@ -1,5 +1,9 @@
 # KAUExtensions
 
+[![JitPack Badge](https://jitpack.io/v/jahirfiquitiva/KAUExtensions.svg)](https://jitpack.io/#jahirfiquitiva/KAUExtensions)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/645b9213563542d4ac0d5bbc76d3180a)](https://www.codacy.com/app/jahirfiquitiva/KAUExtensions?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jahirfiquitiva/KAUExtensions&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/jahirfiquitiva/KAUExtensions.svg?branch=master)](https://travis-ci.org/jahirfiquitiva/KAUExtensions)
+
 Additional extensions for [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
 
 ## Documentation
