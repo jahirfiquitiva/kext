@@ -43,7 +43,7 @@ open class VerticalImageView:ImageView {
         init(context, attributeSet)
     }
 
-    fun init(context:Context, attributeSet:AttributeSet) {
+    open fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.VerticalImageView, 0, 0)
         try {
             heightMultiplier = a.getInteger(R.styleable.VerticalImageView_heightMultiplier, 2)

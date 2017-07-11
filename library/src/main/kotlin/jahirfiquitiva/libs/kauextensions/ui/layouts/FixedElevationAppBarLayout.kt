@@ -31,7 +31,7 @@ open class FixedElevationAppBarLayout:AppBarLayout {
         init(context, attributeSet)
     }
 
-    fun init(context:Context, attrs:AttributeSet) {
+    open fun init(context:Context, attrs:AttributeSet) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
             fElevation = a.getDimensionPixelSize(

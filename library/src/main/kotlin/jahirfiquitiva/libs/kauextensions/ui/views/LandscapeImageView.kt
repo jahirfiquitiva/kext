@@ -43,7 +43,7 @@ open class LandscapeImageView:ImageView {
         init(context, attributeSet)
     }
 
-    fun init(context:Context, attributeSet:AttributeSet) {
+    open fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.LandscapeImageView, 0, 0)
         try {
             heightDivider = a.getInteger(R.styleable.LandscapeImageView_heightDivider, 3)
