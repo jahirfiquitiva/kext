@@ -25,7 +25,7 @@ import jahirfiquitiva.libs.kauextensions.R
 
 open class LandscapeImageView:ImageView {
 
-    var heightDivider:Float = 2.25F
+    var heightDivider:Float = 3F
 
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
@@ -46,7 +46,7 @@ open class LandscapeImageView:ImageView {
     fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.LandscapeImageView, 0, 0)
         try {
-            heightDivider = a.getFloat(R.styleable.LandscapeImageView_heightDivider, 2.25F)
+            heightDivider = a.getFloat(R.styleable.LandscapeImageView_heightDivider, 3F)
         } finally {
             a.recycle()
         }
