@@ -18,16 +18,15 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.Context
 import android.util.Log
-import jahirfiquitiva.libs.kauextensions.utils.LOG_TAG
 
-fun Context.printVerbose(verbose:String) = Log.v(LOG_TAG, verbose)
+fun Context.printVerbose(verbose:String) = Log.v(getLogTag(), verbose)
 
-fun Context.printDebug(debug:String) = Log.d(LOG_TAG, debug)
+fun Context.printDebug(debug:String) = Log.d(getLogTag(), debug)
 
-fun Context.printInfo(info:String) = Log.i(LOG_TAG, info)
+fun Context.printInfo(info:String) = Log.i(getLogTag(), info)
 
-fun Context.printWarning(warning:String) = Log.w(LOG_TAG, warning)
+fun Context.printWarning(warning:String) = Log.w(getLogTag(), warning)
 
-fun Context.printError(error:String) = Log.e(LOG_TAG, error)
+fun Context.printError(error:String) = Log.e(getLogTag(), error)
 
-fun Context.printError(error:String, th:Throwable) = Log.e(LOG_TAG, error, th)
+fun Context.printError(error:String, th:Throwable) = Log.e(getLogTag(), error, th)

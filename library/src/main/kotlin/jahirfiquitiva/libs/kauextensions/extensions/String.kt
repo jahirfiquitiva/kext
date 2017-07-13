@@ -52,3 +52,19 @@ fun String.getIconResource(context:Context):Int {
 
 fun String.formatCorrectly() =
         replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ").replace("\\p{Z}".toRegex(), "_")
+
+fun String.toTitleCase():String{
+    val titleCase = StringBuilder()
+    var nextTitleCase = true
+    for (c in toLowerCase().toCharArray()) {
+        var rc = c
+        if (Character.isSpaceChar(rc)) {
+            nextTitleCase = true
+        } else if (nextTitleCase) {
+            rc = Character.toTitleCase(c)
+            nextTitleCase = false
+        }
+        titleCase.append(rc)
+    }
+    return titleCase.toString()
+}

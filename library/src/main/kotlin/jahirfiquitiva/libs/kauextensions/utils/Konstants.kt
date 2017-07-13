@@ -15,8 +15,6 @@
  */
 package jahirfiquitiva.libs.kauextensions.utils
 
-const val LOG_TAG = "Blueprint"
-
 // Shared Preferences
 const val PREFERENCES_NAME = "dashboard_preferences"
 const val APP_RUN_COUNT = "app_run_count"
@@ -28,5 +26,6 @@ const val COLORED_NAVBAR = "colored_navbar"
 const val LIGHT = 0
 const val DARK = 1
 const val AMOLED = 2
-const val AUTO_DARK = 3
-const val AUTO_AMOLED = 4
+const val TRANSPARENT = 3
+const val AUTO_DARK = 4
+const val AUTO_AMOLED = 5

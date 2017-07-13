@@ -25,7 +25,7 @@ import jahirfiquitiva.libs.kauextensions.R
 
 open class VerticalImageView:ImageView {
 
-    var heightMultiplier = 2
+    var heightMultiplier:Float = 1.5F
 
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
@@ -43,10 +43,10 @@ open class VerticalImageView:ImageView {
         init(context, attributeSet)
     }
 
-    open fun init(context:Context, attributeSet:AttributeSet) {
+    fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.VerticalImageView, 0, 0)
         try {
-            heightMultiplier = a.getInteger(R.styleable.VerticalImageView_heightMultiplier, 2)
+            heightMultiplier = a.getFloat(R.styleable.VerticalImageView_heightMultiplier, 1.5F)
         } finally {
             a.recycle()
         }
@@ -54,6 +54,6 @@ open class VerticalImageView:ImageView {
 
     override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(measuredWidth, measuredHeight * heightMultiplier)
+        setMeasuredDimension(measuredWidth, (measuredHeight * heightMultiplier).toInt())
     }
 }

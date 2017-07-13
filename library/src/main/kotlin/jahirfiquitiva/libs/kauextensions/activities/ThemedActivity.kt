@@ -34,6 +34,8 @@ abstract class ThemedActivity:AppCompatActivity() {
     abstract fun darkTheme():Int
     @StyleRes
     abstract fun amoledTheme():Int
+    @StyleRes
+    abstract fun transparentTheme():Int
 
     override fun onCreate(savedInstanceState:Bundle?) {
         setCustomTheme()

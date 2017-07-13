@@ -18,11 +18,7 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import ca.allanwang.kau.utils.navigationBarColor
 import jahirfiquitiva.libs.kauextensions.activities.ThemedActivity
-import jahirfiquitiva.libs.kauextensions.utils.AMOLED
-import jahirfiquitiva.libs.kauextensions.utils.AUTO_AMOLED
-import jahirfiquitiva.libs.kauextensions.utils.AUTO_DARK
-import jahirfiquitiva.libs.kauextensions.utils.DARK
-import jahirfiquitiva.libs.kauextensions.utils.LIGHT
+import jahirfiquitiva.libs.kauextensions.utils.*
 import java.util.*
 
 
@@ -52,6 +48,7 @@ fun ThemedActivity.getCustomTheme():Int {
         LIGHT -> return lightTheme()
         DARK -> return darkTheme()
         AMOLED -> return amoledTheme()
+        TRANSPARENT -> return transparentTheme()
         AUTO_DARK -> return if (hourOfDay in 7..18) lightTheme() else darkTheme()
         AUTO_AMOLED -> return if (hourOfDay in 7..18) lightTheme() else amoledTheme()
         else -> return lightTheme()

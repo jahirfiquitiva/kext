@@ -19,7 +19,6 @@ package jahirfiquitiva.libs.kauextensions.extensions
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Looper
@@ -28,7 +27,6 @@ import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
-import com.afollestad.materialdialogs.MaterialDialog
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.utils.Konfigurations
 import jahirfiquitiva.libs.kauextensions.utils.PREFERENCES_NAME
@@ -103,8 +101,9 @@ fun Context.showToast(text:String, duration:Int = Toast.LENGTH_SHORT) {
     }
 }
 
-fun Context.getAppName():String = getStringFromRes(
-        R.string.app_name, "Blueprint")
+fun Context.getAppName():String = getStringFromRes(R.string.app_name, "KAU Extensions")
+
+fun Context.getLogTag():String = getAppName()
 
 fun Context.getAppVersion():String {
     try {
@@ -116,7 +115,7 @@ fun Context.getAppVersion():String {
 
 fun Context.isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
-fun Context.getSharedPrefs() = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+fun Context.getSharedPrefs(name:String) = getSharedPreferences(name, Context.MODE_PRIVATE)
 
 fun Context.hasReadStoragePermission() =
         ContextCompat.checkSelfPermission(this,
@@ -127,4 +126,8 @@ fun Context.hasWriteStoragePermission() =
                                           Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
 val Context.konfigs:Konfigurations
-    get() = Konfigurations.newInstance(this)
+    get() = Konfigurations.newInstance(PREFERENCES_NAME, this)
+
+fun Context.runInAThread(item:() -> Unit) {
+    Thread(Runnable(item)).start()
+}

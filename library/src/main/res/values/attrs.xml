@@ -23,9 +23,9 @@
         <attr name="fixedElevation" format="reference|dimension"/>
     </declare-styleable>
     <declare-styleable name="LandscapeImageView">
-        <attr name="heightDivider" format="reference|integer"/>
+        <attr name="heightDivider" format="reference|float"/>
     </declare-styleable>
     <declare-styleable name="VerticalImageView">
-        <attr name="heightMultiplier" format="reference|integer"/>
+        <attr name="heightMultiplier" format="reference|float"/>
     </declare-styleable>
 </resources>

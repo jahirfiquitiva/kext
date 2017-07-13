@@ -82,5 +82,12 @@ fun Context.getSecondaryTextColorFor(color:Int):Int =
         if (color.isColorDark()) Color.parseColor("#b3ffffff") else Color.parseColor("#8a000000")
 
 @ColorInt
+fun Context.getDisabledTextColorFor(color:Int):Int =
+        if (color.isColorDark()) Color.parseColor("#80ffffff") else Color.parseColor("#61000000")
+
+@ColorInt
 fun Context.getActiveIconsColorFor(color:Int):Int =
         if (color.isColorDark()) Color.parseColor("#ffffffff") else Color.parseColor("#8a000000")
+
+@ColorInt
+fun Context.getInactiveIconsColorFor(color:Int):Int = getDisabledTextColorFor(color)
