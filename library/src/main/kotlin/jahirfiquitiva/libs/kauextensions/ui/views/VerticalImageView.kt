@@ -54,6 +54,6 @@ open class VerticalImageView:ImageView {
 
     override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(measuredWidth, (measuredHeight * heightMultiplier).toInt())
+        setMeasuredDimension(measuredWidth, (measuredWidth * heightMultiplier).toInt())
     }
 }

@@ -54,6 +54,6 @@ open class LandscapeImageView:ImageView {
 
     override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(measuredWidth, (measuredHeight / heightDivider).toInt())
+        setMeasuredDimension(measuredWidth, (measuredWidth / heightDivider).toInt())
     }
 }
