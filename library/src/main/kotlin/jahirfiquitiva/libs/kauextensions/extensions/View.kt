@@ -17,23 +17,13 @@
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
 import android.support.annotation.LayoutRes
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.FutureTarget
-import com.bumptech.glide.request.target.BitmapImageViewTarget
-import java.io.File
 
 fun ViewGroup.inflate(layoutId:Int, attachToRoot:Boolean = false):View =
         LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
