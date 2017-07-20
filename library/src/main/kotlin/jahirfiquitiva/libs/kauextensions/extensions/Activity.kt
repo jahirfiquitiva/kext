@@ -44,14 +44,6 @@ fun Activity.setupStatusBarStyle(translucent:Boolean = true,
     }
 }
 
-fun Activity.restart() {
-    val intnt = this.intent
-    intnt.removeCategory(Intent.CATEGORY_LAUNCHER)
-    // TODO: Fade activity restart
-    startActivity(intnt)
-    finish()
-}
-
 /*
 fun ReleasesActivity.showChangelog(currVersion:Int, xmlRes:Int,
                                    callback:OnChangelogNeutralButtonClick? = null) {

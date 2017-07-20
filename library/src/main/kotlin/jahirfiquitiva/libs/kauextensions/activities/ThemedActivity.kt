@@ -17,12 +17,17 @@
 package jahirfiquitiva.libs.kauextensions.activities
 
 import android.os.Bundle
+import android.support.annotation.ColorInt
 import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
+import ca.allanwang.kau.utils.navigationBarColor
+import ca.allanwang.kau.utils.restart
+import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
-import jahirfiquitiva.libs.kauextensions.extensions.restart
-import jahirfiquitiva.libs.kauextensions.extensions.setCustomTheme
+import jahirfiquitiva.libs.kauextensions.extensions.primaryDarkColor
+import jahirfiquitiva.libs.kauextensions.utils.*
+import java.util.*
 
 abstract class ThemedActivity:AppCompatActivity() {
     var lastTheme = 0
@@ -30,10 +35,13 @@ abstract class ThemedActivity:AppCompatActivity() {
 
     @StyleRes
     abstract fun lightTheme():Int
+
     @StyleRes
     abstract fun darkTheme():Int
+
     @StyleRes
     abstract fun amoledTheme():Int
+
     @StyleRes
     abstract fun transparentTheme():Int
 
@@ -54,4 +62,49 @@ abstract class ThemedActivity:AppCompatActivity() {
         lastTheme = konfigs.currentTheme
         coloredNavbar = konfigs.hasColoredNavbar
     }
+
+    fun setCustomTheme() {
+        val enterAnimation = android.R.anim.fade_in
+        val exitAnimation = android.R.anim.fade_out
+        overridePendingTransition(enterAnimation, exitAnimation)
+        setTheme(getCustomTheme())
+        navigationBarColor = getCorrectNavbarColor()
+    }
+
+    fun isDarkTheme():Boolean {
+        val c = Calendar.getInstance()
+        val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
+        when (konfigs.currentTheme) {
+            LIGHT -> return false
+            DARK, AMOLED -> return true
+            AUTO_DARK, AUTO_AMOLED -> return hourOfDay !in 7..18
+            else -> return false
+        }
+    }
+
+    @StyleRes
+    fun getCustomTheme():Int {
+        val c = Calendar.getInstance()
+        val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
+        when (konfigs.currentTheme) {
+            LIGHT -> return lightTheme()
+            DARK -> return darkTheme()
+            AMOLED -> return amoledTheme()
+            TRANSPARENT -> return transparentTheme()
+            AUTO_DARK -> return if (hourOfDay in 7..18) lightTheme() else darkTheme()
+            AUTO_AMOLED -> return if (hourOfDay in 7..18) lightTheme() else amoledTheme()
+            else -> return lightTheme()
+        }
+    }
+
+    @ColorInt
+    fun getCorrectNavbarColor():Int {
+        if (konfigs.currentTheme == AMOLED)
+            return getColorFromRes(android.R.color.black)
+        else if (konfigs.hasColoredNavbar)
+            return primaryDarkColor
+        else
+            return getColorFromRes(android.R.color.black)
+    }
+
 }

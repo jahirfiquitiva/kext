@@ -20,6 +20,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.support.annotation.*
@@ -131,3 +132,9 @@ val Context.konfigs:Konfigurations
 fun Context.runInAThread(item:() -> Unit) {
     Thread(Runnable(item)).start()
 }
+
+val Context.isInHorizontalMode:Boolean
+    get() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+val Context.isInPortraitMode:Boolean
+    get() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT

@@ -42,9 +42,10 @@ fun Int.shiftColor(@FloatRange(from = 0.0, to = 2.0) by:Float):Int {
 @ColorInt
 fun Int.stripAlpha():Int = Color.rgb(Color.red(this), Color.green(this), Color.blue(this))
 
-fun Int.isColorDark():Boolean = isColorDark(0.45F)
+fun Int.isColorLight(darkness:Float = 0.5F):Boolean = !isColorDark(darkness)
 
-fun Int.isColorLight():Boolean = !isColorDark()
+val Int.isColorLight:Boolean
+    get() = !isColorDark
 
 fun Int.getUriFromResource(context:Context):Uri =
         Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +

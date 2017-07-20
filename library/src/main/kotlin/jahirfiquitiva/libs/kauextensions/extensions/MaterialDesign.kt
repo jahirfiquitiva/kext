@@ -19,6 +19,7 @@ package jahirfiquitiva.libs.kauextensions.extensions
 import android.content.Context
 import android.graphics.Color
 import android.support.annotation.ColorInt
+import ca.allanwang.kau.utils.isColorDark
 import jahirfiquitiva.libs.kauextensions.R
 
 val Context.primaryColor:Int
@@ -74,20 +75,30 @@ val Context.chipsIconsColor:Int
     get() = activeIconsColor
 
 @ColorInt
-fun Context.getPrimaryTextColorFor(color:Int):Int =
-        if (color.isColorDark()) Color.parseColor("#ffffffff") else Color.parseColor("#de000000")
+fun Context.getPrimaryTextColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        if (color.isColorDark(darkness)) Color.parseColor("#ffffffff")
+        else Color.parseColor("#de000000")
 
 @ColorInt
-fun Context.getSecondaryTextColorFor(color:Int):Int =
-        if (color.isColorDark()) Color.parseColor("#b3ffffff") else Color.parseColor("#8a000000")
+fun Context.getSecondaryTextColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        if (color.isColorDark(darkness)) Color.parseColor("#b3ffffff")
+        else Color.parseColor("#8a000000")
 
 @ColorInt
-fun Context.getDisabledTextColorFor(color:Int):Int =
-        if (color.isColorDark()) Color.parseColor("#80ffffff") else Color.parseColor("#61000000")
+fun Context.getDisabledTextColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        if (color.isColorDark(darkness)) Color.parseColor("#80ffffff")
+        else Color.parseColor("#61000000")
 
 @ColorInt
-fun Context.getActiveIconsColorFor(color:Int):Int =
-        if (color.isColorDark()) Color.parseColor("#ffffffff") else Color.parseColor("#8a000000")
+fun Context.getActiveIconsColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        if (color.isColorDark(darkness)) Color.parseColor("#ffffffff")
+        else Color.parseColor("#8a000000")
 
 @ColorInt
-fun Context.getInactiveIconsColorFor(color:Int):Int = getDisabledTextColorFor(color)
+fun Context.getInactiveIconsColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        getDisabledTextColorFor(color, darkness)
+
+@ColorInt
+fun Context.getRippleColorFor(@ColorInt color:Int, darkness:Float = 0.5F):Int =
+        if (color.isColorDark(darkness)) R.color.ripple_material_light
+        else R.color.ripple_material_dark
