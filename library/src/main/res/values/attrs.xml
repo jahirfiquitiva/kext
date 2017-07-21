@@ -19,12 +19,15 @@
     <declare-styleable name="Theme">
         <attr name="isDark" format="reference|boolean"/>
     </declare-styleable>
+	
     <declare-styleable name="FixedElevationAppBarLayout">
         <attr name="fixedElevation" format="reference|dimension"/>
     </declare-styleable>
+	
     <declare-styleable name="LandscapeImageView">
         <attr name="heightDivider" format="reference|dimension"/>
     </declare-styleable>
+	
     <declare-styleable name="VerticalImageView">
         <attr name="heightMultiplier" format="reference|dimension"/>
     </declare-styleable>
