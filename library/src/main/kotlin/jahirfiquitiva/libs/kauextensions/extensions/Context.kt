@@ -134,7 +134,13 @@ fun Context.runInAThread(item:() -> Unit) {
 }
 
 val Context.isInHorizontalMode:Boolean
-    get() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    get() = currentRotation == 90 || currentRotation == 270
 
 val Context.isInPortraitMode:Boolean
-    get() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+    get() = currentRotation == 0 || currentRotation == 180
+	
+val Context.currentRotation:Int
+    get() {
+        val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+        return display.rotation * 90
+    }
