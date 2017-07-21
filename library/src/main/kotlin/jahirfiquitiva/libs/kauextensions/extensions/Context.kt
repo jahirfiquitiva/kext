@@ -20,12 +20,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
+import android.view.WindowManager
 import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kauextensions.R
@@ -138,7 +138,7 @@ val Context.isInHorizontalMode:Boolean
 
 val Context.isInPortraitMode:Boolean
     get() = currentRotation == 0 || currentRotation == 180
-	
+
 val Context.currentRotation:Int
     get() {
         val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
