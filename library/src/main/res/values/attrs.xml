@@ -19,16 +19,29 @@
     <declare-styleable name="Theme">
         <attr name="isDark" format="reference|boolean"/>
     </declare-styleable>
-	
+
     <declare-styleable name="FixedElevationAppBarLayout">
         <attr name="fixedElevation" format="reference|dimension"/>
     </declare-styleable>
-	
+
     <declare-styleable name="LandscapeImageView">
         <attr name="heightDivider" format="reference|dimension"/>
     </declare-styleable>
-	
+
     <declare-styleable name="VerticalImageView">
         <attr name="heightMultiplier" format="reference|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SplitButtonsLayout">
+        <attr name="firstItemPadding" format="reference|dimension"/>
+        <attr name="firstItemPaddingLeft" format="reference|dimension"/>
+        <attr name="firstItemPaddingRight" format="reference|dimension"/>
+        <attr name="firstItemPaddingTop" format="reference|dimension"/>
+        <attr name="firstItemPaddingBottom" format="reference|dimension"/>
+        <attr name="itemsPadding" format="reference|dimension"/>
+        <attr name="itemsPaddingLeft" format="reference|dimension"/>
+        <attr name="itemsPaddingRight" format="reference|dimension"/>
+        <attr name="itemsPaddingTop" format="reference|dimension"/>
+        <attr name="itemsPaddingBottom" format="reference|dimension"/>
     </declare-styleable>
 </resources>
