@@ -17,9 +17,11 @@
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
+import android.support.annotation.IntRange
+import android.support.v7.widget.AppCompatButton
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.inflateView
@@ -30,20 +32,42 @@ import jahirfiquitiva.libs.kauextensions.extensions.inflateView
 open class SplitButtonsLayout:LinearLayout {
 
     var buttonCount:Int = 0
+        set(@IntRange(from = 0, to = 4) value) {
+            field = value
+            weightSum = value.toFloat()
+        }
 
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
+    constructor(context:Context):super(context) {
+        init()
+    }
+
+    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
+        init()
+    }
+
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
+            :super(context, attributeSet, defStyleAttr) {
+        init()
+    }
+
+    private fun init() {
+        orientation = HORIZONTAL
+        if (isInEditMode) {
+            buttonCount = 2
+            addButton("Website", "https://github.com/jahirfiquitiva/KAUExtensions")
+            addButton("Google+", "https://google.com/+JahirFiquitivaR")
+        }
+    }
 
     override fun setOrientation(orientation:Int) = super.setOrientation(HORIZONTAL)
 
-    override fun setWeightSum(weightSum:Float) = super.setWeightSum(buttonCount.toFloat())
-
     fun addButton(text:String, link:String) {
-        if (hasAllButtons()) return
-        val nButton:Button = context.inflateView(R.layout.item_split_button, this) as Button
+        if (hasAllButtons()) throw IllegalStateException("$buttonCount buttons already added")
+        val nButton:AppCompatButton = context.inflateView(R.layout.item_split_button,
+                                                          this) as AppCompatButton
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
+        nButton.maxLines = 1
+        nButton.ellipsize = TextUtils.TruncateAt.END
         nButton.text = text
         nButton.tag = link
         addView(nButton, lParams)
