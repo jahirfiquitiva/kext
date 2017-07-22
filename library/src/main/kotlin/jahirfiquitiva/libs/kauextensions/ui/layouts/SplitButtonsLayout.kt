@@ -67,10 +67,14 @@ open class SplitButtonsLayout:LinearLayout {
         val nButton:AppCompatButton = context.inflateView(R.layout.item_split_button,
                                                           this) as AppCompatButton
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
-        val thisParams = layoutParams as LinearLayout.LayoutParams
-        if (thisParams.gravity == Gravity.START && childCount < 1) {
-            nButton.setPadding(0, nButton.paddingTop, nButton.paddingRight,
-                               nButton.paddingLeft)
+        try {
+            val thisParams = layoutParams as LinearLayout.LayoutParams
+            if (thisParams.gravity == Gravity.START && childCount < 1) {
+                nButton.setPadding(0, nButton.paddingTop, nButton.paddingRight,
+                                   nButton.paddingLeft)
+            }
+        } catch (e:Exception) {
+            e.printStackTrace()
         }
         nButton.maxLines = 1
         nButton.ellipsize = TextUtils.TruncateAt.END
