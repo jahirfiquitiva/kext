@@ -21,6 +21,7 @@ import android.support.annotation.IntRange
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
@@ -66,6 +67,11 @@ open class SplitButtonsLayout:LinearLayout {
         val nButton:AppCompatButton = context.inflateView(R.layout.item_split_button,
                                                           this) as AppCompatButton
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
+        val thisParams = layoutParams as LinearLayout.LayoutParams
+        if (thisParams.gravity == Gravity.START && childCount < 1) {
+            nButton.setPadding(0, nButton.paddingTop, nButton.paddingRight,
+                               nButton.paddingLeft)
+        }
         nButton.maxLines = 1
         nButton.ellipsize = TextUtils.TruncateAt.END
         nButton.text = text
