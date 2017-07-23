@@ -31,8 +31,6 @@ import jahirfiquitiva.libs.kauextensions.extensions.inflateView
  */
 open class SplitButtonsLayout:LinearLayout {
 
-    private val buttons = ArrayList<AppCompatButton>()
-
     var buttonCount:Int = 0
         set(@IntRange(from = 0, to = 4) value) {
             field = value
@@ -70,10 +68,10 @@ open class SplitButtonsLayout:LinearLayout {
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         button.maxLines = 1
         button.ellipsize = TextUtils.TruncateAt.END
+        button.id = childCount
         button.text = text
         button.tag = link
         addView(button, lParams)
-        buttons.add(button)
     }
 
     fun hasAllButtons():Boolean = childCount == buttonCount
