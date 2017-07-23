@@ -33,7 +33,7 @@
     </declare-styleable>
 
     <style name="SplitButton" parent="Widget.AppCompat.Button.Borderless.Colored">
-        <item name="android:minHeight">32dip</item>
+        <item name="android:minHeight">40dip</item>
         <item name="android:minWidth">56dip</item>
     </style>
 </resources>
