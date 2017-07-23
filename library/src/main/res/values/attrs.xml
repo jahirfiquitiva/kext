@@ -31,4 +31,8 @@
     <declare-styleable name="VerticalImageView">
         <attr name="heightMultiplier" format="reference|dimension"/>
     </declare-styleable>
+
+    <style name="SplitButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:minWidth">48dip</item>
+    </style>
 </resources>

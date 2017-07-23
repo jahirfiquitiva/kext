@@ -19,7 +19,7 @@
 <android.support.v7.widget.AppCompatButton
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        style="@style/SplitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="true"
