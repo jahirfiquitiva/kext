@@ -23,6 +23,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.inflateView
 
@@ -71,6 +72,7 @@ open class SplitButtonsLayout:LinearLayout {
         } else {
             lParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                    ViewGroup.LayoutParams.WRAP_CONTENT)
+            button.minWidth = 48.dpToPx
         }
         button.maxLines = 1
         button.ellipsize = TextUtils.TruncateAt.END
