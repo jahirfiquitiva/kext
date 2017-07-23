@@ -63,7 +63,7 @@ open class SplitButtonsLayout:LinearLayout {
     override fun setOrientation(orientation:Int) = super.setOrientation(HORIZONTAL)
 
     fun addButton(text:String, link:String, fillAvailableSpace:Boolean = false) {
-        if (hasAllButtons()) throw IllegalStateException("$buttonCount buttons already added")
+        if (hasAllButtons()) context.printError("$buttonCount buttons already added")
         val button:AppCompatButton = context.inflateView(R.layout.item_split_button,
                                                          this) as AppCompatButton
         val lParams:LayoutParams
