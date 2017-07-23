@@ -33,6 +33,7 @@
     </declare-styleable>
 
     <declare-styleable name="SplitButtonsLayout">
+        <attr name="buttonsStyle" format="reference"/>
         <attr name="firstItemPadding" format="reference|dimension"/>
         <attr name="firstItemPaddingLeft" format="reference|dimension"/>
         <attr name="firstItemPaddingRight" format="reference|dimension"/>

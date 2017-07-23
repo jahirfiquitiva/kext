@@ -18,12 +18,14 @@ package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
 import android.support.annotation.IntRange
+import android.support.annotation.StyleRes
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kauextensions.extensions.inflateView
 
 /**
  * Originally created by Aidan Follestad
@@ -47,6 +49,9 @@ open class SplitButtonsLayout:LinearLayout {
     var firstItemPaddingBottom = 0
     var firstItemPadding = 0
 
+    @StyleRes
+    var buttonsStyle = 0
+
     constructor(context:Context):super(context) {
         init(context, null)
     }
@@ -64,6 +69,7 @@ open class SplitButtonsLayout:LinearLayout {
         attributeSet?.let {
             val a = context.obtainStyledAttributes(it, R.styleable.SplitButtonsLayout)
             try {
+                buttonsStyle = a.getInt(R.styleable.SplitButtonsLayout_buttonsStyle, 0)
                 itemsPaddingLeft = a.getDimensionPixelSize(
                         R.styleable.SplitButtonsLayout_itemsPaddingLeft, 0)
                 itemsPaddingRight = a.getDimensionPixelSize(
@@ -100,7 +106,12 @@ open class SplitButtonsLayout:LinearLayout {
 
     fun addButton(text:String, link:String) {
         if (hasAllButtons()) throw IllegalStateException("$buttonCount buttons already added")
-        val button:AppCompatButton = AppCompatButton(context, null, R.style.SplitButton)
+        val button:AppCompatButton
+        if (buttonsStyle != 0) {
+            button = AppCompatButton(context, null, buttonsStyle)
+        } else {
+            button = context.inflateView(R.layout.item_split_button, this) as AppCompatButton
+        }
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         try {
             if (childCount < 1) {
@@ -119,14 +130,14 @@ open class SplitButtonsLayout:LinearLayout {
                                       itemsPaddingBottom)
                 }
             }
+            button.maxLines = 1
+            button.ellipsize = TextUtils.TruncateAt.END
+            button.text = text
+            button.tag = link
+            addView(button, lParams)
         } catch (e:Exception) {
             e.printStackTrace()
         }
-        button.maxLines = 1
-        button.ellipsize = TextUtils.TruncateAt.END
-        button.text = text
-        button.tag = link
-        addView(button, lParams)
     }
 
     fun hasAllButtons():Boolean = childCount == buttonCount
