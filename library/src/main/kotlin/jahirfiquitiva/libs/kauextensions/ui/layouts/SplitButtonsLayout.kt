@@ -49,9 +49,6 @@ open class SplitButtonsLayout:LinearLayout {
     var firstItemPaddingBottom = 0
     var firstItemPadding = 0
 
-    @StyleRes
-    var buttonsStyle = 0
-
     constructor(context:Context):super(context) {
         init(context, null)
     }
@@ -69,7 +66,6 @@ open class SplitButtonsLayout:LinearLayout {
         attributeSet?.let {
             val a = context.obtainStyledAttributes(it, R.styleable.SplitButtonsLayout)
             try {
-                buttonsStyle = a.getInt(R.styleable.SplitButtonsLayout_buttonsStyle, 0)
                 itemsPaddingLeft = a.getDimensionPixelSize(
                         R.styleable.SplitButtonsLayout_itemsPaddingLeft, 0)
                 itemsPaddingRight = a.getDimensionPixelSize(
@@ -106,12 +102,7 @@ open class SplitButtonsLayout:LinearLayout {
 
     fun addButton(text:String, link:String) {
         if (hasAllButtons()) throw IllegalStateException("$buttonCount buttons already added")
-        val button:AppCompatButton
-        if (buttonsStyle != 0) {
-            button = AppCompatButton(context, null, buttonsStyle)
-        } else {
-            button = context.inflateView(R.layout.item_split_button, this) as AppCompatButton
-        }
+        val button:AppCompatButton = context.inflateView(R.layout.item_split_button, this) as AppCompatButton
         val lParams:LayoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         try {
             if (childCount < 1) {
