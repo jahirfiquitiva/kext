@@ -131,15 +131,15 @@ private fun Toolbar.setOverflowButtonColor(@ColorInt color:Int) {
     overflow.setImageDrawable(overflow.drawable.tint(color))
 }
 
-fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintTextColor:Int = tintColor) {
+fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintColor) {
     val cls = javaClass
     try {
+        val correctHintColor = if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
         mSearchSrcTextViewField.isAccessible = true
         val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as EditText
         mSearchSrcTextView.setTextColor(tintColor)
-        mSearchSrcTextView.setHintTextColor(
-                if (hintTextColor == tintColor) hintTextColor.withAlpha(0.5F) else hintTextColor)
+        mSearchSrcTextView.setHintTextColor(correctHintColor)
         setCursorTint(mSearchSrcTextView, tintColor)
 
         var field = cls.getDeclaredField("mSearchButton")
@@ -151,12 +151,9 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintTextColor:Int = t
         field = cls.getDeclaredField("mVoiceButton")
         tintImageView(this, field, tintColor)
 
-        /* TODO: Fix if necessary
         field = cls.getDeclaredField("mSearchPlate")
         field.isAccessible = true
-        TintUtils.setTintAuto(field.get(view) as View, tintColor, true,
-                              ColorUtils.isDarkColor(tintColor))
-                              */
+        (field.get(this) as View).setBackgroundColor(correctHintColor)
 
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
