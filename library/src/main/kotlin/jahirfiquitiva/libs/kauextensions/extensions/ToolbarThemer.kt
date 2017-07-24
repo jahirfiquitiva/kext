@@ -17,6 +17,7 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
@@ -136,12 +137,12 @@ private fun Toolbar.setOverflowButtonColor(@ColorInt color:Int) {
 fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintColor) {
     val cls = javaClass
     try {
-        val correctHintColor = if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
         mSearchSrcTextViewField.isAccessible = true
         val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as EditText
         mSearchSrcTextView.setTextColor(tintColor)
-        mSearchSrcTextView.setHintTextColor(correctHintColor)
+        mSearchSrcTextView.setHintTextColor(
+                if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor)
         setCursorTint(mSearchSrcTextView, tintColor)
 
         var field = cls.getDeclaredField("mSearchButton")
@@ -155,7 +156,7 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
 
         field = cls.getDeclaredField("mSearchPlate")
         field.isAccessible = true
-        (field.get(this) as View).setBackgroundColor(correctHintColor)
+        (field.get(this) as View).background.setColorFilter(tintColor, PorterDuff.Mode.MULTIPLY)
 
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
