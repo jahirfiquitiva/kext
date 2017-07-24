@@ -23,9 +23,9 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.inflateView
+import jahirfiquitiva.libs.kauextensions.extensions.printError
 
 /**
  * Originally created by Aidan Follestad
