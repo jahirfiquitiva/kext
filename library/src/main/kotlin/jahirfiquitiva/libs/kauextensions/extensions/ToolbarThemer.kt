@@ -47,13 +47,14 @@ fun round(value:Double, places:Int):Double {
     return bd.toDouble()
 }
 
-fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
+fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleColor,
+                 @ColorInt iconsColor:Int = titleColor) {
 
-    (0..toolbar.childCount).forEach { i ->
-        val v = toolbar.getChildAt(i)
+    (0..childCount).forEach { i ->
+        val v = getChildAt(i)
 
         //Step 1 : Changing the color of back button (or open drawer button).
-        (v as? ImageButton)?.drawable?.tint(ColorStateList.valueOf(color))
+        (v as? ImageButton)?.drawable?.tint(ColorStateList.valueOf(iconsColor))
 
         if (v is ActionMenuView) {
             //Step 2: Changing the color of any ActionMenuViews - icons that are not back
@@ -67,7 +68,7 @@ fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
                         innerView.compoundDrawables.forEach {
                             if (it != null) {
                                 innerView.post {
-                                    it.tint(ColorStateList.valueOf(color))
+                                    it.tint(ColorStateList.valueOf(iconsColor))
                                 }
                             }
                         }
@@ -76,26 +77,25 @@ fun ThemedActivity.tintToolbar(toolbar:Toolbar, color:Int) {
     }
 
     // Step 3: Changing the color of title and subtitle.
-    toolbar.setTitleTextColor(getPrimaryTextColorFor(primaryColor))
-    toolbar.setSubtitleTextColor(getSecondaryTextColorFor(primaryColor))
+    setTitleTextColor(titleColor)
+    setSubtitleTextColor(subtitleColor)
 
     // Step 4: Change the color of overflow menu icon.
-    toolbar.overflowIcon?.tint(ColorStateList.valueOf(color))
-    setOverflowButtonColor(toolbar, color)
+    overflowIcon?.tint(ColorStateList.valueOf(iconsColor))
+    setOverflowButtonColor(iconsColor)
 
     // Step 5: Tint toolbar menu.
-    tintToolbarMenu(toolbar, toolbar.menu, color)
+    tintMenu(menu, iconsColor)
 }
 
-fun ThemedActivity.tintToolbarMenu(toolbar:Toolbar?, menu:Menu?, @ColorInt iconsColor:Int,
-                                   forceShowIcons:Boolean = false) {
-    if (toolbar == null || menu == null) return
+fun Toolbar.tintMenu(menu:Menu, @ColorInt iconsColor:Int,
+                     forceShowIcons:Boolean = false) {
     // The collapse icon displays when action views are expanded (e.g. SearchView)
     try {
         val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
         field.isAccessible = true
-        val collapseIcon = field.get(toolbar) as Drawable
-        field.set(toolbar, collapseIcon.tint(iconsColor))
+        val collapseIcon = field.get(this) as Drawable
+        field.set(this, collapseIcon.tint(iconsColor))
     } catch (e:Exception) {
         e.printStackTrace()
     }
@@ -104,7 +104,7 @@ fun ThemedActivity.tintToolbarMenu(toolbar:Toolbar?, menu:Menu?, @ColorInt icons
     (0 until menu.size()).forEach { i ->
         val item = menu.getItem(i)
         if (item.actionView is SearchView) {
-            themeSearchView(iconsColor, item.actionView as SearchView)
+            (item.actionView as SearchView).tintWith(iconsColor)
         }
     }
 
@@ -121,36 +121,35 @@ fun ThemedActivity.tintToolbarMenu(toolbar:Toolbar?, menu:Menu?, @ColorInt icons
     }
 }
 
-private fun setOverflowButtonColor(toolbar:Toolbar, @ColorInt color:Int) {
+private fun Toolbar.setOverflowButtonColor(@ColorInt color:Int) {
     @SuppressLint("PrivateResource")
-    val overflowDescription = toolbar.resources.getString(
-            R.string.abc_action_menu_overflow_description)
+    val overflowDescription = resources.getString(R.string.abc_action_menu_overflow_description)
     val outViews = ArrayList<View>()
-    toolbar.findViewsWithText(
-            outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
+    findViewsWithText(outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
     if (outViews.isEmpty()) return
     val overflow = outViews[0] as AppCompatImageView
     overflow.setImageDrawable(overflow.drawable.tint(color))
 }
 
-private fun ThemedActivity.themeSearchView(tintColor:Int, view:SearchView) {
-    val cls = view.javaClass
+fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintTextColor:Int = tintColor) {
+    val cls = javaClass
     try {
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
         mSearchSrcTextViewField.isAccessible = true
-        val mSearchSrcTextView = mSearchSrcTextViewField.get(view) as EditText
+        val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as EditText
         mSearchSrcTextView.setTextColor(tintColor)
-        mSearchSrcTextView.setHintTextColor(hintTextColor)
+        mSearchSrcTextView.setHintTextColor(
+                if (hintTextColor == tintColor) hintTextColor.withAlpha(0.5F) else hintTextColor)
         setCursorTint(mSearchSrcTextView, tintColor)
 
         var field = cls.getDeclaredField("mSearchButton")
-        tintImageView(view, field, tintColor)
+        tintImageView(this, field, tintColor)
         field = cls.getDeclaredField("mGoButton")
-        tintImageView(view, field, tintColor)
+        tintImageView(this, field, tintColor)
         field = cls.getDeclaredField("mCloseButton")
-        tintImageView(view, field, tintColor)
+        tintImageView(this, field, tintColor)
         field = cls.getDeclaredField("mVoiceButton")
-        tintImageView(view, field, tintColor)
+        tintImageView(this, field, tintColor)
 
         /* TODO: Fix if necessary
         field = cls.getDeclaredField("mSearchPlate")
@@ -161,13 +160,13 @@ private fun ThemedActivity.themeSearchView(tintColor:Int, view:SearchView) {
 
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
-        field.set(view, (field.get(view) as Drawable).tint(tintColor))
+        field.set(this, (field.get(this) as Drawable).tint(tintColor))
     } catch (e:Exception) {
         e.printStackTrace()
     }
 }
 
-private fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
+fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
     if (state === CollapsingToolbarCallback.State.COLLAPSED) {
         statusBarLight = primaryDarkColor.isColorLight()
     } else {

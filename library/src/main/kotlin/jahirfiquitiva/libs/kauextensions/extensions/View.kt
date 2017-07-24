@@ -30,15 +30,3 @@ fun ViewGroup.inflate(layoutId:Int, attachToRoot:Boolean = false):View =
 
 fun Context.inflateView(@LayoutRes layout:Int, root:ViewGroup, attachToRoot:Boolean = false):View =
         LayoutInflater.from(this).inflate(layout, root, attachToRoot)
-
-/**
- * Based on Allan Wang's code
- */
-fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleColor,
-                 @ColorInt iconsColor:Int = titleColor) {
-    setTitleTextColor(titleColor)
-    setSubtitleTextColor(subtitleColor)
-    (0 until childCount).asSequence().forEach {
-        (getChildAt(it) as? ImageButton)?.setColorFilter(iconsColor)
-    }
-}
