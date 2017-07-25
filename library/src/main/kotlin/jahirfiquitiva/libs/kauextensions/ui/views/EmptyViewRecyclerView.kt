@@ -48,10 +48,11 @@ open class EmptyViewRecyclerView:RecyclerView {
     var emptyTextRes:Int = -1
 
     var state:EmptyViewRecyclerView.State = State.LOADING
-        get() = field
         set(value) {
-            field = value
-            updateStateViews()
+            if (value != field) {
+                field = value
+                updateStateViews()
+            }
         }
 
     constructor(context:Context):super(context)
