@@ -23,7 +23,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
-import ca.allanwang.kau.utils.visibleIf
+import ca.allanwang.kau.utils.visible
 import jahirfiquitiva.libs.kauextensions.extensions.printInfo
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
@@ -49,7 +49,6 @@ open class EmptyViewRecyclerView:RecyclerView {
 
     var state:EmptyViewRecyclerView.State = State.LOADING
         set(value) {
-            context.printInfo("Current state is $field - New state is $value")
             if (value != field) {
                 field = value
                 updateStateViews()
@@ -77,18 +76,13 @@ open class EmptyViewRecyclerView:RecyclerView {
         } catch (ignored:Exception) {
         }
         textView?.setTextColor(context.secondaryTextColor)
-        loadingView?.visibleIf(state == State.LOADING || adapter == null)
-        emptyView?.visibleIf(state == State.EMPTY || (adapter?.itemCount ?: 0 <= 0))
-        textView?.visibleIf(state != State.NORMAL)
-        visibleIf(state == State.NORMAL || (adapter?.itemCount ?: 0 > 0))
-        /*
+
         when (state) {
             State.LOADING -> {
-                loadingView?.visible()
-                emptyView?.gone()
-                if (loadingTextRes != -1)
-                    textView?.text = context.getString(loadingTextRes)
                 gone()
+                emptyView?.gone()
+                loadingView?.visible()
+                textView?.visible()
             }
             State.NORMAL -> {
                 if (adapter != null) {
@@ -96,8 +90,8 @@ open class EmptyViewRecyclerView:RecyclerView {
                     if (items > 0) {
                         loadingView?.gone()
                         emptyView?.gone()
+                        textView?.gone()
                         visible()
-                        state = State.NORMAL
                     } else {
                         state = State.EMPTY
                     }
@@ -106,16 +100,12 @@ open class EmptyViewRecyclerView:RecyclerView {
                 }
             }
             State.EMPTY -> {
+                gone()
                 loadingView?.gone()
                 emptyView?.visible()
-                if (emptyTextRes != -1)
-                    textView?.text = context.getString(emptyTextRes)
-                gone()
+                textView?.visible()
             }
         }
-        textView?.setTextColor(context.secondaryTextColor)
-        textView?.visibleIf(state != State.NORMAL)
-        */
     }
 
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
