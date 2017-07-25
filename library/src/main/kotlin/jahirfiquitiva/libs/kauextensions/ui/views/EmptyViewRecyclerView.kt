@@ -37,7 +37,7 @@ open class EmptyViewRecyclerView:RecyclerView {
         get() = field
         set(value) {
             field = value
-            updateStateViews(value)
+            updateStateViews()
         }
 
     constructor(context:Context):super(context)
