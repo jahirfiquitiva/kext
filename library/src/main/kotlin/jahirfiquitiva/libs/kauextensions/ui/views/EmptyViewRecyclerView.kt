@@ -62,6 +62,17 @@ open class EmptyViewRecyclerView:RecyclerView {
 
     @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
+        try {
+            textView?.text = if (state == State.LOADING) context.getString(
+                    loadingTextRes) else context.getString(emptyTextRes)
+        } catch (ignored:Exception) {
+        }
+        textView?.setTextColor(context.secondaryTextColor)
+        loadingView?.visibleIf(state == State.LOADING || adapter == null)
+        emptyView?.visibleIf(state == State.EMPTY || (adapter?.itemCount ?: 0 <= 0))
+        textView?.visibleIf(state != State.NORMAL)
+        visibleIf(state == State.NORMAL || (adapter?.itemCount ?: 0 > 0))
+        /*
         when (state) {
             State.LOADING -> {
                 loadingView?.visible()
@@ -95,6 +106,7 @@ open class EmptyViewRecyclerView:RecyclerView {
         }
         textView?.setTextColor(context.secondaryTextColor)
         textView?.visibleIf(state != State.NORMAL)
+        */
     }
 
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
