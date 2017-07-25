@@ -18,7 +18,6 @@ package jahirfiquitiva.libs.kauextensions.ui.views
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.annotation.IntDef
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
@@ -46,6 +45,19 @@ open class EmptyViewRecyclerView:RecyclerView {
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr)
+
+    private fun updateState() {
+        if (adapter != null) {
+            val items = adapter.itemCount
+            if (items > 0) {
+                state = State.NORMAL
+            } else {
+                state = State.EMPTY
+            }
+        } else {
+            state = State.LOADING
+        }
+    }
 
     @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
@@ -86,22 +98,22 @@ open class EmptyViewRecyclerView:RecyclerView {
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             super.onChanged()
-            updateStateViews()
+            updateState()
         }
 
         override fun onItemRangeChanged(positionStart:Int, itemCount:Int) {
             super.onItemRangeChanged(positionStart, itemCount)
-            updateStateViews()
+            updateState()
         }
 
         override fun onItemRangeInserted(positionStart:Int, itemCount:Int) {
             super.onItemRangeInserted(positionStart, itemCount)
-            updateStateViews()
+            updateState()
         }
 
         override fun onItemRangeRemoved(positionStart:Int, itemCount:Int) {
             super.onItemRangeRemoved(positionStart, itemCount)
-            updateStateViews()
+            updateState()
         }
     }
 
@@ -110,10 +122,10 @@ open class EmptyViewRecyclerView:RecyclerView {
         oldAdapter?.unregisterAdapterDataObserver(observer)
         super.setAdapter(adapter)
         adapter?.registerAdapterDataObserver(observer)
-        updateStateViews()
+        updateState()
     }
 
-    enum class State{
+    enum class State {
         EMPTY, NORMAL, LOADING
     }
 }
