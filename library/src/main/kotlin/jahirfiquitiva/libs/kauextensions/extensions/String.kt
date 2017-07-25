@@ -50,6 +50,8 @@ fun String.getIconResource(context:Context):Int {
     return if (res != 0) res else 0
 }
 
+fun String.hasContent() = isNotBlank() && isNotEmpty()
+
 fun String.formatCorrectly() =
         replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ").replace("\\p{Z}".toRegex(), "_")
 
