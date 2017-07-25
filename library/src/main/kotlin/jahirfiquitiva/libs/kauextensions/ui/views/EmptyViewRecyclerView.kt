@@ -23,8 +23,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
-import ca.allanwang.kau.utils.visible
 import ca.allanwang.kau.utils.visibleIf
+import jahirfiquitiva.libs.kauextensions.extensions.printInfo
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
 open class EmptyViewRecyclerView:RecyclerView {
@@ -49,16 +49,25 @@ open class EmptyViewRecyclerView:RecyclerView {
 
     var state:EmptyViewRecyclerView.State = State.LOADING
         set(value) {
+            context.printInfo("Current state is $field - New state is $value")
             if (value != field) {
                 field = value
                 updateStateViews()
             }
         }
 
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
+    constructor(context:Context):super(context) {
+        updateStateViews()
+    }
+
+    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
+        updateStateViews()
+    }
+
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
+            :super(context, attributeSet, defStyleAttr) {
+        updateStateViews()
+    }
 
     @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
