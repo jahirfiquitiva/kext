@@ -23,14 +23,13 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
-import ca.allanwang.kau.utils.visible
 import ca.allanwang.kau.utils.visibleIf
-import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
 open class EmptyViewRecyclerView:RecyclerView {
     var loadingView:View? = null
     var emptyView:View? = null
     var textView:TextView? = null
+    
     var loadingTextRes:Int = -1
     var emptyTextRes:Int = -1
 
@@ -38,7 +37,7 @@ open class EmptyViewRecyclerView:RecyclerView {
         get() = field
         set(value) {
             field = value
-            updateStateViews()
+            updateStateViews(value)
         }
 
     constructor(context:Context):super(context)
@@ -61,43 +60,25 @@ open class EmptyViewRecyclerView:RecyclerView {
 
     @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
-        when (state) {
-            State.LOADING -> {
-                loadingView?.visible()
-                emptyView?.gone()
-                if (loadingTextRes != -1)
-                    textView?.text = context.getString(loadingTextRes)
-                gone()
-            }
-            State.NORMAL -> {
-                if (adapter != null) {
-                    val items = adapter.itemCount
-                    if (items > 0) {
-                        loadingView?.gone()
-                        emptyView?.gone()
-                        visible()
-                    } else {
-                        state = State.EMPTY
-                    }
-                } else {
-                    state = State.LOADING
-                }
-            }
-            State.EMPTY -> {
-                loadingView?.gone()
-                emptyView?.visible()
-                if (emptyTextRes != -1)
-                    textView?.text = context.getString(emptyTextRes)
-                gone()
-            }
+        if (state == State.LOADING) {
+            if (loadingTextRes != -1) textView?.text = context.getString(loadingTextRes)
+        } else if (state == State.EMPTY) {
+            if (emptyTextRes != -1) textView?.text = context.getString(emptyTextRes)
         }
-        textView?.setTextColor(context.secondaryTextColor)
         textView?.visibleIf(state != State.NORMAL)
+        loadingView?.visibleIf(state == State.LOADING)
+        emptyView?.visibleIf(state == State.EMPTY)
+        visibleIf(state == State.NORMAL)
     }
 
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             super.onChanged()
+            updateState()
+        }
+
+        override fun onItemRangeChanged(positionStart:Int, itemCount:Int, payload:Any?) {
+            super.onItemRangeChanged(positionStart, itemCount, payload)
             updateState()
         }
 
@@ -113,6 +94,11 @@ open class EmptyViewRecyclerView:RecyclerView {
 
         override fun onItemRangeRemoved(positionStart:Int, itemCount:Int) {
             super.onItemRangeRemoved(positionStart, itemCount)
+            updateState()
+        }
+
+        override fun onItemRangeMoved(fromPosition:Int, toPosition:Int, itemCount:Int) {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount)
             updateState()
         }
     }
