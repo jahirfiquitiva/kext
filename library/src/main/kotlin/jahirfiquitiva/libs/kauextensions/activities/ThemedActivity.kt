@@ -17,21 +17,29 @@
 package jahirfiquitiva.libs.kauextensions.activities
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.ColorInt
 import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
-import ca.allanwang.kau.utils.restart
+import ca.allanwang.kau.utils.statusBarColor
+import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
+import jahirfiquitiva.libs.kauextensions.extensions.isColorLight
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 import jahirfiquitiva.libs.kauextensions.extensions.primaryDarkColor
-import jahirfiquitiva.libs.kauextensions.utils.*
+import jahirfiquitiva.libs.kauextensions.utils.AMOLED
+import jahirfiquitiva.libs.kauextensions.utils.AUTO_AMOLED
+import jahirfiquitiva.libs.kauextensions.utils.AUTO_DARK
+import jahirfiquitiva.libs.kauextensions.utils.DARK
+import jahirfiquitiva.libs.kauextensions.utils.LIGHT
+import jahirfiquitiva.libs.kauextensions.utils.TRANSPARENT
 import java.util.*
 
 abstract class ThemedActivity:AppCompatActivity() {
-    var lastTheme = 0
-    var coloredNavbar = false
+    private var lastTheme = 0
+    private var coloredNavbar = false
 
     @StyleRes
     abstract fun lightTheme():Int
@@ -45,6 +53,8 @@ abstract class ThemedActivity:AppCompatActivity() {
     @StyleRes
     abstract fun transparentTheme():Int
 
+    abstract fun autoStatusBarTint():Boolean
+
     override fun onCreate(savedInstanceState:Bundle?) {
         setCustomTheme()
         super.onCreate(savedInstanceState)
@@ -54,7 +64,7 @@ abstract class ThemedActivity:AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (lastTheme != konfigs.currentTheme || coloredNavbar != konfigs.hasColoredNavbar)
-            restart()
+            onThemeChanged()
     }
 
     override fun onPostCreate(savedInstanceState:Bundle?) {
@@ -63,27 +73,38 @@ abstract class ThemedActivity:AppCompatActivity() {
         coloredNavbar = konfigs.hasColoredNavbar
     }
 
-    fun setCustomTheme() {
+    fun onThemeChanged() {
+        postRecreate()
+    }
+
+    fun postRecreate() {
+        Handler().post({ recreate() })
+    }
+
+    private fun setCustomTheme() {
         val enterAnimation = android.R.anim.fade_in
         val exitAnimation = android.R.anim.fade_out
         overridePendingTransition(enterAnimation, exitAnimation)
         setTheme(getCustomTheme())
+        statusBarColor = primaryDarkColor
+        if (autoStatusBarTint()) statusBarLight = primaryDarkColor.isColorLight
         navigationBarColor = getCorrectNavbarColor()
     }
 
-    fun isDarkTheme():Boolean {
-        val c = Calendar.getInstance()
-        val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
-        when (konfigs.currentTheme) {
-            LIGHT -> return false
-            DARK, AMOLED -> return true
-            AUTO_DARK, AUTO_AMOLED -> return hourOfDay !in 7..18
-            else -> return false
+    val isDarkTheme:Boolean
+        get() {
+            val c = Calendar.getInstance()
+            val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
+            when (konfigs.currentTheme) {
+                LIGHT -> return false
+                DARK, AMOLED -> return true
+                AUTO_DARK, AUTO_AMOLED -> return hourOfDay !in 7..18
+                else -> return false
+            }
         }
-    }
 
     @StyleRes
-    fun getCustomTheme():Int {
+    private fun getCustomTheme():Int {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
         when (konfigs.currentTheme) {
@@ -98,7 +119,7 @@ abstract class ThemedActivity:AppCompatActivity() {
     }
 
     @ColorInt
-    fun getCorrectNavbarColor():Int {
+    private fun getCorrectNavbarColor():Int {
         if (konfigs.currentTheme == AMOLED)
             return getColorFromRes(android.R.color.black)
         else if (konfigs.hasColoredNavbar)
