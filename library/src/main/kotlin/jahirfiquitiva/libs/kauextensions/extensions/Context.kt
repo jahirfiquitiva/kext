@@ -32,15 +32,27 @@ import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.utils.Konfigurations
 import jahirfiquitiva.libs.kauextensions.utils.PREFERENCES_NAME
 
-fun Context.isFirstRunEver():Boolean {
-    try {
-        val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
-        val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-        return firstInstallTime == lastUpdateTime
-    } catch (ignored:Exception) {
+val Context.isFirstRunEver:Boolean
+    get() {
+        try {
+            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
+            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
+            return firstInstallTime == lastUpdateTime
+        } catch (ignored:Exception) {
+        }
+        return true
     }
-    return false
-}
+
+val Context.justUpdated:Boolean
+    get() {
+        try {
+            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
+            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
+            return firstInstallTime != lastUpdateTime
+        } catch (ignored:Exception) {
+        }
+        return false
+    }
 
 val Context.usesLightTheme
     get() = !usesDarkTheme
