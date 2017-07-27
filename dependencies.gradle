@@ -32,5 +32,5 @@ ext.versions = [
         supportLibs    : '25.3.1',
         supportLibsTest: '26.+',
         archComponents : '1.0.0-alpha3',
-        kau            : '4eee8d5'
+        kau            : '3.1.2'
 ]
