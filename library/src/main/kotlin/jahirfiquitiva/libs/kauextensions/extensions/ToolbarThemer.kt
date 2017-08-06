@@ -106,7 +106,8 @@ fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
             if (item.actionView is SearchView) {
                 (item.actionView as SearchView).tintWith(iconsColor)
             } else {
-                item.icon = item.icon.tint(iconsColor)
+                val prevIcon = item.icon
+                if (prevIcon != null) item.icon = prevIcon.tint(iconsColor)
             }
         }
         
