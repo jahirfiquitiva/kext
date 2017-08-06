@@ -26,7 +26,6 @@ import android.support.v7.widget.ActionMenuView
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -50,13 +49,13 @@ fun round(value:Double, places:Int):Double {
 
 fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleColor,
                  @ColorInt iconsColor:Int = titleColor) {
-
+    
     (0..childCount).forEach { i ->
         val v = getChildAt(i)
-
+        
         //Step 1 : Changing the color of back button (or open drawer button).
         (v as? ImageButton)?.drawable?.tint(ColorStateList.valueOf(iconsColor))
-
+        
         if (v is ActionMenuView) {
             //Step 2: Changing the color of any ActionMenuViews - icons that are not back
             // button, nor text, nor overflow menu icon.
@@ -76,50 +75,52 @@ fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleCo
                     }
         }
     }
-
+    
     // Step 3: Changing the color of title and subtitle.
     setTitleTextColor(titleColor)
     setSubtitleTextColor(subtitleColor)
-
+    
     // Step 4: Change the color of overflow menu icon.
     overflowIcon?.tint(ColorStateList.valueOf(iconsColor))
     setOverflowButtonColor(iconsColor)
-
+    
     // Step 5: Tint toolbar menu.
-    tintMenu(menu, iconsColor)
+    tintMenu(iconsColor)
 }
 
-fun Toolbar.tintMenu(menu:Menu, @ColorInt iconsColor:Int,
-                     forceShowIcons:Boolean = false) {
-    // The collapse icon displays when action views are expanded (e.g. SearchView)
-    try {
-        val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
-        field.isAccessible = true
-        val collapseIcon = field.get(this) as Drawable
-        field.set(this, collapseIcon.tint(iconsColor))
-    } catch (e:Exception) {
-        e.printStackTrace()
-    }
-
-    // Theme menu action views
-    (0 until menu.size()).forEach { i ->
-        val item = menu.getItem(i)
-        if (item.actionView is SearchView) {
-            (item.actionView as SearchView).tintWith(iconsColor)
-        } else {
-            item.icon = item.icon.tint(iconsColor)
-        }
-    }
-
-    // Display icons for easy UI understanding
-    if (forceShowIcons) {
+fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
+    menu?.let {
+        // The collapse icon displays when action views are expanded (e.g. SearchView)
         try {
-            val MenuBuilder = menu.javaClass
-            val setOptionalIconsVisible = MenuBuilder.getDeclaredMethod("setOptionalIconsVisible",
-                                                                        Boolean::class.javaPrimitiveType)
-            if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
-            setOptionalIconsVisible.invoke(menu, true)
-        } catch (ignored:Exception) {
+            val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
+            field.isAccessible = true
+            val collapseIcon = field.get(this) as Drawable
+            field.set(this, collapseIcon.tint(iconsColor))
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }
+        
+        // Theme menu action views
+        (0 until it.size()).forEach { i ->
+            val item = it.getItem(i)
+            if (item.actionView is SearchView) {
+                (item.actionView as SearchView).tintWith(iconsColor)
+            } else {
+                item.icon = item.icon.tint(iconsColor)
+            }
+        }
+        
+        // Display icons for easy UI understanding
+        if (forceShowIcons) {
+            try {
+                val MenuBuilder = it.javaClass
+                val setOptionalIconsVisible = MenuBuilder.getDeclaredMethod(
+                        "setOptionalIconsVisible",
+                        Boolean::class.javaPrimitiveType)
+                if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
+                setOptionalIconsVisible.invoke(it, true)
+            } catch (ignored:Exception) {
+            }
         }
     }
 }
@@ -144,7 +145,7 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
         mSearchSrcTextView.setHintTextColor(
                 if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor)
         setCursorTint(mSearchSrcTextView, tintColor)
-
+        
         var field = cls.getDeclaredField("mSearchButton")
         tintImageView(this, field, tintColor)
         field = cls.getDeclaredField("mGoButton")
@@ -153,11 +154,11 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
         tintImageView(this, field, tintColor)
         field = cls.getDeclaredField("mVoiceButton")
         tintImageView(this, field, tintColor)
-
+        
         field = cls.getDeclaredField("mSearchPlate")
         field.isAccessible = true
         (field.get(this) as View).background.setColorFilter(tintColor, PorterDuff.Mode.MULTIPLY)
-
+        
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
         field.set(this, (field.get(this) as Drawable).tint(tintColor))

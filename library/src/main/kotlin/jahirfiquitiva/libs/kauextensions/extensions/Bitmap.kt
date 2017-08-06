@@ -40,7 +40,7 @@ fun Bitmap.getUri(context:Context, name:String):Uri? {
     fos.flush()
     fos.close()
     return iconFile.getUri(context) ?: Uri.fromFile(iconFile) ?:
-           name.getIconResource(context).getUriFromResource(context) ?:
-           Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
-                     "/" + name.getIconResource(context).toString())
+            name.getIconResource(context).getUriFromResource(context) ?:
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
+                              "/" + name.getIconResource(context).toString())
 }

@@ -23,17 +23,17 @@ import android.view.MotionEvent
 import android.view.View
 
 open class CustomCoordinatorLayout:CoordinatorLayout {
-
+    
     var allowScroll = true
-
+    
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr)
-
+    
     override fun onStartNestedScroll(child:View, target:View, nestedScrollAxes:Int) =
             allowScroll && super.onStartNestedScroll(child, target, nestedScrollAxes)
-
+    
     override fun onInterceptTouchEvent(ev:MotionEvent?):Boolean =
             allowScroll && super.onInterceptTouchEvent(ev)
 }

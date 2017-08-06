@@ -19,9 +19,9 @@ package jahirfiquitiva.libs.kauextensions.ui.views.callbacks
 import android.support.design.widget.AppBarLayout
 
 abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
-
+    
     var currentState = State.IDLE
-
+    
     override fun onOffsetChanged(appBarLayout:AppBarLayout, verticalOffset:Int) {
         onVerticalOffsetChanged(appBarLayout, Math.abs(verticalOffset))
         if (verticalOffset == 0) {
@@ -35,11 +35,11 @@ abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
             currentState = State.IDLE
         }
     }
-
+    
     open fun onStateChanged(appBar:AppBarLayout, state:State) {}
-
+    
     open fun onVerticalOffsetChanged(appBar:AppBarLayout, verticalOffset:Int) {}
-
+    
     enum class State {
         EXPANDED, COLLAPSED, IDLE
     }

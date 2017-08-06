@@ -23,14 +23,14 @@ import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 
 open class FixedElevationAppBarLayout:AppBarLayout {
-
+    
     var fElevation:Int = 4
-
+    
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
         init(context, attributeSet)
     }
-
+    
     open fun init(context:Context, attrs:AttributeSet) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
@@ -42,6 +42,6 @@ open class FixedElevationAppBarLayout:AppBarLayout {
             a.recycle()
         }
     }
-
+    
     override fun setElevation(elevation:Float) = super.setElevation(fElevation.toFloat())
 }

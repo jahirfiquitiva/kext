@@ -31,26 +31,26 @@ import jahirfiquitiva.libs.kauextensions.extensions.printError
  * Originally created by Aidan Follestad
  */
 open class SplitButtonsLayout:LinearLayout {
-
+    
     var buttonCount:Int = 0
         set(@IntRange(from = 0, to = 4) value) {
             field = value
             weightSum = value.toFloat()
         }
-
+    
     constructor(context:Context):super(context) {
         init()
     }
-
+    
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
         init()
     }
-
+    
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr) {
         init()
     }
-
+    
     private fun init() {
         orientation = HORIZONTAL
         if (isInEditMode) {
@@ -59,9 +59,9 @@ open class SplitButtonsLayout:LinearLayout {
             addButton("Google+", "https://google.com/+JahirFiquitivaR")
         }
     }
-
+    
     override fun setOrientation(orientation:Int) = super.setOrientation(HORIZONTAL)
-
+    
     fun addButton(text:String, link:String, fillAvailableSpace:Boolean = false) {
         if (hasAllButtons()) context.printError("$buttonCount buttons already added")
         val button:AppCompatButton = context.inflateView(R.layout.item_split_button,
@@ -80,6 +80,6 @@ open class SplitButtonsLayout:LinearLayout {
         button.tag = link
         addView(button, lParams)
     }
-
+    
     fun hasAllButtons():Boolean = childCount == buttonCount
 }

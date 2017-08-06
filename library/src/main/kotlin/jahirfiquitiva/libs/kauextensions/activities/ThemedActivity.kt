@@ -40,47 +40,47 @@ import java.util.*
 abstract class ThemedActivity:AppCompatActivity() {
     private var lastTheme = 0
     private var coloredNavbar = false
-
+    
     @StyleRes
     abstract fun lightTheme():Int
-
+    
     @StyleRes
     abstract fun darkTheme():Int
-
+    
     @StyleRes
     abstract fun amoledTheme():Int
-
+    
     @StyleRes
     abstract fun transparentTheme():Int
-
+    
     abstract fun autoStatusBarTint():Boolean
-
+    
     override fun onCreate(savedInstanceState:Bundle?) {
         setCustomTheme()
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
-
+    
     override fun onResume() {
         super.onResume()
         if (lastTheme != konfigs.currentTheme || coloredNavbar != konfigs.hasColoredNavbar)
             onThemeChanged()
     }
-
+    
     override fun onPostCreate(savedInstanceState:Bundle?) {
         super.onPostCreate(savedInstanceState)
         lastTheme = konfigs.currentTheme
         coloredNavbar = konfigs.hasColoredNavbar
     }
-
+    
     fun onThemeChanged() {
         postRecreate()
     }
-
+    
     fun postRecreate() {
         Handler().post({ recreate() })
     }
-
+    
     private fun setCustomTheme() {
         val enterAnimation = android.R.anim.fade_in
         val exitAnimation = android.R.anim.fade_out
@@ -90,7 +90,7 @@ abstract class ThemedActivity:AppCompatActivity() {
         if (autoStatusBarTint()) statusBarLight = primaryDarkColor.isColorLight
         navigationBarColor = getCorrectNavbarColor()
     }
-
+    
     val isDarkTheme:Boolean
         get() {
             val c = Calendar.getInstance()
@@ -102,7 +102,7 @@ abstract class ThemedActivity:AppCompatActivity() {
                 else -> return false
             }
         }
-
+    
     @StyleRes
     private fun getCustomTheme():Int {
         val c = Calendar.getInstance()
@@ -117,7 +117,7 @@ abstract class ThemedActivity:AppCompatActivity() {
             else -> return lightTheme()
         }
     }
-
+    
     @ColorInt
     private fun getCorrectNavbarColor():Int {
         if (konfigs.currentTheme == AMOLED)
@@ -127,5 +127,5 @@ abstract class ThemedActivity:AppCompatActivity() {
         else
             return getColorFromRes(android.R.color.black)
     }
-
+    
 }

@@ -25,23 +25,23 @@ open class Konfigurations(val name:String, val context:Context) {
     protected val prefs:SharedPreferences = context.getSharedPrefs(name)
     @SuppressLint("CommitPrefEdits")
     protected val prefsEditor:SharedPreferences.Editor = prefs.edit()
-
+    
     companion object {
         fun newInstance(name:String, context:Context) = Konfigurations(name, context)
     }
-
+    
     var appRunCount:Int
         get() = prefs.getInt(APP_RUN_COUNT, 0)
         set(appRunCount) = prefsEditor.putInt(APP_RUN_COUNT, appRunCount).apply()
-
+    
     var currentTheme:Int
         get() = prefs.getInt(THEME, 0)
         set(theme) = prefsEditor.putInt(THEME, theme).apply()
-
+    
     var hasColoredNavbar:Boolean
         get() = prefs.getBoolean(COLORED_NAVBAR, true)
         set(colored) = prefsEditor.putBoolean(COLORED_NAVBAR, colored).apply()
-
+    
     var lastVersion:Int
         get() = prefs.getInt(LAST_VERSION, 0)
         set(lastVersion) = prefsEditor.putInt(LAST_VERSION, lastVersion).apply()

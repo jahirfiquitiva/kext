@@ -30,7 +30,7 @@ fun Context.openLink(link:String) {
     val mCustomTabsSession = arrayOfNulls<CustomTabsSession>(1)
     val mCustomTabsServiceConnection:CustomTabsServiceConnection
     val customTabsIntent:CustomTabsIntent
-
+    
     mCustomTabsServiceConnection = object:CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(componentName:ComponentName,
                                                   customTabsClient:CustomTabsClient) {
@@ -38,7 +38,7 @@ fun Context.openLink(link:String) {
             mClient[0]?.warmup(0L)
             mCustomTabsSession[0] = mClient[0]?.newSession(null)
         }
-
+        
         override fun onServiceDisconnected(name:ComponentName) {
             mClient[0] = null
         }
@@ -48,7 +48,7 @@ fun Context.openLink(link:String) {
             .setToolbarColor(primaryColor)
             .setShowTitle(true)
             .build()
-
+    
     try {
         customTabsIntent.launchUrl(this, Uri.parse(link))
     } catch (ex:Exception) {

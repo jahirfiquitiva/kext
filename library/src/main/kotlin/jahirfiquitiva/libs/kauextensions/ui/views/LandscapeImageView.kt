@@ -24,25 +24,25 @@ import android.widget.ImageView
 import jahirfiquitiva.libs.kauextensions.R
 
 open class LandscapeImageView:ImageView {
-
+    
     var heightDivider:Float = 3F
-
+    
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
         init(context, attributeSet)
     }
-
+    
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr) {
         init(context, attributeSet)
     }
-
+    
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int, defStyleRes:Int)
             :super(context, attributeSet, defStyleAttr, defStyleRes) {
         init(context, attributeSet)
     }
-
+    
     fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.LandscapeImageView, 0, 0)
         try {
@@ -51,7 +51,7 @@ open class LandscapeImageView:ImageView {
             a.recycle()
         }
     }
-
+    
     override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(measuredWidth, (measuredWidth / heightDivider).toInt())

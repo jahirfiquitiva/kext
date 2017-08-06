@@ -53,9 +53,10 @@ fun String.getIconResource(context:Context):Int {
 fun String.hasContent() = isNotBlank() && isNotEmpty()
 
 fun String.formatCorrectly() =
-        replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ").replace("\\p{Z}".toRegex(), "_")
+        replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ").replace(
+                "\\p{Z}".toRegex(), "_")
 
-fun String.toTitleCase():String{
+fun String.toTitleCase():String {
     val titleCase = StringBuilder()
     var nextTitleCase = true
     for (c in toLowerCase().toCharArray()) {

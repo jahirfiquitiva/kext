@@ -24,7 +24,6 @@ import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
 import ca.allanwang.kau.utils.visible
-import jahirfiquitiva.libs.kauextensions.extensions.printInfo
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
 open class EmptyViewRecyclerView:RecyclerView {
@@ -43,10 +42,10 @@ open class EmptyViewRecyclerView:RecyclerView {
             field = value
             field?.gone()
         }
-
+    
     var loadingTextRes:Int = -1
     var emptyTextRes:Int = -1
-
+    
     var state:EmptyViewRecyclerView.State = State.LOADING
         set(value) {
             if (value != field) {
@@ -54,20 +53,20 @@ open class EmptyViewRecyclerView:RecyclerView {
                 updateStateViews()
             }
         }
-
+    
     constructor(context:Context):super(context) {
         updateStateViews()
     }
-
+    
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
         updateStateViews()
     }
-
+    
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr) {
         updateStateViews()
     }
-
+    
     @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
         try {
@@ -76,7 +75,7 @@ open class EmptyViewRecyclerView:RecyclerView {
         } catch (ignored:Exception) {
         }
         textView?.setTextColor(context.secondaryTextColor)
-
+        
         when (state) {
             State.LOADING -> {
                 gone()
@@ -107,39 +106,39 @@ open class EmptyViewRecyclerView:RecyclerView {
             }
         }
     }
-
+    
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             super.onChanged()
             updateStateViews()
         }
-
+        
         override fun onItemRangeChanged(positionStart:Int, itemCount:Int, payload:Any?) {
             super.onItemRangeChanged(positionStart, itemCount, payload)
             updateStateViews()
         }
-
+        
         override fun onItemRangeChanged(positionStart:Int, itemCount:Int) {
             super.onItemRangeChanged(positionStart, itemCount)
             updateStateViews()
         }
-
+        
         override fun onItemRangeInserted(positionStart:Int, itemCount:Int) {
             super.onItemRangeInserted(positionStart, itemCount)
             updateStateViews()
         }
-
+        
         override fun onItemRangeRemoved(positionStart:Int, itemCount:Int) {
             super.onItemRangeRemoved(positionStart, itemCount)
             updateStateViews()
         }
-
+        
         override fun onItemRangeMoved(fromPosition:Int, toPosition:Int, itemCount:Int) {
             super.onItemRangeMoved(fromPosition, toPosition, itemCount)
             updateStateViews()
         }
     }
-
+    
     override fun setAdapter(adapter:Adapter<*>?) {
         val oldAdapter = getAdapter()
         oldAdapter?.unregisterAdapterDataObserver(observer)
@@ -147,7 +146,7 @@ open class EmptyViewRecyclerView:RecyclerView {
         adapter?.registerAdapterDataObserver(observer)
         updateStateViews()
     }
-
+    
     enum class State {
         EMPTY, NORMAL, LOADING
     }

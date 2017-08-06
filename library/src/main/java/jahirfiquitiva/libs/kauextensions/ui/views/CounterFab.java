@@ -42,7 +42,7 @@ import android.view.animation.OvershootInterpolator;
  * @author André Mion (andremion)
  */
 public class CounterFab extends FloatingActionButton {
-
+    
     private static final int MAX_COUNT = 99;
     private static final String MAX_COUNT_TEXT = "99+";
     private static final int TEXT_SIZE_DP = 11;
@@ -59,13 +59,13 @@ public class CounterFab extends FloatingActionButton {
     private float mAnimationFactor;
     private final Property<CounterFab, Float> ANIMATION_PROPERTY =
             new Property<CounterFab, Float>(Float.class, "animation") {
-
+                
                 @Override
                 public void set(CounterFab object, Float value) {
                     mAnimationFactor = value;
                     postInvalidateOnAnimation();
                 }
-
+                
                 @Override
                 public Float get(CounterFab object) {
                     return 0f;
@@ -75,34 +75,34 @@ public class CounterFab extends FloatingActionButton {
     private String mText;
     private float mTextHeight;
     private ObjectAnimator mAnimator;
-
+    
     public CounterFab(Context context) {
         this(context, null, 0);
     }
-
+    
     public CounterFab(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
+    
     public CounterFab(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setUseCompatPadding(true);
-
+        
         final float density = getResources().getDisplayMetrics().density;
-
+        
         mTextSize = TEXT_SIZE_DP * density;
         float textPadding = TEXT_PADDING_DP * density;
-
+        
         mAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
         mAnimationFactor = 1;
-
+        
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setStyle(Paint.Style.STROKE);
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTypeface(Typeface.SANS_SERIF);
-
+        
         mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mCirclePaint.setStyle(Paint.Style.FILL);
         ColorStateList colorStateList = getBackgroundTintList();
@@ -115,34 +115,35 @@ public class CounterFab extends FloatingActionButton {
                 mCirclePaint.setColor(colorDrawable.getColor());
             }
         }
-
+        
         mMaskPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mMaskPaint.setStyle(Paint.Style.FILL);
         mMaskPaint.setColor(MASK_COLOR);
-
+        
         Rect textBounds = new Rect();
         mTextPaint.getTextBounds(MAX_COUNT_TEXT, 0, MAX_COUNT_TEXT.length(), textBounds);
         mTextHeight = textBounds.height();
-
+        
         float textWidth = mTextPaint.measureText(MAX_COUNT_TEXT);
         float circleRadius = Math.max(textWidth, mTextHeight) / 2f + textPadding;
         mCircleBounds = new Rect(0, 0, (int) (circleRadius * 2), (int) (circleRadius * 2));
         mContentBounds = new Rect();
-
+        
         onCountChanged();
     }
-
+    
     /**
      * @return The current count value
      */
     public int getCount() {
         return mCount;
     }
-
+    
     /**
      * Set the count to show on badge
      *
-     * @param count The count value starting from 0
+     * @param count
+     *         The count value starting from 0
      */
     public void setCount(@IntRange(from = 0) int count) {
         if (count == mCount) return;
@@ -152,21 +153,21 @@ public class CounterFab extends FloatingActionButton {
             startAnimation();
         }
     }
-
+    
     /**
      * Increase the current count value by 1
      */
     public void increase() {
         setCount(mCount + 1);
     }
-
+    
     /**
      * Decrease the current count value by 1
      */
     public void decrease() {
         setCount(mCount > 0 ? mCount - 1 : 0);
     }
-
+    
     private void onCountChanged() {
         if (mCount > MAX_COUNT) {
             mText = String.valueOf(MAX_COUNT_TEXT);
@@ -174,7 +175,7 @@ public class CounterFab extends FloatingActionButton {
             mText = String.valueOf(mCount);
         }
     }
-
+    
     private void startAnimation() {
         float start = 0f;
         float end = 1f;
@@ -190,18 +191,18 @@ public class CounterFab extends FloatingActionButton {
         mAnimator.setDuration(mAnimationDuration);
         mAnimator.start();
     }
-
+    
     private boolean isAnimating() {
         return mAnimator != null && mAnimator.isRunning();
     }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mCount > 0 || isAnimating()) {
             if (getContentRect(mContentBounds)) {
                 mCircleBounds.offsetTo(mContentBounds.left + mContentBounds.width() -
-                        mCircleBounds.width(), mContentBounds.top);
+                                               mCircleBounds.width(), mContentBounds.top);
             }
             float cx = mCircleBounds.centerX();
             float cy = mCircleBounds.centerY();
@@ -215,7 +216,7 @@ public class CounterFab extends FloatingActionButton {
             canvas.drawText(mText, cx, cy + mTextHeight / 2f, mTextPaint);
         }
     }
-
+    
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -223,7 +224,7 @@ public class CounterFab extends FloatingActionButton {
         ss.count = mCount;
         return ss;
     }
-
+    
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         SavedState ss = (SavedState) state;
@@ -231,28 +232,28 @@ public class CounterFab extends FloatingActionButton {
         setCount(ss.count);
         requestLayout();
     }
-
+    
     private static class SavedState extends BaseSavedState {
-
+        
         public static final Creator<SavedState> CREATOR
                 = new Creator<SavedState>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }
-
+            
             public SavedState[] newArray(int size) {
                 return new SavedState[size];
             }
         };
         private int count;
-
+        
         /**
          * Constructor called from {@link CounterFab#onSaveInstanceState()}
          */
         private SavedState(Parcelable superState) {
             super(superState);
         }
-
+        
         /**
          * Constructor called from {@link #CREATOR}
          */
@@ -260,13 +261,13 @@ public class CounterFab extends FloatingActionButton {
             super(in);
             count = in.readInt();
         }
-
+        
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeInt(count);
         }
-
+        
         @Override
         public String toString() {
             return CounterFab.class.getSimpleName() + "." + SavedState.class
@@ -274,5 +275,5 @@ public class CounterFab extends FloatingActionButton {
                     + Integer.toHexString(System.identityHashCode(this)) + " count=" + count + "}";
         }
     }
-
+    
 }
