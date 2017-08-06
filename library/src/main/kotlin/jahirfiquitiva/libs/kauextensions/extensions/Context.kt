@@ -22,9 +22,21 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Looper
-import android.support.annotation.*
+import android.support.annotation.ArrayRes
+import android.support.annotation.AttrRes
+import android.support.annotation.BoolRes
+import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
+import android.support.annotation.DrawableRes
+import android.support.annotation.IntegerRes
+import android.support.annotation.LayoutRes
+import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
@@ -113,6 +125,9 @@ fun Context.showToast(text:String, duration:Int = Toast.LENGTH_SHORT) {
             runOnUiThread { Toast.makeText(this, text, duration).show() }
     }
 }
+
+fun Context.inflateView(@LayoutRes layout:Int, root:ViewGroup, attachToRoot:Boolean = false):View =
+        LayoutInflater.from(this).inflate(layout, root, attachToRoot)
 
 fun Context.getAppName():String = getStringFromRes(R.string.app_name, "KAU Extensions")
 
