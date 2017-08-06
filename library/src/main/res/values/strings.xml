@@ -16,4 +16,6 @@
 
 <resources>
     <string name="app_name">KAU Extensions</string>
+    <string name="loading_section">Loading…</string>
+    <string name="empty_section">Empty</string>
 </resources>

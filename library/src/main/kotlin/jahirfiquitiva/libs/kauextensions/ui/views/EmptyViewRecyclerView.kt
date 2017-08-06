@@ -16,7 +16,6 @@
 
 package jahirfiquitiva.libs.kauextensions.ui.views
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -24,29 +23,18 @@ import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
 import ca.allanwang.kau.utils.visible
+import ca.allanwang.kau.utils.visibleIf
+import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
 open class EmptyViewRecyclerView:RecyclerView {
     var loadingView:View? = null
-        set(value) {
-            field = value
-            field?.gone()
-        }
     var emptyView:View? = null
-        set(value) {
-            field = value
-            field?.gone()
-        }
     var textView:TextView? = null
-        set(value) {
-            field = value
-            field?.gone()
-        }
-    
     var loadingTextRes:Int = -1
     var emptyTextRes:Int = -1
     
-    var state:EmptyViewRecyclerView.State = State.LOADING
+    var state:State = State.LOADING
         set(value) {
             if (value != field) {
                 field = value
@@ -54,34 +42,19 @@ open class EmptyViewRecyclerView:RecyclerView {
             }
         }
     
-    constructor(context:Context):super(context) {
-        updateStateViews()
-    }
-    
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
-        updateStateViews()
-    }
-    
+    constructor(context:Context):super(context)
+    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr) {
-        updateStateViews()
-    }
+            :super(context, attributeSet, defStyleAttr)
     
-    @SuppressLint("SwitchIntDef")
     private fun updateStateViews() {
-        try {
-            textView?.text = if (state == State.LOADING) context.getString(
-                    loadingTextRes) else context.getString(emptyTextRes)
-        } catch (ignored:Exception) {
-        }
-        textView?.setTextColor(context.secondaryTextColor)
-        
         when (state) {
             State.LOADING -> {
                 gone()
                 emptyView?.gone()
                 loadingView?.visible()
-                textView?.visible()
+                textView?.text = context.getString(
+                        if (loadingTextRes != -1) loadingTextRes else R.string.loading_section)
             }
             State.NORMAL -> {
                 if (adapter != null) {
@@ -89,7 +62,6 @@ open class EmptyViewRecyclerView:RecyclerView {
                     if (items > 0) {
                         loadingView?.gone()
                         emptyView?.gone()
-                        textView?.gone()
                         visible()
                     } else {
                         state = State.EMPTY
@@ -102,9 +74,12 @@ open class EmptyViewRecyclerView:RecyclerView {
                 gone()
                 loadingView?.gone()
                 emptyView?.visible()
-                textView?.visible()
+                textView?.text = context.getString(
+                        if (emptyTextRes != -1) emptyTextRes else R.string.empty_section)
             }
         }
+        textView?.setTextColor(context.secondaryTextColor)
+        textView?.visibleIf(state != State.NORMAL)
     }
     
     internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
@@ -113,13 +88,13 @@ open class EmptyViewRecyclerView:RecyclerView {
             updateStateViews()
         }
         
-        override fun onItemRangeChanged(positionStart:Int, itemCount:Int, payload:Any?) {
-            super.onItemRangeChanged(positionStart, itemCount, payload)
+        override fun onItemRangeChanged(positionStart:Int, itemCount:Int) {
+            super.onItemRangeChanged(positionStart, itemCount)
             updateStateViews()
         }
         
-        override fun onItemRangeChanged(positionStart:Int, itemCount:Int) {
-            super.onItemRangeChanged(positionStart, itemCount)
+        override fun onItemRangeChanged(positionStart:Int, itemCount:Int, payload:Any?) {
+            super.onItemRangeChanged(positionStart, itemCount, payload)
             updateStateViews()
         }
         
