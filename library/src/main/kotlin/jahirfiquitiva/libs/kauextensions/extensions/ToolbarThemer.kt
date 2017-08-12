@@ -48,7 +48,7 @@ fun round(value:Double, places:Int):Double {
 }
 
 fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleColor,
-                 @ColorInt iconsColor:Int = titleColor) {
+                 @ColorInt iconsColor:Int = titleColor, forceShowIcons:Boolean = false) {
     
     (0..childCount).forEach { i ->
         val v = getChildAt(i)
@@ -85,7 +85,7 @@ fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleCo
     setOverflowButtonColor(iconsColor)
     
     // Step 5: Tint toolbar menu.
-    tintMenu(iconsColor)
+    tintMenu(iconsColor, forceShowIcons)
 }
 
 fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
@@ -169,11 +169,12 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
 }
 
 fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
-    if (state === CollapsingToolbarCallback.State.COLLAPSED) {
-        statusBarLight = primaryDarkColor.isColorLight()
-    } else {
-        statusBarLight = false
-    }
+    if (autoStatusBarTint())
+        if (state === CollapsingToolbarCallback.State.COLLAPSED) {
+            statusBarLight = primaryDarkColor.isColorLight()
+        } else {
+            statusBarLight = false
+        }
 }
 
 private fun tintImageView(target:Any, field:Field, tintColor:Int) {
