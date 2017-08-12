@@ -67,6 +67,7 @@ dependencies {
     // KAU
     compile('ca.allanwang.kau:core:' + versions.kau + '@aar') {
         transitive = true
+        exclude group: 'com.android.support.constraint', module: 'constraint-layout'
     }
 }
 
