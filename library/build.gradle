@@ -65,7 +65,9 @@ dependencies {
     // Kotlin
     compile 'org.jetbrains.kotlin:kotlin-stdlib:' + versions.kotlin
     // KAU
-    compile 'ca.allanwang.kau:core:' + versions.kau
+    compile('ca.allanwang.kau:core:' + versions.kau + '@aar') {
+        transitive = true
+    }
 }
 
 tasks.whenTaskAdded { task ->
