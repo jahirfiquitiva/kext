@@ -24,15 +24,19 @@ abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
     
     override fun onOffsetChanged(appBarLayout:AppBarLayout, verticalOffset:Int) {
         onVerticalOffsetChanged(appBarLayout, Math.abs(verticalOffset))
-        if (verticalOffset == 0) {
-            if (currentState != State.EXPANDED) onStateChanged(appBarLayout, State.EXPANDED)
-            currentState = State.EXPANDED
-        } else if (Math.abs(verticalOffset) > appBarLayout.totalScrollRange) {
-            if (currentState != State.COLLAPSED) onStateChanged(appBarLayout, State.COLLAPSED)
-            currentState = State.COLLAPSED
-        } else {
-            if (currentState != State.IDLE) onStateChanged(appBarLayout, State.IDLE)
-            currentState = State.IDLE
+        currentState = when {
+            verticalOffset == 0 -> {
+                if (currentState != State.EXPANDED) onStateChanged(appBarLayout, State.EXPANDED)
+                State.EXPANDED
+            }
+            Math.abs(verticalOffset) > appBarLayout.totalScrollRange -> {
+                if (currentState != State.COLLAPSED) onStateChanged(appBarLayout, State.COLLAPSED)
+                State.COLLAPSED
+            }
+            else -> {
+                if (currentState != State.IDLE) onStateChanged(appBarLayout, State.IDLE)
+                State.IDLE
+            }
         }
     }
     

@@ -23,7 +23,6 @@ import android.view.View
 import android.widget.TextView
 import ca.allanwang.kau.utils.gone
 import ca.allanwang.kau.utils.visible
-import ca.allanwang.kau.utils.visibleIf
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.secondaryTextColor
 
@@ -48,6 +47,7 @@ open class EmptyViewRecyclerView:RecyclerView {
             :super(context, attributeSet, defStyleAttr)
     
     private fun updateStateViews() {
+        textView?.setTextColor(context.secondaryTextColor)
         when (state) {
             State.LOADING -> {
                 gone()
@@ -55,6 +55,7 @@ open class EmptyViewRecyclerView:RecyclerView {
                 loadingView?.visible()
                 textView?.text = context.getString(
                         if (loadingTextRes != -1) loadingTextRes else R.string.loading_section)
+                textView?.visible()
             }
             State.NORMAL -> {
                 if (adapter != null) {
@@ -62,6 +63,7 @@ open class EmptyViewRecyclerView:RecyclerView {
                     if (items > 0) {
                         loadingView?.gone()
                         emptyView?.gone()
+                        textView?.gone()
                         visible()
                     } else {
                         state = State.EMPTY
@@ -76,13 +78,12 @@ open class EmptyViewRecyclerView:RecyclerView {
                 emptyView?.visible()
                 textView?.text = context.getString(
                         if (emptyTextRes != -1) emptyTextRes else R.string.empty_section)
+                textView?.visible()
             }
         }
-        textView?.setTextColor(context.secondaryTextColor)
-        textView?.visibleIf(state != State.NORMAL)
     }
     
-    internal val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
+    private val observer:RecyclerView.AdapterDataObserver = object:RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             super.onChanged()
             updateStateViews()

@@ -95,11 +95,11 @@ abstract class ThemedActivity:AppCompatActivity() {
         get() {
             val c = Calendar.getInstance()
             val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
-            when (konfigs.currentTheme) {
-                LIGHT -> return false
-                DARK, AMOLED -> return true
-                AUTO_DARK, AUTO_AMOLED -> return hourOfDay !in 7..18
-                else -> return false
+            return when (konfigs.currentTheme) {
+                LIGHT -> false
+                DARK, AMOLED -> true
+                AUTO_DARK, AUTO_AMOLED -> hourOfDay !in 7..18
+                else -> false
             }
         }
     
@@ -107,25 +107,22 @@ abstract class ThemedActivity:AppCompatActivity() {
     private fun getCustomTheme():Int {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
-        when (konfigs.currentTheme) {
-            LIGHT -> return lightTheme()
-            DARK -> return darkTheme()
-            AMOLED -> return amoledTheme()
-            TRANSPARENT -> return transparentTheme()
-            AUTO_DARK -> return if (hourOfDay in 7..18) lightTheme() else darkTheme()
-            AUTO_AMOLED -> return if (hourOfDay in 7..18) lightTheme() else amoledTheme()
-            else -> return lightTheme()
+        return when (konfigs.currentTheme) {
+            LIGHT -> lightTheme()
+            DARK -> darkTheme()
+            AMOLED -> amoledTheme()
+            TRANSPARENT -> transparentTheme()
+            AUTO_DARK -> if (hourOfDay in 7..18) lightTheme() else darkTheme()
+            AUTO_AMOLED -> if (hourOfDay in 7..18) lightTheme() else amoledTheme()
+            else -> lightTheme()
         }
     }
     
     @ColorInt
-    private fun getCorrectNavbarColor():Int {
-        if (konfigs.currentTheme == AMOLED)
-            return getColorFromRes(android.R.color.black)
-        else if (konfigs.hasColoredNavbar)
-            return primaryDarkColor
-        else
-            return getColorFromRes(android.R.color.black)
+    private fun getCorrectNavbarColor():Int = when {
+        konfigs.currentTheme == AMOLED -> getColorFromRes(android.R.color.black)
+        konfigs.hasColoredNavbar -> primaryDarkColor
+        else -> getColorFromRes(android.R.color.black)
     }
     
 }

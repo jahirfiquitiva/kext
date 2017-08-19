@@ -34,14 +34,14 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
         versionName versions.versionName
-        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         release {
             minifyEnabled false
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
         }
     }
 

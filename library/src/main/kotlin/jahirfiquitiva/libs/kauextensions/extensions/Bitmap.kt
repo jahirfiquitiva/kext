@@ -28,7 +28,8 @@ fun Bitmap.isColorDark() = !isColorLight()
 
 fun Bitmap.isColorLight():Boolean = generatePalette().isColorLight()
 
-fun Bitmap.generatePalette():Palette = Palette.from(this).resizeBitmapArea(50 * 50).generate()
+fun Bitmap.generatePalette(resizeArea:Int = -1):Palette =
+        Palette.from(this).resizeBitmapArea(resizeArea).generate()
 
 val Bitmap.bestSwatch:Palette.Swatch?
     get() = generatePalette().bestSwatch

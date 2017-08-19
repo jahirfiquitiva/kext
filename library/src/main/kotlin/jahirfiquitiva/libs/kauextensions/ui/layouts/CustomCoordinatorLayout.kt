@@ -23,7 +23,6 @@ import android.view.MotionEvent
 import android.view.View
 
 open class CustomCoordinatorLayout:CoordinatorLayout {
-    
     var allowScroll = true
     
     constructor(context:Context):super(context)

@@ -16,16 +16,14 @@
 
 package jahirfiquitiva.libs.kauextensions.ui.views
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 import jahirfiquitiva.libs.kauextensions.R
 
-open class LandscapeImageView:ImageView {
+open class LandscapeImageView:AppCompatImageView {
     
-    var heightDivider:Float = 3F
+    private var heightDivider:Float = 3F
     
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
@@ -37,13 +35,7 @@ open class LandscapeImageView:ImageView {
         init(context, attributeSet)
     }
     
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int, defStyleRes:Int)
-            :super(context, attributeSet, defStyleAttr, defStyleRes) {
-        init(context, attributeSet)
-    }
-    
-    fun init(context:Context, attributeSet:AttributeSet) {
+    private fun init(context:Context, attributeSet:AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.LandscapeImageView, 0, 0)
         try {
             heightDivider = a.getFloat(R.styleable.LandscapeImageView_heightDivider, 3F)

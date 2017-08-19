@@ -42,7 +42,6 @@ import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.utils.Konfigurations
-import jahirfiquitiva.libs.kauextensions.utils.PREFERENCES_NAME
 
 val Context.isFirstRunEver:Boolean
     get() {
@@ -134,10 +133,10 @@ fun Context.getAppName():String = getStringFromRes(R.string.app_name, "KAU Exten
 fun Context.getLogTag():String = getAppName()
 
 fun Context.getAppVersion():String {
-    try {
-        return packageManager.getPackageInfo(packageName, 0).versionName
+    return try {
+        packageManager.getPackageInfo(packageName, 0).versionName
     } catch (e:Exception) {
-        return "Unknown"
+        "Unknown"
     }
 }
 
@@ -154,7 +153,7 @@ fun Context.hasWriteStoragePermission() =
                                           Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
 val Context.konfigs:Konfigurations
-    get() = Konfigurations.newInstance(PREFERENCES_NAME, this)
+    get() = Konfigurations.newInstance("kau_extensions", this)
 
 fun Context.runInAThread(item:() -> Unit) {
     Thread(Runnable(item)).start()

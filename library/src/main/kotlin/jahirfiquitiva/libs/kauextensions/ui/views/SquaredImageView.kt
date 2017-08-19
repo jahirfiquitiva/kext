@@ -16,21 +16,15 @@
 
 package jahirfiquitiva.libs.kauextensions.ui.views
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 
-open class SquaredImageView:ImageView {
+open class SquaredImageView:AppCompatImageView {
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
     constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
             :super(context, attributeSet, defStyleAttr)
-    
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int, defStyleRes:Int)
-            :super(context, attributeSet, defStyleAttr, defStyleRes)
     
     override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

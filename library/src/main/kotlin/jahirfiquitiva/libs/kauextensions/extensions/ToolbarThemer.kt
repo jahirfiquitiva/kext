@@ -16,7 +16,6 @@
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.annotation.SuppressLint
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
@@ -167,11 +166,8 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
 
 fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
     if (autoStatusBarTint())
-        if (state === CollapsingToolbarCallback.State.COLLAPSED) {
-            statusBarLight = primaryDarkColor.isColorLight()
-        } else {
-            statusBarLight = false
-        }
+        statusBarLight = if (state === CollapsingToolbarCallback.State.COLLAPSED)
+            primaryDarkColor.isColorLight() else false
 }
 
 private fun tintImageView(target:Any, field:Field, tintColor:Int) {

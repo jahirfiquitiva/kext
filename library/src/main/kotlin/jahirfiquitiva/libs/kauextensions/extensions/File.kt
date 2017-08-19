@@ -22,9 +22,9 @@ import android.support.v4.content.FileProvider
 import java.io.File
 
 fun File.getUri(context:Context):Uri? {
-    try {
-        return FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
+    return try {
+        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
     } catch (e:Exception) {
-        return null
+        null
     }
 }

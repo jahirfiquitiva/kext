@@ -66,12 +66,11 @@ open class SplitButtonsLayout:LinearLayout {
         if (hasAllButtons()) context.printError("$buttonCount buttons already added")
         val button:AppCompatButton = context.inflateView(R.layout.item_split_button,
                                                          this) as AppCompatButton
-        val lParams:LayoutParams
-        if (fillAvailableSpace) {
-            lParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
+        val lParams:LayoutParams = if (fillAvailableSpace) {
+            LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         } else {
-            lParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                   ViewGroup.LayoutParams.WRAP_CONTENT)
+            LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                         ViewGroup.LayoutParams.WRAP_CONTENT)
         }
         button.maxLines = 1
         button.ellipsize = TextUtils.TruncateAt.END

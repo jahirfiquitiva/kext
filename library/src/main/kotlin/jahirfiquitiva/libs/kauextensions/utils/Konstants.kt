@@ -16,7 +16,6 @@
 package jahirfiquitiva.libs.kauextensions.utils
 
 // Shared Preferences
-const val PREFERENCES_NAME = "dashboard_preferences"
 const val APP_RUN_COUNT = "app_run_count"
 const val LAST_VERSION = "last_version"
 const val THEME = "theme"

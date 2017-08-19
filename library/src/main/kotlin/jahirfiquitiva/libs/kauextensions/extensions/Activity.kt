@@ -42,17 +42,3 @@ fun Activity.setupStatusBarStyle(translucent:Boolean = true,
         statusBarLight = lightMode
     }
 }
-
-/*
-fun ReleasesActivity.showChangelog(currVersion:Int, xmlRes:Int,
-                                   callback:OnChangelogNeutralButtonClick? = null) {
-    if (isFirstRunEver()) {
-        konfig.lastVersion = currVersion
-        return
-    }
-    if (konfig.lastVersion != currVersion) {
-        ChangelogDialog.show(this, xmlRes, callback)
-    }
-    konfig.lastVersion = currVersion
-}
-*/
