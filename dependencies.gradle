@@ -27,7 +27,7 @@ ext.versions = [
         versionName    : '1.0.0',
         gradlePlugin   : '2.3.3',
         libPubPlugin   : '1.5',
-        kotlin         : '1.1.4',
+        kotlin         : '1.1.4-2',
         // Libraries versions
         supportLibs    : '25.3.1',
         supportLibsTest: '26.+',
