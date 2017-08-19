@@ -40,8 +40,8 @@ android {
         release {
             minifyEnabled false
             shrinkResources true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
 
