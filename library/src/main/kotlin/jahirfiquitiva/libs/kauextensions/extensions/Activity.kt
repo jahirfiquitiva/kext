@@ -23,14 +23,20 @@ import android.view.WindowManager
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
 
+@Deprecated("Use \'enableTranslucentStatusBar\'", ReplaceWith("enableTranslucentStatusBar"))
 fun Activity.setupStatusBarStyle(translucent:Boolean = true,
                                  lightMode:Boolean = primaryDarkColor.isColorLight()) {
+    enableTranslucentStatusBar(translucent)
+    statusBarLight = lightMode
+}
+
+fun Activity.enableTranslucentStatusBar(enable:Boolean = true) {
     if (Build.VERSION.SDK_INT >= 21) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     }
     if (Build.VERSION.SDK_INT >= 19) {
         val params:WindowManager.LayoutParams = window.attributes
-        if (translucent) {
+        if (enable) {
             params.flags = params.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
         } else {
             params.flags = params.flags or WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -39,6 +45,5 @@ fun Activity.setupStatusBarStyle(translucent:Boolean = true,
     }
     if (Build.VERSION.SDK_INT >= 21) {
         statusBarColor = Color.TRANSPARENT
-        statusBarLight = lightMode
     }
 }
