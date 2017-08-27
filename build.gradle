@@ -15,10 +15,8 @@
  */
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: './dependencies.gradle'
 
 buildscript {
-    apply from: './dependencies.gradle'
 
     repositories {
         jcenter()
@@ -26,9 +24,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:' + versions.gradlePlugin
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:' + versions.kotlin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:' + versions.libPubPlugin
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -36,6 +34,26 @@ buildscript {
 }
 
 allprojects {
+
+    project.ext {
+        // Core app details
+        appId = 'KAUExtensions'
+        appGroup = 'jahirfiquitiva.apps'
+        libGroup = 'jahirfiquitiva.libs'
+        minSdk = 16
+        targetSdk = 26
+        compileSdk = 26
+        buildTools = '26.0.1'
+        versionCode = 100
+        versionName = '1.0.0'
+        gradlePlugin = '2.3.3'
+        libPubPlugin = '1.5'
+        kotlin = '1.1.4-2'
+        // Libraries versions
+        supportLibs = '26.0.1'
+        kau = '3.3.1'
+    }
+
     repositories {
         jcenter()
         mavenCentral()
