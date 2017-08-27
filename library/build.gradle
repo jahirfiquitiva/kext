@@ -39,9 +39,9 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources true
-            proguardFiles 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-rules.pro'
+            shrinkResources false
+            proguardFiles 'proguard-android-optimize.pro', 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-android-optimize.pro', 'proguard-rules.pro'
         }
     }
 

@@ -17,30 +17,31 @@
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.View
 
-open class CustomCoordinatorLayout:CoordinatorLayout {
-    @Deprecated("This variable has been changed in favor of \'scrollAllowed\'",
-                ReplaceWith("scrollAllowed"))
-    var allowScroll
-        get() = scrollAllowed
+@CoordinatorLayout.DefaultBehavior(CustomAppBarBehavior::class)
+open class DisableableAppBarLayout:AppBarLayout {
+    
+    var scrollAllowed:Boolean = true
         set(value) {
-            scrollAllowed = value
+            field = value
+            try {
+                val params = layoutParams as CoordinatorLayout.LayoutParams
+                params.behavior = CustomAppBarBehavior(value)
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         }
     
-    var scrollAllowed = true
+    var isExpandedNow:Boolean = false
     
     constructor(context:Context):super(context)
     constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
     
-    override fun onStartNestedScroll(child:View, target:View, nestedScrollAxes:Int) =
-            scrollAllowed && super.onStartNestedScroll(child, target, nestedScrollAxes)
-    
-    override fun onInterceptTouchEvent(ev:MotionEvent?):Boolean =
-            scrollAllowed && super.onInterceptTouchEvent(ev)
+    override fun setExpanded(expanded:Boolean, animate:Boolean) {
+        super.setExpanded(expanded, animate)
+        isExpandedNow = expanded
+    }
 }

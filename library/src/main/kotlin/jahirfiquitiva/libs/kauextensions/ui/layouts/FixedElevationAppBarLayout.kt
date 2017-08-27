@@ -17,12 +17,11 @@
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
-import android.support.design.widget.AppBarLayout
 import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 
-open class FixedElevationAppBarLayout:AppBarLayout {
+open class FixedElevationAppBarLayout:DisableableAppBarLayout {
     
     private var fElevation:Int = 4
     
