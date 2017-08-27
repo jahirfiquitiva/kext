@@ -63,7 +63,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // KAU Extensions
-    compile project(path: ':library')
+    compile project(path: ':core')
     // Kotlin
     compile 'org.jetbrains.kotlin:kotlin-stdlib:' + project.ext.kotlin
 }

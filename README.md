@@ -15,17 +15,19 @@ Yet to be added, but I think functions are easy to understand at least while I g
 Add it in your root build.gradle at the end of repositories:
 ```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
 Add the dependency
 ```groovy
 dependencies {
-	compile 'me.jahirfiquitiva:KAUExtensions:b36be86'
+    compile 'me.jahirfiquitiva.KAUExtensions:core:{last-version}'
+    // Only if you use/need ZoomableImageView
+    compile 'me.jahirfiquitiva.KAUExtensions:ziv:{last-version}'
 }
 ```
 
