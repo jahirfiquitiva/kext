@@ -355,7 +355,7 @@ public class ZoomableImageView extends AppCompatImageView {
     /**
      * Reset zoom and translation to initial state.
      */
-    private void resetZoom() {
+    public void resetZoom() {
         normalizedScale = 1;
         fitImageToView();
     }
@@ -993,8 +993,8 @@ public class ZoomableImageView extends AppCompatImageView {
                 animateToZoomBoundary = true;
             }
             if (animateToZoomBoundary) {
-                DoubleTapZoom doubleTap = new DoubleTapZoom(targetZoom, viewWidth / 2, viewHeight
-                        / 2, true);
+                DoubleTapZoom doubleTap = new DoubleTapZoom(targetZoom, viewWidth / 2,
+                                                            viewHeight / 2, true);
                 compatPostOnAnimation(doubleTap);
             }
         }
