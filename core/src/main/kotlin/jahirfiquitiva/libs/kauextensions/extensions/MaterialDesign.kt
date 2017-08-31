@@ -69,7 +69,7 @@ val Context.overlayColor:Int
     get() = if (usesDarkTheme) Color.parseColor("#40ffffff") else Color.parseColor("#4d000000")
 
 val Context.chipsColor:Int
-    get() = if (usesDarkTheme) Color.parseColor("#000") else Color.parseColor("#e0e0e0")
+    get() = if (usesDarkTheme) Color.parseColor("#212121") else Color.parseColor("#e0e0e0")
 
 val Context.chipsIconsColor:Int
     get() = activeIconsColor
