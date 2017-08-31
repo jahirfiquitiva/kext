@@ -353,11 +353,15 @@ public class ZoomableImageView extends AppCompatImageView {
         return normalizedScale;
     }
     
+    public void resetZoom() {
+        if (currentScale == minScale || currentScale == normalizedScale) return;
+        internalResetZoom();
+    }
+    
     /**
      * Reset zoom and translation to initial state.
      */
-    public void resetZoom() {
-        if (currentScale == minScale || currentScale == normalizedScale) return;
+    private void internalResetZoom() {
         normalizedScale = 1;
         fitImageToView();
     }
@@ -398,7 +402,7 @@ public class ZoomableImageView extends AppCompatImageView {
         if (scaleType != mScaleType) {
             setScaleType(scaleType);
         }
-        resetZoom();
+        internalResetZoom();
         scaleImage(scale, viewWidth / 2, viewHeight / 2, true);
         matrix.getValues(m);
         m[Matrix.MTRANS_X] = -((focusX * getImageWidth()) - (viewWidth * 0.5f));
