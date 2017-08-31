@@ -92,9 +92,7 @@ abstract class ThemedActivity:AppCompatActivity() {
     }
     
     private fun setCustomTheme() {
-        val enterAnimation = android.R.anim.fade_in
-        val exitAnimation = android.R.anim.fade_out
-        overridePendingTransition(enterAnimation, exitAnimation)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setTheme(getCustomTheme())
         statusBarColor = primaryDarkColor
         if (autoStatusBarTint()) statusBarLight = primaryDarkColor.isColorLight

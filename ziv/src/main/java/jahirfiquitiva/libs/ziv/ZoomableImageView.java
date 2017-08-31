@@ -71,6 +71,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private Matrix matrix;
     private Matrix prevMatrix;
     private State state;
+    private float currentScale;
     private float minScale;
     private float maxScale;
     private float superMinScale;
@@ -356,7 +357,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * Reset zoom and translation to initial state.
      */
     public void resetZoom() {
-        if (normalizedScale == 1) return;
+        if (currentScale == minScale || currentScale == normalizedScale) return;
         normalizedScale = 1;
         fitImageToView();
     }
@@ -877,6 +878,7 @@ public class ZoomableImageView extends AppCompatImageView {
             }
             if (state == State.NONE) {
                 float targetZoom = (normalizedScale == minScale) ? maxScale : minScale;
+                currentScale = targetZoom;
                 DoubleTapZoom doubleTap = new DoubleTapZoom(targetZoom, e.getX(), e.getY(), false);
                 compatPostOnAnimation(doubleTap);
                 consumed = true;
