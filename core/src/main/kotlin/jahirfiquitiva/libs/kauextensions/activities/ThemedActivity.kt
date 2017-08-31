@@ -23,6 +23,7 @@ import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
+import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
@@ -78,7 +79,7 @@ abstract class ThemedActivity:AppCompatActivity() {
     }
     
     fun postRecreate() {
-        Handler().post({ recreate() })
+        Handler().post({ restart() })
     }
     
     private fun setCustomTheme() {
