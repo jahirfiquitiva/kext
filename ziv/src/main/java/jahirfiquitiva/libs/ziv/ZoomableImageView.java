@@ -71,7 +71,6 @@ public class ZoomableImageView extends AppCompatImageView {
     private Matrix matrix;
     private Matrix prevMatrix;
     private State state;
-    private float currentScale;
     private float minScale;
     private float maxScale;
     private float superMinScale;
@@ -290,8 +289,8 @@ public class ZoomableImageView extends AppCompatImageView {
         onDrawReady = true;
         imageRenderedAtLeastOnce = true;
         if (delayedZoomVariables != null) {
-            setZoom(delayedZoomVariables.scale, delayedZoomVariables.focusX, delayedZoomVariables
-                    .focusY, delayedZoomVariables.scaleType);
+            setZoom(delayedZoomVariables.scale, delayedZoomVariables.focusX,
+                    delayedZoomVariables.focusY, delayedZoomVariables.scaleType);
             delayedZoomVariables = null;
         }
         super.onDraw(canvas);
@@ -353,15 +352,10 @@ public class ZoomableImageView extends AppCompatImageView {
         return normalizedScale;
     }
     
-    public void resetZoom() {
-        if (currentScale == minScale || currentScale == normalizedScale) return;
-        internalResetZoom();
-    }
-    
     /**
      * Reset zoom and translation to initial state.
      */
-    private void internalResetZoom() {
+    private void resetZoom() {
         normalizedScale = 1;
         fitImageToView();
     }
@@ -402,7 +396,7 @@ public class ZoomableImageView extends AppCompatImageView {
         if (scaleType != mScaleType) {
             setScaleType(scaleType);
         }
-        internalResetZoom();
+        resetZoom();
         scaleImage(scale, viewWidth / 2, viewHeight / 2, true);
         matrix.getValues(m);
         m[Matrix.MTRANS_X] = -((focusX * getImageWidth()) - (viewWidth * 0.5f));
@@ -882,7 +876,6 @@ public class ZoomableImageView extends AppCompatImageView {
             }
             if (state == State.NONE) {
                 float targetZoom = (normalizedScale == minScale) ? maxScale : minScale;
-                currentScale = targetZoom;
                 DoubleTapZoom doubleTap = new DoubleTapZoom(targetZoom, e.getX(), e.getY(), false);
                 compatPostOnAnimation(doubleTap);
                 consumed = true;
@@ -1062,7 +1055,6 @@ public class ZoomableImageView extends AppCompatImageView {
                 // We haven't finished zooming
                 //
                 compatPostOnAnimation(this);
-                
             } else {
                 //
                 // Finished zooming
