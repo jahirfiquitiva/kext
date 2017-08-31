@@ -356,6 +356,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * Reset zoom and translation to initial state.
      */
     public void resetZoom() {
+        if (normalizedScale == 1) return;
         normalizedScale = 1;
         fitImageToView();
     }
@@ -594,7 +595,6 @@ public class ZoomableImageView extends AppCompatImageView {
             matrix.setScale(scaleX, scaleY);
             matrix.postTranslate(redundantXSpace / 2, redundantYSpace / 2);
             normalizedScale = 1;
-            
         } else {
             //
             // These values should never be 0 or we will set viewWidth and viewHeight

@@ -16,6 +16,7 @@
 
 package jahirfiquitiva.libs.kauextensions.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.ColorInt
@@ -23,7 +24,6 @@ import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
-import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
@@ -78,8 +78,17 @@ abstract class ThemedActivity:AppCompatActivity() {
         postRecreate()
     }
     
-    fun postRecreate() {
-        Handler().post({ restart() })
+    private fun postRecreate() {
+        Handler().post({
+                           val i = Intent(this, this::class.java)
+                           intent?.extras?.let { i.putExtras(it) }
+                           startActivity(i)
+                           overridePendingTransition(android.R.anim.fade_in,
+                                                     android.R.anim.fade_out)
+                           finish()
+                           overridePendingTransition(android.R.anim.fade_in,
+                                                     android.R.anim.fade_out)
+                       })
     }
     
     private fun setCustomTheme() {
