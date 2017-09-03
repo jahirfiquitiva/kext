@@ -22,9 +22,9 @@ import android.content.SharedPreferences
 import jahirfiquitiva.libs.kauextensions.extensions.getSharedPrefs
 
 open class Konfigurations(val name:String, val context:Context) {
-    protected val prefs:SharedPreferences = context.getSharedPrefs(name)
+    val prefs:SharedPreferences = context.getSharedPrefs(name)
     @SuppressLint("CommitPrefEdits")
-    protected val prefsEditor:SharedPreferences.Editor = prefs.edit()
+    val prefsEditor:SharedPreferences.Editor = prefs.edit()
     
     companion object {
         fun newInstance(name:String, context:Context) = Konfigurations(name, context)
