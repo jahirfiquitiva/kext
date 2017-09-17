@@ -29,15 +29,11 @@ import ca.allanwang.kau.utils.statusBarLight
  * Credits: Lorenzo Quiroli - Roberto Orgiu
  * https://medium.com/@quiro91/improving-findviewbyid-with-kotlin-4cf2f8f779bb
  */
-fun <T:View> Activity.bind(@IdRes res:Int):Lazy<T> {
-    @Suppress("UNCHECKED_CAST")
-    return lazyAndroid { findViewById(res) as T }
-}
+@Suppress("UNCHECKED_CAST")
+fun <T:View> Activity.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
 
-fun <T:View> View.bind(@IdRes res:Int):Lazy<T> {
-    @Suppress("UNCHECKED_CAST")
-    return lazyAndroid { findViewById(res) as T }
-}
+@Suppress("UNCHECKED_CAST")
+fun <T:View> View.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
 
 /**
  * Credits: Juan Ignacio Saravia
