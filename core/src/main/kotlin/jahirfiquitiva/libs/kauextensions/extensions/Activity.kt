@@ -20,6 +20,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.support.annotation.IdRes
+import android.support.v4.app.Fragment
 import android.view.View
 import android.view.WindowManager
 import ca.allanwang.kau.utils.statusBarColor
@@ -31,6 +32,10 @@ import ca.allanwang.kau.utils.statusBarLight
  */
 @Suppress("UNCHECKED_CAST")
 fun <T:View> Activity.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
+
+@Suppress("UNCHECKED_CAST")
+fun <T:View> Fragment.bind(@IdRes res:Int):Lazy<T>? =
+        view?.let { lazyAndroid { it.findViewById<T>(res) } }
 
 @Suppress("UNCHECKED_CAST")
 fun <T:View> View.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
