@@ -51,7 +51,7 @@ allprojects {
         kotlin = '1.1.4-3'
         // Libraries versions
         supportLibs = '26.1.0'
-        kau = '3.3.1'
+        kau = '3.4.0'
     }
 
     repositories {
