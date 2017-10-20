@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.Manifest
@@ -43,24 +42,24 @@ import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.utils.Konfigurations
 
-val Context.isFirstRunEver:Boolean
+val Context.isFirstRunEver: Boolean
     get() {
         try {
             val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
             val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
             return firstInstallTime == lastUpdateTime
-        } catch (ignored:Exception) {
+        } catch (ignored: Exception) {
         }
         return true
     }
 
-val Context.justUpdated:Boolean
+val Context.justUpdated: Boolean
     get() {
         try {
             val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
             val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
             return firstInstallTime != lastUpdateTime
-        } catch (ignored:Exception) {
+        } catch (ignored: Exception) {
         }
         return false
     }
@@ -71,27 +70,27 @@ val Context.usesLightTheme
 val Context.usesDarkTheme
     get() = resolveBoolean(R.attr.isDark)
 
-fun Context.getStringFromRes(@StringRes stringRes:Int, fallback:String):String =
+fun Context.getStringFromRes(@StringRes stringRes: Int, fallback: String): String =
         if (stringRes > 0) getString(stringRes) else fallback
 
-fun Context.getStringArray(@ArrayRes arrayRes:Int):Array<String> =
+fun Context.getStringArray(@ArrayRes arrayRes: Int): Array<String> =
         resources.getStringArray(arrayRes)
 
-fun Context.getColorFromRes(@ColorRes colorRes:Int) = ContextCompat.getColor(this, colorRes)
+fun Context.getColorFromRes(@ColorRes colorRes: Int) = ContextCompat.getColor(this, colorRes)
 
-fun Context.getBoolean(@BoolRes bool:Int) = resources.getBoolean(bool)
+fun Context.getBoolean(@BoolRes bool: Int) = resources.getBoolean(bool)
 
-fun Context.getInteger(@IntegerRes id:Int):Int = resources.getInteger(id)
+fun Context.getInteger(@IntegerRes id: Int): Int = resources.getInteger(id)
 
-fun Context.getDimension(@DimenRes id:Int):Float = resources.getDimension(id)
+fun Context.getDimension(@DimenRes id: Int): Float = resources.getDimension(id)
 
-fun Context.getDimensionPixelSize(@DimenRes id:Int):Int = resources.getDimensionPixelSize(id)
+fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)
 
-fun Context.getDrawable(@DrawableRes id:Int, fallback:Drawable? = null):Drawable? =
+fun Context.getDrawable(@DrawableRes id: Int, fallback: Drawable? = null): Drawable? =
         if (id > 0) ContextCompat.getDrawable(this, id) else fallback
 
 @ColorInt
-fun Context.extractColor(attribute:IntArray):Int {
+fun Context.extractColor(attribute: IntArray): Int {
     val typedValue = TypedValue()
     val a = obtainStyledAttributes(typedValue.data, attribute)
     val color = a.getColor(0, 0)
@@ -99,7 +98,7 @@ fun Context.extractColor(attribute:IntArray):Int {
     return color
 }
 
-fun Context.extractDrawable(@AttrRes drawableAttributeId:Int):Drawable {
+fun Context.extractDrawable(@AttrRes drawableAttributeId: Int): Drawable {
     val typedValue = TypedValue()
     val a = obtainStyledAttributes(typedValue.data, intArrayOf(drawableAttributeId))
     val drawable = a.getDrawable(0)
@@ -107,65 +106,69 @@ fun Context.extractDrawable(@AttrRes drawableAttributeId:Int):Drawable {
     return drawable
 }
 
-fun Context.showToast(@StringRes textRes:Int, duration:Int = Toast.LENGTH_SHORT) {
+fun Context.showToast(@StringRes textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
     if (isOnMainThread()) {
         Toast.makeText(this, textRes, duration).show()
     } else {
-        if (this is Activity)
-            runOnUiThread { Toast.makeText(this, textRes, duration).show() }
+        (this as? Activity)?.runOnUiThread { Toast.makeText(this, textRes, duration).show() }
     }
 }
 
-fun Context.showToast(text:String, duration:Int = Toast.LENGTH_SHORT) {
+fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     if (isOnMainThread()) {
         Toast.makeText(this, text, duration).show()
     } else {
-        if (this is Activity)
-            runOnUiThread { Toast.makeText(this, text, duration).show() }
+        (this as? Activity)?.runOnUiThread { Toast.makeText(this, text, duration).show() }
     }
 }
 
-fun Context.inflateView(@LayoutRes layout:Int, root:ViewGroup, attachToRoot:Boolean = false):View =
-        LayoutInflater.from(this).inflate(layout, root, attachToRoot)
+inline fun <reified T : View> Context.inflate(
+        @LayoutRes layout: Int,
+        root: ViewGroup,
+        attachToRoot: Boolean = false
+                                             ): T =
+        LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
 
-fun Context.getAppName():String = getStringFromRes(R.string.app_name, "KAU Extensions")
+fun Context.getAppName(): String = getStringFromRes(R.string.app_name, "KAU Extensions")
 
-fun Context.getLogTag():String = getAppName()
+fun Context.getLogTag(): String = getAppName()
 
-fun Context.getAppVersion():String {
+fun Context.getAppVersion(): String {
     return try {
         packageManager.getPackageInfo(packageName, 0).versionName
-    } catch (e:Exception) {
+    } catch (e: Exception) {
         "Unknown"
     }
 }
 
 fun Context.isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
-fun Context.getSharedPrefs(name:String) = getSharedPreferences(name, Context.MODE_PRIVATE)
+fun Context.getSharedPrefs(name: String) = getSharedPreferences(name, Context.MODE_PRIVATE)
 
 fun Context.hasReadStoragePermission() =
-        ContextCompat.checkSelfPermission(this,
-                                          Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
 fun Context.hasWriteStoragePermission() =
-        ContextCompat.checkSelfPermission(this,
-                                          Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-val Context.konfigs:Konfigurations
+val Context.konfigs: Konfigurations
     get() = Konfigurations.newInstance("kau_extensions", this)
 
-fun Context.runInAThread(item:() -> Unit) {
+fun Context.runInAThread(item: () -> Unit) {
     Thread(Runnable(item)).start()
 }
 
-val Context.isInHorizontalMode:Boolean
+val Context.isInHorizontalMode: Boolean
     get() = currentRotation == 90 || currentRotation == 270
 
-val Context.isInPortraitMode:Boolean
+val Context.isInPortraitMode: Boolean
     get() = currentRotation == 0 || currentRotation == 180
 
-val Context.currentRotation:Int
+val Context.currentRotation: Int
     get() {
         val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
         return display.rotation * 90

@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.views
 
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 
-open class SquaredImageView:AppCompatImageView {
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
+open class SquaredImageView : AppCompatImageView {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
+            : super(context, attributeSet, defStyleAttr)
     
-    override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(widthMeasureSpec, widthMeasureSpec)
     }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.activities
 
 import android.content.Intent
@@ -38,25 +37,25 @@ import jahirfiquitiva.libs.kauextensions.utils.LIGHT
 import jahirfiquitiva.libs.kauextensions.utils.TRANSPARENT
 import java.util.*
 
-abstract class ThemedActivity:AppCompatActivity() {
+abstract class ThemedActivity : AppCompatActivity() {
     private var lastTheme = 0
     private var coloredNavbar = false
     
     @StyleRes
-    abstract fun lightTheme():Int
+    abstract fun lightTheme(): Int
     
     @StyleRes
-    abstract fun darkTheme():Int
+    abstract fun darkTheme(): Int
     
     @StyleRes
-    abstract fun amoledTheme():Int
+    abstract fun amoledTheme(): Int
     
     @StyleRes
-    abstract fun transparentTheme():Int
+    abstract fun transparentTheme(): Int
     
-    abstract fun autoStatusBarTint():Boolean
+    abstract fun autoStatusBarTint(): Boolean
     
-    override fun onCreate(savedInstanceState:Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         setCustomTheme()
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -68,7 +67,7 @@ abstract class ThemedActivity:AppCompatActivity() {
             onThemeChanged()
     }
     
-    override fun onPostCreate(savedInstanceState:Bundle?) {
+    override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         lastTheme = konfigs.currentTheme
         coloredNavbar = konfigs.hasColoredNavbar
@@ -79,16 +78,19 @@ abstract class ThemedActivity:AppCompatActivity() {
     }
     
     private fun postRecreate() {
-        Handler().post({
-                           val i = Intent(this, this::class.java)
-                           intent?.extras?.let { i.putExtras(it) }
-                           startActivity(i)
-                           overridePendingTransition(android.R.anim.fade_in,
-                                                     android.R.anim.fade_out)
-                           finish()
-                           overridePendingTransition(android.R.anim.fade_in,
-                                                     android.R.anim.fade_out)
-                       })
+        Handler().post(
+                {
+                    val i = Intent(this, this::class.java)
+                    intent?.extras?.let { i.putExtras(it) }
+                    startActivity(i)
+                    overridePendingTransition(
+                            android.R.anim.fade_in,
+                            android.R.anim.fade_out)
+                    finish()
+                    overridePendingTransition(
+                            android.R.anim.fade_in,
+                            android.R.anim.fade_out)
+                })
     }
     
     private fun setCustomTheme() {
@@ -99,7 +101,7 @@ abstract class ThemedActivity:AppCompatActivity() {
         navigationBarColor = getCorrectNavbarColor()
     }
     
-    val isDarkTheme:Boolean
+    val isDarkTheme: Boolean
         get() {
             val c = Calendar.getInstance()
             val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
@@ -112,7 +114,7 @@ abstract class ThemedActivity:AppCompatActivity() {
         }
     
     @StyleRes
-    private fun getCustomTheme():Int {
+    private fun getCustomTheme(): Int {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
         return when (konfigs.currentTheme) {
@@ -127,10 +129,9 @@ abstract class ThemedActivity:AppCompatActivity() {
     }
     
     @ColorInt
-    private fun getCorrectNavbarColor():Int = when {
+    private fun getCorrectNavbarColor(): Int = when {
         konfigs.currentTheme == AMOLED -> getColorFromRes(android.R.color.black)
         konfigs.hasColoredNavbar -> primaryDarkColor
         else -> getColorFromRes(android.R.color.black)
     }
-    
 }

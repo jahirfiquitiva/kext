@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.ComponentName
@@ -25,21 +24,23 @@ import android.support.customtabs.CustomTabsServiceConnection
 import android.support.customtabs.CustomTabsSession
 import ca.allanwang.kau.utils.startLink
 
-fun Context.openLink(link:String) {
+fun Context.openLink(link: String) {
     val mClient = arrayOfNulls<CustomTabsClient>(1)
     val mCustomTabsSession = arrayOfNulls<CustomTabsSession>(1)
-    val mCustomTabsServiceConnection:CustomTabsServiceConnection
-    val customTabsIntent:CustomTabsIntent
+    val mCustomTabsServiceConnection: CustomTabsServiceConnection
+    val customTabsIntent: CustomTabsIntent
     
-    mCustomTabsServiceConnection = object:CustomTabsServiceConnection() {
-        override fun onCustomTabsServiceConnected(componentName:ComponentName,
-                                                  customTabsClient:CustomTabsClient) {
+    mCustomTabsServiceConnection = object : CustomTabsServiceConnection() {
+        override fun onCustomTabsServiceConnected(
+                componentName: ComponentName,
+                customTabsClient: CustomTabsClient
+                                                 ) {
             mClient[0] = customTabsClient
             mClient[0]?.warmup(0L)
             mCustomTabsSession[0] = mClient[0]?.newSession(null)
         }
         
-        override fun onServiceDisconnected(name:ComponentName) {
+        override fun onServiceDisconnected(name: ComponentName) {
             mClient[0] = null
         }
     }
@@ -51,7 +52,11 @@ fun Context.openLink(link:String) {
     
     try {
         customTabsIntent.launchUrl(this, Uri.parse(link))
-    } catch (ex:Exception) {
-        startLink(link)
+    } catch (ex: Exception) {
+        try {
+            startLink(link)
+        } catch (ex2: Exception) {
+            showToast("Could not open link: \'$link\'")
+        }
     }
 }

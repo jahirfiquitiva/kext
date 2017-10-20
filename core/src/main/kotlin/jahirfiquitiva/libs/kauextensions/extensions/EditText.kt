@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.support.design.widget.TextInputEditText
 import android.widget.EditText
 
-val EditText.value:String get() = text.toString().trim()
+val EditText.value: String
+    get() = text.toString().trim()
 
-val TextInputEditText.value:String get() = text.toString().trim()
+val TextInputEditText.value: String
+    get() = text.toString().trim()

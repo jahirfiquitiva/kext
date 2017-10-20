@@ -13,28 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.View
 
-class CustomAppBarBehavior(var scrollAllowed:Boolean = true):AppBarLayout.Behavior() {
+class CustomAppBarBehavior(var scrollAllowed: Boolean = true) : AppBarLayout.Behavior() {
     init {
         setDragCallback(null)
     }
     
-    override fun setDragCallback(ignored:AppBarLayout.Behavior.DragCallback?) {
-        super.setDragCallback(object:AppBarLayout.Behavior.DragCallback() {
-            override fun canDrag(appBarLayout:AppBarLayout):Boolean = scrollAllowed
-        })
+    override fun setDragCallback(ignored: AppBarLayout.Behavior.DragCallback?) {
+        super.setDragCallback(
+                object : AppBarLayout.Behavior.DragCallback() {
+                    override fun canDrag(appBarLayout: AppBarLayout): Boolean = scrollAllowed
+                })
     }
     
-    override fun onStartNestedScroll(parent:CoordinatorLayout, child:AppBarLayout,
-                                     directTargetChild:View, target:View, nestedScrollAxes:Int,
-                                     type:Int):Boolean {
-        return scrollAllowed && super.onStartNestedScroll(parent, child, directTargetChild,
-                                                          target, nestedScrollAxes, type)
+    override fun onStartNestedScroll(
+            parent: CoordinatorLayout, child: AppBarLayout,
+            directTargetChild: View, target: View, nestedScrollAxes: Int,
+            type: Int
+                                    ): Boolean {
+        return scrollAllowed && super.onStartNestedScroll(
+                parent, child, directTargetChild,
+                target, nestedScrollAxes, type)
     }
 }

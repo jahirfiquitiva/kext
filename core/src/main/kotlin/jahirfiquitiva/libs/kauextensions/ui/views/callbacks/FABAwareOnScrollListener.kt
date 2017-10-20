@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.views.callbacks
 
 import android.support.design.widget.FloatingActionButton
@@ -22,8 +21,10 @@ import ca.allanwang.kau.utils.isVisible
 import jahirfiquitiva.libs.kauextensions.extensions.isNotVisible
 
 open class FABAwareOnScrollListener(
-        private val fab:FloatingActionButton):RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView:RecyclerView?, dx:Int, dy:Int) {
+        private val fab: FloatingActionButton
+                                   ) : RecyclerView.OnScrollListener() {
+    
+    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         if (dy > 0 && fab.isVisible) {
             fab.hide()

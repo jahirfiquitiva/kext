@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.Context
@@ -21,10 +20,10 @@ import android.net.Uri
 import android.support.v4.content.FileProvider
 import java.io.File
 
-fun File.getUri(context:Context):Uri? {
+fun File.getUri(context: Context): Uri? {
     return try {
         FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e:Exception) {
+    } catch (e: Exception) {
         null
     }
 }

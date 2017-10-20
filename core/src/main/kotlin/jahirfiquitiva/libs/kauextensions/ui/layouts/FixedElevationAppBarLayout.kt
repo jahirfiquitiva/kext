@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
@@ -21,16 +20,16 @@ import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kauextensions.R
 
-open class FixedElevationAppBarLayout:DisableableAppBarLayout {
+open class FixedElevationAppBarLayout : DisableableAppBarLayout {
     
-    private var fElevation:Int = 4
+    private var fElevation: Int = 4
     
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         init(context, attributeSet)
     }
     
-    private fun init(context:Context, attrs:AttributeSet) {
+    private fun init(context: Context, attrs: AttributeSet) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
             fElevation = a.getDimensionPixelSize(
@@ -42,5 +41,5 @@ open class FixedElevationAppBarLayout:DisableableAppBarLayout {
         }
     }
     
-    override fun setElevation(elevation:Float) = super.setElevation(fElevation.toFloat())
+    override fun setElevation(elevation: Float) = super.setElevation(fElevation.toFloat())
 }

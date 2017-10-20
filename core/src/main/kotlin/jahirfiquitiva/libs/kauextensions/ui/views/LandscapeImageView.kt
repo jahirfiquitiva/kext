@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.views
 
 import android.content.Context
@@ -21,21 +20,21 @@ import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import jahirfiquitiva.libs.kauextensions.R
 
-open class LandscapeImageView:AppCompatImageView {
+open class LandscapeImageView : AppCompatImageView {
     
-    private var heightDivider:Float = 3F
+    private var heightDivider: Float = 3F
     
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         init(context, attributeSet)
     }
     
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr) {
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
+            : super(context, attributeSet, defStyleAttr) {
         init(context, attributeSet)
     }
     
-    private fun init(context:Context, attributeSet:AttributeSet) {
+    private fun init(context: Context, attributeSet: AttributeSet) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.LandscapeImageView, 0, 0)
         try {
             heightDivider = a.getFloat(R.styleable.LandscapeImageView_heightDivider, 3F)
@@ -44,7 +43,7 @@ open class LandscapeImageView:AppCompatImageView {
         }
     }
     
-    override fun onMeasure(widthMeasureSpec:Int, heightMeasureSpec:Int) {
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         setMeasuredDimension(measuredWidth, (measuredWidth / heightDivider).toInt())
     }

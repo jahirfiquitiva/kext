@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.ContentResolver
@@ -26,22 +25,23 @@ import java.io.FileOutputStream
 
 fun Bitmap.isColorDark() = !isColorLight()
 
-fun Bitmap.isColorLight():Boolean = generatePalette().isColorLight()
+fun Bitmap.isColorLight(): Boolean = generatePalette().isColorLight()
 
-fun Bitmap.generatePalette(resizeArea:Int = -1):Palette =
+fun Bitmap.generatePalette(resizeArea: Int = -1): Palette =
         Palette.from(this).resizeBitmapArea(resizeArea).generate()
 
-val Bitmap.bestSwatch:Palette.Swatch?
+val Bitmap.bestSwatch: Palette.Swatch?
     get() = generatePalette().bestSwatch
 
-fun Bitmap.getUri(context:Context, name:String):Uri? {
+fun Bitmap.getUri(context: Context, name: String): Uri? {
     val iconFile = File(context.cacheDir, name + ".png")
     val fos = FileOutputStream(iconFile)
     compress(Bitmap.CompressFormat.PNG, 100, fos)
     fos.flush()
     fos.close()
     return iconFile.getUri(context) ?: Uri.fromFile(iconFile) ?:
-            name.getIconResource(context).getUriFromResource(context) ?:
-            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
-                              "/" + name.getIconResource(context).toString())
+           name.getIconResource(context).getUriFromResource(context) ?:
+           Uri.parse(
+                   ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
+                   "/" + name.getIconResource(context).toString())
 }
