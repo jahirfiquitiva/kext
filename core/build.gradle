@@ -18,8 +18,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion project.ext.compileSdk
-    buildToolsVersion project.ext.buildTools
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     lintOptions {
         abortOnError false
@@ -29,10 +29,10 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion project.ext.minSdk
-        targetSdkVersion project.ext.targetSdk
-        versionCode project.ext.versionCode
-        versionName project.ext.versionName
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
     }
 
     buildTypes {
@@ -54,17 +54,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    compile 'com.android.support:support-v13:' + project.ext.supportLibs
-    compile 'com.android.support:appcompat-v7:' + project.ext.supportLibs
-    compile 'com.android.support:recyclerview-v7:' + project.ext.supportLibs
-    compile 'com.android.support:cardview-v7:' + project.ext.supportLibs
-    compile 'com.android.support:palette-v7:' + project.ext.supportLibs
-    compile 'com.android.support:design:' + project.ext.supportLibs
-    compile 'com.android.support:customtabs:' + project.ext.supportLibs
+    compile libraries.support
+    compile libraries.appcompat
+    compile libraries.recyclerview
+    compile libraries.cardview
+    compile libraries.palette
+    compile libraries.design
+    compile libraries.customtabs
     // Kotlin
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:' + project.ext.kotlin
+    compile libraries.kotlin
     // KAU
-    compile('ca.allanwang.kau:core:' + project.ext.kau + '@aar') {
+    compile(libraries.kau) {
         transitive = true
         exclude group: 'com.android.support.constraint', module: 'constraint-layout'
     }

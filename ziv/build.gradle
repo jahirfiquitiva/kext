@@ -17,8 +17,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion project.ext.compileSdk
-    buildToolsVersion project.ext.buildTools
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     lintOptions {
         abortOnError false
@@ -28,10 +28,10 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion project.ext.minSdk
-        targetSdkVersion project.ext.targetSdk
-        versionCode project.ext.versionCode
-        versionName project.ext.versionName
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
     }
 
     buildTypes {
@@ -47,7 +47,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    compile 'com.android.support:appcompat-v7:' + project.ext.supportLibs
+    compile libraries.appcompat
 }
 
 tasks.whenTaskAdded { task ->
