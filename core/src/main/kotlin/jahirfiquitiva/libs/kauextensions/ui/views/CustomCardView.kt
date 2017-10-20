@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.views
 
 import android.content.Context
@@ -21,13 +20,13 @@ import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 
-open class CustomCardView:CardView {
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
+open class CustomCardView : CardView {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
+            : super(context, attributeSet, defStyleAttr)
     
-    override fun setBackgroundColor(color:Int) {
+    override fun setBackgroundColor(color: Int) {
         super.setBackgroundColor(context.cardBackgroundColor)
     }
 }

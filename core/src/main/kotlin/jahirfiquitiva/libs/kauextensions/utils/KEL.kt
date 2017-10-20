@@ -13,20 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package jahirfiquitiva.libs.kauextensions.utils
 
-package jahirfiquitiva.libs.kauextensions.extensions
+import ca.allanwang.kau.logging.KauLogger
 
-import android.content.Context
-import android.util.Log
-
-fun Context.printVerbose(verbose:String) = Log.v(getLogTag(), verbose)
-
-fun Context.printDebug(debug:String) = Log.d(getLogTag(), debug)
-
-fun Context.printInfo(info:String) = Log.i(getLogTag(), info)
-
-fun Context.printWarning(warning:String) = Log.w(getLogTag(), warning)
-
-fun Context.printError(error:String) = Log.e(getLogTag(), error)
-
-fun Context.printError(error:String, th:Throwable) = Log.e(getLogTag(), error, th)
+object KEL : KauLogger("KauExtensions")

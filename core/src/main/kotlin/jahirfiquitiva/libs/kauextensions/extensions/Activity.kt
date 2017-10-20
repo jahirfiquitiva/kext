@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.app.Activity
@@ -31,34 +30,32 @@ import ca.allanwang.kau.utils.statusBarLight
  * https://medium.com/@quiro91/improving-findviewbyid-with-kotlin-4cf2f8f779bb
  */
 @Suppress("UNCHECKED_CAST")
-fun <T:View> Activity.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
+inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T> =
+        lazy { findViewById<T>(res) }
 
 @Suppress("UNCHECKED_CAST")
-fun <T:View> Fragment.bind(@IdRes res:Int):Lazy<T>? =
-        view?.let { lazyAndroid { it.findViewById<T>(res) } }
+inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T>? =
+        view?.let { lazy { it.findViewById<T>(res) } }
 
 @Suppress("UNCHECKED_CAST")
-fun <T:View> View.bind(@IdRes res:Int):Lazy<T> = lazyAndroid { findViewById<T>(res) }
-
-/**
- * Credits: Juan Ignacio Saravia
- * https://proandroiddev.com/kotlin-faster-lazy-for-android-7328ec8d8d57
- */
-fun <T> lazyAndroid(initializer:() -> T):Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
+inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T> =
+        lazy { findViewById<T>(res) }
 
 @Deprecated("Use \'enableTranslucentStatusBar\'", ReplaceWith("enableTranslucentStatusBar"))
-fun Activity.setupStatusBarStyle(translucent:Boolean = true,
-                                 lightMode:Boolean = primaryDarkColor.isColorLight()) {
+fun Activity.setupStatusBarStyle(
+        translucent: Boolean = true,
+        lightMode: Boolean = primaryDarkColor.isColorLight()
+                                ) {
     enableTranslucentStatusBar(translucent)
     statusBarLight = lightMode
 }
 
-fun Activity.enableTranslucentStatusBar(enable:Boolean = true) {
+fun Activity.enableTranslucentStatusBar(enable: Boolean = true) {
     if (Build.VERSION.SDK_INT >= 21) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     }
     if (Build.VERSION.SDK_INT >= 19) {
-        val params:WindowManager.LayoutParams = window.attributes
+        val params: WindowManager.LayoutParams = window.attributes
         if (enable) {
             params.flags = params.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
         } else {
@@ -66,7 +63,5 @@ fun Activity.enableTranslucentStatusBar(enable:Boolean = true) {
         }
         window.attributes = params
     }
-    if (Build.VERSION.SDK_INT >= 21) {
-        statusBarColor = Color.TRANSPARENT
-    }
+    if (Build.VERSION.SDK_INT >= 21) statusBarColor = Color.TRANSPARENT
 }

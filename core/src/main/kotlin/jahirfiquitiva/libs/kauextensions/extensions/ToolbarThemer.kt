@@ -37,15 +37,17 @@ import java.lang.reflect.Field
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-fun round(value:Double, places:Int):Double {
+fun round(value: Double, places: Int): Double {
     if (places < 0) throw IllegalArgumentException()
     var bd = BigDecimal(value)
     bd = bd.setScale(places, RoundingMode.HALF_UP)
     return bd.toDouble()
 }
 
-fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleColor,
-                 @ColorInt iconsColor:Int = titleColor, forceShowIcons:Boolean = false) {
+fun Toolbar.tint(
+        @ColorInt titleColor: Int, @ColorInt subtitleColor: Int = titleColor,
+        @ColorInt iconsColor: Int = titleColor, forceShowIcons: Boolean = false
+                ) {
     
     (0..childCount).forEach { i ->
         val v = getChildAt(i)
@@ -85,7 +87,7 @@ fun Toolbar.tint(@ColorInt titleColor:Int, @ColorInt subtitleColor:Int = titleCo
     tintMenu(iconsColor, forceShowIcons)
 }
 
-fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
+fun Toolbar.tintMenu(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     menu?.let {
         // The collapse icon displays when action views are expanded (e.g. SearchView)
         try {
@@ -93,7 +95,7 @@ fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
             field.isAccessible = true
             val collapseIcon = field.get(this) as Drawable
             field.set(this, collapseIcon.applyColorFilter(iconsColor))
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         
@@ -110,19 +112,19 @@ fun Toolbar.tintMenu(@ColorInt iconsColor:Int, forceShowIcons:Boolean = false) {
         // Display icons for easy UI understanding
         if (forceShowIcons) {
             try {
-                val MenuBuilder = it.javaClass
-                val setOptionalIconsVisible = MenuBuilder.getDeclaredMethod(
+                val menuBuilder = it.javaClass
+                val setOptionalIconsVisible = menuBuilder.getDeclaredMethod(
                         "setOptionalIconsVisible",
                         Boolean::class.javaPrimitiveType)
                 if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
                 setOptionalIconsVisible.invoke(it, true)
-            } catch (ignored:Exception) {
+            } catch (ignored: Exception) {
             }
         }
     }
 }
 
-private fun Toolbar.setOverflowButtonColor(@ColorInt color:Int) {
+private fun Toolbar.setOverflowButtonColor(@ColorInt color: Int) {
     @SuppressLint("PrivateResource")
     val overflowDescription = resources.getString(R.string.abc_action_menu_overflow_description)
     val outViews = ArrayList<View>()
@@ -132,7 +134,7 @@ private fun Toolbar.setOverflowButtonColor(@ColorInt color:Int) {
     overflow.setImageDrawable(overflow.drawable.applyColorFilter(color))
 }
 
-fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintColor) {
+fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintColor) {
     val cls = javaClass
     try {
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
@@ -159,18 +161,18 @@ fun SearchView.tintWith(@ColorInt tintColor:Int, @ColorInt hintColor:Int = tintC
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
         field.set(this, (field.get(this) as Drawable).applyColorFilter(tintColor))
-    } catch (e:Exception) {
+    } catch (e: Exception) {
         e.printStackTrace()
     }
 }
 
-fun ThemedActivity.updateStatusBarStyle(state:CollapsingToolbarCallback.State) {
+fun ThemedActivity.updateStatusBarStyle(state: CollapsingToolbarCallback.State) {
     if (autoStatusBarTint())
         statusBarLight = if (state === CollapsingToolbarCallback.State.COLLAPSED)
             primaryDarkColor.isColorLight() else false
 }
 
-private fun tintImageView(target:Any, field:Field, tintColor:Int) {
+private fun tintImageView(target: Any, field: Field, tintColor: Int) {
     field.isAccessible = true
     val imageView = field.get(target) as ImageView
     if (imageView.drawable != null) {
@@ -178,7 +180,7 @@ private fun tintImageView(target:Any, field:Field, tintColor:Int) {
     }
 }
 
-private fun setCursorTint(editText:EditText, @ColorInt color:Int) {
+private fun setCursorTint(editText: EditText, @ColorInt color: Int) {
     try {
         val fCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
         fCursorDrawableRes.isAccessible = true
@@ -190,12 +192,14 @@ private fun setCursorTint(editText:EditText, @ColorInt color:Int) {
         val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
         fCursorDrawable.isAccessible = true
         val drawables = arrayOfNulls<Drawable>(2)
-        drawables[0] = ContextCompat.getDrawable(editText.context,
-                                                 mCursorDrawableRes)?.applyColorFilter(color)
-        drawables[1] = ContextCompat.getDrawable(editText.context,
-                                                 mCursorDrawableRes)?.applyColorFilter(color)
+        drawables[0] = ContextCompat.getDrawable(
+                editText.context,
+                mCursorDrawableRes)?.applyColorFilter(color)
+        drawables[1] = ContextCompat.getDrawable(
+                editText.context,
+                mCursorDrawableRes)?.applyColorFilter(color)
         fCursorDrawable.set(editor, drawables)
-    } catch (e:Exception) {
+    } catch (e: Exception) {
         e.printStackTrace()
     }
 }

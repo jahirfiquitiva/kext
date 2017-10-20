@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.view.Menu
 
-fun Menu.changeOptionVisibility(id:Int, visible:Boolean) {
+fun Menu.changeOptionVisibility(id: Int, visible: Boolean) {
     findItem(id)?.isVisible = visible
 }
 
-fun Menu.setItemTitle(id:Int, title:String) {
+fun Menu.setItemTitle(id: Int, title: String) {
     findItem(id)?.title = title
 }
 
-fun Menu.setOptionIcon(id:Int, @DrawableRes iconRes:Int) {
+fun Menu.setOptionIcon(id: Int, @DrawableRes iconRes: Int) {
     findItem(id)?.setIcon(iconRes)
 }
 
-fun Menu.setOptionIcon(id:Int, iconRes:Drawable) {
+fun Menu.setOptionIcon(id: Int, iconRes: Drawable) {
     findItem(id)?.icon = iconRes
 }

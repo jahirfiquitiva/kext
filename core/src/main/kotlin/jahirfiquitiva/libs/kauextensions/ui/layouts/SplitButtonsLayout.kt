@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
@@ -24,30 +23,30 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.inflateView
-import jahirfiquitiva.libs.kauextensions.extensions.printError
+import jahirfiquitiva.libs.kauextensions.extensions.inflate
+import jahirfiquitiva.libs.kauextensions.utils.KEL
 
 /**
  * Originally created by Aidan Follestad
  */
-open class SplitButtonsLayout:LinearLayout {
+open class SplitButtonsLayout : LinearLayout {
     
-    var buttonCount:Int = 0
+    var buttonCount: Int = 0
         set(@IntRange(from = 0, to = 4) value) {
             field = value
             weightSum = value.toFloat()
         }
     
-    constructor(context:Context):super(context) {
+    constructor(context: Context) : super(context) {
         init()
     }
     
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet) {
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         init()
     }
     
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr) {
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
+            : super(context, attributeSet, defStyleAttr) {
         init()
     }
     
@@ -60,17 +59,20 @@ open class SplitButtonsLayout:LinearLayout {
         }
     }
     
-    override fun setOrientation(orientation:Int) = super.setOrientation(HORIZONTAL)
+    override fun setOrientation(orientation: Int) = super.setOrientation(HORIZONTAL)
     
-    fun addButton(text:String, link:String, fillAvailableSpace:Boolean = false) {
-        if (hasAllButtons()) context.printError("$buttonCount buttons already added")
-        val button:AppCompatButton = context.inflateView(R.layout.item_split_button,
-                                                         this) as AppCompatButton
-        val lParams:LayoutParams = if (fillAvailableSpace) {
+    fun addButton(text: String, link: String, fillAvailableSpace: Boolean = false) {
+        if (hasAllButtons()) {
+            KEL.e("Cannot add more buttons. $buttonCount buttons have already been added")
+            return
+        }
+        val button: AppCompatButton = context.inflate(R.layout.item_split_button, this)
+        val lParams: LayoutParams = if (fillAvailableSpace) {
             LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         } else {
-            LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                         ViewGroup.LayoutParams.WRAP_CONTENT)
+            LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT)
         }
         button.maxLines = 1
         button.ellipsize = TextUtils.TruncateAt.END
@@ -80,5 +82,5 @@ open class SplitButtonsLayout:LinearLayout {
         addView(button, lParams)
     }
     
-    fun hasAllButtons():Boolean = childCount == buttonCount
+    fun hasAllButtons(): Boolean = childCount == buttonCount
 }

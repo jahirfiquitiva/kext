@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.views.callbacks
 
 import android.support.design.widget.AppBarLayout
 
-abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
+abstract class CollapsingToolbarCallback : AppBarLayout.OnOffsetChangedListener {
     
     var currentState = State.IDLE
     
-    override fun onOffsetChanged(appBarLayout:AppBarLayout, verticalOffset:Int) {
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         onVerticalOffsetChanged(appBarLayout, Math.abs(verticalOffset))
         currentState = when {
             verticalOffset == 0 -> {
@@ -40,9 +39,9 @@ abstract class CollapsingToolbarCallback:AppBarLayout.OnOffsetChangedListener {
         }
     }
     
-    open fun onStateChanged(appBar:AppBarLayout, state:State) {}
+    open fun onStateChanged(appBar: AppBarLayout, state: State) {}
     
-    open fun onVerticalOffsetChanged(appBar:AppBarLayout, verticalOffset:Int) {}
+    open fun onVerticalOffsetChanged(appBar: AppBarLayout, verticalOffset: Int) {}
     
     enum class State {
         EXPANDED, COLLAPSED, IDLE

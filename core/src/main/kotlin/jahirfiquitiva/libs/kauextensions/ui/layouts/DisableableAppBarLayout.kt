@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
@@ -22,25 +21,25 @@ import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 
 @CoordinatorLayout.DefaultBehavior(CustomAppBarBehavior::class)
-open class DisableableAppBarLayout:AppBarLayout {
+open class DisableableAppBarLayout : AppBarLayout {
     
-    var scrollAllowed:Boolean = true
+    var scrollAllowed: Boolean = true
         set(value) {
             field = value
             try {
                 val params = layoutParams as CoordinatorLayout.LayoutParams
                 params.behavior = CustomAppBarBehavior(value)
-            } catch (e:Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     
-    var isExpandedNow:Boolean = false
+    var isExpandedNow: Boolean = false
     
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
     
-    override fun setExpanded(expanded:Boolean, animate:Boolean) {
+    override fun setExpanded(expanded: Boolean, animate: Boolean) {
         super.setExpanded(expanded, animate)
         isExpandedNow = expanded
     }

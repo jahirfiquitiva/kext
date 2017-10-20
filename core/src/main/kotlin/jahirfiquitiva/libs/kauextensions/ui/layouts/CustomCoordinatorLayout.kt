@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
@@ -22,9 +21,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
-open class CustomCoordinatorLayout:CoordinatorLayout {
-    @Deprecated("This variable has been changed in favor of \'scrollAllowed\'",
-                ReplaceWith("scrollAllowed"))
+open class CustomCoordinatorLayout : CoordinatorLayout {
+    @Deprecated(
+            "This variable has been changed in favor of \'scrollAllowed\'",
+            ReplaceWith("scrollAllowed"))
     var allowScroll
         get() = scrollAllowed
         set(value) {
@@ -33,14 +33,14 @@ open class CustomCoordinatorLayout:CoordinatorLayout {
     
     var scrollAllowed = true
     
-    constructor(context:Context):super(context)
-    constructor(context:Context, attributeSet:AttributeSet):super(context, attributeSet)
-    constructor(context:Context, attributeSet:AttributeSet, defStyleAttr:Int)
-            :super(context, attributeSet, defStyleAttr)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
+            : super(context, attributeSet, defStyleAttr)
     
-    override fun onStartNestedScroll(child:View, target:View, nestedScrollAxes:Int) =
+    override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int) =
             scrollAllowed && super.onStartNestedScroll(child, target, nestedScrollAxes)
     
-    override fun onInterceptTouchEvent(ev:MotionEvent?):Boolean =
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean =
             scrollAllowed && super.onInterceptTouchEvent(ev)
 }

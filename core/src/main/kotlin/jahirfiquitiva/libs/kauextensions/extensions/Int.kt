@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.ContentResolver
@@ -26,11 +25,11 @@ import ca.allanwang.kau.utils.isColorDark
 import ca.allanwang.kau.utils.withAlpha
 
 @ColorInt
-fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) factor:Float):Int =
+fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int =
         withAlpha((255 * factor).toInt())
 
 @ColorInt
-fun Int.shiftColor(@FloatRange(from = 0.0, to = 2.0) by:Float):Int {
+fun Int.shiftColor(@FloatRange(from = 0.0, to = 2.0) by: Float): Int {
     if (by == 1f) return this
     val alpha = Color.alpha(this)
     val hsv = FloatArray(3)
@@ -40,15 +39,16 @@ fun Int.shiftColor(@FloatRange(from = 0.0, to = 2.0) by:Float):Int {
 }
 
 @ColorInt
-fun Int.stripAlpha():Int = Color.rgb(Color.red(this), Color.green(this), Color.blue(this))
+fun Int.stripAlpha(): Int = Color.rgb(Color.red(this), Color.green(this), Color.blue(this))
 
-fun Int.isColorLight(darkness:Float = 0.5F):Boolean = !isColorDark(darkness)
+fun Int.isColorLight(darkness: Float = 0.5F): Boolean = !isColorDark(darkness)
 
-val Int.isColorLight:Boolean
+val Int.isColorLight: Boolean
     get() = !isColorDark
 
-fun Int.getUriFromResource(context:Context):Uri =
-        Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
-                          context.resources.getResourcePackageName(this) + '/' +
-                          context.resources.getResourceTypeName(this) + '/' +
-                          context.resources.getResourceEntryName(this))
+fun Int.getUriFromResource(context: Context): Uri =
+        Uri.parse(
+                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                context.resources.getResourcePackageName(this) + '/' +
+                context.resources.getResourceTypeName(this) + '/' +
+                context.resources.getResourceEntryName(this))

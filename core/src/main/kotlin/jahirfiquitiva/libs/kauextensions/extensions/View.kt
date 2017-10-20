@@ -18,11 +18,11 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.view.View
 
-inline val View.isNotVisible:Boolean
+inline val View.isNotVisible: Boolean
     get() = visibility != View.VISIBLE
 
-inline val View.isNotInvisible:Boolean
+inline val View.isNotInvisible: Boolean
     get() = visibility != View.INVISIBLE
 
-inline val View.isNotGone:Boolean
+inline val View.isNotGone: Boolean
     get() = visibility != View.GONE

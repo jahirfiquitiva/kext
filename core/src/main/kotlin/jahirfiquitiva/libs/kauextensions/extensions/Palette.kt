@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.support.v7.graphics.Palette
@@ -23,7 +22,7 @@ fun Palette.isColorDark() = !isColorLight()
 
 fun Palette.isColorLight() = bestSwatch?.rgb?.isColorLight() ?: false
 
-val Palette.bestSwatch:Palette.Swatch?
+val Palette.bestSwatch: Palette.Swatch?
     get() {
         dominantSwatch?.let { return it }
         vibrantSwatch?.let { return it }
@@ -36,7 +35,7 @@ val Palette.bestSwatch:Palette.Swatch?
         return null
     }
 
-private fun getBestPaletteSwatch(swatches:List<Palette.Swatch>):Palette.Swatch =
+private fun getBestPaletteSwatch(swatches: List<Palette.Swatch>): Palette.Swatch =
         Collections.max<Palette.Swatch>(swatches) { opt1, opt2 ->
             val a = opt1?.population ?: 0
             val b = opt2?.population ?: 0
