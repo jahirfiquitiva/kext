@@ -27,14 +27,16 @@ open class UrlRequest<T>(private val url: String, private val debug: Boolean = f
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             var response: Response? = null
+            var responseBody: ResponseBody? = null
             try {
                 response = client.newCall(request).execute()
-                return response?.body()
+                responseBody = response?.body()
             } catch (ignored: Exception) {
                 if (debug) AHL.e("Error! ${ignored.message}")
             } finally {
                 response?.close()
             }
+            return responseBody
         } catch (ignored: Exception) {
             if (debug) AHL.e("Error! ${ignored.message}")
         }
