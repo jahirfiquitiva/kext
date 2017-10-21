@@ -17,7 +17,7 @@
 package jahirfiquitiva.libs.archhelpers.viewmodels
 
 abstract class ListViewModel<in Parameter, Result> :
-        BasicViewModel<Parameter, MutableList<Result>>() {
+        BasicViewModel<Parameter, ArrayList<Result>>() {
     
     override val isOldDataValid: Boolean = getData()?.let { it.size > 0 } ?: false
 }
