@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.graphics.Palette
-import jahirfiquitiva.libs.kauextensions.helpers.KEL
 import java.io.File
 import java.io.FileOutputStream
 
@@ -67,14 +66,14 @@ fun decodeBitmapWithSize(res: Resources, resId: Int, width: Int, height: Int): B
     return BitmapFactory.decodeResource(res, resId, options)
 }
 
-private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int,
-                                  reqHeight: Int): Int {
+private fun calculateInSampleSize(options: BitmapFactory.Options, w: Int, h: Int): Int {
     // Raw height and width of image
     val height = options.outHeight
     val width = options.outWidth
     var inSampleSize = 1
     
-    KEL.d("Required dimensions: $reqWidth x $reqHeight.\nRaw dimensions: $height x $width")
+    val reqWidth = if (w <= 0) width else w
+    val reqHeight = if (h <= 0) height else h
     
     if (height > reqHeight || width > reqWidth) {
         
