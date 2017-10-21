@@ -36,8 +36,7 @@ ext.versions = [
         // Dependencies
         supportLibs   : '26.1.0',
         kau           : '3.4.4',
-        archComponents: '1.0.0-rc1',
-        okhttp        : '3.9.0'
+        archComponents: '1.0.0-rc1'
 ]
 
 ext.gradlePlugins = [
@@ -62,9 +61,5 @@ ext.libraries = [
         kau              : 'ca.allanwang.kau:core:' + versions.kau + '@aar',
         // Architecture Components
         lifecycle        : 'android.arch.lifecycle:extensions:' + versions.archComponents,
-        room             : 'android.arch.persistence.room:runtime:' + versions.archComponents,
-        lifecycleCompiler: 'android.arch.lifecycle:compiler:' + versions.archComponents,
-        roomCompiler     : 'android.arch.persistence.room:compiler:' + versions.archComponents,
-        // OkHttp
-        okHttp           : 'com.squareup.okhttp3:okhttp:' + versions.okhttp
+        lifecycleCompiler: 'android.arch.lifecycle:compiler:' + versions.archComponents
 ]
