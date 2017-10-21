@@ -13,7 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-
 <manifest xmlns:tools="http://schemas.android.com/tools"
           package="jahirfiquitiva.libs.kauextensions">
 

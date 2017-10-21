@@ -35,7 +35,7 @@ import jahirfiquitiva.libs.kauextensions.helpers.AUTO_DARK
 import jahirfiquitiva.libs.kauextensions.helpers.DARK
 import jahirfiquitiva.libs.kauextensions.helpers.LIGHT
 import jahirfiquitiva.libs.kauextensions.helpers.TRANSPARENT
-import java.util.*
+import java.util.Calendar
 
 abstract class ThemedActivity : AppCompatActivity() {
     private var lastTheme = 0

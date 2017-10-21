@@ -16,7 +16,7 @@
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.support.v7.graphics.Palette
-import java.util.*
+import java.util.Collections
 
 fun Palette.isColorDark() = !isColorLight()
 
