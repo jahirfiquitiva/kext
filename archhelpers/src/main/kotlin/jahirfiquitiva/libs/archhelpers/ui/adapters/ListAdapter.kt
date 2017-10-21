@@ -28,6 +28,10 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
     
     private var actualItemCount = maxLoad
     
+    private fun resetItemCount() {
+        actualItemCount = maxLoad
+    }
+    
     fun allowMoreItemsLoad() {
         val prevSize = itemCount
         val newCount = actualItemCount + maxLoad
@@ -83,24 +87,28 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
     override fun addAll(newItems: ArrayList<T>) {
         val prevSize = itemCount
         list.addAll(newItems)
+        resetItemCount()
         notifyItemRangeInserted(prevSize, newItems.size)
     }
     
     override fun clearList() {
         val size = itemCount
         list.clear()
+        resetItemCount()
         notifyItemRangeRemoved(0, size)
     }
     
     override fun setItems(newItems: ArrayList<T>) {
         list.clear()
         list.addAll(newItems)
+        resetItemCount()
         notifyDataSetChanged()
     }
     
     override fun addItem(newItem: T) {
         val prevSize = itemCount
         list.add(newItem)
+        resetItemCount()
         notifyItemRangeInserted(prevSize, itemCount)
     }
     
@@ -109,6 +117,7 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
         val index = list.indexOf(item)
         if (index < 0) return
         list.remove(item)
+        resetItemCount()
         notifyItemRangeRemoved(index, prevSize)
     }
     
@@ -116,6 +125,7 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
         val prevSize = itemCount
         val index = list.indexOf(item)
         if (index < 0) return
+        resetItemCount()
         notifyItemRangeChanged(index, prevSize)
     }
     

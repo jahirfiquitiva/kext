@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.archhelpers.viewmodels
 
 abstract class ListViewModel<in Parameter, Result> :
         BasicViewModel<Parameter, ArrayList<Result>>() {
-    
     override val isOldDataValid: Boolean = getData()?.let { it.size > 0 } ?: false
 }
