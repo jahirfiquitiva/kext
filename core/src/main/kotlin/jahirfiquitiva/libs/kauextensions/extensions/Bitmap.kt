@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.graphics.Palette
+import jahirfiquitiva.libs.kauextensions.helpers.KEL
 import java.io.File
 import java.io.FileOutputStream
 
@@ -72,6 +73,8 @@ private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int,
     val height = options.outHeight
     val width = options.outWidth
     var inSampleSize = 1
+    
+    KEL.d("Required dimensions: $reqWidth x $reqHeight.\nRaw dimensions: $height x $width")
     
     if (height > reqHeight || width > reqWidth) {
         
