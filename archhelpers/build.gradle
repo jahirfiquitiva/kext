@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -36,6 +38,7 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
         versionName versions.versionName
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -63,8 +66,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // Android Support Libraries
-    compile libraries.appcompat
+    // Core
+    compile project(path: ':core')
+    // Kotlin
+    compile libraries.kotlin
+    // Architecture Components
+    compile libraries.lifecycle
+    compile libraries.room
+    kapt libraries.lifecycleCompiler
+    kapt libraries.roomCompiler
+    // OkHttp
+    compile libraries.okHttp
 }
 
 tasks.whenTaskAdded { task ->

@@ -24,7 +24,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.inflate
-import jahirfiquitiva.libs.kauextensions.utils.KEL
+import jahirfiquitiva.libs.kauextensions.helpers.KEL
 
 /**
  * Originally created by Aidan Follestad

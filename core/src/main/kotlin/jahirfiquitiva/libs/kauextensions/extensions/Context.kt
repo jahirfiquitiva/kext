@@ -17,9 +17,11 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Looper
 import android.support.annotation.ArrayRes
 import android.support.annotation.AttrRes
@@ -38,9 +40,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import ca.allanwang.kau.utils.dimenPixelSize
 import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.utils.Konfigurations
+import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
 
 val Context.isFirstRunEver: Boolean
     get() {
@@ -173,3 +176,32 @@ val Context.currentRotation: Int
         val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
         return display.rotation * 90
     }
+
+val Context.isLowRamDevice: Boolean
+    get() {
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val lowRAMDevice: Boolean
+        lowRAMDevice = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            activityManager.isLowRamDevice
+        } else {
+            val memInfo = ActivityManager.MemoryInfo()
+            activityManager.getMemoryInfo(memInfo)
+            memInfo.lowMemory
+        }
+        return lowRAMDevice
+    }
+
+fun Context.getStatusBarHeight(force: Boolean = false): Int {
+    var result = 0
+    val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resourceId > 0) result = resources.getDimensionPixelSize(resourceId)
+    
+    val dimenResult = dimenPixelSize(R.dimen.status_bar_height)
+    //if our dimension is 0 return 0 because on those devices we don't need the height
+    return if (dimenResult == 0 && !force) {
+        0
+    } else {
+        //if our dimens is > 0 && the result == 0 use the dimenResult else the result
+        if (result == 0) dimenResult else result
+    }
+}

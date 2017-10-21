@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.archhelpers.ui.adapters.presenters
 
-import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
-
-fun File.getUri(context: Context): Uri? {
-    return try {
-        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e: Exception) {
-        null
+interface ListAdapterPresenter<T> {
+    fun addAll(newItems: ArrayList<T>)
+    fun clearList()
+    fun setItems(newItems: ArrayList<T>)
+    fun addItem(newItem: T)
+    fun removeItem(item: T)
+    fun updateItem(item: T)
+    
+    operator fun get(index: Int): T
+    
+    operator fun plus(newItems: ArrayList<T>) {
+        addAll(newItems)
     }
-}
-
-fun File.deleteEverything() {
-    if (isDirectory) {
-        list().forEach {
-            File(this, it).deleteEverything()
-        }
-    } else {
-        delete()
+    
+    operator fun plusAssign(newItem: T) {
+        addItem(newItem)
+    }
+    
+    operator fun minusAssign(item: T) {
+        removeItem(item)
     }
 }

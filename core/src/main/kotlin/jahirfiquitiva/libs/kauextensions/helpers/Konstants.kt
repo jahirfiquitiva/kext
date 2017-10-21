@@ -13,27 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kauextensions.helpers
 
-import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
+// Shared Preferences
+const val APP_RUN_COUNT = "app_run_count"
+const val LAST_VERSION = "last_version"
+const val THEME = "theme"
+const val COLORED_NAVBAR = "colored_navbar"
+const val ANIMATIONS_ENABLED = "animations_enabled"
 
-fun File.getUri(context: Context): Uri? {
-    return try {
-        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e: Exception) {
-        null
-    }
-}
-
-fun File.deleteEverything() {
-    if (isDirectory) {
-        list().forEach {
-            File(this, it).deleteEverything()
-        }
-    } else {
-        delete()
-    }
-}
+// Themes
+const val LIGHT = 0
+const val DARK = 1
+const val AMOLED = 2
+const val TRANSPARENT = 3
+const val AUTO_DARK = 4
+const val AUTO_AMOLED = 5

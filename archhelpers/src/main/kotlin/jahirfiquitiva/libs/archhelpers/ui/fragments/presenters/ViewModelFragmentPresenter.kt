@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.archhelpers.ui.fragments.presenters
 
-import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.OnLifecycleEvent
+import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
 
-fun File.getUri(context: Context): Uri? {
-    return try {
-        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e: Exception) {
-        null
-    }
-}
-
-fun File.deleteEverything() {
-    if (isDirectory) {
-        list().forEach {
-            File(this, it).deleteEverything()
-        }
-    } else {
-        delete()
-    }
+interface ViewModelFragmentPresenter<in T> :
+        FragmentPresenter<T> {
+    fun initViewModel()
+    fun registerObserver()
+    fun loadDataFromViewModel()
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun unregisterObserver()
 }

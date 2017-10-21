@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -22,10 +21,15 @@ android {
     buildToolsVersion versions.buildTools
 
     lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
-        disable 'MissingTranslation'
-        disable 'GoogleAppIndexingWarning'
+        warningsAsErrors true
+        disable 'MissingTranslation',
+                'GoogleAppIndexingWarning',
+                'UnusedResources',
+                'ContentDescription',
+                'RtlSymmetry',
+                'RtlHardcoded',
+                'RtlEnabled',
+                'Overdraw'
     }
 
     defaultConfig {
@@ -33,21 +37,29 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
         versionName versions.versionName
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         release {
+            debuggable false
+            zipAlignEnabled true
             minifyEnabled false
             shrinkResources false
-            proguardFiles 'proguard-android-optimize.pro', 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-android-optimize.pro', 'proguard-rules.pro'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
         }
     }
 
     sourceSets {
-        main {
-            java.srcDirs += 'src/main/kotlin'
-        }
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/core_debug.kotlin_module'
+        pickFirst 'META-INF/core_release.kotlin_module'
+        pickFirst 'META-INF/library_debug.kotlin_module'
+        pickFirst 'META-INF/library_release.kotlin_module'
     }
 }
 

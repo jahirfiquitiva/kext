@@ -13,27 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
 
-import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
+package jahirfiquitiva.libs.archhelpers.ui.viewholders.presenters
 
-fun File.getUri(context: Context): Uri? {
-    return try {
-        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e: Exception) {
-        null
-    }
-}
+import android.support.v7.widget.RecyclerView
 
-fun File.deleteEverything() {
-    if (isDirectory) {
-        list().forEach {
-            File(this, it).deleteEverything()
-        }
-    } else {
-        delete()
-    }
+interface VHPresenter<T, out VH : RecyclerView.ViewHolder> {
+    fun setOnClickListener(item: T, listener: (T, VH, Boolean) -> Unit)
+    fun onRecycled() {}
 }

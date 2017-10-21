@@ -18,7 +18,9 @@ package jahirfiquitiva.libs.kauextensions.extensions
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.graphics.Palette
 import java.io.File
 import java.io.FileOutputStream
@@ -33,8 +35,14 @@ fun Bitmap.generatePalette(resizeArea: Int = -1): Palette =
 val Bitmap.bestSwatch: Palette.Swatch?
     get() = generatePalette().bestSwatch
 
-fun Bitmap.getUri(context: Context, name: String): Uri? {
-    val iconFile = File(context.cacheDir, name + ".png")
+fun Bitmap.createRoundedDrawable(context: Context): Drawable {
+    val roundedPic = RoundedBitmapDrawableFactory.create(context.resources, this)
+    roundedPic.isCircular = true
+    return roundedPic
+}
+
+fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): Uri? {
+    val iconFile = File(context.cacheDir, name + extension)
     val fos = FileOutputStream(iconFile)
     compress(Bitmap.CompressFormat.PNG, 100, fos)
     fos.flush()

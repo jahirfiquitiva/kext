@@ -35,4 +35,8 @@
     <style name="SplitButton" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:minWidth">56dip</item>
     </style>
+
+    <declare-styleable name="MaterialIcon">
+        <attr name="active" format="boolean|reference"/>
+    </declare-styleable>
 </resources>

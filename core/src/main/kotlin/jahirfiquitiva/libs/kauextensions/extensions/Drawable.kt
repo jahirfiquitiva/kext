@@ -19,9 +19,14 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
+import android.support.v7.graphics.Palette
+import ca.allanwang.kau.utils.toBitmap
 
 fun Drawable.applyColorFilter(@ColorInt color: Int): Drawable {
     val newFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
     colorFilter = newFilter
     return this
 }
+
+val Drawable.bestSwatch: Palette.Swatch?
+    get() = this.toBitmap().bestSwatch

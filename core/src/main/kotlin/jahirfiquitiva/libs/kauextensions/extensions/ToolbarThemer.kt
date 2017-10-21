@@ -31,8 +31,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.activities.ThemedActivity
-import jahirfiquitiva.libs.kauextensions.ui.views.callbacks.CollapsingToolbarCallback
+import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
+import jahirfiquitiva.libs.kauextensions.ui.callbacks.CollapsingToolbarCallback
 import java.lang.reflect.Field
 import java.math.BigDecimal
 import java.math.RoundingMode

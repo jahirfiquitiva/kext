@@ -16,10 +16,13 @@
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Build
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import ca.allanwang.kau.utils.statusBarColor
@@ -64,4 +67,48 @@ fun Activity.enableTranslucentStatusBar(enable: Boolean = true) {
         window.attributes = params
     }
     if (Build.VERSION.SDK_INT >= 21) statusBarColor = Color.TRANSPARENT
+}
+
+val Activity.navigationBarHeight: Int
+    get() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isInMultiWindowMode) return 0
+        var height = 0
+        val usableSize = getUsableScreenSize()
+        val realScreenSize = getRealScreenSize()
+        if (usableSize.x < realScreenSize.x) {
+            val point = Point(realScreenSize.x - usableSize.x, usableSize.y)
+            height = point.x
+        }
+        if (usableSize.y < realScreenSize.y) {
+            val point = Point(usableSize.x, realScreenSize.y - usableSize.y)
+            height = point.y
+        }
+        return height
+    }
+
+fun Context.getUsableScreenSize(): Point {
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    val size = Point()
+    display.getSize(size)
+    return size
+}
+
+@Suppress("DEPRECATION")
+fun Context.getRealScreenSize(): Point {
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    val size = Point()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealSize(size)
+    } else {
+        try {
+            size.x = Display::class.java.getMethod("getRawWidth").invoke(display) as Int
+            size.y = Display::class.java.getMethod("getRawHeight").invoke(display) as Int
+        } catch (ignored: Exception) {
+            size.x = display.width
+            size.y = display.height
+        }
+    }
+    return size
 }

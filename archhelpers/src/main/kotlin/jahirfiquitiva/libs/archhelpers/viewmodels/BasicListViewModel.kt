@@ -13,27 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
 
-import android.content.Context
-import android.net.Uri
-import android.support.v4.content.FileProvider
-import java.io.File
+package jahirfiquitiva.libs.archhelpers.viewmodels
 
-fun File.getUri(context: Context): Uri? {
-    return try {
-        FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
-    } catch (e: Exception) {
-        null
-    }
-}
-
-fun File.deleteEverything() {
-    if (isDirectory) {
-        list().forEach {
-            File(this, it).deleteEverything()
-        }
-    } else {
-        delete()
-    }
+abstract class BasicListViewModel<in Parameter, Result> :
+        BasicViewModel<Parameter, MutableList<Result>>() {
+    
+    override val isOldDataValid: Boolean = getData()?.let { it.size > 0 } ?: false
 }
