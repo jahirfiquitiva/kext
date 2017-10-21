@@ -17,12 +17,10 @@ package jahirfiquitiva.libs.archhelpers.ui.viewholders
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import jahirfiquitiva.libs.archhelpers.ui.viewholders.presenters.VHPresenter
 
-abstract class ClickableViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView),
-                                                        VHPresenter<T, ClickableViewHolder<T>> {
-    override fun setOnClickListener(item: T,
-                                    listener: (T, ClickableViewHolder<T>, Boolean) -> Unit) {
+abstract class ClickableViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun setOnClickListener(item: T,
+                           listener: (T, RecyclerView.ViewHolder, Boolean) -> Unit) {
         with(itemView) {
             setOnClickListener { listener(item, this@ClickableViewHolder, false) }
             setOnLongClickListener { listener(item, this@ClickableViewHolder, true);true }
