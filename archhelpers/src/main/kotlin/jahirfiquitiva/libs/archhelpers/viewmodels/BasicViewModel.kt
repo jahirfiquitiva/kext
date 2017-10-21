@@ -69,6 +69,7 @@ abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     }
     
     fun postResult(result: Result) {
+        data.value = null
         data.postValue(result)
         customObserver?.onChanged(result)
         taskStarted = false
