@@ -18,7 +18,6 @@ package jahirfiquitiva.libs.archhelpers.ui.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import jahirfiquitiva.libs.archhelpers.ui.adapters.presenters.ListAdapterPresenter
-import jahirfiquitiva.libs.archhelpers.ui.viewholders.presenters.VHPresenter
 import jahirfiquitiva.libs.kauextensions.extensions.clearChildrenAnimations
 
 abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad: Int = -1) :
@@ -74,11 +73,6 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
     
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH? {
         parent?.let { return doCreateVH(it, viewType) } ?: return null
-    }
-    
-    override fun onViewRecycled(holder: VH) {
-        super.onViewRecycled(holder)
-        if (holder is VHPresenter<*, *>) holder.onRecycled()
     }
     
     override fun onViewDetachedFromWindow(holder: VH) {

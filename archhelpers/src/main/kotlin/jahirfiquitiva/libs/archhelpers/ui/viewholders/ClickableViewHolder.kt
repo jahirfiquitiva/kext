@@ -18,7 +18,7 @@ package jahirfiquitiva.libs.archhelpers.ui.viewholders
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
-abstract class ClickableViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+open class ClickableViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun setOnClickListener(item: T,
                            listener: (T, RecyclerView.ViewHolder, Boolean) -> Unit) {
         with(itemView) {
