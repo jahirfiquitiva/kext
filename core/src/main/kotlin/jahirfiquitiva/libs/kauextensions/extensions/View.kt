@@ -129,3 +129,7 @@ fun animateSmoothly(@ColorInt startColor: Int, @ColorInt endColor: Int,
                            start()
                        },
                        onUpdate = doUpdate)
+
+fun ImageView.setDecodedBitmap(resId: Int) {
+    setImageBitmap(decodeBitmapWithSize(resources, resId, width, height))
+}
