@@ -24,6 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class android.arch.** { *; }
+-keep class jahirfiquitiva.libs.** { *; }
 
 -dontwarn okhttp3.**
 -dontwarn okio.**
