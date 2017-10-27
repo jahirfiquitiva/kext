@@ -64,13 +64,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Core
-    compile project(path: ':core')
+    implementation project(path: ':core')
     // Kotlin
-    compile libraries.kotlin
+    implementation libraries.kotlin
     // Architecture Components
-    compile libraries.lifecycle
+    implementation libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
 }

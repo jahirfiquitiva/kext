@@ -64,21 +64,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    compile libraries.support
-    compile libraries.appcompat
-    compile libraries.recyclerview
-    compile libraries.cardview
-    compile libraries.palette
-    compile libraries.design
-    compile libraries.customtabs
+    implementation libraries.support
+    implementation libraries.appcompat
+    implementation libraries.recyclerview
+    implementation libraries.cardview
+    implementation libraries.palette
+    implementation libraries.design
+    implementation libraries.customtabs
     // Kotlin
-    compile libraries.kotlin
+    implementation libraries.kotlin
     // KAU
-    compile(libraries.kau) {
+    implementation(libraries.kau) {
         transitive = true
-        exclude group: 'com.android.support.constraint', module: 'constraint-layout'
+        exclude group: 'com.android.support'
     }
 }
 
