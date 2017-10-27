@@ -37,7 +37,7 @@ fun String.getBitmapDrawable(context: Context): BitmapDrawable? {
     }
 }
 
-fun String.getDrawable(context: Context): Drawable {
+fun String.getDrawable(context: Context): Drawable? {
     try {
         return ContextCompat.getDrawable(context, this.getIconResource(context))
     } catch (e: Exception) {

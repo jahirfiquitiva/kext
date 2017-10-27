@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.kauextensions.ui.fragments.adapters
 
 import android.support.v4.app.Fragment
@@ -31,7 +30,8 @@ class FragmentsAdapter(manager: FragmentManager, vararg fragments: Fragment) :
         this.fragments.addAll(fragments)
     }
     
-    override fun getItemPosition(obj: Any?): Int {
+    override fun getItemPosition(obj: Any): Int {
+        if (obj !is Fragment) return -1
         val index = fragments.indexOf(obj)
         return if (index < 0) PagerAdapter.POSITION_NONE
         else index
