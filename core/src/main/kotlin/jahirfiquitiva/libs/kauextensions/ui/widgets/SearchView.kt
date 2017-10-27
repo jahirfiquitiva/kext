@@ -57,8 +57,8 @@ import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
 import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 import jahirfiquitiva.libs.kauextensions.extensions.getDrawable
 import jahirfiquitiva.libs.kauextensions.extensions.getPrimaryTextColorFor
+import jahirfiquitiva.libs.kauextensions.extensions.runOnUiThread
 import jahirfiquitiva.libs.kauextensions.extensions.withAlpha
-import org.jetbrains.anko.runOnUiThread
 
 /**
  * Created by Allan Wang on 2017-06-23.
