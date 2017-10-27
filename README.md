@@ -26,6 +26,8 @@ Add the dependency
 ```groovy
 dependencies {
     compile 'me.jahirfiquitiva.KAUExtensions:core:{last-version}'
+	// Only if you use/need ViewModels and/or Lifecycle from Android Architecture Components
+    compile 'me.jahirfiquitiva.KAUExtensions:archhelpers:{last-version}'
     // Only if you use/need ZoomableImageView
     compile 'me.jahirfiquitiva.KAUExtensions:ziv:{last-version}'
 }

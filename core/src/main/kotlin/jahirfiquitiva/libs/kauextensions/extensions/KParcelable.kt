@@ -19,14 +19,13 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.Date
+import java.util.*
 
 /**
  * @author Christophe Beyls - cbeyls
  * https://gist.github.com/cbeyls/72fbc1a24735beb792e2173b0199cbff
  */
 interface KParcelable : Parcelable {
-    
     override fun describeContents() = 0
     override fun writeToParcel(dest: Parcel, flags: Int)
 }
