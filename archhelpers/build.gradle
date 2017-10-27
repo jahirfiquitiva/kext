@@ -73,6 +73,12 @@ dependencies {
     implementation libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
+    // RecyclerView
+    implementation libraries.recyclerview
+    // KAU
+    implementation(libraries.kau) {
+        exclude group: 'com.android.support'
+    }
 }
 
 tasks.whenTaskAdded { task ->
