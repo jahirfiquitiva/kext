@@ -120,28 +120,41 @@ open class SearchView : FrameLayout {
     
     init {
         View.inflate(context, R.layout.search_bar, this)
-        iconClear.setSearchIcon("ic_close".getDrawable(context)
-                                        .applyColorFilter(context.activeIconsColor))
+        iconClear.setSearchIcon(
+                "ic_close".getDrawable(context)?.applyColorFilter(context.activeIconsColor))
                 .setOnClickListener {
                     editText.text.clear()
                     revealClose()
                 }
-        tintForeground(context.getPrimaryTextColorFor(context.cardBackgroundColor),
-                       context.activeIconsColor)
+        tintForeground(
+                context.getPrimaryTextColorFor(context.cardBackgroundColor),
+                context.activeIconsColor)
         tintBackground(context.cardBackgroundColor)
         
         editText.setHintTextColor(
                 context.getPrimaryTextColorFor(context.cardBackgroundColor).withAlpha(0.5F))
         editText.hint = hintText
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                listener?.onQueryChanged(s.toString().trim())
-            }
-        })
+        editText.addTextChangedListener(
+                object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {}
+                    
+                    override fun beforeTextChanged(
+                            s: CharSequence,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                                                  ) {
+                    }
+                    
+                    override fun onTextChanged(
+                            s: CharSequence,
+                            start: Int,
+                            before: Int,
+                            count: Int
+                                              ) {
+                        listener?.onQueryChanged(s.toString().trim())
+                    }
+                })
         editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 listener?.onQuerySubmit(editText.text.toString().trim())
@@ -157,20 +170,22 @@ open class SearchView : FrameLayout {
         return this
     }
     
-    internal fun ImageView.setSearchIcon(icon: Drawable): ImageView {
+    internal fun ImageView.setSearchIcon(icon: Drawable?): ImageView {
+        icon ?: return this
         setImageDrawable(icon)
         return this
     }
     
     internal fun cardTransition(builder: TransitionSet.() -> Unit = {}) {
-        TransitionManager.beginDelayedTransition(card,
+        TransitionManager.beginDelayedTransition(
+                card,
                 //we are only using change bounds, as the recyclerview items may be animated as well,
                 //which causes a measure IllegalStateException
-                                                 TransitionSet().addTransition(
-                                                         ChangeBounds()).apply {
-                                                     duration = 100L
-                                                     builder()
-                                                 })
+                TransitionSet().addTransition(
+                        ChangeBounds()).apply {
+                    duration = 100L
+                    builder()
+                })
     }
     
     /**
@@ -208,16 +223,17 @@ open class SearchView : FrameLayout {
         menuX = (locations[0] + view.width / 2)
         menuHalfHeight = (view.height / 2)
         menuY = (locations[1] + (if (withExtra) menuHalfHeight else 0))
-        card.viewTreeObserver?.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                var rightHeight = (if (cardHeight > 0) cardHeight else card.height)
-                if (rightHeight <= 0) rightHeight = (view.height - 2.dpToPx)
-                val margin = menuY - (rightHeight / 2)
-                view.viewTreeObserver.removeOnPreDrawListener(this)
-                card.setMarginTop(margin)
-                return true
-            }
-        })
+        card.viewTreeObserver?.addOnPreDrawListener(
+                object : ViewTreeObserver.OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        var rightHeight = (if (cardHeight > 0) cardHeight else card.height)
+                        if (rightHeight <= 0) rightHeight = (view.height - 2.dpToPx)
+                        val margin = menuY - (rightHeight / 2)
+                        view.viewTreeObserver.removeOnPreDrawListener(this)
+                        card.setMarginTop(margin)
+                        return true
+                    }
+                })
     }
     
     /**
@@ -263,11 +279,12 @@ open class SearchView : FrameLayout {
             configureCoords(menuItem, withExtra)
             listener?.onSearchOpened(this@SearchView)
             editText.showKeyboard()
-            postDelayed({
-                            card.circularReveal(menuX, menuHalfHeight, duration = 350L) {
-                                cardTransition()
-                            }
-                        }, 50)
+            postDelayed(
+                    {
+                        card.circularReveal(menuX, menuHalfHeight, duration = 350L) {
+                            cardTransition()
+                        }
+                    }, 50)
         }
     }
     
@@ -276,12 +293,13 @@ open class SearchView : FrameLayout {
         context.runOnUiThread {
             cardTransition {
                 addEndListener {
-                    card.circularHide(menuX, menuHalfHeight, duration = 350L,
-                                      onFinish = {
-                                          listener?.onSearchClosed(this@SearchView)
-                                          if (shouldClearOnClose)
-                                              editText.text.clear()
-                                      })
+                    card.circularHide(
+                            menuX, menuHalfHeight, duration = 350L,
+                            onFinish = {
+                                listener?.onSearchClosed(this@SearchView)
+                                if (shouldClearOnClose)
+                                    editText.text.clear()
+                            })
                 }
             }
             editText.hideKeyboard()
@@ -303,8 +321,9 @@ fun Activity.bindSearchView(menu: Menu, @IdRes id: Int, withExtra: Boolean = fal
  */
 fun ViewGroup.bindSearchView(menu: Menu, @IdRes id: Int, withExtra: Boolean = false): SearchView {
     val searchView = SearchView(context)
-    searchView.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                                                       FrameLayout.LayoutParams.MATCH_PARENT)
+    searchView.layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT)
     addView(searchView)
     searchView.bind(menu, id, withExtra)
     return searchView

@@ -33,7 +33,7 @@ abstract class ViewModelFragment<in T> : Fragment<T>(), ViewModelFragmentPresent
         registerObserver()
     }
     
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         if (autoStartLoad()) loadDataFromViewModel()

@@ -77,7 +77,6 @@ dependencies {
     implementation libraries.kotlin
     // KAU
     implementation(libraries.kau) {
-        transitive = true
         exclude group: 'com.android.support'
     }
 }
