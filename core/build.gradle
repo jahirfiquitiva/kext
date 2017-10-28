@@ -21,8 +21,6 @@ android {
     buildToolsVersion versions.buildTools
 
     lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
         warningsAsErrors true
         disable 'MissingTranslation',
                 'GoogleAppIndexingWarning',
@@ -44,8 +42,6 @@ android {
 
     buildTypes {
         release {
-            debuggable false
-            zipAlignEnabled true
             minifyEnabled false
             shrinkResources false
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
