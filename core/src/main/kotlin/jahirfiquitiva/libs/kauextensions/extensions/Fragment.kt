@@ -13,8 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.helpers
+package jahirfiquitiva.libs.kauextensions.extensions
 
-import ca.allanwang.kau.logging.KauLogger
+import android.content.Context
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 
-internal object KEL : KauLogger("KauExtensions")
+val Fragment.actv: FragmentActivity
+    get() = activity ?: throw IllegalStateException("Activity was null! D:")
+
+val Fragment.ctxt: Context
+    get() = context ?: throw IllegalStateException("Context was null! D:")

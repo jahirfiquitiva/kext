@@ -42,6 +42,17 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    buildTypes {
+        release {
+            debuggable false
+            zipAlignEnabled true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -69,6 +80,7 @@ dependencies {
     // KAU
     api(libraries.kau) {
         transitive = true
+        exclude group: 'org.jetbrains.anko'
         exclude group: 'com.android.support'
     }
 }

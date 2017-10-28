@@ -32,8 +32,10 @@ fun Context.shouldRequestPermission(which: String): Boolean {
 }
 
 @SuppressLint("NewApi")
-fun Activity.requestSinglePermission(permission: String, requestCode: Int,
-                                     listener: PermissionRequestListener) {
+fun Activity.requestSinglePermission(
+        permission: String, requestCode: Int,
+        listener: PermissionRequestListener
+                                    ) {
     if (shouldRequestPermission(permission)) {
         // Permission has not been granted
         if (shouldShowRequestPermissionRationale(permission)) {

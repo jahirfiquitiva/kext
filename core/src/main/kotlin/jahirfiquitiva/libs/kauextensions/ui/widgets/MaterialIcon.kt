@@ -51,7 +51,8 @@ open class MaterialIcon : AppCompatImageView {
     }
     
     override fun setImageDrawable(drawable: Drawable?) {
-        super.setImageDrawable(drawable?.applyColorFilter(
-                if (isActive) context.activeIconsColor else context.inactiveIconsColor))
+        super.setImageDrawable(
+                drawable?.applyColorFilter(
+                        if (isActive) context.activeIconsColor else context.inactiveIconsColor))
     }
 }

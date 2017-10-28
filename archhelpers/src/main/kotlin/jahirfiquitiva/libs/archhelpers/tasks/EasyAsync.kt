@@ -21,7 +21,8 @@ import java.util.concurrent.Executor
 
 open class EasyAsync<Parameter, Result>(
         private val param: WeakReference<Parameter>,
-        private val callback: Callback<Parameter, Result>) {
+        private val callback: Callback<Parameter, Result>
+                                       ) {
     
     private var task: AsyncTask<Unit, Unit, Result>
     

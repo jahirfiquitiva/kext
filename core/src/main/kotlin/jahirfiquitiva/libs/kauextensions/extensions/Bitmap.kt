@@ -50,10 +50,10 @@ fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): U
     fos.flush()
     fos.close()
     return iconFile.getUri(context) ?: Uri.fromFile(iconFile) ?:
-           name.getIconResource(context).getUriFromResource(context) ?:
-           Uri.parse(
-                   ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
-                   "/" + name.getIconResource(context).toString())
+            name.getIconResource(context).getUriFromResource(context) ?:
+            Uri.parse(
+                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
+                            "/" + name.getIconResource(context).toString())
 }
 
 fun decodeBitmapWithSize(res: Resources, resId: Int, width: Int, height: Int): Bitmap {

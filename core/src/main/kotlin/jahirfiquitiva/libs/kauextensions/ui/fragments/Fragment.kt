@@ -26,8 +26,10 @@ import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresent
 abstract class Fragment<in T> : Fragment(), FragmentPresenter<T> {
     lateinit var content: View
     
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+                             ): View? {
         if (getContentLayout() != 0) {
             val contentView = inflater.inflate(getContentLayout(), container, false)
             contentView?.let {

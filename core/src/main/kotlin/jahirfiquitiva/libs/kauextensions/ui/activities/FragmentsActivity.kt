@@ -15,6 +15,7 @@
  */
 package jahirfiquitiva.libs.kauextensions.ui.activities
 
+import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
@@ -22,13 +23,15 @@ import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 abstract class FragmentsActivity : ThemedActivity() {
     open fun fragmentsContainer(): Int = 0
     
+    @SuppressLint("PrivateResource")
     fun changeFragment(f: Fragment, tag: String? = null) {
         if (fragmentsContainer() == 0) return
         try {
             val manager = supportFragmentManager.beginTransaction()
             if (konfigs.animationsEnabled) {
-                manager.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out,
-                                            R.anim.abc_popup_enter, R.anim.abc_popup_exit)
+                manager.setCustomAnimations(
+                        R.anim.abc_fade_in, R.anim.abc_fade_out,
+                        R.anim.abc_popup_enter, R.anim.abc_popup_exit)
             }
             if (tag != null) manager.replace(fragmentsContainer(), f, tag)
             else manager.replace(fragmentsContainer(), f)

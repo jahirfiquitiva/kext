@@ -49,6 +49,6 @@ val Int.isColorLight: Boolean
 fun Int.getUriFromResource(context: Context): Uri =
         Uri.parse(
                 ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
-                context.resources.getResourcePackageName(this) + '/' +
-                context.resources.getResourceTypeName(this) + '/' +
-                context.resources.getResourceEntryName(this))
+                        context.resources.getResourcePackageName(this) + '/' +
+                        context.resources.getResourceTypeName(this) + '/' +
+                        context.resources.getResourceEntryName(this))
