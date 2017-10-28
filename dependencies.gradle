@@ -30,7 +30,7 @@ ext.versions = [
         // Gradle Plugins
         gradle        : '3.0.0',
         kotlin        : '1.1.51',
-        libs          : '1.5',
+        libs          : '2.0',
         gms           : '3.1.0',
         // Dependencies
         supportLibs   : '27.0.0',
