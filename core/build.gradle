@@ -21,6 +21,8 @@ android {
     buildToolsVersion versions.buildTools
 
     lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
         warningsAsErrors true
         disable 'MissingTranslation',
                 'GoogleAppIndexingWarning',
@@ -40,17 +42,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    buildTypes {
-        release {
-            debuggable false
-            zipAlignEnabled true
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-        }
-    }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -64,21 +55,21 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    api libraries.support
-    api libraries.appcompat
-    api libraries.recyclerview
-    api libraries.cardview
-    api libraries.palette
-    api libraries.design
-    api libraries.customtabs
+    implementation libraries.support
+    implementation libraries.appcompat
+    implementation libraries.recyclerview
+    implementation libraries.cardview
+    implementation libraries.palette
+    implementation libraries.design
+    implementation libraries.customtabs
     // Kotlin
-    api libraries.kotlin
+    implementation libraries.kotlin
     // KAU
-    api(libraries.kau) {
+    implementation(libraries.kau) {
         transitive = true
-        exclude group: 'com.android.support.constraint', module: 'constraint-layout'
+        exclude group: 'com.android.support'
     }
 }
 

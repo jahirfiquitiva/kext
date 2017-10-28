@@ -20,6 +20,8 @@ android {
     buildToolsVersion versions.buildTools
 
     lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
         warningsAsErrors true
         disable 'MissingTranslation',
                 'GoogleAppIndexingWarning',
@@ -38,17 +40,6 @@ android {
         versionName versions.versionName
     }
 
-    buildTypes {
-        release {
-            debuggable false
-            zipAlignEnabled true
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-        }
-    }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -62,9 +53,9 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    api libraries.appcompat
+    implementation libraries.appcompat
 }
 
 tasks.whenTaskAdded { task ->

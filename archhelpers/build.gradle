@@ -21,6 +21,8 @@ android {
     buildToolsVersion versions.buildTools
 
     lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
         warningsAsErrors true
         disable 'MissingTranslation',
                 'GoogleAppIndexingWarning',
@@ -40,17 +42,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    buildTypes {
-        release {
-            debuggable false
-            zipAlignEnabled true
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
-        }
-    }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -64,15 +55,17 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Core
-    api project(path: ':core')
+    implementation project(path: ':core')
     // Kotlin
-    api libraries.kotlin
+    implementation libraries.kotlin
     // Architecture Components
-    api libraries.lifecycle
+    implementation libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
+    // RecyclerView
+    implementation libraries.recyclerview
 }
 
 tasks.whenTaskAdded { task ->
