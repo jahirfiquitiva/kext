@@ -73,7 +73,8 @@ abstract class ThemedActivity : AppCompatActivity() {
         coloredNavbar = konfigs.hasColoredNavbar
     }
     
-    private fun onThemeChanged() {
+    // TODO: Leave public
+    fun onThemeChanged() {
         postRecreate()
     }
     
