@@ -16,7 +16,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion versions.targetSdk
     buildToolsVersion versions.buildTools
 
     lintOptions {
@@ -53,9 +53,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    implementation libraries.appcompat
+    api libraries.appcompat
 }
 
 tasks.whenTaskAdded { task ->
