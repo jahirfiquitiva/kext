@@ -77,7 +77,8 @@ dependencies {
     api libraries.kotlin
     // KAU
     api(libraries.kau) {
-        exclude group: 'com.android.support'
+        transitive = true
+        exclude group: 'com.android.support.constraint', module: 'constraint-layout'
     }
 }
 
