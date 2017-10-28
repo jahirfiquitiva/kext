@@ -64,19 +64,19 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    implementation libraries.support
-    implementation libraries.appcompat
-    implementation libraries.recyclerview
-    implementation libraries.cardview
-    implementation libraries.palette
-    implementation libraries.design
-    implementation libraries.customtabs
+    api libraries.support
+    api libraries.appcompat
+    api libraries.recyclerview
+    api libraries.cardview
+    api libraries.palette
+    api libraries.design
+    api libraries.customtabs
     // Kotlin
-    implementation libraries.kotlin
+    api libraries.kotlin
     // KAU
-    implementation(libraries.kau) {
+    api(libraries.kau) {
         exclude group: 'com.android.support'
     }
 }

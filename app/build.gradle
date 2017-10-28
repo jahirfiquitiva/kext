@@ -60,11 +60,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // KAU Extensions
-    compile project(path: ':core')
+    implementation project(path: ':core')
     // Kotlin
-    compile libraries.kotlin
+    implementation libraries.kotlin
 }
 
 tasks.whenTaskAdded { task ->
