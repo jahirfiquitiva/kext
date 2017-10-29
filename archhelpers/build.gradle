@@ -71,6 +71,8 @@ dependencies {
     implementation libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
+    // RecyclerView
+    implementation libraries.recyclerview
 }
 
 tasks.whenTaskAdded { task ->
