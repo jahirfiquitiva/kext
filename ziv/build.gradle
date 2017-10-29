@@ -60,9 +60,9 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    api libraries.appcompat
+    implementation libraries.appcompat
 }
 
 tasks.whenTaskAdded { task ->
