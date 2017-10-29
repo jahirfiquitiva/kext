@@ -62,17 +62,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     // Core
-    implementation project(path: ':core')
+    api project(path: ':core')
     // Kotlin
-    implementation libraries.kotlin
+    api libraries.kotlin
     // Architecture Components
-    implementation libraries.lifecycle
+    api libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
-    // RecyclerView
-    implementation libraries.recyclerview
 }
 
 tasks.whenTaskAdded { task ->
