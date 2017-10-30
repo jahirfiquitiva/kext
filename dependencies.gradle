@@ -23,7 +23,7 @@ ext.details = [
 ext.versions = [
         // Projects
         minSdk        : 16,
-        targetSdk     : 27,
+        targetSdk     : 26,
         buildTools    : '26.0.2',
         versionCode   : 100,
         versionName   : '1.0.0',
