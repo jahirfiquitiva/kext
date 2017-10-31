@@ -40,7 +40,8 @@ open class Async<Parameter, Result>(
     }
     
     fun cancel(interrupt: Boolean = false) {
-        task?.cancel(true)
+        task?.cancel(interrupt)
+        task = null
     }
     
     abstract class Callback<in Parameter, Result> {
