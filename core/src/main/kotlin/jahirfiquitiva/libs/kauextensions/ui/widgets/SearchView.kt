@@ -71,7 +71,7 @@ import jahirfiquitiva.libs.kauextensions.extensions.withAlpha
  * Huge thanks to @lapism for his base
  * https://github.com/lapism/SearchView
  */
-open class SearchView : FrameLayout {
+class SearchView : FrameLayout {
     
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -136,7 +136,9 @@ open class SearchView : FrameLayout {
         editText.hint = hintText
         editText.addTextChangedListener(
                 object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {}
+                    override fun afterTextChanged(s: Editable?) {
+                        listener?.onQueryChanged(s.toString().trim())
+                    }
                     
                     override fun beforeTextChanged(
                             s: CharSequence,
@@ -144,6 +146,7 @@ open class SearchView : FrameLayout {
                             count: Int,
                             after: Int
                                                   ) {
+                        listener?.onQueryChanged(s.toString().trim())
                     }
                     
                     override fun onTextChanged(

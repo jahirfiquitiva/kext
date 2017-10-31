@@ -20,7 +20,6 @@ import android.os.AsyncTask
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 
-@Deprecated("", ReplaceWith("Async"))
 open class EasyAsync<Parameter, Result>(
         private val param: WeakReference<Parameter>,
         private val callback: Async.Callback<Parameter, Result>
