@@ -15,45 +15,18 @@
  */
 package jahirfiquitiva.libs.archhelpers.tasks
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executor
 
+@Deprecated("", ReplaceWith("Async"))
 open class EasyAsync<Parameter, Result>(
         private val param: WeakReference<Parameter>,
-        private val callback: Callback<Parameter, Result>
+        private val callback: Async.Callback<Parameter, Result>
                                        ) {
     
-    private var task: AsyncTask<Unit, Unit, Result>
-    
-    init {
-        task = object : AsyncTask<Unit, Unit, Result>() {
-            override fun onPreExecute() {
-                super.onPreExecute()
-                callback.doBefore()
-            }
-            
-            override fun doInBackground(vararg ignored: Unit?): Result? {
-                return try {
-                    val actualParam = param.get()
-                    if (actualParam != null) callback.doLoad(actualParam)
-                    else {
-                        callback.onError(NullPointerException("Parameter is null!"))
-                        null
-                    }
-                } catch (e: Exception) {
-                    callback.onError(e)
-                    null
-                }
-            }
-            
-            override fun onPostExecute(result: Result?) {
-                super.onPostExecute(result)
-                if (result != null) callback.onSuccess(result)
-                else callback.onError(NullPointerException("Loaded object was null"))
-            }
-        }
-    }
+    private var task = EasyTask()
     
     fun execute(executor: Executor? = null) {
         try {
@@ -70,10 +43,31 @@ open class EasyAsync<Parameter, Result>(
         }
     }
     
-    abstract class Callback<in Parameter, Result> {
-        open fun doBefore() {}
-        abstract fun doLoad(param: Parameter): Result?
-        abstract fun onSuccess(result: Result)
-        open fun onError(e: Exception?) = e?.printStackTrace()
+    @SuppressLint("StaticFieldLeak")
+    private inner class EasyTask : AsyncTask<Unit, Unit, Result>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+            callback.doBefore()
+        }
+        
+        override fun doInBackground(vararg ignored: Unit?): Result? {
+            return try {
+                val actualParam = param.get()
+                if (actualParam != null) callback.doLoad(actualParam)
+                else {
+                    callback.onError(NullPointerException("Parameter is null!"))
+                    null
+                }
+            } catch (e: Exception) {
+                callback.onError(e)
+                null
+            }
+        }
+        
+        override fun onPostExecute(result: Result?) {
+            super.onPostExecute(result)
+            if (result != null) callback.onSuccess(result)
+            else callback.onError(NullPointerException("Loaded object was null"))
+        }
     }
 }
