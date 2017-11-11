@@ -24,7 +24,7 @@ abstract class FragmentsActivity : ThemedActivity() {
     open fun fragmentsContainer(): Int = 0
     
     @SuppressLint("PrivateResource")
-    fun changeFragment(f: Fragment, tag: String? = null) {
+    open fun changeFragment(f: Fragment, tag: String? = null) {
         if (fragmentsContainer() == 0) return
         try {
             val manager = supportFragmentManager.beginTransaction()
