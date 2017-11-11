@@ -65,10 +65,8 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     // Core
     api project(path: ':core')
-    // Kotlin
-    api libraries.kotlin
     // Architecture Components
-    api libraries.lifecycle
+    implementation libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
 }
