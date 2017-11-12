@@ -24,6 +24,7 @@ import android.support.v7.widget.ActionMenuView
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
@@ -37,9 +38,9 @@ import java.lang.reflect.Field
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-fun round(value: Double, places: Int): Double {
+fun Double.round(places: Int): Double {
     if (places < 0) throw IllegalArgumentException()
-    var bd = BigDecimal(value)
+    var bd = BigDecimal(this)
     bd = bd.setScale(places, RoundingMode.HALF_UP)
     return bd.toDouble()
 }
@@ -84,42 +85,39 @@ fun Toolbar.tint(
     setOverflowButtonColor(iconsColor)
     
     // Step 5: Tint toolbar menu.
-    tintMenu(iconsColor, forceShowIcons)
+    menu?.tint(iconsColor, forceShowIcons)
 }
 
-fun Toolbar.tintMenu(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
-    menu?.let {
-        // The collapse icon displays when action views are expanded (e.g. SearchView)
+fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
+    // The collapse icon displays when action views are expanded (e.g. SearchView)
+    try {
+        val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
+        field.isAccessible = true
+        val collapseIcon = field.get(this) as Drawable
+        field.set(this, collapseIcon.applyColorFilter(iconsColor))
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    
+    // Theme menu action views
+    (0 until size()).forEach { i ->
+        val item = getItem(i)
+        if (item.actionView is SearchView) {
+            (item.actionView as SearchView).tintWith(iconsColor)
+        } else {
+            item.icon?.applyColorFilter(iconsColor)
+        }
+    }
+    
+    // Display icons for easy UI understanding
+    if (forceShowIcons) {
         try {
-            val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
-            field.isAccessible = true
-            val collapseIcon = field.get(this) as Drawable
-            field.set(this, collapseIcon.applyColorFilter(iconsColor))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        
-        // Theme menu action views
-        (0 until it.size()).forEach { i ->
-            val item = it.getItem(i)
-            if (item.actionView is SearchView) {
-                (item.actionView as SearchView).tintWith(iconsColor)
-            } else {
-                item.icon?.applyColorFilter(iconsColor)
-            }
-        }
-        
-        // Display icons for easy UI understanding
-        if (forceShowIcons) {
-            try {
-                val menuBuilder = it.javaClass
-                val setOptionalIconsVisible = menuBuilder.getDeclaredMethod(
-                        "setOptionalIconsVisible",
-                        Boolean::class.javaPrimitiveType)
-                if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
-                setOptionalIconsVisible.invoke(it, true)
-            } catch (ignored: Exception) {
-            }
+            val setOptionalIconsVisible = javaClass.getDeclaredMethod(
+                    "setOptionalIconsVisible",
+                    kotlin.Boolean::class.javaPrimitiveType)
+            if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
+            setOptionalIconsVisible.invoke(this, true)
+        } catch (ignored: Exception) {
         }
     }
 }
