@@ -15,6 +15,7 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
@@ -68,6 +69,19 @@ fun Activity.enableTranslucentStatusBar(enable: Boolean = true) {
     }
     if (Build.VERSION.SDK_INT >= 21) statusBarColor = Color.TRANSPARENT
 }
+
+inline var Activity.navigationBarLight: Boolean
+    @SuppressLint("InlinedApi")
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR > 0 else false
+    @SuppressLint("InlinedApi")
+    set(value) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val flags = window.decorView.systemUiVisibility
+            window.decorView.systemUiVisibility =
+                    if (value) flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                    else flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+        }
+    }
 
 val Activity.navigationBarHeight: Int
     get() {

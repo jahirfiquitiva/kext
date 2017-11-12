@@ -28,6 +28,7 @@ import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
 import jahirfiquitiva.libs.kauextensions.extensions.isColorLight
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
+import jahirfiquitiva.libs.kauextensions.extensions.navigationBarLight
 import jahirfiquitiva.libs.kauextensions.extensions.primaryDarkColor
 import jahirfiquitiva.libs.kauextensions.helpers.AMOLED
 import jahirfiquitiva.libs.kauextensions.helpers.AUTO_AMOLED
@@ -53,7 +54,11 @@ abstract class ThemedActivity : AppCompatActivity() {
     @StyleRes
     abstract fun transparentTheme(): Int
     
-    abstract fun autoStatusBarTint(): Boolean
+    @Deprecated("", ReplaceWith("autoTintStatusBar"))
+    open fun autoStatusBarTint(): Boolean = autoTintStatusBar()
+    
+    abstract fun autoTintStatusBar(): Boolean
+    abstract fun autoTintNavigationBar(): Boolean
     
     override fun onCreate(savedInstanceState: Bundle?) {
         setCustomTheme()
@@ -98,8 +103,10 @@ abstract class ThemedActivity : AppCompatActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setTheme(getCustomTheme())
         statusBarColor = primaryDarkColor
-        if (autoStatusBarTint()) statusBarLight = primaryDarkColor.isColorLight
-        navigationBarColor = getCorrectNavbarColor()
+        if (autoTintStatusBar()) statusBarLight = primaryDarkColor.isColorLight
+        val navColor = getCorrectNavbarColor()
+        navigationBarColor = navColor
+        if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
     }
     
     val isDarkTheme: Boolean
