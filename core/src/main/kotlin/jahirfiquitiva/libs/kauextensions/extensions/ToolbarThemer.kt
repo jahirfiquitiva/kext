@@ -96,7 +96,6 @@ fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
         val collapseIcon = field.get(this) as Drawable
         field.set(this, collapseIcon.applyColorFilter(iconsColor))
     } catch (e: Exception) {
-        e.printStackTrace()
     }
     
     // Theme menu action views
