@@ -76,6 +76,7 @@ dependencies {
     // KAU
     api(libraries.kau) {
         transitive = true
+        exclude group: 'org.jetbrains.kotlin'
         exclude group: 'com.android.support'
         exclude group: 'com.mikepenz'
         exclude group: 'com.afollestad.material-dialogs'
