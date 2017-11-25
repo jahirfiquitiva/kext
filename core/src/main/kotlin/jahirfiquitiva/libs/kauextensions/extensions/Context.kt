@@ -158,9 +158,6 @@ fun Context.hasWriteStoragePermission() =
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-inline fun <reified T : Konfigurations> Context.configs(key: String): T =
-        Konfigurations.newInstance(key, this) as T
-
 val Context.konfigs: Konfigurations
     get() = Konfigurations.newInstance("kau_extensions", this)
 
