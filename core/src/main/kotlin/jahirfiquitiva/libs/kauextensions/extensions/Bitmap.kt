@@ -29,13 +29,17 @@ import java.io.FileOutputStream
 
 fun Bitmap.isColorDark() = !isColorLight()
 
-fun Bitmap.isColorLight(): Boolean = generatePalette().isColorLight()
+fun Bitmap.isColorLight(): Boolean = generatePalette()?.isColorLight() ?: false
 
-fun Bitmap.generatePalette(resizeArea: Int = -1): Palette =
-        Palette.from(this).resizeBitmapArea(resizeArea).generate()
+fun Bitmap.generatePalette(resizeArea: Int = -1): Palette? =
+        try {
+            Palette.from(this).resizeBitmapArea(resizeArea).generate()
+        } catch (e: Exception) {
+            null
+        }
 
 val Bitmap.bestSwatch: Palette.Swatch?
-    get() = generatePalette().bestSwatch
+    get() = generatePalette()?.bestSwatch
 
 fun Bitmap.createRoundedDrawable(context: Context): Drawable {
     val roundedPic = RoundedBitmapDrawableFactory.create(context.resources, this)
