@@ -24,18 +24,18 @@ ext.versions = [
         // Projects
         minSdk        : 16,
         targetSdk     : 27,
-        buildTools    : '27.0.1',
+        buildTools    : '27.0.2',
         versionCode   : 100,
         versionName   : '1.0.0',
         // Gradle Plugins
         gradle        : '3.0.1',
-        kotlin        : '1.1.60',
+        kotlin        : '1.2.0',
         libs          : '2.0',
         gms           : '3.1.0',
         // Dependencies
-        supportLibs   : '27.0.1',
-        kau           : '3.4.4',
-        archComponents: '1.0.0'
+        supportLibs   : '27.0.2',
+        kau           : '3.5.1',
+        archComponents: '1.0.3'
 ]
 
 ext.gradlePlugins = [
