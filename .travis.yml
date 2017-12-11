@@ -43,3 +43,6 @@ cache:
 
 before_script:
   - chmod +x gradlew
+ 
+before_install:
+  - yes | sdkmanager "platforms;android-27"
