@@ -16,6 +16,7 @@
 package jahirfiquitiva.libs.kauextensions.ui.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.ColorInt
@@ -25,7 +26,6 @@ import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
-import jahirfiquitiva.libs.kauextensions.extensions.getColorFromRes
 import jahirfiquitiva.libs.kauextensions.extensions.isColorLight
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 import jahirfiquitiva.libs.kauextensions.extensions.navigationBarLight
@@ -137,9 +137,11 @@ abstract class ThemedActivity : AppCompatActivity() {
     }
     
     @ColorInt
-    private fun getCorrectNavbarColor(): Int = when {
-        konfigs.currentTheme == AMOLED -> getColorFromRes(android.R.color.black)
-        konfigs.hasColoredNavbar -> primaryDarkColor
-        else -> getColorFromRes(android.R.color.black)
+    private fun getCorrectNavbarColor(): Int {
+        return if (konfigs.currentTheme == AMOLED && !forceNavBarTint()) Color.parseColor("#000000")
+        else if (konfigs.hasColoredNavbar) primaryDarkColor
+        else Color.parseColor("#000000")
     }
+    
+    open fun forceNavBarTint(): Boolean = false
 }
