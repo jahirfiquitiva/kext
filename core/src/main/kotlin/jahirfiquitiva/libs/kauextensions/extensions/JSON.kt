@@ -47,3 +47,10 @@ fun JSONArray.long(index: Int, default: Long = 0L): Long = optLong(index, defaul
 fun JSONArray.obj(index: Int): JSONObject? = optJSONObject(index) ?: null
 
 fun JSONArray.array(index: Int): JSONArray? = optJSONArray(index) ?: null
+
+inline fun JSONArray.forEach(action: (JSONObject) -> Unit) {
+    if (length() <= 0) return
+    for (i in 0 until length()) {
+        action(getJSONObject(i))
+    }
+}

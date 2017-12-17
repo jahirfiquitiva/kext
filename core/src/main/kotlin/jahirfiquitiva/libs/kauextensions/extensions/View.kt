@@ -27,6 +27,7 @@ import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -144,3 +145,5 @@ fun animateSmoothly(
 fun ImageView.setDecodedBitmap(resId: Int) {
     setImageBitmap(decodeBitmapWithSize(resources, resId, width, height))
 }
+
+fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0

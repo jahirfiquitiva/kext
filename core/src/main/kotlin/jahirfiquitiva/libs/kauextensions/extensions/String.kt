@@ -60,14 +60,17 @@ fun String.toTitleCase(): String {
     val titleCase = StringBuilder()
     var nextTitleCase = true
     for (c in toLowerCase().toCharArray()) {
-        var rc = c
-        if (Character.isSpaceChar(rc)) {
-            nextTitleCase = true
-        } else if (nextTitleCase) {
-            rc = Character.toTitleCase(c)
-            nextTitleCase = false
+        when {
+            Character.isSpaceChar(c) -> {
+                nextTitleCase = true
+                titleCase.append(c)
+            }
+            nextTitleCase -> {
+                nextTitleCase = false
+                titleCase.append(Character.toTitleCase(c))
+            }
+            else -> titleCase.append(c)
         }
-        titleCase.append(rc)
     }
     return titleCase.toString()
 }
