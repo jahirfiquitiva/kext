@@ -24,7 +24,12 @@ fun File.getUri(context: Context): Uri? {
     return try {
         FileProvider.getUriForFile(context, context.packageName + ".fileProvider", this)
     } catch (e: Exception) {
-        null
+        try {
+            Uri.fromFile(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
 
