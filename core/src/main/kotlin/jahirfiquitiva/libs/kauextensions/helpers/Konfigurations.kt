@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Jahir Fiquitiva
+ * Copyright (c) 2018. Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -18,9 +18,11 @@ package jahirfiquitiva.libs.kauextensions.helpers
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kauextensions.extensions.getInteger
 import jahirfiquitiva.libs.kauextensions.extensions.getSharedPrefs
 
-open class Konfigurations(val name: String, val context: Context) {
+open class Konfigurations(name: String, private val context: Context) {
     val prefs: SharedPreferences = context.getSharedPrefs(name)
     @SuppressLint("CommitPrefEdits")
     val prefsEditor: SharedPreferences.Editor = prefs.edit()
@@ -34,7 +36,7 @@ open class Konfigurations(val name: String, val context: Context) {
         set(appRunCount) = prefsEditor.putInt(APP_RUN_COUNT, appRunCount).apply()
     
     var currentTheme: Int
-        get() = prefs.getInt(THEME, 0)
+        get() = prefs.getInt(THEME, context.getInteger(R.integer.default_theme))
         set(theme) = prefsEditor.putInt(THEME, theme).apply()
     
     var hasColoredNavbar: Boolean

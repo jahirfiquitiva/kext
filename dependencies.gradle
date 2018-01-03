@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Jahir Fiquitiva
+ * Copyright (c) 2018. Jahir Fiquitiva
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -24,7 +24,7 @@ ext.versions = [
         // Projects
         minSdk        : 16,
         targetSdk     : 27,
-        buildTools    : '27.0.2',
+        buildTools    : '27.0.3',
         versionCode   : 100,
         versionName   : '1.0.0',
         // Gradle Plugins
@@ -34,7 +34,7 @@ ext.versions = [
         gms           : '3.1.0',
         // Dependencies
         supportLibs   : '27.0.2',
-        kau           : '3.5.1',
+        kau           : '3.6.1',
         archComponents: '1.0.0'
 ]
 
