@@ -63,7 +63,7 @@ open class SplitButtonsLayout : LinearLayout {
     
     fun addButton(text: String, link: String, fillAvailableSpace: Boolean = false) {
         if (hasAllButtons()) {
-            KEL.e("Cannot add more buttons. $buttonCount buttons have already been added")
+            KEL.e(null, { "Cannot add more buttons. $buttonCount buttons have already been added" })
             return
         }
         val button: AppCompatButton = context.inflate(R.layout.item_split_button, this)

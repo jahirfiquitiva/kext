@@ -164,7 +164,7 @@ fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tin
 }
 
 fun ThemedActivity.updateStatusBarStyle(state: CollapsingToolbarCallback.State) {
-    if (autoStatusBarTint())
+    if (autoTintStatusBar())
         statusBarLight = if (state === CollapsingToolbarCallback.State.COLLAPSED)
             primaryDarkColor.isColorLight() else false
 }
