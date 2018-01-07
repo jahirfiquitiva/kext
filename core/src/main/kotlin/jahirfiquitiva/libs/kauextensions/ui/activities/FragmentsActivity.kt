@@ -36,8 +36,15 @@ abstract class FragmentsActivity : ThemedActivity() {
             if (tag != null) manager.replace(fragmentsContainer(), f, tag)
             else manager.replace(fragmentsContainer(), f)
             manager.commit()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (ignored: Exception) {
+        }
+    }
+    
+    fun getCurrentFragment():Fragment?{
+        return try{
+            supportFragmentManager?.findFragmentById(fragmentsContainer())
+        }catch (e:Exception){
+            null
         }
     }
 }
