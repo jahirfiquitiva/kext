@@ -16,12 +16,14 @@
 package jahirfiquitiva.libs.kauextensions.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v4.app.Fragment
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 
 abstract class FragmentsActivity : ThemedActivity() {
-    open fun fragmentsContainer(): Int = 0
+    open fun fragmentsContainer() = 0
+    open fun reportResultToFragment() = false
     
     @SuppressLint("PrivateResource")
     open fun changeFragment(f: Fragment, tag: String? = null) {
@@ -40,11 +42,17 @@ abstract class FragmentsActivity : ThemedActivity() {
         }
     }
     
-    fun getCurrentFragment():Fragment?{
-        return try{
+    fun getCurrentFragment(): Fragment? {
+        return try {
             supportFragmentManager?.findFragmentById(fragmentsContainer())
-        }catch (e:Exception){
+        } catch (e: Exception) {
             null
         }
+    }
+    
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (reportResultToFragment())
+            getCurrentFragment()?.onActivityResult(requestCode, resultCode, data)
     }
 }
