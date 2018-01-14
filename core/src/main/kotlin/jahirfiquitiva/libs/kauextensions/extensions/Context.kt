@@ -45,26 +45,45 @@ import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
 
+@Deprecated("", ReplaceWith("isFirstRun"))
 val Context.isFirstRunEver: Boolean
+    get() = isFirstRun
+
+val Context.isFirstRun: Boolean
     get() {
-        try {
+        return try {
             val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
             val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-            return firstInstallTime == lastUpdateTime
-        } catch (ignored: Exception) {
+            firstInstallTime == lastUpdateTime
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
         }
-        return true
     }
 
+@Deprecated("", ReplaceWith("isUpdate"))
 val Context.justUpdated: Boolean
     get() {
-        try {
+        return try {
             val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
             val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-            return firstInstallTime != lastUpdateTime
-        } catch (ignored: Exception) {
+            firstInstallTime != lastUpdateTime
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
         }
-        return false
+    }
+
+val Context.isUpdate: Boolean
+    get() {
+        return try {
+            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
+            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
+            firstInstallTime != lastUpdateTime
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
 val Context.usesLightTheme
