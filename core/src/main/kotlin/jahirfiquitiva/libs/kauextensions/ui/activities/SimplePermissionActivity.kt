@@ -80,8 +80,10 @@ abstract class SimplePermissionActivity : AppCompatActivity(), PermissionRequest
         this.permission = null
     }
     
-    val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-        data = Uri.parse("package:$packageName")
+    val settingsIntent: Intent by lazy {
+        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:$packageName")
+        }
     }
     
     fun startPermissionSettings() {
