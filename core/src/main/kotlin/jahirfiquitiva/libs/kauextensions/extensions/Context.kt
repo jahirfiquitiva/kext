@@ -60,8 +60,8 @@ val Context.isUpdate: Boolean
     get() = firstInstallTime != lastUpdateTime
 
 fun Context.compliesWithMinTime(time: Long): Boolean = when {
-    isFirstRun -> firstInstallTime > time
-    isUpdate -> lastUpdateTime > time
+    isFirstRun -> System.currentTimeMillis() - firstInstallTime > time
+    isUpdate -> System.currentTimeMillis() - lastUpdateTime > time
     else -> false
 }
 
