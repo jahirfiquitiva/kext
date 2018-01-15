@@ -50,39 +50,36 @@ val Context.isFirstRunEver: Boolean
     get() = isFirstRun
 
 val Context.isFirstRun: Boolean
-    get() {
-        return try {
-            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
-            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-            firstInstallTime == lastUpdateTime
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
-    }
+    get() = firstInstallTime == lastUpdateTime
 
 @Deprecated("", ReplaceWith("isUpdate"))
 val Context.justUpdated: Boolean
+    get() = isUpdate
+
+val Context.isUpdate: Boolean
+    get() = firstInstallTime != lastUpdateTime
+
+fun Context.compliesWithMinTime(time: Long): Boolean = when {
+    isFirstRun -> firstInstallTime > time
+    isUpdate -> lastUpdateTime > time
+    else -> false
+}
+
+val Context.firstInstallTime: Long
     get() {
         return try {
-            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
-            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-            firstInstallTime != lastUpdateTime
+            packageManager.getPackageInfo(packageName, 0).firstInstallTime
         } catch (e: Exception) {
-            e.printStackTrace()
-            false
+            -1
         }
     }
 
-val Context.isUpdate: Boolean
+val Context.lastUpdateTime: Long
     get() {
         return try {
-            val firstInstallTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime
-            val lastUpdateTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-            firstInstallTime != lastUpdateTime
+            packageManager.getPackageInfo(packageName, 0).lastUpdateTime
         } catch (e: Exception) {
-            e.printStackTrace()
-            false
+            -1
         }
     }
 
