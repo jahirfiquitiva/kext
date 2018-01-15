@@ -16,7 +16,7 @@
 package jahirfiquitiva.libs.kauextensions.helpers
 
 // Shared Preferences
-const val APP_RUN_COUNT = "app_run_count"
+const val IS_FIRST_RUN = "first_run"
 const val LAST_VERSION = "last_version"
 const val THEME = "theme"
 const val COLORED_NAVBAR = "colored_navbar"

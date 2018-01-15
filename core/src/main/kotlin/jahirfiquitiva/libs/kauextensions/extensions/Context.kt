@@ -50,20 +50,26 @@ val Context.isFirstRunEver: Boolean
     get() = isFirstRun
 
 val Context.isFirstRun: Boolean
-    get() = firstInstallTime == lastUpdateTime
+    get() {
+        val isIt = konfigs.isFirstRun
+        konfigs.isFirstRun = false
+        return isIt
+    }
 
 @Deprecated("", ReplaceWith("isUpdate"))
 val Context.justUpdated: Boolean
     get() = isUpdate
 
 val Context.isUpdate: Boolean
-    get() = firstInstallTime != lastUpdateTime
+    get() {
+        val thisVersion = getAppVersionCode()
+        val prevVersion = konfigs.lastVersion
+        konfigs.lastVersion = thisVersion
+        return thisVersion > prevVersion
+    }
 
-fun Context.compliesWithMinTime(time: Long): Boolean = when {
-    isFirstRun -> System.currentTimeMillis() - firstInstallTime > time
-    isUpdate -> System.currentTimeMillis() - lastUpdateTime > time
-    else -> false
-}
+fun Context.compliesWithMinTime(time: Long): Boolean =
+        System.currentTimeMillis() - firstInstallTime > time
 
 val Context.firstInstallTime: Long
     get() {
@@ -151,6 +157,14 @@ inline fun <reified T : View> Context.inflate(
 fun Context.getAppName(): String = getStringFromRes(R.string.app_name, "KAU Extensions")
 
 fun Context.getLogTag(): String = getAppName()
+
+fun Context.getAppVersionCode(): Int {
+    return try {
+        packageManager.getPackageInfo(packageName, 0).versionCode
+    } catch (e: Exception) {
+        -1
+    }
+}
 
 fun Context.getAppVersion(): String {
     return try {

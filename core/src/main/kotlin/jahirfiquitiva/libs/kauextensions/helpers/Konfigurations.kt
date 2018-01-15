@@ -31,9 +31,9 @@ open class Konfigurations(name: String, private val context: Context) {
         fun newInstance(name: String, context: Context) = Konfigurations(name, context)
     }
     
-    var appRunCount: Int
-        get() = prefs.getInt(APP_RUN_COUNT, 0)
-        set(appRunCount) = prefsEditor.putInt(APP_RUN_COUNT, appRunCount).apply()
+    var isFirstRun: Boolean
+        get() = prefs.getBoolean(IS_FIRST_RUN, true)
+        set(value) = prefsEditor.putBoolean(IS_FIRST_RUN, value).apply()
     
     var currentTheme: Int
         get() = prefs.getInt(THEME, context.getInteger(R.integer.default_theme))
@@ -44,7 +44,7 @@ open class Konfigurations(name: String, private val context: Context) {
         set(colored) = prefsEditor.putBoolean(COLORED_NAVBAR, colored).apply()
     
     var lastVersion: Int
-        get() = prefs.getInt(LAST_VERSION, 0)
+        get() = prefs.getInt(LAST_VERSION, -1)
         set(lastVersion) = prefsEditor.putInt(LAST_VERSION, lastVersion).apply()
     
     var animationsEnabled: Boolean
