@@ -17,11 +17,11 @@ package jahirfiquitiva.libs.kauextensions.ui.callbacks
 
 import android.app.Activity
 import android.support.v4.app.ActivityCompat
+import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 
 interface PermissionRequestListener {
-    fun requestPermission(permission: String)
-    
     fun requestPermission(activity: Activity, permission: String, requestCode: Int) {
+        activity.konfigs.setPermissionRequested(permission)
         ActivityCompat.requestPermissions(activity, arrayOf(permission), requestCode)
     }
     

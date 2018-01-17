@@ -23,7 +23,6 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import ca.allanwang.kau.utils.buildIsMarshmallowAndUp
-import jahirfiquitiva.libs.kauextensions.ui.activities.SimplePermissionActivity
 import jahirfiquitiva.libs.kauextensions.ui.callbacks.PermissionRequestListener
 
 fun Context.isPermissionGranted(which: String): Boolean =
@@ -44,21 +43,19 @@ fun Activity.requestSinglePermission(
         permission: String, requestCode: Int,
         listener: PermissionRequestListener
                                     ) {
-    (this as? SimplePermissionActivity)?.requestPermission(permission) ?: {
-        if (buildIsMarshmallowAndUp) {
-            if (canRequestPermission(permission)) {
-                if (shouldShowPermissionRationale(permission)) {
-                    // Permission Request needs some explanation
-                    listener.onShowPermissionInformation(permission)
-                } else {
-                    // Request Permission
-                    listener.requestPermission(this, permission, requestCode)
-                }
+    if (buildIsMarshmallowAndUp) {
+        if (canRequestPermission(permission)) {
+            if (shouldShowPermissionRationale(permission)) {
+                // Permission Request needs some explanation
+                listener.onShowPermissionInformation(permission)
             } else {
-                listener.onPermissionDenied(permission)
+                // Request Permission
+                listener.requestPermission(this, permission, requestCode)
             }
         } else {
-            listener.onPermissionGranted(permission)
+            listener.onPermissionDenied(permission)
         }
-    }()
+    } else {
+        listener.onPermissionGranted(permission)
+    }
 }

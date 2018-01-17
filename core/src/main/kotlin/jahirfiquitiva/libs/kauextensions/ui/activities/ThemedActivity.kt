@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.ColorInt
 import android.support.annotation.StyleRes
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.statusBarColor
@@ -37,7 +38,7 @@ import jahirfiquitiva.libs.kauextensions.helpers.LIGHT
 import jahirfiquitiva.libs.kauextensions.helpers.TRANSPARENT
 import java.util.Calendar
 
-abstract class ThemedActivity : SimplePermissionActivity() {
+abstract class ThemedActivity : AppCompatActivity() {
     private var lastTheme = 0
     private var coloredNavbar = false
     
