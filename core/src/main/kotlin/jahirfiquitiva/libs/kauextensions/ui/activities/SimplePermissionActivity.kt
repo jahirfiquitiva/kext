@@ -72,6 +72,8 @@ abstract class SimplePermissionActivity : AppCompatActivity(), PermissionRequest
         }
     }
     
+    override fun onShowPermissionInformation(permission: String) {}
+    
     override fun onPermissionDenied(permission: String) {
         this.permission = null
     }
