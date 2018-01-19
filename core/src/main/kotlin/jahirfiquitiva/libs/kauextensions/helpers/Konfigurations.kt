@@ -50,21 +50,4 @@ open class Konfigurations(name: String, private val context: Context) {
     var animationsEnabled: Boolean
         get() = prefs.getBoolean(ANIMATIONS_ENABLED, true)
         set(value) = prefsEditor.putBoolean(ANIMATIONS_ENABLED, value).apply()
-    
-    @Deprecated("", ReplaceWith("hasRequestedPermission"))
-    fun getPermissionRequested(permission: String) = hasRequestedPermission(permission)
-    
-    fun hasRequestedPermission(permission: String): Boolean =
-            prefs.getBoolean(buildPermissionRequestKey(permission), false)
-    
-    @Deprecated("", ReplaceWith("setHasRequestedPermission"))
-    fun setPermissionRequested(permission: String, requested: Boolean) =
-            setPermissionRequested(permission)
-    
-    fun setPermissionRequested(permission: String) {
-        prefsEditor.putBoolean(buildPermissionRequestKey(permission), true).apply()
-    }
-    
-    private fun buildPermissionRequestKey(permission: String): String =
-            "requested_${permission.toLowerCase().replace(" ", "_")}"
 }
