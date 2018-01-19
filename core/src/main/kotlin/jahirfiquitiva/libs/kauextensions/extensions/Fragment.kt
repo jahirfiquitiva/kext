@@ -21,20 +21,18 @@ import android.support.v4.app.FragmentActivity
 
 @Deprecated("Use one of safeActv(...) methods", ReplaceWith("safeActv()"))
 val Fragment.actv: FragmentActivity
-    get() = activity ?: throw IllegalStateException("Activity was null! D:")
+    get() = activity ?: throw IllegalStateException("Activity was null!")
 
 @Deprecated("Use one of safeCtxt(...) methods", ReplaceWith("safeCtxt()"))
 val Fragment.ctxt: Context
-    get() = context ?: throw IllegalStateException("Context was null! D:")
+    get() = context ?: throw IllegalStateException("Context was null!")
 
-fun Fragment.safeActv(canThrowException: Boolean = false, todo: (FragmentActivity) -> Unit) {
-    activity?.let { todo(it) } ?:
-            if (canThrowException) throw IllegalStateException("Activity was null! D:")
+fun Fragment.safeActv(canThrowException: Boolean = false, todo: FragmentActivity.() -> Unit) {
+    activity?.todo() ?: if (canThrowException) throw IllegalStateException("Activity was null!")
 }
 
-fun Fragment.safeCtxt(canThrowException: Boolean = false, todo: (Context) -> Unit) {
-    context?.let { todo(it) } ?:
-            if (canThrowException) throw IllegalStateException("Context was null! D:")
+fun Fragment.safeCtxt(canThrowException: Boolean = false, todo: Context.() -> Unit) {
+    context?.todo() ?: if (canThrowException) throw IllegalStateException("Context was null!")
 }
 
 fun Fragment.safeActv(safeAccess: SafeAccess<FragmentActivity>) {
