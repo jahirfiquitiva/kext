@@ -40,4 +40,11 @@ abstract class Fragment<in T> : Fragment(), FragmentPresenter<T> {
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        onRestoreInstanceState(savedInstanceState)
+    }
+    
+    open fun onRestoreInstanceState(savedInstanceState: Bundle?) {}
 }
