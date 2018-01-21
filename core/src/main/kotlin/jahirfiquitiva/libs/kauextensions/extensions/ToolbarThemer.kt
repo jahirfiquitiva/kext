@@ -101,11 +101,8 @@ fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     // Theme menu action views
     (0 until size()).forEach { i ->
         val item = getItem(i)
-        if (item.actionView is SearchView) {
-            (item.actionView as SearchView).tintWith(iconsColor)
-        } else {
-            item.icon?.applyColorFilter(iconsColor)
-        }
+        item.icon?.applyColorFilter(iconsColor)
+        (item.actionView as? SearchView)?.tintWith(iconsColor)
     }
     
     // Display icons for easy UI understanding
