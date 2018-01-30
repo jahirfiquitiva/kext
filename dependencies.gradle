@@ -29,12 +29,12 @@ ext.versions = [
         versionName   : '1.0.0',
         // Gradle Plugins
         gradle        : '3.0.1',
-        kotlin        : '1.2.10',
+        kotlin        : '1.2.20',
         libs          : '2.0',
         // Dependencies
         supportLibs   : '27.0.2',
-        kau           : '3.6.1',
-        archComponents: '1.0.0'
+        kau           : '3.6.3',
+        archComponents: '1.1.0'
 ]
 
 ext.gradlePlugins = [

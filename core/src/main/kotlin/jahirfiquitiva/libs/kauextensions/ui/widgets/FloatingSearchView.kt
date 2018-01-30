@@ -71,7 +71,7 @@ import jahirfiquitiva.libs.kauextensions.extensions.withAlpha
  * Huge thanks to @lapism for his base
  * https://github.com/lapism/SearchView
  */
-class SearchView : FrameLayout {
+class FloatingSearchView : FrameLayout {
     
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -81,8 +81,8 @@ class SearchView : FrameLayout {
     interface SearchListener {
         fun onQueryChanged(query: String)
         fun onQuerySubmit(query: String)
-        fun onSearchOpened(searchView: SearchView)
-        fun onSearchClosed(searchView: SearchView)
+        fun onSearchOpened(searchView: FloatingSearchView)
+        fun onSearchClosed(searchView: FloatingSearchView)
     }
     
     /**
@@ -97,7 +97,7 @@ class SearchView : FrameLayout {
     private val editText: AppCompatEditText by bindView(R.id.kau_search_edit_text)
     private val iconClear: ImageView by bindView(R.id.kau_search_clear)
     
-    var menuItem: MenuItem? = null
+    private var menuItem: MenuItem? = null
     val isOpen: Boolean
         get() = parent != null && card.isVisible
     var hintText = ""
@@ -196,7 +196,7 @@ class SearchView : FrameLayout {
      * This is assuming that SearchView has already been added to a ViewGroup
      * If not, see the extension function [bindSearchView]
      */
-    fun bind(menu: Menu, @IdRes id: Int, withExtra: Boolean): SearchView {
+    fun bind(menu: Menu, @IdRes id: Int, withExtra: Boolean): FloatingSearchView {
         val menuItem = menu.findItem(id) ?: throw IllegalArgumentException(
                 "Menu item with given id doesn't exist")
         card.gone()
@@ -216,13 +216,14 @@ class SearchView : FrameLayout {
         menuItem = null
     }
     
+    private val locations = IntArray(2)
+    
     private fun configureCoords(item: MenuItem?, withExtra: Boolean) {
         if (menuX != -1 && menuHalfHeight != -1 && menuY != -1) return
         if (parent !is ViewGroup) return
         val id = item?.itemId ?: return
         val view = parentViewGroup.findViewById<View>(id) ?: return
-        val locations = IntArray(2)
-        view.getLocationOnScreen(locations)
+        view.getLocationInWindow(locations)
         menuX = (locations[0] + view.width / 2)
         menuHalfHeight = (view.height / 2)
         menuY = (locations[1] + (if (withExtra) menuHalfHeight else 0))
@@ -280,7 +281,7 @@ class SearchView : FrameLayout {
              * The cardView matches the parent's width, so menuX is correct
              */
             configureCoords(menuItem, withExtra)
-            listener?.onSearchOpened(this@SearchView)
+            listener?.onSearchOpened(this@FloatingSearchView)
             editText.showKeyboard()
             postDelayed(
                     {
@@ -299,7 +300,7 @@ class SearchView : FrameLayout {
                     card.circularHide(
                             menuX, menuHalfHeight, duration = 350L,
                             onFinish = {
-                                listener?.onSearchClosed(this@SearchView)
+                                listener?.onSearchClosed(this@FloatingSearchView)
                                 if (shouldClearOnClose)
                                     editText.text.clear()
                             })
@@ -314,16 +315,24 @@ class SearchView : FrameLayout {
 /**
  * Helper function that binds to an activity's main view
  */
-fun Activity.bindSearchView(menu: Menu, @IdRes id: Int, withExtra: Boolean = false): SearchView
-        = findViewById<ViewGroup>(android.R.id.content).bindSearchView(menu, id, withExtra)
+fun Activity.bindSearchView(
+        menu: Menu,
+        @IdRes id: Int,
+        withExtra: Boolean = false
+                           ): FloatingSearchView =
+        findViewById<ViewGroup>(android.R.id.content).bindSearchView(menu, id, withExtra)
 
 /**
  * Bind searchView to a menu item; call this in [Activity.onCreateOptionsMenu]
  * Be wary that if you may reinflate the menu many times (eg through [Activity.invalidateOptionsMenu]),
  * it may be worthwhile to hold a reference to the searchview and only bind it if it hasn't been bound before
  */
-fun ViewGroup.bindSearchView(menu: Menu, @IdRes id: Int, withExtra: Boolean = false): SearchView {
-    val searchView = SearchView(context)
+fun ViewGroup.bindSearchView(
+        menu: Menu,
+        @IdRes id: Int,
+        withExtra: Boolean = false
+                            ): FloatingSearchView {
+    val searchView = FloatingSearchView(context)
     searchView.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT)
