@@ -66,7 +66,7 @@ dependencies {
     // Core
     api project(path: ':core')
     // Architecture Components
-    implementation libraries.lifecycle
+    api libraries.lifecycle
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
 }
