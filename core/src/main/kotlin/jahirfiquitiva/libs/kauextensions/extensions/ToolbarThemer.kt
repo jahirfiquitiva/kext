@@ -133,11 +133,11 @@ fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tin
     try {
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
         mSearchSrcTextViewField.isAccessible = true
-        val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as EditText
-        mSearchSrcTextView.setTextColor(tintColor)
-        mSearchSrcTextView.setHintTextColor(
+        val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as? EditText
+        mSearchSrcTextView?.setTextColor(tintColor)
+        mSearchSrcTextView?.setHintTextColor(
                 if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor)
-        setCursorTint(mSearchSrcTextView, tintColor)
+        mSearchSrcTextView?.tint(tintColor)
         
         var field = cls.getDeclaredField("mSearchButton")
         tintImageView(this, field, tintColor)
@@ -156,7 +156,6 @@ fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tin
         field.isAccessible = true
         field.set(this, (field.get(this) as Drawable).applyColorFilter(tintColor))
     } catch (e: Exception) {
-        e.printStackTrace()
     }
 }
 
@@ -169,29 +168,29 @@ fun ThemedActivity.updateStatusBarStyle(state: CollapsingToolbarCallback.State) 
 private fun tintImageView(target: Any, field: Field, tintColor: Int) {
     field.isAccessible = true
     val imageView = field.get(target) as ImageView
-    if (imageView.drawable != null) {
-        imageView.setImageDrawable(imageView.drawable.applyColorFilter(tintColor))
-    }
+    imageView.tint(tintColor)
 }
 
-private fun setCursorTint(editText: EditText, @ColorInt color: Int) {
+fun ImageView.tint(@ColorInt color: Int) {
+    if (drawable != null) setImageDrawable(drawable.applyColorFilter(color))
+}
+
+fun EditText.tint(@ColorInt color: Int) {
     try {
         val fCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
         fCursorDrawableRes.isAccessible = true
-        val mCursorDrawableRes = fCursorDrawableRes.getInt(editText)
+        val mCursorDrawableRes = fCursorDrawableRes.getInt(this)
         val fEditor = TextView::class.java.getDeclaredField("mEditor")
         fEditor.isAccessible = true
-        val editor = fEditor.get(editText)
+        val editor = fEditor.get(this)
         val clazz = editor.javaClass
         val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
         fCursorDrawable.isAccessible = true
         val drawables = arrayOfNulls<Drawable>(2)
-        drawables[0] = ContextCompat.getDrawable(
-                editText.context,
-                mCursorDrawableRes)?.applyColorFilter(color)
-        drawables[1] = ContextCompat.getDrawable(
-                editText.context,
-                mCursorDrawableRes)?.applyColorFilter(color)
+        drawables[0] =
+                ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
+        drawables[1] =
+                ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
         fCursorDrawable.set(editor, drawables)
     } catch (e: Exception) {
         e.printStackTrace()
