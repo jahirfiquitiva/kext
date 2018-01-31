@@ -25,6 +25,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import ca.allanwang.kau.utils.gone
+import jahirfiquitiva.libs.kauextensions.extensions.getPrimaryTextColorFor
+import jahirfiquitiva.libs.kauextensions.extensions.primaryColor
 import jahirfiquitiva.libs.kauextensions.extensions.tint
 import jahirfiquitiva.libs.kauextensions.extensions.withAlpha
 
@@ -61,6 +63,8 @@ class CustomSearchView : SearchView {
                 LinearLayout.LayoutParams.WRAP_CONTENT)
         
         imeOptions = EditorInfo.IME_ACTION_SEARCH
+        setIconifiedByDefault(false)
+        isIconified = false
         removeSearchIcon()
         
         super.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -74,6 +78,8 @@ class CustomSearchView : SearchView {
                 return true
             }
         })
+        
+        tint(context.getPrimaryTextColorFor(context.primaryColor, 0.6F))
     }
     
     private fun removeSearchIcon() {
@@ -137,6 +143,14 @@ class CustomSearchView : SearchView {
     
     fun tintWith(@ColorInt color: Int, @ColorInt hintColor: Int = color) {
         tint(color, hintColor)
+    }
+    
+    override fun setIconified(iconify: Boolean) {
+        super.setIconified(false)
+    }
+    
+    override fun setIconifiedByDefault(iconified: Boolean) {
+        super.setIconifiedByDefault(false)
     }
     
     override fun setOnQueryTextListener(listener: OnQueryTextListener?) {
