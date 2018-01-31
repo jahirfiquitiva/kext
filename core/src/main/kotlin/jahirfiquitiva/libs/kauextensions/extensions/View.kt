@@ -147,3 +147,6 @@ fun ImageView.setDecodedBitmap(resId: Int) {
 }
 
 fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
+
+fun View.postDelayed(delay: Long, action: () -> Unit) =
+        postDelayed(action, delay)

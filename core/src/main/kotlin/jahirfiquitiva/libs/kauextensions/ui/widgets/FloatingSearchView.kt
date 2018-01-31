@@ -30,11 +30,13 @@ import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -57,6 +59,7 @@ import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
 import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 import jahirfiquitiva.libs.kauextensions.extensions.getDrawable
 import jahirfiquitiva.libs.kauextensions.extensions.getPrimaryTextColorFor
+import jahirfiquitiva.libs.kauextensions.extensions.postDelayed
 import jahirfiquitiva.libs.kauextensions.extensions.runOnUiThread
 import jahirfiquitiva.libs.kauextensions.extensions.withAlpha
 
@@ -216,17 +219,25 @@ class FloatingSearchView : FrameLayout {
         menuItem = null
     }
     
-    private val locations = IntArray(2)
-    
     private fun configureCoords(item: MenuItem?, withExtra: Boolean) {
         if (menuX != -1 && menuHalfHeight != -1 && menuY != -1) return
         if (parent !is ViewGroup) return
         val id = item?.itemId ?: return
         val view = parentViewGroup.findViewById<View>(id) ?: return
-        view.getLocationInWindow(locations)
+        
+        val locations = IntArray(2)
+        view.getLocationOnScreen(locations)
+        
+        val displayMetrics = DisplayMetrics()
+        val wm = context.applicationContext.getSystemService(
+                Context.WINDOW_SERVICE) as? WindowManager
+        wm?.defaultDisplay?.getMetrics(displayMetrics)
+        val devHeight = displayMetrics.heightPixels
+        
         menuX = (locations[0] + view.width / 2)
         menuHalfHeight = (view.height / 2)
-        menuY = (locations[1] + (if (withExtra) menuHalfHeight else 0))
+        menuY = Math.abs(locations[1] - devHeight + view.height)
+        // (locations[1] + (if (withExtra) menuHalfHeight else 0))
         card.viewTreeObserver?.addOnPreDrawListener(
                 object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
@@ -283,12 +294,11 @@ class FloatingSearchView : FrameLayout {
             configureCoords(menuItem, withExtra)
             listener?.onSearchOpened(this@FloatingSearchView)
             editText.showKeyboard()
-            postDelayed(
-                    {
-                        card.circularReveal(menuX, menuHalfHeight, duration = 350L) {
-                            cardTransition()
-                        }
-                    }, 50)
+            postDelayed(50) {
+                card.circularReveal(menuX, menuHalfHeight, duration = 350L) {
+                    cardTransition()
+                }
+            }
         }
     }
     
