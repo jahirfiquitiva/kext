@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference
 
 abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     
-    fun getData(): Result? = data.value
+    open fun getData(): Result? = data.value
     
     private var taskStarted = false
     private val data = MutableLiveData<Result>()
@@ -63,7 +63,7 @@ abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     private fun safeInternalLoad(param: Parameter, forceLoad: Boolean = false): Result? {
         return if (forceLoad) internalLoad(param)
         else {
-            if (isOldDataValid) data.value
+            if (isOldDataValid()) data.value
             else internalLoad(param)
         }
     }
@@ -85,5 +85,5 @@ abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     }
     
     protected abstract fun internalLoad(param: Parameter): Result
-    protected abstract val isOldDataValid: Boolean
+    protected abstract fun isOldDataValid(): Boolean
 }
