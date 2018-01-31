@@ -32,6 +32,9 @@ class CustomSearchView : SearchView {
     
     private var tintColor: Int = 0
     
+    var isOpen = false
+        private set
+    
     var onExpand: () -> Unit = {}
     var onCollapse: () -> Unit = {}
     
@@ -155,11 +158,13 @@ class CustomSearchView : SearchView {
         item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 onExpand()
+                isOpen = true
                 return true
             }
             
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 onCollapse()
+                isOpen = false
                 return true
             }
         })
