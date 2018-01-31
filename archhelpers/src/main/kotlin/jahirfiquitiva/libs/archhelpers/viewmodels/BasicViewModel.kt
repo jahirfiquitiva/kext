@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference
 
 abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     
-    open fun getData(): Result? = data.value
+    fun getData(): Result? = data.value
     
     private var taskStarted = false
     private val data = MutableLiveData<Result>()

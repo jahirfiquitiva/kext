@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright (c) 2018. Jahir Fiquitiva
 
@@ -13,15 +14,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools">
+    <item
+            android:id="@+id/search"
+            android:title="Search"
+            android:orderInCategory="100"
+            android:actionViewClass="android.widget.ImageButton"
+            app:showAsAction="ifRoom"
+            tools:ignore="AppCompatResource"/>
+</menu>

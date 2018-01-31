@@ -17,7 +17,6 @@ package jahirfiquitiva.libs.kauextensions.ui.widgets
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
@@ -30,13 +29,11 @@ import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -51,8 +48,6 @@ import ca.allanwang.kau.utils.isVisible
 import ca.allanwang.kau.utils.parentViewGroup
 import ca.allanwang.kau.utils.setMarginTop
 import ca.allanwang.kau.utils.showKeyboard
-import ca.allanwang.kau.utils.tint
-import ca.allanwang.kau.utils.tintCursor
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.activeIconsColor
 import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
@@ -226,18 +221,11 @@ class FloatingSearchView : FrameLayout {
         val view = parentViewGroup.findViewById<View>(id) ?: return
         
         val locations = IntArray(2)
-        view.getLocationOnScreen(locations)
-        
-        val displayMetrics = DisplayMetrics()
-        val wm = context.applicationContext.getSystemService(
-                Context.WINDOW_SERVICE) as? WindowManager
-        wm?.defaultDisplay?.getMetrics(displayMetrics)
-        val devHeight = displayMetrics.heightPixels
+        view.getLocationInWindow(locations)
         
         menuX = (locations[0] + view.width / 2)
         menuHalfHeight = (view.height / 2)
-        menuY = Math.abs(locations[1] - devHeight + view.height)
-        // (locations[1] + (if (withExtra) menuHalfHeight else 0))
+        menuY = (locations[1] + (if (withExtra) menuHalfHeight else 0))
         card.viewTreeObserver?.addOnPreDrawListener(
                 object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
@@ -269,10 +257,11 @@ class FloatingSearchView : FrameLayout {
      */
     internal fun tintForeground(@ColorInt textColor: Int, @ColorInt iconsColor: Int) {
         iconClear.drawable.applyColorFilter(iconsColor)
+        /*
         editText.tint(textColor)
         editText.tintCursor(textColor.withAlpha(0.5F))
         editText.setTextColor(ColorStateList.valueOf(textColor))
-        editText.setHintTextColor(textColor.withAlpha(0.5F))
+        editText.setHintTextColor(textColor.withAlpha(0.5F)) */
     }
     
     /**
