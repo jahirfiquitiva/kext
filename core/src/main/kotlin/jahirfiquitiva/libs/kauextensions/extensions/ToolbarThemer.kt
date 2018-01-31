@@ -76,20 +76,7 @@ fun Toolbar.tint(
         }
     }
     
-    // Step 3: Changing the color of title and subtitle.
-    setTitleTextColor(titleColor)
-    setSubtitleTextColor(subtitleColor)
-    
-    // Step 4: Change the color of overflow menu icon.
-    overflowIcon?.applyColorFilter(iconsColor)
-    setOverflowButtonColor(iconsColor)
-    
-    // Step 5: Tint toolbar menu.
-    menu?.tint(iconsColor, forceShowIcons)
-}
-
-fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
-    // The collapse icon displays when action views are expanded (e.g. SearchView)
+    // Step 3: Tint collapse icon
     try {
         val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
         field.isAccessible = true
@@ -98,6 +85,19 @@ fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     } catch (e: Exception) {
     }
     
+    // Step 4: Changing the color of title and subtitle.
+    setTitleTextColor(titleColor)
+    setSubtitleTextColor(subtitleColor)
+    
+    // Step 5: Change the color of overflow menu icon.
+    overflowIcon?.applyColorFilter(iconsColor)
+    setOverflowButtonColor(iconsColor)
+    
+    // Step 6: Tint toolbar menu.
+    menu?.tint(iconsColor, forceShowIcons)
+}
+
+fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     // Theme menu action views
     (0 until size()).forEach { i ->
         val item = getItem(i)

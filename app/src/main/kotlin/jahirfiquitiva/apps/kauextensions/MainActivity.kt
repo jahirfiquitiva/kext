@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             searchView?.onQueryChanged = { Log.d("KAUExt", "Query changed: $it") }
             searchView?.onQuerySubmit = { Log.d("KAUExt", "Query submit: $it") }
             searchView?.bindToItem(searchItem)
-            searchView?.tintWith(getPrimaryTextColorFor(primaryColor, 0.7F))
+            searchView?.tint(getPrimaryTextColorFor(primaryColor, 0.7F))
         }
         menu?.tint(Color.WHITE)
         toolbar?.tint(Color.WHITE, Color.WHITE, Color.WHITE)
