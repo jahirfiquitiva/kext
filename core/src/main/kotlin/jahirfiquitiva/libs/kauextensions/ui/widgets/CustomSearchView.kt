@@ -61,11 +61,9 @@ class CustomSearchView : SearchView {
                 LinearLayout.LayoutParams.WRAP_CONTENT)
         
         imeOptions = EditorInfo.IME_ACTION_SEARCH
-        setIconifiedByDefault(false)
-        isIconified = false
         removeSearchIcon()
         
-        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        super.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let { onQueryChanged(it.trim()) }
                 return true
@@ -139,14 +137,6 @@ class CustomSearchView : SearchView {
     
     fun tintWith(@ColorInt color: Int, @ColorInt hintColor: Int = color) {
         tint(color, hintColor)
-    }
-    
-    override fun setIconified(iconify: Boolean) {
-        super.setIconified(false)
-    }
-    
-    override fun setIconifiedByDefault(iconified: Boolean) {
-        super.setIconifiedByDefault(false)
     }
     
     override fun setOnQueryTextListener(listener: OnQueryTextListener?) {
