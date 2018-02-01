@@ -16,6 +16,11 @@
 package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.Context
+import android.support.annotation.ArrayRes
+import android.support.annotation.BoolRes
+import android.support.annotation.DimenRes
+import android.support.annotation.IntegerRes
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
@@ -57,3 +62,17 @@ interface SafeAccess<in T> {
     fun ifNotNull(obj: T) {}
     fun ifNull() {}
 }
+
+fun Fragment.string(@StringRes stringRes: Int, fallback: String): String =
+        if (id > 0) getString(stringRes) else fallback
+
+fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String> =
+        resources.getStringArray(arrayRes)
+
+fun Fragment.boolean(@BoolRes bool: Int) = resources.getBoolean(bool)
+
+fun Fragment.integer(@IntegerRes id: Int): Int = resources.getInteger(id)
+
+fun Fragment.dimen(@DimenRes id: Int): Float = resources.getDimension(id)
+
+fun Fragment.dimenPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)

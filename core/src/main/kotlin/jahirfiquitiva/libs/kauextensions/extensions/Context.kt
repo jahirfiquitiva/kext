@@ -40,8 +40,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import ca.allanwang.kau.utils.boolean
+import ca.allanwang.kau.utils.color
+import ca.allanwang.kau.utils.dimen
 import ca.allanwang.kau.utils.dimenPixelSize
+import ca.allanwang.kau.utils.drawable
+import ca.allanwang.kau.utils.integer
 import ca.allanwang.kau.utils.resolveBoolean
+import ca.allanwang.kau.utils.string
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
 
@@ -95,24 +101,34 @@ val Context.usesLightTheme
 val Context.usesDarkTheme
     get() = resolveBoolean(R.attr.isDark)
 
-fun Context.getStringFromRes(@StringRes stringRes: Int, fallback: String): String =
-        if (stringRes > 0) getString(stringRes) else fallback
-
-fun Context.getStringArray(@ArrayRes arrayRes: Int): Array<String> =
+fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String> =
         resources.getStringArray(arrayRes)
 
-fun Context.getColorFromRes(@ColorRes colorRes: Int) = ContextCompat.getColor(this, colorRes)
+@Deprecated("Use KAU's string instead", ReplaceWith("string()"))
+fun Context.getStringFromRes(@StringRes stringRes: Int, fallback: String): String =
+        string(stringRes, fallback) ?: fallback
 
-fun Context.getBoolean(@BoolRes bool: Int) = resources.getBoolean(bool)
+@Deprecated("Use stringArray instead", ReplaceWith("stringArray()"))
+fun Context.getStringArray(@ArrayRes arrayRes: Int): Array<String> = stringArray(arrayRes)
 
-fun Context.getInteger(@IntegerRes id: Int): Int = resources.getInteger(id)
+@Deprecated("Use KAU's color instead", ReplaceWith("color()"))
+fun Context.getColorFromRes(@ColorRes colorRes: Int) = color(colorRes)
 
-fun Context.getDimension(@DimenRes id: Int): Float = resources.getDimension(id)
+@Deprecated("Use KAU's bool instead", ReplaceWith("bool()"))
+fun Context.getBoolean(@BoolRes bool: Int) = boolean(bool)
 
-fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)
+@Deprecated("Use KAU's integer instead", ReplaceWith("integer()"))
+fun Context.getInteger(@IntegerRes id: Int): Int = integer(id)
 
+@Deprecated("Use KAU's dimen instead", ReplaceWith("dimen()"))
+fun Context.getDimension(@DimenRes id: Int): Float = dimen(id)
+
+@Deprecated("Use KAU's dimenPixelSize instead", ReplaceWith("dimenPixelSize()"))
+fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = dimenPixelSize(id)
+
+@Deprecated("Use KAU's drawable instead", ReplaceWith("drawable()"))
 fun Context.getDrawable(@DrawableRes id: Int, fallback: Drawable? = null): Drawable? =
-        if (id > 0) ContextCompat.getDrawable(this, id) else fallback
+        drawable(id, fallback)
 
 @ColorInt
 fun Context.extractColor(attribute: IntArray): Int {
