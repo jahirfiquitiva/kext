@@ -33,16 +33,13 @@ import ca.allanwang.kau.utils.statusBarLight
  * Credits: Lorenzo Quiroli - Roberto Orgiu
  * https://medium.com/@quiro91/improving-findviewbyid-with-kotlin-4cf2f8f779bb
  */
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T> =
+inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T?> =
         lazy { findViewById<T>(res) }
 
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T>? =
+inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T?>? =
         view?.let { lazy { it.findViewById<T>(res) } }
 
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T> =
+inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> =
         lazy { findViewById<T>(res) }
 
 @Deprecated("Use \'enableTranslucentStatusBar\'", ReplaceWith("enableTranslucentStatusBar"))
