@@ -64,7 +64,7 @@ interface SafeAccess<in T> {
 }
 
 fun Fragment.string(@StringRes stringRes: Int, fallback: String): String =
-        if (id > 0) getString(stringRes) else fallback
+        if (stringRes > 0) getString(stringRes) else fallback
 
 fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String> =
         resources.getStringArray(arrayRes)
