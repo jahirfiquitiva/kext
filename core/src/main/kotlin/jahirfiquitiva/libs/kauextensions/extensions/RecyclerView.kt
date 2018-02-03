@@ -36,7 +36,7 @@ inline fun <reified T : View> RecyclerView.ViewHolder.bind(@IdRes res: Int): Laz
 val RecyclerView.ViewHolder.context: Context
     get() = itemView.context
 
-fun RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String): String =
+fun RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String = ""): String =
         itemView.context.string(stringRes, fallback) ?: fallback
 
 fun RecyclerView.ViewHolder.stringArray(@ArrayRes arrayRes: Int): Array<String> =
