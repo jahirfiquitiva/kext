@@ -15,17 +15,26 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
+import android.content.Context
 import android.support.annotation.ArrayRes
 import android.support.annotation.BoolRes
 import android.support.annotation.DimenRes
+import android.support.annotation.IdRes
 import android.support.annotation.IntegerRes
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import ca.allanwang.kau.utils.boolean
 import ca.allanwang.kau.utils.dimen
 import ca.allanwang.kau.utils.dimenPixelSize
 import ca.allanwang.kau.utils.integer
 import ca.allanwang.kau.utils.string
+
+inline fun <reified T : View> RecyclerView.ViewHolder.bind(@IdRes res: Int): Lazy<T?> =
+        lazy { itemView.findViewById<T>(res) }
+
+val RecyclerView.ViewHolder.context: Context
+    get() = itemView.context
 
 fun RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String): String =
         itemView.context.string(stringRes, fallback) ?: fallback
