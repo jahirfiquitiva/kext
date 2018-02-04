@@ -59,6 +59,10 @@ android {
         pickFirst 'META-INF/library_debug.kotlin_module'
         pickFirst 'META-INF/library_release.kotlin_module'
     }
+
+    dexOptions {
+        preDexLibraries = false
+    }
 }
 
 dependencies {
@@ -66,7 +70,9 @@ dependencies {
     // Core
     api project(path: ':core')
     // Architecture Components
-    api libraries.lifecycle
+    api(libraries.lifecycle) {
+        exclude group: 'com.android.support'
+    }
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
 }

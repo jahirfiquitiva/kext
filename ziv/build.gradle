@@ -57,6 +57,10 @@ android {
         pickFirst 'META-INF/library_debug.kotlin_module'
         pickFirst 'META-INF/library_release.kotlin_module'
     }
+
+    dexOptions {
+        preDexLibraries = false
+    }
 }
 
 dependencies {

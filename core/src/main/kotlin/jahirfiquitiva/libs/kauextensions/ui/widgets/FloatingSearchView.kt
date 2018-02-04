@@ -17,6 +17,7 @@ package jahirfiquitiva.libs.kauextensions.ui.widgets
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
@@ -48,6 +49,8 @@ import ca.allanwang.kau.utils.isVisible
 import ca.allanwang.kau.utils.parentViewGroup
 import ca.allanwang.kau.utils.setMarginTop
 import ca.allanwang.kau.utils.showKeyboard
+import ca.allanwang.kau.utils.tint
+import ca.allanwang.kau.utils.tintCursor
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.activeIconsColor
 import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
@@ -257,11 +260,10 @@ class FloatingSearchView : FrameLayout {
      */
     internal fun tintForeground(@ColorInt textColor: Int, @ColorInt iconsColor: Int) {
         iconClear.drawable.applyColorFilter(iconsColor)
-        /*
         editText.tint(textColor)
         editText.tintCursor(textColor.withAlpha(0.5F))
         editText.setTextColor(ColorStateList.valueOf(textColor))
-        editText.setHintTextColor(textColor.withAlpha(0.5F)) */
+        editText.setHintTextColor(textColor.withAlpha(0.5F))
     }
     
     /**

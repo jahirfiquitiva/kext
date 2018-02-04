@@ -172,7 +172,7 @@ inline fun <reified T : View> Context.inflate(
                                              ): T =
         LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
 
-fun Context.getAppName(): String = getStringFromRes(R.string.app_name, "KAU Extensions")
+fun Context.getAppName(): String = string(R.string.app_name, "KAU Extensions").orEmpty()
 
 fun Context.getLogTag(): String = getAppName()
 

@@ -15,9 +15,11 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.support.annotation.ColorInt
+import ca.allanwang.kau.utils.color
 import ca.allanwang.kau.utils.isColorDark
 import jahirfiquitiva.libs.kauextensions.R
 
@@ -61,7 +63,8 @@ val Context.inactiveIconsColor: Int
     get() = disabledTextColor
 
 val Context.rippleColor: Int
-    get() = getColorFromRes(
+    @SuppressLint("PrivateResource")
+    get() = color(
             if (usesDarkTheme) R.color.ripple_material_light else R.color.ripple_material_dark)
 
 val Context.overlayColor: Int

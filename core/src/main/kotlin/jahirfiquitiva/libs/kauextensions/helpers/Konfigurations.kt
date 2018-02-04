@@ -18,8 +18,8 @@ package jahirfiquitiva.libs.kauextensions.helpers
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import ca.allanwang.kau.utils.integer
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.getInteger
 import jahirfiquitiva.libs.kauextensions.extensions.getSharedPrefs
 
 open class Konfigurations(name: String, private val context: Context) {
@@ -36,7 +36,7 @@ open class Konfigurations(name: String, private val context: Context) {
         set(value) = prefsEditor.putBoolean(IS_FIRST_RUN, value).apply()
     
     var currentTheme: Int
-        get() = prefs.getInt(THEME, context.getInteger(R.integer.default_theme))
+        get() = prefs.getInt(THEME, context.integer(R.integer.default_theme))
         set(theme) = prefsEditor.putInt(THEME, theme).apply()
     
     var hasColoredNavbar: Boolean
