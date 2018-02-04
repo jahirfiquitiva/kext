@@ -68,8 +68,6 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
-    api libraries.support
-    api libraries.appcompat
     api libraries.recyclerview
     api libraries.cardview
     api libraries.palette

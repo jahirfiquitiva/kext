@@ -47,7 +47,6 @@ ext.libraries = [
         // Kotlin
         kotlin           : 'org.jetbrains.kotlin:kotlin-stdlib:' + versions.kotlin,
         // Support Libs
-        support          : 'com.android.support:support-v13:' + versions.supportLibs,
         appcompat        : 'com.android.support:appcompat-v7:' + versions.supportLibs,
         recyclerview     : 'com.android.support:recyclerview-v7:' + versions.supportLibs,
         cardview         : 'com.android.support:cardview-v7:' + versions.supportLibs,

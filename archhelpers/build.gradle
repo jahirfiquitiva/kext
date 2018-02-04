@@ -70,10 +70,10 @@ dependencies {
     // Core
     api project(path: ':core')
     // Architecture Components
-    implementation(libraries.viewModel) {
+    api(libraries.viewModel) {
         exclude group: 'com.android.support'
     }
-    implementation(libraries.liveData) {
+    api(libraries.liveData) {
         exclude group: 'com.android.support'
     }
     annotationProcessor libraries.lifecycleCompiler
