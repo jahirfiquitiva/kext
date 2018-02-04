@@ -49,7 +49,7 @@ abstract class ViewModelFragment<in T> : Fragment<T>(), ViewModelFragmentPresent
     
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (autoStartLoad()) loadDataFromViewModel()
+        if (isVisibleToUser && autoStartLoad()) loadDataFromViewModel()
     }
     
     override fun onItemClicked(item: T, longClick: Boolean) {}
