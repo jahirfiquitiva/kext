@@ -22,19 +22,19 @@ ext.details = [
 
 ext.versions = [
         // Projects
-        minSdk        : 16,
-        targetSdk     : 27,
-        buildTools    : '27.0.3',
-        versionCode   : 100,
-        versionName   : '1.0.0',
+        minSdk     : 16,
+        targetSdk  : 27,
+        buildTools : '27.0.3',
+        versionCode: 100,
+        versionName: '1.0.0',
         // Gradle Plugins
-        gradle        : '3.0.1',
-        kotlin        : '1.2.21',
-        libs          : '2.0',
+        gradle     : '3.0.1',
+        kotlin     : '1.2.21',
+        libs       : '2.0',
         // Dependencies
-        supportLibs   : '27.0.2',
-        kau           : '3.6.3',
-        archComponents: '1.1.0'
+        supportLibs: '27.0.2',
+        kau        : '3.6.3',
+        lifecycle  : '1.1.0'
 ]
 
 ext.gradlePlugins = [
@@ -56,7 +56,6 @@ ext.libraries = [
         // KAU
         kau              : 'ca.allanwang.kau:core:' + versions.kau + '@aar',
         // Architecture Components
-        viewModel        : 'android.arch.lifecycle:viewmodel:' + versions.archComponents,
-        liveData         : 'android.arch.lifecycle:livedata:' + versions.archComponents,
-        lifecycleCompiler: 'android.arch.lifecycle:compiler:' + versions.archComponents
+        lifecycle        : 'android.arch.lifecycle:extensions:' + versions.lifecycle,
+        lifecycleCompiler: 'android.arch.lifecycle:compiler:' + versions.lifecycle
 ]
