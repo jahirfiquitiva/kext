@@ -57,6 +57,7 @@ ext.libraries = [
         // KAU
         kau              : 'ca.allanwang.kau:core:' + versions.kau + '@aar',
         // Architecture Components
-        lifecycle        : 'android.arch.lifecycle:extensions:' + versions.archComponents,
+        viewModel        : 'android.arch.lifecycle:viewmodel:' + versions.archComponents,
+        liveData         : 'android.arch.lifecycle:livedata:' + versions.archComponents,
         lifecycleCompiler: 'android.arch.lifecycle:compiler:' + versions.archComponents
 ]
