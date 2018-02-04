@@ -45,10 +45,3 @@ fun Int.isColorLight(darkness: Float = 0.5F): Boolean = !isColorDark(darkness)
 
 val Int.isColorLight: Boolean
     get() = !isColorDark
-
-fun Int.getUriFromResource(context: Context): Uri =
-        Uri.parse(
-                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
-                        context.resources.getResourcePackageName(this) + '/' +
-                        context.resources.getResourceTypeName(this) + '/' +
-                        context.resources.getResourceEntryName(this))

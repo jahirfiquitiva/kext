@@ -18,9 +18,11 @@ package jahirfiquitiva.libs.kauextensions.extensions
 import android.Manifest
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Looper
 import android.support.annotation.ArrayRes
@@ -250,4 +252,11 @@ fun Context.getStatusBarHeight(force: Boolean = false): Int {
         //if our dimens is > 0 && the result == 0 use the dimenResult else the result
         if (result == 0) dimenResult else result
     }
+}
+
+fun Context.getUriFromResource(id: Int): Uri? {
+    return Uri.parse(
+            "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
+                    "${resources.getResourcePackageName(id)}/" +
+                    "${resources.getResourceTypeName(id)}/" + resources.getResourceEntryName(id))
 }

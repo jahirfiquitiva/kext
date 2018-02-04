@@ -44,20 +44,29 @@ val Bitmap.bestSwatch: Palette.Swatch?
 fun Bitmap.createRoundedDrawable(context: Context): Drawable {
     val roundedPic = RoundedBitmapDrawableFactory.create(context.resources, this)
     roundedPic.isCircular = true
+    roundedPic.setAntiAlias(true)
     return roundedPic
 }
 
 fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): Uri? {
     val iconFile = File(context.cacheDir, name + extension)
-    val fos = FileOutputStream(iconFile)
-    compress(Bitmap.CompressFormat.PNG, 100, fos)
-    fos.flush()
-    fos.close()
-    return iconFile.getUri(context) ?: Uri.fromFile(iconFile) ?:
-            name.getIconResource(context).getUriFromResource(context) ?:
-            Uri.parse(
+    val fos: FileOutputStream?
+    try {
+        fos = FileOutputStream(iconFile)
+        compress(Bitmap.CompressFormat.PNG, 100, fos)
+        fos.flush()
+        fos.close()
+        
+        var uri = iconFile.getUri(context)
+        if (uri == null) uri = context.getUriFromResource(name.getIconResource(context))
+        if (uri == null)
+            uri = Uri.parse(
                     ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
                             "/" + name.getIconResource(context).toString())
+        return uri
+    } catch (e: Exception) {
+        return null
+    }
 }
 
 fun decodeBitmapWithSize(res: Resources, resId: Int, width: Int, height: Int): Bitmap {
