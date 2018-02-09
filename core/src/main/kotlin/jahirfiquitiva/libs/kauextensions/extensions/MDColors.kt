@@ -33,7 +33,14 @@ val Context.accentColor: Int
     get() = extractColor(intArrayOf(R.attr.colorAccent))
 
 val Context.cardBackgroundColor: Int
-    get() = extractColor(intArrayOf(R.attr.cardBackgroundColor))
+    @SuppressLint("PrivateResource")
+    get() {
+        return try {
+            extractColor(intArrayOf(R.attr.cardBackgroundColor))
+        } catch (e: Exception) {
+            if (usesDarkTheme) Color.parseColor("#424242") else Color.parseColor("#ffffff")
+        }
+    }
 
 val Context.primaryTextColor: Int
     get() = if (usesDarkTheme) Color.parseColor("#ffffffff") else Color.parseColor("#de000000")

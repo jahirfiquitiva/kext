@@ -21,12 +21,28 @@ import android.util.AttributeSet
 import jahirfiquitiva.libs.kauextensions.extensions.cardBackgroundColor
 
 open class CustomCardView : CardView {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
+    constructor(context: Context) : super(context) {
+        init()
+    }
+    
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+        init()
+    }
+    
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-            : super(context, attributeSet, defStyleAttr)
+            : super(context, attributeSet, defStyleAttr) {
+        init()
+    }
+    
+    private fun init() {
+        setBackgroundColor(0)
+    }
     
     override fun setBackgroundColor(color: Int) {
-        super.setBackgroundColor(context.cardBackgroundColor)
+        setCardBackgroundColor(color)
+    }
+    
+    override fun setCardBackgroundColor(color: Int) {
+        super.setCardBackgroundColor(context.cardBackgroundColor)
     }
 }
