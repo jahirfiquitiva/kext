@@ -24,7 +24,7 @@ import jahirfiquitiva.libs.kauextensions.extensions.activeIconsColor
 import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
 import jahirfiquitiva.libs.kauextensions.extensions.inactiveIconsColor
 
-open class MaterialIcon : AppCompatImageView {
+open class MaterialIconView : AppCompatImageView {
     var isActive = true
         set(value) {
             field = value

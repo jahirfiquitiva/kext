@@ -20,6 +20,7 @@ import android.support.design.widget.AppBarLayout
 abstract class CollapsingToolbarCallback : AppBarLayout.OnOffsetChangedListener {
     
     var currentState = State.IDLE
+        private set
     
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         onVerticalOffsetChanged(appBarLayout, Math.abs(verticalOffset))

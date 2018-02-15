@@ -38,6 +38,8 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
         vectorDrawables.useSupportLibrary = true
+        proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+        consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
     }
 
     buildTypes {
@@ -75,7 +77,7 @@ dependencies {
     api(libraries.kau) {
         transitive = true
         exclude group: 'com.google.code'
-        exclude group: 'org.jetbrains'
+        exclude group: 'org.jetbrains.kotlin'
         exclude group: 'com.android.support'
         exclude group: 'com.mikepenz'
         exclude group: 'com.afollestad.material-dialogs'

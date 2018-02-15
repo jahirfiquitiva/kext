@@ -21,7 +21,7 @@ import android.support.v4.app.Fragment
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.konfigs
 
-abstract class FragmentsActivity : ThemedActivity() {
+abstract class ActivityWFragments : ThemedActivity() {
     open fun fragmentsContainer() = 0
     open fun reportResultToFragment() = false
     

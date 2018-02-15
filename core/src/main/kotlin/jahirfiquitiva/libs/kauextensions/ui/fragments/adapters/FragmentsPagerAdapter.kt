@@ -20,26 +20,38 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 
-class FragmentsAdapter(manager: FragmentManager, vararg fragments: Fragment) :
+class FragmentsPagerAdapter(manager: FragmentManager, vararg fragments: Fragment) :
         FragmentStatePagerAdapter(manager) {
     
-    val fragments = ArrayList<Fragment?>()
+    private val frags = ArrayList<Fragment?>()
     
     init {
-        this.fragments.clear()
-        this.fragments.addAll(fragments)
+        this.frags.clear()
+        this.frags.addAll(fragments)
+    }
+    
+    fun getFragments(): ArrayList<Fragment?> = frags
+    
+    fun addAll(vararg fragments: Fragment) {
+        this.frags.clear()
+        this.frags.addAll(fragments)
+    }
+    
+    fun addAll(fragments: ArrayList<Fragment>) {
+        this.frags.clear()
+        this.frags.addAll(fragments)
     }
     
     override fun getItemPosition(obj: Any): Int {
         if (obj !is Fragment) return -1
-        val index = fragments.indexOf(obj)
+        val index = frags.indexOf(obj)
         return if (index < 0) PagerAdapter.POSITION_NONE
         else index
     }
     
     override fun getItem(index: Int): Fragment? {
         return try {
-            fragments[index]
+            frags[index]
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -47,33 +59,33 @@ class FragmentsAdapter(manager: FragmentManager, vararg fragments: Fragment) :
     }
     
     fun addFragment(fragment: Fragment) {
-        if (fragment in fragments) return
-        fragments.add(fragment)
+        if (fragment in frags) return
+        frags.add(fragment)
         notifyDataSetChanged()
     }
     
     fun addFragmentAt(fragment: Fragment, index: Int) {
-        if (fragment in fragments) return
-        fragments.add(index, fragment)
+        if (fragment in frags) return
+        frags.add(index, fragment)
         notifyDataSetChanged()
     }
     
     fun removeFragment(fragment: Fragment) {
-        if (fragment in fragments) {
+        if (fragment in frags) {
             fragment.onDestroy()
-            fragments.remove(fragment)
+            frags.remove(fragment)
             notifyDataSetChanged()
         }
     }
     
     fun removeItemAt(index: Int) {
-        fragments[index]?.let { removeFragment(it) }
+        frags[index]?.let { removeFragment(it) }
     }
     
-    override fun getCount(): Int = fragments.size
+    override fun getCount(): Int = frags.size
     
     operator fun get(index: Int): Fragment? = getItem(index)
-    operator fun plus(fragments: ArrayList<Fragment>) = this.fragments.addAll(fragments)
+    operator fun plus(fragments: ArrayList<Fragment>) = this.frags.addAll(fragments)
     operator fun plusAssign(fragment: Fragment) = addFragment(fragment)
     operator fun minusAssign(fragment: Fragment) = removeFragment(fragment)
 }

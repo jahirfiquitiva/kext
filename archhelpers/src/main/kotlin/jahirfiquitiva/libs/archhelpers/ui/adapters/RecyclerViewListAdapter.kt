@@ -15,12 +15,13 @@
  */
 package jahirfiquitiva.libs.archhelpers.ui.adapters
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import jahirfiquitiva.libs.archhelpers.ui.adapters.presenters.ListAdapterPresenter
 import jahirfiquitiva.libs.kauextensions.extensions.clearChildrenAnimations
 
-abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad: Int = -1) :
+abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad: Int = -1) :
         RecyclerView.Adapter<VH>(), ListAdapterPresenter<T> {
     private var lastAnimatedPosition = -1
     
@@ -48,7 +49,7 @@ abstract class ListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad:
         }
     }
     
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: VH, @SuppressLint("RecyclerView") position: Int) {
         if (position in 0..itemCount) {
             if (position > lastAnimatedPosition) {
                 lastAnimatedPosition = position

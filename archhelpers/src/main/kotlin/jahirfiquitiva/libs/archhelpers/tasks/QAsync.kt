@@ -20,10 +20,10 @@ import org.jetbrains.anko.uiThread
 import java.lang.ref.WeakReference
 import java.util.concurrent.Future
 
-open class Async<Parameter, Result>(
+open class QAsync<Parameter, Result>(
         private val param: WeakReference<Parameter>,
         private val callback: Callback<Parameter, Result>
-                                   ) {
+                                    ) {
     
     private var task: Future<*>? = null
     

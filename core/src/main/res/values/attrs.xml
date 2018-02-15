@@ -35,7 +35,7 @@
         <item name="android:minWidth">56dip</item>
     </style>
 
-    <declare-styleable name="MaterialIcon">
+    <declare-styleable name="MaterialIconView">
         <attr name="active" format="boolean|reference"/>
     </declare-styleable>
 </resources>

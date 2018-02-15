@@ -19,25 +19,25 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
-import jahirfiquitiva.libs.archhelpers.tasks.Async
+import jahirfiquitiva.libs.archhelpers.tasks.QAsync
 import java.lang.ref.WeakReference
 
-abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
+abstract class ItemViewModel<in Parameter, Result> : ViewModel() {
     
     fun getData(): Result? = data.value
     
     private var taskStarted = false
     private val data = MutableLiveData<Result>()
-    private var task: Async<Parameter, Result>? = null
+    private var task: QAsync<Parameter, Result>? = null
     
     private var customObserver: Observer<Result>? = null
     
     fun loadData(parameter: Parameter, forceLoad: Boolean = false) {
         if (!taskStarted || forceLoad) {
             cancelTask(true)
-            task = Async<Parameter, Result>(
+            task = QAsync<Parameter, Result>(
                     WeakReference(parameter),
-                    object : Async.Callback<Parameter, Result>() {
+                    object : QAsync.Callback<Parameter, Result>() {
                         override fun doLoad(param: Parameter): Result? =
                                 safeInternalLoad(param, forceLoad)
                         
