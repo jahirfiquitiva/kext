@@ -15,15 +15,11 @@
  */
 package jahirfiquitiva.libs.archhelpers.ui.fragments.presenters
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.OnLifecycleEvent
 import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
 
-interface ViewModelFragmentPresenter<in T> :
-        FragmentPresenter<T> {
+interface ViewModelFragmentPresenter<in T> : FragmentPresenter<T> {
     fun initViewModel()
     fun registerObserver()
     fun loadDataFromViewModel()
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun unregisterObserver()
 }

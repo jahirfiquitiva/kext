@@ -22,7 +22,7 @@ import android.arch.lifecycle.ViewModel
 import jahirfiquitiva.libs.archhelpers.tasks.Async
 import java.lang.ref.WeakReference
 
-abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
+abstract class BasicViewModel<in Parameter, Result>(param: Parameter) : ViewModel() {
     
     fun getData(): Result? = data.value
     
@@ -31,6 +31,10 @@ abstract class BasicViewModel<in Parameter, Result> : ViewModel() {
     private var task: Async<Parameter, Result>? = null
     
     private var customObserver: Observer<Result>? = null
+    
+    init {
+        loadData(param, true)
+    }
     
     fun loadData(parameter: Parameter, forceLoad: Boolean = false) {
         if (!taskStarted || forceLoad) {

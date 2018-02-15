@@ -23,8 +23,8 @@ import jahirfiquitiva.libs.archhelpers.ui.fragments.presenters.ViewModelFragment
 import jahirfiquitiva.libs.kauextensions.ui.fragments.Fragment
 
 abstract class ViewModelFragment<in T> : Fragment<T>(), ViewModelFragmentPresenter<T> {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initVM()
     }
     

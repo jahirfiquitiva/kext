@@ -15,7 +15,7 @@
  */
 package jahirfiquitiva.libs.archhelpers.viewmodels
 
-abstract class ListViewModel<in Parameter, Result> :
-        BasicViewModel<Parameter, ArrayList<Result>>() {
+abstract class ListViewModel<in Parameter, Result>(param: Parameter) :
+        BasicViewModel<Parameter, ArrayList<Result>>(param) {
     override fun isOldDataValid(): Boolean = getData().orEmpty().isNotEmpty()
 }
