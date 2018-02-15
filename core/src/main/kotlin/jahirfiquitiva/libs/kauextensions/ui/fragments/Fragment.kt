@@ -24,23 +24,23 @@ import android.view.ViewGroup
 import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
 
 abstract class Fragment<in T> : Fragment(), FragmentPresenter<T> {
-    lateinit var content: View
     
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
+            inflater: LayoutInflater,
+            container: ViewGroup?,
             savedInstanceState: Bundle?
                              ): View? {
-        if (getContentLayout() != 0) {
-            val contentView = inflater.inflate(getContentLayout(), container, false)
-            contentView?.let {
-                content = it
-                initUI(content)
+        return if (getContentLayout() != 0) {
+            try {
+                val contentView = inflater.inflate(getContentLayout(), container, false)
+                contentView?.let { initUI(it) }
+                contentView
+            } catch (e: Exception) {
+                super.onCreateView(inflater, container, savedInstanceState)
             }
-            return contentView
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
+        } else super.onCreateView(inflater, container, savedInstanceState)
     }
-
+    
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         onRestoreInstanceState(savedInstanceState)

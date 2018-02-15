@@ -16,9 +16,6 @@
 package jahirfiquitiva.libs.archhelpers.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import jahirfiquitiva.libs.archhelpers.ui.fragments.presenters.ViewModelFragmentPresenter
 import jahirfiquitiva.libs.kauextensions.ui.fragments.Fragment
 
@@ -31,15 +28,7 @@ abstract class ViewModelFragment<in T> : Fragment<T>(), ViewModelFragmentPresent
     private fun initVM() {
         initViewModel()
         registerObserver()
-    }
-    
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-                             ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
         if (autoStartLoad()) loadDataFromViewModel()
-        return view
     }
     
     override fun onDestroy() {
