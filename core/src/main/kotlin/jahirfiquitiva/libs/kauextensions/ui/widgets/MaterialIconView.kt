@@ -42,9 +42,9 @@ open class MaterialIconView : AppCompatImageView {
     }
     
     private fun init(context: Context, attributeSet: AttributeSet) {
-        val a = context.obtainStyledAttributes(attributeSet, R.styleable.MaterialIcon, 0, 0)
+        val a = context.obtainStyledAttributes(attributeSet, R.styleable.MaterialIconView, 0, 0)
         try {
-            isActive = a.getBoolean(R.styleable.MaterialIcon_active, true)
+            isActive = a.getBoolean(R.styleable.MaterialIconView_active, true)
         } finally {
             a.recycle()
         }
