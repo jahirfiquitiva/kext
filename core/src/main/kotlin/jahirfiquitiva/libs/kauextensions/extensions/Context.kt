@@ -21,6 +21,7 @@ import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -42,6 +43,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import ca.allanwang.kau.utils.adjustAlpha
 import ca.allanwang.kau.utils.boolean
 import ca.allanwang.kau.utils.color
 import ca.allanwang.kau.utils.dimen
@@ -102,6 +104,21 @@ val Context.usesLightTheme
 
 val Context.usesDarkTheme
     get() = resolveBoolean(R.attr.isDark)
+
+fun Context.colorStateList(
+        @ColorInt checked: Int,
+        @ColorInt unchecked: Int = checked.adjustAlpha(0.8F),
+        @ColorInt disabledChecked: Int = checked.adjustAlpha(0.3F),
+        @ColorInt disabledUnchecked: Int = disabledChecked
+                          ): ColorStateList {
+    return ColorStateList(
+            arrayOf(
+                    intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_enabled, android.R.attr.state_checked),
+                    intArrayOf(-android.R.attr.state_enabled, -android.R.attr.state_checked),
+                    intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked)),
+            intArrayOf(unchecked, checked, disabledUnchecked, disabledChecked))
+}
 
 fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String> =
         resources.getStringArray(arrayRes)
