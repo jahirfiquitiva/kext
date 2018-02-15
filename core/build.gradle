@@ -38,11 +38,13 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
         vectorDrawables.useSupportLibrary = true
+        proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
+        consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources false
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
             consumerProguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
@@ -59,10 +61,6 @@ android {
         pickFirst 'META-INF/library_debug.kotlin_module'
         pickFirst 'META-INF/library_release.kotlin_module'
     }
-
-    dexOptions {
-        preDexLibraries = false
-    }
 }
 
 dependencies {
@@ -78,11 +76,21 @@ dependencies {
     // KAU
     api(libraries.kau) {
         transitive = true
-        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'com.google.code'
+        exclude group: 'org.jetbrains'
         exclude group: 'com.android.support'
         exclude group: 'com.mikepenz'
         exclude group: 'com.afollestad.material-dialogs'
     }
+}
+
+configurations {
+    all*.exclude module: 'constraint'
+    all*.exclude module: 'transition'
+    all*.exclude module: 'mediarouter-v7'
+    all*.exclude module: 'support-media-compat'
+    all*.exclude module: 'support-v4'
+    all*.exclude group: 'com.google.code'
 }
 
 tasks.whenTaskAdded { task ->
