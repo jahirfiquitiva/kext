@@ -1,35 +1,51 @@
-- [ ] I have verified there are no duplicate active or recent bugs, questions, or requests
-- [ ] I have verified that I am using the latest version of KAU Extensions.
+<!--
+Any HTML comment will be stripped when the markdown is rendered, so you don't need to delete them.
 
-###### Device/library info:
- - KAU Extensions version: `?`
- - Device OS version: `?`
+Put an x inside the [] like this: [x] to mark the checkbox.
+-->
+- [ ] I have verified there are no duplicate active or recent bugs, questions, or requests
+- [ ] I have verified that I am using the latest version of KAUExtensions.
+
+### Device/dashboard info:
+ - KAUExtensions version: `?`
+ - Android version: `?`
  - Device Manufacturer: `?`
  - Device Name: `?`
 
-<!-- Please wrap code with correct syntax highlighting. -->
-
+<!--
+Please wrap code with correct syntax highlighting.
+-->
 ```kotlin
 println("Hello, world!")
 ```
 
-<!-- Please wrap logs with Gradle syntax highlighting (it makes them look better): -->
-
+<!--
+If you are getting an error in the LogCat, paste here the stack trace.
+Please wrap logs with Gradle syntax highlighting (it makes them look better).
+-->
 ```Gradle
 java.lang.RuntimeException: This is an example Exception log
     at jahirfiquitiva.libs.kauextensions.HelloWorld
     at jahirfiquitiva.libs.kauextensions.HelloWorld$ThisIsNotARealLog
     at android.app.Instrumentation.callActivityOnResume(Instrumentation.kt)
 ```
- 
-###### Reproduction Steps
+
+<!--
+The required steps to reproduce it.
+-->
+### Reproduction Steps
 
 1. 
 2. 
 3. 
 
-###### Expected Result
+
+### Expected Result
 
 
+### Actual Result
 
-###### Actual Result
+
+<!--
+Adding pictures/screenshots/videos of the expected/actual result is always helpful :)
+-->
