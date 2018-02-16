@@ -30,20 +30,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
-import jahirfiquitiva.libs.kauextensions.ui.callbacks.CollapsingToolbarCallback
 import java.lang.reflect.Field
-import java.math.BigDecimal
-import java.math.RoundingMode
-
-fun Double.round(places: Int): Double {
-    if (places < 0) throw IllegalArgumentException()
-    var bd = BigDecimal(this)
-    bd = bd.setScale(places, RoundingMode.HALF_UP)
-    return bd.toDouble()
-}
 
 fun Toolbar.tint(
         @ColorInt titleColor: Int, @ColorInt subtitleColor: Int = titleColor,
@@ -102,7 +90,7 @@ fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     (0 until size()).forEach { i ->
         val item = getItem(i)
         item.icon?.applyColorFilter(iconsColor)
-        (item.actionView as? SearchView)?.tintWith(iconsColor)
+        (item.actionView as? SearchView)?.tint(iconsColor)
     }
     
     // Display icons for easy UI understanding
@@ -128,7 +116,7 @@ private fun Toolbar.setOverflowButtonColor(@ColorInt color: Int) {
     overflow.setImageDrawable(overflow.drawable.applyColorFilter(color))
 }
 
-fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintColor) {
+fun SearchView.tint(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintColor) {
     val cls = javaClass
     try {
         val mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView")
@@ -157,12 +145,6 @@ fun SearchView.tintWith(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tin
         field.set(this, (field.get(this) as Drawable).applyColorFilter(tintColor))
     } catch (e: Exception) {
     }
-}
-
-fun ThemedActivity.updateStatusBarStyle(state: CollapsingToolbarCallback.State) {
-    if (autoTintStatusBar())
-        statusBarLight = if (state === CollapsingToolbarCallback.State.COLLAPSED)
-            primaryDarkColor.isColorLight() else false
 }
 
 private fun tintImageView(target: Any, field: Field, tintColor: Int) {

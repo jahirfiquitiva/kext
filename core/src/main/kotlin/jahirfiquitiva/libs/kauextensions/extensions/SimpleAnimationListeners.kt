@@ -15,10 +15,6 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
-import android.animation.Animator
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.transition.Transition
 import android.view.animation.Animation
 
 abstract class SimpleAnimationListener : Animation.AnimationListener {
@@ -36,58 +32,5 @@ abstract class SimpleAnimationListener : Animation.AnimationListener {
     
     override fun onAnimationStart(animation: Animation?) {
         animation?.let { onStart(it) }
-    }
-}
-
-abstract class SimpleAnimatorListener : Animator.AnimatorListener {
-    open fun onStart(animator: Animator) = Unit
-    open fun onEnd(animator: Animator) = Unit
-    open fun onRepeat(animator: Animator) = Unit
-    open fun onCancel(animator: Animator) = Unit
-    
-    override fun onAnimationStart(animator: Animator?) {
-        animator?.let { onStart(it) }
-    }
-    
-    override fun onAnimationEnd(animator: Animator?) {
-        animator?.let { onEnd(it) }
-    }
-    
-    override fun onAnimationRepeat(animator: Animator?) {
-        animator?.let { onRepeat(it) }
-    }
-    
-    override fun onAnimationCancel(animator: Animator?) {
-        animator?.let { onCancel(it) }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.KITKAT)
-abstract class SimpleTransitionListener : Transition.TransitionListener {
-    
-    open fun onStart(transition: Transition) = Unit
-    open fun onEnd(transition: Transition) = Unit
-    open fun onPause(transition: Transition) = Unit
-    open fun onResume(transition: Transition) = Unit
-    open fun onCancel(transition: Transition) = Unit
-    
-    override fun onTransitionStart(transition: Transition?) {
-        transition?.let { onStart(it) }
-    }
-    
-    override fun onTransitionEnd(transition: Transition?) {
-        transition?.let { onEnd(it) }
-    }
-    
-    override fun onTransitionPause(transition: Transition?) {
-        transition?.let { onPause(it) }
-    }
-    
-    override fun onTransitionResume(transition: Transition?) {
-        transition?.let { onResume(it) }
-    }
-    
-    override fun onTransitionCancel(transition: Transition?) {
-        transition?.let { onCancel(it) }
     }
 }

@@ -20,11 +20,11 @@ import android.support.annotation.IntRange
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.extensions.inflate
-import jahirfiquitiva.libs.kauextensions.helpers.KEL
 
 /**
  * Originally created by Aidan Follestad
@@ -63,7 +63,9 @@ open class SplitButtonsLayout : LinearLayout {
     
     fun addButton(text: String, link: String, fillAvailableSpace: Boolean = false) {
         if (hasAllButtons()) {
-            KEL.e(null, { "Cannot add more buttons. $buttonCount buttons have already been added" })
+            Log.e(
+                    "SplitButtonsLayout",
+                    "Cannot add more buttons. $buttonCount buttons have already been added")
             return
         }
         val button: AppCompatButton = context.inflate(R.layout.item_split_button, this)

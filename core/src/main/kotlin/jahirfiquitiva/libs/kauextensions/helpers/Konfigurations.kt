@@ -27,10 +27,6 @@ open class Konfigurations(name: String, private val context: Context) {
     @SuppressLint("CommitPrefEdits")
     val prefsEditor: SharedPreferences.Editor = prefs.edit()
     
-    companion object {
-        fun newInstance(name: String, context: Context) = Konfigurations(name, context)
-    }
-    
     var isFirstRun: Boolean
         get() = prefs.getBoolean(IS_FIRST_RUN, true)
         set(value) = prefsEditor.putBoolean(IS_FIRST_RUN, value).apply()

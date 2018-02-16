@@ -107,6 +107,7 @@ fun Context.getActiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.5F)
 fun Context.getInactiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
         getDisabledTextColorFor(color, darkness)
 
+@SuppressLint("PrivateResource")
 @ColorInt
 fun Context.getRippleColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
         if (color.isColorDark(darkness)) R.color.ripple_material_light

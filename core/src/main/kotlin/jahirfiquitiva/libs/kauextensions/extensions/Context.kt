@@ -15,28 +15,26 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
-import android.Manifest
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Looper
 import android.support.annotation.ArrayRes
 import android.support.annotation.AttrRes
-import android.support.annotation.BoolRes
 import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
-import android.support.annotation.DimenRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.IntegerRes
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -44,20 +42,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import ca.allanwang.kau.utils.adjustAlpha
-import ca.allanwang.kau.utils.boolean
-import ca.allanwang.kau.utils.color
-import ca.allanwang.kau.utils.dimen
 import ca.allanwang.kau.utils.dimenPixelSize
-import ca.allanwang.kau.utils.drawable
-import ca.allanwang.kau.utils.integer
 import ca.allanwang.kau.utils.resolveBoolean
 import ca.allanwang.kau.utils.string
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
-
-@Deprecated("", ReplaceWith("isFirstRun"))
-val Context.isFirstRunEver: Boolean
-    get() = isFirstRun
+import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
 
 val Context.isFirstRun: Boolean
     get() {
@@ -65,10 +55,6 @@ val Context.isFirstRun: Boolean
         konfigs.isFirstRun = false
         return isIt
     }
-
-@Deprecated("", ReplaceWith("isUpdate"))
-val Context.justUpdated: Boolean
-    get() = isUpdate
 
 val Context.isUpdate: Boolean
     get() {
@@ -103,7 +89,7 @@ val Context.usesLightTheme
     get() = !usesDarkTheme
 
 val Context.usesDarkTheme
-    get() = resolveBoolean(R.attr.isDark)
+    get() = (this as? ThemedActivity)?.isDarkTheme ?: resolveBoolean(R.attr.isDark)
 
 fun Context.colorStateList(
         @ColorInt checked: Int,
@@ -122,32 +108,6 @@ fun Context.colorStateList(
 
 fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String> =
         resources.getStringArray(arrayRes)
-
-@Deprecated("Use KAU's string instead", ReplaceWith("string()"))
-fun Context.getStringFromRes(@StringRes stringRes: Int, fallback: String): String =
-        string(stringRes, fallback) ?: fallback
-
-@Deprecated("Use stringArray instead", ReplaceWith("stringArray()"))
-fun Context.getStringArray(@ArrayRes arrayRes: Int): Array<String> = stringArray(arrayRes)
-
-@Deprecated("Use KAU's color instead", ReplaceWith("color()"))
-fun Context.getColorFromRes(@ColorRes colorRes: Int) = color(colorRes)
-
-@Deprecated("Use KAU's bool instead", ReplaceWith("bool()"))
-fun Context.getBoolean(@BoolRes bool: Int) = boolean(bool)
-
-@Deprecated("Use KAU's integer instead", ReplaceWith("integer()"))
-fun Context.getInteger(@IntegerRes id: Int): Int = integer(id)
-
-@Deprecated("Use KAU's dimen instead", ReplaceWith("dimen()"))
-fun Context.getDimension(@DimenRes id: Int): Float = dimen(id)
-
-@Deprecated("Use KAU's dimenPixelSize instead", ReplaceWith("dimenPixelSize()"))
-fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = dimenPixelSize(id)
-
-@Deprecated("Use KAU's drawable instead", ReplaceWith("drawable()"))
-fun Context.getDrawable(@DrawableRes id: Int, fallback: Drawable? = null): Drawable? =
-        drawable(id, fallback)
 
 @ColorInt
 fun Context.extractColor(attribute: IntArray): Int {
@@ -191,8 +151,6 @@ inline fun <reified T : View> Context.inflate(
 
 fun Context.getAppName(): String = string(R.string.app_name, "KAU Extensions").orEmpty()
 
-fun Context.getLogTag(): String = getAppName()
-
 fun Context.getAppVersionCode(): Int {
     return try {
         packageManager.getPackageInfo(packageName, 0).versionCode
@@ -211,24 +169,11 @@ fun Context.getAppVersion(): String {
 
 fun Context.isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
-fun Context.getSharedPrefs(name: String) = getSharedPreferences(name, Context.MODE_PRIVATE)
-
-fun Context.hasReadStoragePermission() =
-        ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-fun Context.hasWriteStoragePermission() =
-        ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+fun Context.getSharedPrefs(name: String): SharedPreferences =
+        getSharedPreferences(name, Context.MODE_PRIVATE)
 
 val Context.konfigs: Konfigurations
-    get() = Konfigurations.newInstance("kau_extensions", this)
-
-fun Context.runInAThread(item: () -> Unit) {
-    Thread(Runnable(item)).start()
-}
+    get() = Konfigurations("kau_extensions", this)
 
 val Context.isInHorizontalMode: Boolean
     get() = currentRotation == 90 || currentRotation == 270
@@ -276,4 +221,28 @@ fun Context.getUriFromResource(id: Int): Uri? {
             "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
                     "${resources.getResourcePackageName(id)}/" +
                     "${resources.getResourceTypeName(id)}/" + resources.getResourceEntryName(id))
+}
+
+fun Context.getBitmap(name: String): Bitmap? = getBitmapDrawable(name)?.bitmap
+
+fun Context.getBitmapDrawable(name: String): BitmapDrawable? {
+    try {
+        return ResourcesCompat.getDrawable(
+                resources, getIconResource(name), null) as? BitmapDrawable
+    } catch (e: Exception) {
+        throw Resources.NotFoundException("Icon with name ${this} could not be found")
+    }
+}
+
+fun Context.getDrawable(name: String): Drawable? {
+    try {
+        return ContextCompat.getDrawable(this, getIconResource(name))
+    } catch (e: Exception) {
+        throw Resources.NotFoundException("Icon with name ${this} could not be found")
+    }
+}
+
+fun Context.getIconResource(name: String): Int {
+    val res = resources.getIdentifier(name, "drawable", packageName)
+    return if (res != 0) res else 0
 }

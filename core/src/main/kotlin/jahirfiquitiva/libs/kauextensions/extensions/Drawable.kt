@@ -28,5 +28,8 @@ fun Drawable.applyColorFilter(@ColorInt color: Int): Drawable {
     return this
 }
 
+fun Drawable.generatePalette(resizeArea: Int = -1): Palette? =
+        this.toBitmap().generatePalette(resizeArea)
+
 val Drawable.bestSwatch: Palette.Swatch?
-    get() = this.toBitmap().bestSwatch
+    get() = generatePalette()?.bestSwatch

@@ -17,9 +17,7 @@ package jahirfiquitiva.libs.kauextensions.extensions
 
 import android.content.ContentResolver
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
@@ -67,38 +65,4 @@ fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): U
     } catch (e: Exception) {
         return null
     }
-}
-
-fun decodeBitmapWithSize(res: Resources, resId: Int, width: Int, height: Int): Bitmap {
-    val options = BitmapFactory.Options()
-    options.inJustDecodeBounds = true
-    BitmapFactory.decodeResource(res, resId, options)
-    
-    options.inSampleSize = calculateInSampleSize(options, width, height)
-    options.inJustDecodeBounds = false
-    return BitmapFactory.decodeResource(res, resId, options)
-}
-
-private fun calculateInSampleSize(options: BitmapFactory.Options, w: Int, h: Int): Int {
-    // Raw height and width of image
-    val height = options.outHeight
-    val width = options.outWidth
-    var inSampleSize = 1
-    
-    val reqWidth = if (w <= 0) width else w
-    val reqHeight = if (h <= 0) height else h
-    
-    if (height > reqHeight || width > reqWidth) {
-        
-        val halfHeight = height / 2
-        val halfWidth = width / 2
-        
-        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-        // height and width larger than the requested height and width.
-        while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
-            inSampleSize *= 2
-        }
-    }
-    
-    return inSampleSize
 }

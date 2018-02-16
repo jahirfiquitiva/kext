@@ -54,9 +54,6 @@ abstract class ThemedActivity : AppCompatActivity() {
     @StyleRes
     abstract fun transparentTheme(): Int
     
-    @Deprecated("", ReplaceWith("autoTintStatusBar"))
-    open fun autoStatusBarTint(): Boolean = autoTintStatusBar()
-    
     abstract fun autoTintStatusBar(): Boolean
     abstract fun autoTintNavigationBar(): Boolean
     

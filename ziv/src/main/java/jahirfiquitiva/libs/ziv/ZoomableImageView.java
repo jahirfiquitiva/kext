@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package jahirfiquitiva.libs.ziv;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -46,6 +46,7 @@ import android.widget.OverScroller;
  * @author Not me. I took this class from a gist a long time ago and I cannot remember its author,
  *         otherwise I would credit him/her here. Thanks anyways for sharing this.
  */
+@SuppressLint("ClickableViewAccessibility")
 public class ZoomableImageView extends AppCompatImageView {
 
     private static final String DEBUG = "DEBUG";
@@ -54,8 +55,8 @@ public class ZoomableImageView extends AppCompatImageView {
     // zoomed below or above the zoom boundaries, before animating back to the
     // min/max zoom boundary.
     //
-    private static final float SUPER_MIN_MULTIPLIER = .75f;
-    private static final float SUPER_MAX_MULTIPLIER = 1.25f;
+    private float superMinMultiplier = .75F;
+    private float superMaxMultiplier = 1.25F;
     private Context context;
     //
     // Scale of image ranges from minScale to maxScale, where minScale == 1
@@ -131,8 +132,8 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         minScale = 1;
         maxScale = 3;
-        superMinScale = SUPER_MIN_MULTIPLIER * minScale;
-        superMaxScale = SUPER_MAX_MULTIPLIER * maxScale;
+        superMinScale = superMinMultiplier * minScale;
+        superMaxScale = superMaxMultiplier * maxScale;
         setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
         setState(State.NONE);
@@ -303,6 +304,17 @@ public class ZoomableImageView extends AppCompatImageView {
     }
 
     /**
+     * Enables zooming beyond the min or max scales
+     *
+     * @param enable
+     *         Whether zooming beyond the min or max scales should be enabled or not
+     */
+    public void enableScaleBeyondLimits(boolean enable) {
+        superMinMultiplier = enable ? .75F : 1F;
+        superMaxMultiplier = enable ? 1.25F : 1F;
+    }
+
+    /**
      * Get the max zoom multiplier.
      *
      * @return max zoom multiplier.
@@ -319,7 +331,7 @@ public class ZoomableImageView extends AppCompatImageView {
      */
     public void setMaxZoom(float max) {
         maxScale = max;
-        superMaxScale = SUPER_MAX_MULTIPLIER * maxScale;
+        superMaxScale = superMaxMultiplier * maxScale;
     }
 
     /**
@@ -339,7 +351,7 @@ public class ZoomableImageView extends AppCompatImageView {
      */
     public void setMinZoom(float min) {
         minScale = min;
-        superMinScale = SUPER_MIN_MULTIPLIER * minScale;
+        superMinScale = superMinMultiplier * minScale;
     }
 
     /**
@@ -988,7 +1000,6 @@ public class ZoomableImageView extends AppCompatImageView {
             if (normalizedScale > maxScale) {
                 targetZoom = maxScale;
                 animateToZoomBoundary = true;
-
             } else if (normalizedScale < minScale) {
                 targetZoom = minScale;
                 animateToZoomBoundary = true;

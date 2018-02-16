@@ -15,10 +15,6 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
-import android.content.ContentResolver
-import android.content.Context
-import android.graphics.Color
-import android.net.Uri
 import android.support.annotation.ColorInt
 import android.support.annotation.FloatRange
 import ca.allanwang.kau.utils.isColorDark
@@ -27,19 +23,6 @@ import ca.allanwang.kau.utils.withAlpha
 @ColorInt
 fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int =
         withAlpha((255 * factor).toInt())
-
-@ColorInt
-fun Int.shiftColor(@FloatRange(from = 0.0, to = 2.0) by: Float): Int {
-    if (by == 1f) return this
-    val alpha = Color.alpha(this)
-    val hsv = FloatArray(3)
-    Color.colorToHSV(this, hsv)
-    hsv[2] *= by // value component
-    return (alpha shl 24) + (0x00ffffff and Color.HSVToColor(hsv))
-}
-
-@ColorInt
-fun Int.stripAlpha(): Int = Color.rgb(Color.red(this), Color.green(this), Color.blue(this))
 
 fun Int.isColorLight(darkness: Float = 0.5F): Boolean = !isColorDark(darkness)
 

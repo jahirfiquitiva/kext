@@ -70,7 +70,6 @@ dependencies {
     api libraries.cardview
     api libraries.palette
     api libraries.design
-    api libraries.customtabs
     // Kotlin
     api libraries.kotlin
     // KAU
