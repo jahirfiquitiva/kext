@@ -47,7 +47,7 @@ class DownloadThread(
         while (running) {
             val frag = weakRef?.get()
             if (frag == null) {
-                listener?.onFailure(NullPointerException("ItemFragment was null"))
+                listener?.onFailure(NullPointerException("Fragment was null"))
                 running = false
             }
             frag?.let {
