@@ -227,8 +227,7 @@ fun Context.getBitmap(name: String): Bitmap? = getBitmapDrawable(name)?.bitmap
 
 fun Context.getBitmapDrawable(name: String): BitmapDrawable? {
     try {
-        return ResourcesCompat.getDrawable(
-                resources, getIconResource(name), null) as? BitmapDrawable
+        return ResourcesCompat.getDrawable(resources, getResource(name), null) as? BitmapDrawable
     } catch (e: Exception) {
         throw Resources.NotFoundException("Icon with name ${this} could not be found")
     }
@@ -236,13 +235,13 @@ fun Context.getBitmapDrawable(name: String): BitmapDrawable? {
 
 fun Context.getDrawable(name: String): Drawable? {
     try {
-        return ContextCompat.getDrawable(this, getIconResource(name))
+        return ContextCompat.getDrawable(this, getResource(name))
     } catch (e: Exception) {
         throw Resources.NotFoundException("Icon with name ${this} could not be found")
     }
 }
 
-fun Context.getIconResource(name: String): Int {
+fun Context.getResource(name: String): Int {
     val res = resources.getIdentifier(name, "drawable", packageName)
     return if (res != 0) res else 0
 }
