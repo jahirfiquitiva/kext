@@ -112,7 +112,7 @@ abstract class ThemedActivity : AppCompatActivity() {
             val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
             return when (konfigs.currentTheme) {
                 LIGHT -> false
-                DARK, AMOLED -> true
+                DARK, AMOLED, TRANSPARENT -> true
                 AUTO_DARK, AUTO_AMOLED -> hourOfDay !in 7..18
                 else -> false
             }
@@ -135,9 +135,14 @@ abstract class ThemedActivity : AppCompatActivity() {
     
     @ColorInt
     private fun getCorrectNavbarColor(): Int {
-        return if (konfigs.currentTheme == AMOLED && !forceNavBarTint()) Color.parseColor("#000000")
-        else if (konfigs.hasColoredNavbar) primaryDarkColor
-        else Color.parseColor("#000000")
+        return if ((konfigs.currentTheme == AMOLED || konfigs.currentTheme == TRANSPARENT)
+                && !forceNavBarTint()) {
+            Color.parseColor("#000000")
+        } else if (konfigs.hasColoredNavbar) {
+            primaryDarkColor
+        } else {
+            Color.parseColor("#000000")
+        }
     }
     
     open fun forceNavBarTint(): Boolean = false
