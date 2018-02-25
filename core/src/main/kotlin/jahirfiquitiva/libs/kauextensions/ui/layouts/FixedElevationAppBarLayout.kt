@@ -16,6 +16,8 @@
 package jahirfiquitiva.libs.kauextensions.ui.layouts
 
 import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.design.widget.AppBarLayout
 import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
@@ -34,13 +36,15 @@ open class FixedElevationAppBarLayout : AppBarLayout {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
             fElevation = a.getDimensionPixelSize(
-                    R.styleable.FixedElevationAppBarLayout_fixedElevation,
-                    4.dpToPx)
-            elevation = 0F
+                    R.styleable.FixedElevationAppBarLayout_fixedElevation, 4.dpToPx)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                elevation = 0F
+            }
         } finally {
             a.recycle()
         }
     }
     
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun setElevation(elevation: Float) = super.setElevation(fElevation.toFloat())
 }
