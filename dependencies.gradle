@@ -33,7 +33,7 @@ ext.versions = [
         libs       : '2.0',
         // Dependencies
         supportLibs: '27.0.2',
-        kau        : '3.6.3',
+        kau        : '3.7.0',
         lifecycle  : '1.1.0'
 ]
 
