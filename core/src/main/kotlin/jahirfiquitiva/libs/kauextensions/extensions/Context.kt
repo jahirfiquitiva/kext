@@ -89,7 +89,7 @@ val Context.usesLightTheme
     get() = !usesDarkTheme
 
 val Context.usesDarkTheme
-    get() = (this as? ThemedActivity)?.isDarkTheme ?: resolveBoolean(R.attr.isDark)
+    get() = (this as? ThemedActivity)?.usesDarkTheme() ?: resolveBoolean(R.attr.isDark)
 
 fun Context.colorStateList(
         @ColorInt checked: Int,
