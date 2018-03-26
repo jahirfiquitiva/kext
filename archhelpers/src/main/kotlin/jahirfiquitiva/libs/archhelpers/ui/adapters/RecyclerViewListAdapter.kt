@@ -60,13 +60,9 @@ abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(private 
         }
     }
     
-    override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>?) {
-        if (payloads != null) {
-            if (payloads.isNotEmpty()) {
-                doBind(holder, position, true)
-            } else {
-                onBindViewHolder(holder, position)
-            }
+    override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isNotEmpty()) {
+            doBind(holder, position, true)
         } else {
             onBindViewHolder(holder, position)
         }
@@ -74,11 +70,11 @@ abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(private 
     
     abstract fun doBind(holder: VH, position: Int, shouldAnimate: Boolean)
     
+    @Deprecated("Use onCreateViewHolder() instead", ReplaceWith("onCreateViewHolder()"))
     abstract fun doCreateVH(parent: ViewGroup, viewType: Int): VH
     
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH? {
-        parent?.let { return doCreateVH(it, viewType) } ?: return null
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
+            doCreateVH(parent, viewType)
     
     override fun onViewDetachedFromWindow(holder: VH) {
         super.onViewDetachedFromWindow(holder)
