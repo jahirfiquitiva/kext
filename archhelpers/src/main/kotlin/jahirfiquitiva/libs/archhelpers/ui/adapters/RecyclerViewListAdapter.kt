@@ -70,12 +70,6 @@ abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(private 
     
     abstract fun doBind(holder: VH, position: Int, shouldAnimate: Boolean)
     
-    @Deprecated("Use onCreateViewHolder() instead", ReplaceWith("onCreateViewHolder()"))
-    abstract fun doCreateVH(parent: ViewGroup, viewType: Int): VH
-    
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
-            doCreateVH(parent, viewType)
-    
     override fun onViewDetachedFromWindow(holder: VH) {
         super.onViewDetachedFromWindow(holder)
         holder.itemView?.clearChildrenAnimations()
