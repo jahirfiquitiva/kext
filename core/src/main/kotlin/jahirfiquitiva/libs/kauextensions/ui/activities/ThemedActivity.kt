@@ -106,7 +106,7 @@ abstract class ThemedActivity : AppCompatActivity() {
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
     }
     
-    open fun usesDarkTheme(): Boolean {
+    open fun isDark(): Boolean {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
         return when (konfigs.currentTheme) {
