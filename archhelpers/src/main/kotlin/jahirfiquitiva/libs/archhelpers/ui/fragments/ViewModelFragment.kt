@@ -26,14 +26,13 @@ abstract class ViewModelFragment<in T> : ItemFragment<T>(), ViewModelFragmentPre
     }
     
     private fun initVM() {
-        initViewModel()
-        registerObserver()
+        registerObservers()
         if (autoStartLoad()) loadDataFromViewModel()
     }
     
     override fun onDestroy() {
         super.onDestroy()
-        unregisterObserver()
+        unregisterObservers()
     }
     
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

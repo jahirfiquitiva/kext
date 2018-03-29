@@ -15,9 +15,6 @@
  */
 package jahirfiquitiva.libs.archhelpers.extensions
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
@@ -38,10 +35,3 @@ inline fun <reified T : ViewModel> FragmentActivity.lazyViewModel(): Lazy<T> =
         lazy { getViewModel<T>() }
 
 inline fun <reified T : ViewModel> Fragment.lazyViewModel(): Lazy<T> = lazy { getViewModel<T>() }
-
-inline fun <reified T : LiveData<T>> LifecycleOwner.observe(
-        data: LiveData<T>,
-        crossinline todo: (T) -> Unit
-                                                           ) {
-    data.observe(this, Observer<T> { r -> r?.let { todo(it) } })
-}

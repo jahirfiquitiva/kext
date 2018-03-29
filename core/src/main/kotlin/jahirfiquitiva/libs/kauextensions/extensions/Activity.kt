@@ -42,7 +42,7 @@ inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T?>? =
 inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> =
         lazy { findViewById<T>(res) }
 
-@Deprecated("Use \'enableTranslucentStatusBar\'", ReplaceWith("enableTranslucentStatusBar"))
+@Deprecated("Use enableTranslucentStatusBar()", ReplaceWith("enableTranslucentStatusBar()"))
 fun Activity.setupStatusBarStyle(
         translucent: Boolean = true,
         lightMode: Boolean = primaryDarkColor.isColorLight()

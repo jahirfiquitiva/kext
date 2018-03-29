@@ -20,7 +20,7 @@ import android.support.annotation.DrawableRes
 import android.view.Menu
 import android.view.MenuItem
 
-@Deprecated("Use Menu.setItemVisibility() instead", ReplaceWith("setItemVisibility"))
+@Deprecated("Use Menu.setItemVisibility() instead", ReplaceWith("setItemVisibility()"))
 fun Menu.changeOptionVisibility(id: Int, visible: Boolean) {
     setItemVisibility(id, visible)
 }
@@ -33,12 +33,12 @@ fun Menu.setItemTitle(id: Int, title: String) {
     findItem(id)?.title = title
 }
 
-@Deprecated("Use Menu.setItemIcon() instead", ReplaceWith("setItemIcon"))
+@Deprecated("Use Menu.setItemIcon() instead", ReplaceWith("setItemIcon()"))
 fun Menu.setOptionIcon(id: Int, @DrawableRes iconRes: Int) {
     setItemIcon(id, iconRes)
 }
 
-@Deprecated("Use Menu.setItemIcon() instead", ReplaceWith("setItemIcon"))
+@Deprecated("Use Menu.setItemIcon() instead", ReplaceWith("setItemIcon()"))
 fun Menu.setOptionIcon(id: Int, icon: Drawable) {
     setItemIcon(id, icon)
 }
