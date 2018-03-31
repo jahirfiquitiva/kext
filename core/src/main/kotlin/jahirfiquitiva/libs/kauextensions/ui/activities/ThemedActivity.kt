@@ -38,7 +38,7 @@ import jahirfiquitiva.libs.kauextensions.helpers.LIGHT
 import jahirfiquitiva.libs.kauextensions.helpers.TRANSPARENT
 import java.util.Calendar
 
-abstract class ThemedActivity<Configs : Konfigurations> : AppCompatActivity() {
+abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity() {
     private var lastTheme = 0
     private var coloredNavbar = false
     
@@ -77,7 +77,7 @@ abstract class ThemedActivity<Configs : Konfigurations> : AppCompatActivity() {
         coloredNavbar = configs.hasColoredNavbar
     }
     
-    // TODO: Leave public
+    @Suppress("MemberVisibilityCanBePrivate")
     fun onThemeChanged() {
         postRecreate()
     }
