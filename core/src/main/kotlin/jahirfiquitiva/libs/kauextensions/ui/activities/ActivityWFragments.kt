@@ -19,9 +19,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v4.app.Fragment
 import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.konfigs
+import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
 
-abstract class ActivityWFragments : ThemedActivity() {
+abstract class ActivityWFragments<Configs : Konfigurations> : ThemedActivity<Configs>() {
     open fun fragmentsContainer() = 0
     open fun reportResultToFragment() = false
     
@@ -30,7 +30,7 @@ abstract class ActivityWFragments : ThemedActivity() {
         if (fragmentsContainer() == 0) return
         try {
             val manager = supportFragmentManager.beginTransaction()
-            if (konfigs.animationsEnabled) {
+            if (configs.animationsEnabled) {
                 manager.setCustomAnimations(
                         R.anim.abc_fade_in, R.anim.abc_fade_out,
                         R.anim.abc_popup_enter, R.anim.abc_popup_exit)

@@ -51,6 +51,7 @@ import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
 
 val Context.isFirstRun: Boolean
     get() {
+        val konfigs = Konfigurations("kau_ext", this)
         val isIt = konfigs.isFirstRun
         konfigs.isFirstRun = false
         return isIt
@@ -58,6 +59,7 @@ val Context.isFirstRun: Boolean
 
 val Context.isUpdate: Boolean
     get() {
+        val konfigs = Konfigurations("kau_ext", this)
         val thisVersion = getAppVersionCode()
         val prevVersion = konfigs.lastVersion
         konfigs.lastVersion = thisVersion
@@ -89,7 +91,7 @@ val Context.usesLightTheme
     get() = !usesDarkTheme
 
 val Context.usesDarkTheme
-    get() = (this as? ThemedActivity)?.isDark() ?: resolveBoolean(R.attr.isDark)
+    get() = (this as? ThemedActivity<*>)?.isDark() ?: resolveBoolean(R.attr.isDark)
 
 fun Context.colorStateList(
         @ColorInt checked: Int,
@@ -171,9 +173,6 @@ fun Context.isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
 fun Context.getSharedPrefs(name: String): SharedPreferences =
         getSharedPreferences(name, Context.MODE_PRIVATE)
-
-val Context.konfigs: Konfigurations
-    get() = Konfigurations("kau_extensions", this)
 
 val Context.isInHorizontalMode: Boolean
     get() = currentRotation == 90 || currentRotation == 270
