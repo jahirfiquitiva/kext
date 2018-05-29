@@ -14,7 +14,7 @@
   limitations under the License.
   -->
 <manifest xmlns:tools="http://schemas.android.com/tools"
-          package="jahirfiquitiva.libs.kauextensions">
+          package="jahirfiquitiva.libs.kext">
 
     <uses-sdk tools:overrideLibrary="ca.allanwang.kau"/>
 </manifest>
