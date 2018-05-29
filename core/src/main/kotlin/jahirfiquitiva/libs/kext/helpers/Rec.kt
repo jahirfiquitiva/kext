@@ -1,7 +1,6 @@
 package jahirfiquitiva.libs.kext.helpers
 
 import android.util.Log
-import jahirfiquitiva.libs.kext.extensions.hasContent
 
 open class Rec(private val tag: String = "kext", private val canLog: Boolean = true) {
     
@@ -34,8 +33,8 @@ open class Rec(private val tag: String = "kext", private val canLog: Boolean = t
     }
     
     private fun log(priority: Int, message: String?, throwable: Throwable? = null) {
-        val actMessage = message.orEmpty()
-        if (canLog && actMessage.hasContent()) {
+        val actMessage = message ?: "Null Message"
+        if (canLog) {
             when {
                 throwable != null -> Log.e(tag, actMessage, throwable)
                 priority !in (Log.VERBOSE..Log.ERROR) -> Log.wtf(tag, actMessage)
