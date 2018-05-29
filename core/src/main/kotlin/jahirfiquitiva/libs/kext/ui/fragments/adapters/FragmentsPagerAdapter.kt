@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.fragments.adapters
+package jahirfiquitiva.libs.kext.ui.fragments.adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

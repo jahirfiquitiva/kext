@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.layouts
+package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
 import android.os.Build
@@ -21,7 +21,7 @@ import android.support.annotation.RequiresApi
 import android.support.design.widget.AppBarLayout
 import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
-import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kext.R
 
 open class FixedElevationAppBarLayout : AppBarLayout {
     

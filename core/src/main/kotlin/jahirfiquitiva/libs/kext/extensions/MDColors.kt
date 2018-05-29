@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kext.extensions
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,7 +21,7 @@ import android.graphics.Color
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import ca.allanwang.kau.utils.isColorDark
-import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kext.R
 
 val Context.primaryColor: Int
     get() = extractColor(intArrayOf(R.attr.colorPrimary))

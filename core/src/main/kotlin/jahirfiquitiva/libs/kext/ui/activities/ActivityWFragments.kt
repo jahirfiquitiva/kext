@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.activities
+package jahirfiquitiva.libs.kext.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v4.app.Fragment
-import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.helpers.Konfigurations
 
 abstract class ActivityWFragments<Configs : Konfigurations> : ThemedActivity<Configs>() {
     open fun fragmentsContainer() = 0

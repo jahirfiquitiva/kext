@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kext.extensions
 
 import android.app.Activity
 import android.app.ActivityManager
@@ -44,9 +44,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
-import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
-import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
 val Context.isFirstRun: Boolean
     get() {

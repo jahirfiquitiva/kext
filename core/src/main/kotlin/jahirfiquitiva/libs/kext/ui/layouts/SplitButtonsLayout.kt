@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.layouts
+package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
 import android.support.annotation.IntRange
@@ -23,8 +23,8 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.inflate
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.extensions.inflate
 
 /**
  * Originally created by Aidan Follestad
@@ -54,7 +54,7 @@ open class SplitButtonsLayout : LinearLayout {
         orientation = HORIZONTAL
         if (isInEditMode) {
             buttonCount = 2
-            addButton("Website", "https://github.com/jahirfiquitiva/KAUExtensions")
+            addButton("Website", "https://github.com/jahirfiquitiva/kext")
             addButton("Google+", "https://google.com/+JahirFiquitivaR")
         }
     }

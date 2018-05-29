@@ -21,7 +21,7 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.SeekBar
 import android.widget.TextView
-import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kext.R
 
 /**
  * Utils originally created by Allan Wang

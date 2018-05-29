@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kext.extensions
 
 import android.animation.Animator
 import android.view.animation.Animation

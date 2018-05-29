@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.activities
+package jahirfiquitiva.libs.kext.ui.activities
 
 import android.content.Intent
 import android.graphics.Color
@@ -26,16 +26,16 @@ import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
-import jahirfiquitiva.libs.kauextensions.extensions.isColorLight
-import jahirfiquitiva.libs.kauextensions.extensions.navigationBarLight
-import jahirfiquitiva.libs.kauextensions.extensions.primaryDarkColor
-import jahirfiquitiva.libs.kauextensions.helpers.AMOLED
-import jahirfiquitiva.libs.kauextensions.helpers.AUTO_AMOLED
-import jahirfiquitiva.libs.kauextensions.helpers.AUTO_DARK
-import jahirfiquitiva.libs.kauextensions.helpers.DARK
-import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
-import jahirfiquitiva.libs.kauextensions.helpers.LIGHT
-import jahirfiquitiva.libs.kauextensions.helpers.TRANSPARENT
+import jahirfiquitiva.libs.kext.extensions.isColorLight
+import jahirfiquitiva.libs.kext.extensions.navigationBarLight
+import jahirfiquitiva.libs.kext.extensions.primaryDarkColor
+import jahirfiquitiva.libs.kext.helpers.AMOLED
+import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
+import jahirfiquitiva.libs.kext.helpers.AUTO_DARK
+import jahirfiquitiva.libs.kext.helpers.DARK
+import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.LIGHT
+import jahirfiquitiva.libs.kext.helpers.TRANSPARENT
 import java.util.Calendar
 
 abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity() {

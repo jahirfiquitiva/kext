@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.fragments.presenters
+package jahirfiquitiva.libs.kext.ui.fragments.presenters
 
 import android.support.annotation.LayoutRes
 import android.view.View

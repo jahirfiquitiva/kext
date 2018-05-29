@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.fragments
+package jahirfiquitiva.libs.kext.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
+import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
 
 abstract class ItemFragment<in T> : Fragment(), FragmentPresenter<T> {
     

@@ -15,7 +15,7 @@
  */
 package jahirfiquitiva.libs.archhelpers.ui.fragments.presenters
 
-import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
+import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
 
 interface ViewModelFragmentPresenter<in T> : FragmentPresenter<T> {
     fun registerObservers()

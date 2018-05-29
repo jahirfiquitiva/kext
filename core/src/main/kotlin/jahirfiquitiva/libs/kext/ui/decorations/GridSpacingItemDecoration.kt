@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jahirfiquitiva.libs.kauextensions.ui.decorations
+package jahirfiquitiva.libs.kext.ui.decorations
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

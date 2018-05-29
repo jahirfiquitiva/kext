@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kext.extensions
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
@@ -30,7 +30,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import jahirfiquitiva.libs.kauextensions.R
+import jahirfiquitiva.libs.kext.R
 import java.lang.reflect.Field
 
 fun Toolbar.tint(

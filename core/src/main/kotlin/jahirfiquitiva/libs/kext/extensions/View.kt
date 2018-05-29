@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jahirfiquitiva.libs.kauextensions.extensions
+package jahirfiquitiva.libs.kext.extensions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -32,7 +32,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import jahirfiquitiva.libs.kauextensions.ui.graphics.ObservableColorMatrix
+import jahirfiquitiva.libs.kext.ui.graphics.ObservableColorMatrix
 
 fun View.buildSnackbar(
     @StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG,

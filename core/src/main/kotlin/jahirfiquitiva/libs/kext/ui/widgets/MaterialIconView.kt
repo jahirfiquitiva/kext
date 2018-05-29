@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.widgets
+package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.activeIconsColor
-import jahirfiquitiva.libs.kauextensions.extensions.applyColorFilter
-import jahirfiquitiva.libs.kauextensions.extensions.inactiveIconsColor
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.extensions.activeIconsColor
+import jahirfiquitiva.libs.kext.extensions.applyColorFilter
+import jahirfiquitiva.libs.kext.extensions.inactiveIconsColor
 
 open class MaterialIconView : AppCompatImageView {
     var isActive = true

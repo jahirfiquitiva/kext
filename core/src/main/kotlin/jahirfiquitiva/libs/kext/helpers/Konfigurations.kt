@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.helpers
+package jahirfiquitiva.libs.kext.helpers
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import jahirfiquitiva.libs.kauextensions.R
-import jahirfiquitiva.libs.kauextensions.extensions.getSharedPrefs
-import jahirfiquitiva.libs.kauextensions.extensions.int
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.extensions.getSharedPrefs
+import jahirfiquitiva.libs.kext.extensions.int
 
 open class Konfigurations(name: String, private val context: Context) {
     val prefs: SharedPreferences = context.getSharedPrefs(name)

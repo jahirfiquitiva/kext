@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.kauextensions.ui.widgets
+package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView

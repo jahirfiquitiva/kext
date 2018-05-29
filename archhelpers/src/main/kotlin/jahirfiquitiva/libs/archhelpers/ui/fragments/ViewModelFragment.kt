@@ -17,7 +17,7 @@ package jahirfiquitiva.libs.archhelpers.ui.fragments
 
 import android.os.Bundle
 import jahirfiquitiva.libs.archhelpers.ui.fragments.presenters.ViewModelFragmentPresenter
-import jahirfiquitiva.libs.kauextensions.ui.fragments.ItemFragment
+import jahirfiquitiva.libs.kext.ui.fragments.ItemFragment
 
 abstract class ViewModelFragment<in T> : ItemFragment<T>(), ViewModelFragmentPresenter<T> {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
