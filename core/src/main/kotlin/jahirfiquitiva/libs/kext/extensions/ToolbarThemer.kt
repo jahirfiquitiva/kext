@@ -30,6 +30,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.R
 import java.lang.reflect.Field
 

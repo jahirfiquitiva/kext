@@ -1,7 +1,7 @@
 # kext
 
 [![](https://jitpack.io/v/com.jahirfiquitiva/kext.svg)](https://jitpack.io/#com.jahirfiquitiva/kext)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/645b9213563542d4ac0d5bbc76d3180a)](https://www.codacy.com/app/jahirfiquitiva/KAUExtensions?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jahirfiquitiva/KAUExtensions&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0a93d8de47ba48749849f5959b36c6ad)](https://www.codacy.com/app/jahirfiquitiva/kext?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jahirfiquitiva/kext&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/jahirfiquitiva/kext.svg?branch=master)](https://travis-ci.com/jahirfiquitiva/kext)
 
 A bunch of Kotlin extensions to be used in my android apps, which also contains a few extensions from [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
