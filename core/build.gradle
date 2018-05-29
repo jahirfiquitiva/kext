@@ -72,6 +72,8 @@ dependencies {
     api libraries.design
     // Kotlin
     api libraries.kotlin
+    // Material Dialogs
+    implementation libraries.dialogs
 }
 
 configurations {

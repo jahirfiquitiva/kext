@@ -77,42 +77,6 @@ fun Context.resolveBoolean(@AttrRes attr: Int, fallback: Boolean = false): Boole
     }
 }
 
-fun <T : View> T.visible(): T {
-    visibility = View.VISIBLE
-    return this
-}
-
-fun <T : View> T.invisible(): T {
-    visibility = View.INVISIBLE
-    return this
-}
-
-fun <T : View> T.gone(): T {
-    visibility = View.GONE
-    return this
-}
-
-fun <T : View> T.invisibleIf(invisible: Boolean): T =
-    if (invisible) invisible() else visible()
-
-fun <T : View> T.visibleIf(visible: Boolean): T = if (visible) visible() else gone()
-
-fun <T : View> T.goneIf(gone: Boolean): T = visibleIf(!gone)
-
-inline val View.isVisible: Boolean get() = visibility == View.VISIBLE
-
-inline val View.isInvisible: Boolean get() = visibility == View.INVISIBLE
-
-inline val View.isGone: Boolean get() = visibility == View.GONE
-
-fun Number.round(@IntRange(from = 1L) decimalCount: Int): String {
-    val expression = StringBuilder().append("#.")
-    (1..decimalCount).forEach { expression.append("#") }
-    val formatter = DecimalFormat(expression.toString())
-    formatter.roundingMode = RoundingMode.HALF_UP
-    return formatter.format(this)
-}
-
 inline val Context.isNetworkAvailable: Boolean
     @SuppressLint("MissingPermission")
     get() {
@@ -151,4 +115,12 @@ fun Context.openLink(vararg url: String?) {
         startActivity(browserIntent)
     else
         showToast("Cannot find a browser")
+}
+
+fun Number.round(@IntRange(from = 1L) decimalCount: Int): String {
+    val expression = StringBuilder().append("#.")
+    (1..decimalCount).forEach { expression.append("#") }
+    val formatter = DecimalFormat(expression.toString())
+    formatter.roundingMode = RoundingMode.HALF_UP
+    return formatter.format(this)
 }

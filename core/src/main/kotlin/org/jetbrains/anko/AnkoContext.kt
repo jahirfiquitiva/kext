@@ -1,7 +1,21 @@
+/*
+ * Copyright 2016 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jetbrains.anko
 
 import android.app.Activity
-import android.app.Fragment
 import android.content.Context
 import android.content.ContextWrapper
 import android.view.View
@@ -104,22 +118,3 @@ open class AnkoContextImpl<T>(
     open protected fun alreadyHasView(): Unit =
         throw IllegalStateException("View is already set: $myView")
 }
-
-inline fun Context.UI(
-    setContentView: Boolean,
-    init: AnkoContext<Context>.() -> Unit
-                     ): AnkoContext<Context> =
-    createAnkoContext(this, init, setContentView)
-
-inline fun Context.UI(init: AnkoContext<Context>.() -> Unit): AnkoContext<Context> =
-    createAnkoContext(this, init)
-
-inline fun Fragment.UI(init: AnkoContext<Fragment>.() -> Unit): AnkoContext<Fragment> =
-    createAnkoContext(activity, init)
-
-interface AnkoComponent<in T> {
-    fun createView(ui: AnkoContext<T>): View
-}
-
-fun <T : Activity> AnkoComponent<T>.setContentView(activity: T): View =
-    createView(AnkoContextImpl(activity, activity, true))
