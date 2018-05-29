@@ -17,12 +17,11 @@ package jahirfiquitiva.libs.archhelpers.ui.adapters
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
 import jahirfiquitiva.libs.archhelpers.ui.adapters.presenters.ListAdapterPresenter
 import jahirfiquitiva.libs.kauextensions.extensions.clearChildrenAnimations
 
 abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(private val maxLoad: Int = -1) :
-        RecyclerView.Adapter<VH>(), ListAdapterPresenter<T> {
+    RecyclerView.Adapter<VH>(), ListAdapterPresenter<T> {
     private var lastAnimatedPosition = -1
     
     val list = ArrayList<T>()

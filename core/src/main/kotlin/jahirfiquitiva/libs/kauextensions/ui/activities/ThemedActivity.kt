@@ -49,13 +49,13 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     abstract fun darkTheme(): Int
     
     @StyleRes
-    abstract fun amoledTheme(): Int
+    open fun amoledTheme(): Int = 0
     
     @StyleRes
-    abstract fun transparentTheme(): Int
+    open fun transparentTheme(): Int = 0
     
-    abstract fun autoTintStatusBar(): Boolean
-    abstract fun autoTintNavigationBar(): Boolean
+    open fun autoTintStatusBar(): Boolean = true
+    open fun autoTintNavigationBar(): Boolean = true
     
     abstract val configs: Configs
     
@@ -83,19 +83,14 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     }
     
     private fun postRecreate() {
-        Handler().post(
-                {
-                    val i = Intent(this, this::class.java)
-                    intent?.extras?.let { i.putExtras(it) }
-                    startActivity(i)
-                    overridePendingTransition(
-                            android.R.anim.fade_in,
-                            android.R.anim.fade_out)
-                    finish()
-                    overridePendingTransition(
-                            android.R.anim.fade_in,
-                            android.R.anim.fade_out)
-                })
+        Handler().post {
+            val i = Intent(this, this::class.java)
+            intent?.extras?.let { i.putExtras(it) }
+            startActivity(i)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
     
     private fun setCustomTheme() {
@@ -108,7 +103,7 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
     }
     
-    open fun isDark(): Boolean {
+    open fun usesDarkTheme(): Boolean {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
         return when (configs.currentTheme) {
@@ -123,13 +118,14 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     private fun getCustomTheme(): Int {
         val c = Calendar.getInstance()
         val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
+        val rightAmoledTheme = if (amoledTheme() != 0) amoledTheme() else darkTheme()
         return when (configs.currentTheme) {
             LIGHT -> lightTheme()
             DARK -> darkTheme()
-            AMOLED -> amoledTheme()
-            TRANSPARENT -> transparentTheme()
+            AMOLED -> rightAmoledTheme
+            TRANSPARENT -> if (transparentTheme() != 0) transparentTheme() else darkTheme()
             AUTO_DARK -> if (hourOfDay in 7..18) lightTheme() else darkTheme()
-            AUTO_AMOLED -> if (hourOfDay in 7..18) lightTheme() else amoledTheme()
+            AUTO_AMOLED -> if (hourOfDay in 7..18) lightTheme() else rightAmoledTheme
             else -> lightTheme()
         }
     }
@@ -137,7 +133,7 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     @ColorInt
     private fun getCorrectNavbarColor(): Int {
         return if ((configs.currentTheme == AMOLED || configs.currentTheme == TRANSPARENT)
-                && !forceNavBarTint()) {
+            && !forceNavBarTint()) {
             Color.parseColor("#000000")
         } else if (configs.hasColoredNavbar) {
             primaryDarkColor

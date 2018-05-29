@@ -36,7 +36,7 @@ open class FixedElevationAppBarLayout : AppBarLayout {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
             fElevation = a.getDimensionPixelSize(
-                    R.styleable.FixedElevationAppBarLayout_fixedElevation, 4.dpToPx)
+                R.styleable.FixedElevationAppBarLayout_fixedElevation, 4.dpToPx)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 elevation = 0F
             }

@@ -33,25 +33,25 @@ interface KParcelable : Parcelable {
 // Creator factory functions
 
 inline fun <reified T> parcelableCreator(
-        crossinline create: (Parcel) -> T
+    crossinline create: (Parcel) -> T
                                         ) =
-        object : Parcelable.Creator<T> {
-            override fun createFromParcel(source: Parcel) = create(source)
-            override fun newArray(size: Int) = arrayOfNulls<T>(size)
-        }
+    object : Parcelable.Creator<T> {
+        override fun createFromParcel(source: Parcel) = create(source)
+        override fun newArray(size: Int) = arrayOfNulls<T>(size)
+    }
 
 inline fun <reified T> parcelableClassLoaderCreator(
-        crossinline create: (Parcel, ClassLoader) -> T
+    crossinline create: (Parcel, ClassLoader) -> T
                                                    ) =
-        object : Parcelable.ClassLoaderCreator<T> {
-            override fun createFromParcel(source: Parcel, loader: ClassLoader) =
-                    create(source, loader)
-            
-            override fun createFromParcel(source: Parcel) =
-                    createFromParcel(source, T::class.java.classLoader)
-            
-            override fun newArray(size: Int) = arrayOfNulls<T>(size)
-        }
+    object : Parcelable.ClassLoaderCreator<T> {
+        override fun createFromParcel(source: Parcel, loader: ClassLoader) =
+            create(source, loader)
+        
+        override fun createFromParcel(source: Parcel) =
+            createFromParcel(source, T::class.java.classLoader)
+        
+        override fun newArray(size: Int) = arrayOfNulls<T>(size)
+    }
 
 // Parcel extensions
 
@@ -60,13 +60,13 @@ fun Parcel.readBoolean() = readInt() != 0
 fun Parcel.writeBoolean(value: Boolean) = writeInt(if (value) 1 else 0)
 
 inline fun <reified T : Enum<T>> Parcel.readEnum() =
-        readInt().let { if (it >= 0) enumValues<T>()[it] else null }
+    readInt().let { if (it >= 0) enumValues<T>()[it] else null }
 
 fun <T : Enum<T>> Parcel.writeEnum(value: T?) =
-        writeInt(value?.ordinal ?: -1)
+    writeInt(value?.ordinal ?: -1)
 
 inline fun <T> Parcel.readNullable(reader: () -> T) =
-        if (readInt() != 0) reader() else null
+    if (readInt() != 0) reader() else null
 
 inline fun <T> Parcel.writeNullable(value: T?, writer: (T) -> Unit) {
     if (value != null) {
@@ -78,19 +78,19 @@ inline fun <T> Parcel.writeNullable(value: T?, writer: (T) -> Unit) {
 }
 
 fun Parcel.readDate() =
-        readNullable { Date(readLong()) }
+    readNullable { Date(readLong()) }
 
 fun Parcel.writeDate(value: Date?) =
-        writeNullable(value) { writeLong(it.time) }
+    writeNullable(value) { writeLong(it.time) }
 
 fun Parcel.readBigInteger() =
-        readNullable { BigInteger(createByteArray()) }
+    readNullable { BigInteger(createByteArray()) }
 
 fun Parcel.writeBigInteger(value: BigInteger?) =
-        writeNullable(value) { writeByteArray(it.toByteArray()) }
+    writeNullable(value) { writeByteArray(it.toByteArray()) }
 
 fun Parcel.readBigDecimal() =
-        readNullable { BigDecimal(BigInteger(createByteArray()), readInt()) }
+    readNullable { BigDecimal(BigInteger(createByteArray()), readInt()) }
 
 fun Parcel.writeBigDecimal(value: BigDecimal?) = writeNullable(value) {
     writeByteArray(it.unscaledValue().toByteArray())
@@ -98,13 +98,13 @@ fun Parcel.writeBigDecimal(value: BigDecimal?) = writeNullable(value) {
 }
 
 fun <T : Parcelable> Parcel.readTypedObjectCompat(c: Parcelable.Creator<T>) =
-        readNullable { c.createFromParcel(this) }
+    readNullable { c.createFromParcel(this) }
 
 fun <T : Parcelable> Parcel.writeTypedObjectCompat(value: T?, parcelableFlags: Int) =
-        writeNullable(value) { it.writeToParcel(this, parcelableFlags) }
+    writeNullable(value) { it.writeToParcel(this, parcelableFlags) }
 
 inline fun <reified T> Parcel.readArrayListOf(): ArrayList<T> =
-        arrayListOf<T>().apply { readList(this, T::class.java.classLoader) }
+    arrayListOf<T>().apply { readList(this, T::class.java.classLoader) }
 
 inline fun <reified T : Parcelable> Parcel.readParcelable(): T =
-        readParcelable(T::class.java.classLoader)
+    readParcelable(T::class.java.classLoader)

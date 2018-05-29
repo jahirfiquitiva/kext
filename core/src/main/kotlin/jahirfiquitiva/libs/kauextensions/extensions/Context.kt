@@ -20,7 +20,6 @@ import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -30,7 +29,10 @@ import android.os.Build
 import android.os.Looper
 import android.support.annotation.ArrayRes
 import android.support.annotation.AttrRes
+import android.support.annotation.BoolRes
 import android.support.annotation.ColorInt
+import android.support.annotation.DimenRes
+import android.support.annotation.IntegerRes
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
@@ -41,10 +43,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
-import ca.allanwang.kau.utils.adjustAlpha
-import ca.allanwang.kau.utils.dimenPixelSize
 import ca.allanwang.kau.utils.resolveBoolean
-import ca.allanwang.kau.utils.string
 import jahirfiquitiva.libs.kauextensions.R
 import jahirfiquitiva.libs.kauextensions.helpers.Konfigurations
 import jahirfiquitiva.libs.kauextensions.ui.activities.ThemedActivity
@@ -67,7 +66,7 @@ val Context.isUpdate: Boolean
     }
 
 fun Context.compliesWithMinTime(time: Long): Boolean =
-        System.currentTimeMillis() - firstInstallTime > time
+    System.currentTimeMillis() - firstInstallTime > time
 
 val Context.firstInstallTime: Long
     get() {
@@ -92,24 +91,6 @@ val Context.usesLightTheme
 
 val Context.usesDarkTheme
     get() = (this as? ThemedActivity<*>)?.isDark() ?: resolveBoolean(R.attr.isDark)
-
-fun Context.colorStateList(
-        @ColorInt checked: Int,
-        @ColorInt unchecked: Int = checked.adjustAlpha(0.8F),
-        @ColorInt disabledChecked: Int = checked.adjustAlpha(0.3F),
-        @ColorInt disabledUnchecked: Int = disabledChecked
-                          ): ColorStateList {
-    return ColorStateList(
-            arrayOf(
-                    intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_checked),
-                    intArrayOf(android.R.attr.state_enabled, android.R.attr.state_checked),
-                    intArrayOf(-android.R.attr.state_enabled, -android.R.attr.state_checked),
-                    intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_checked)),
-            intArrayOf(unchecked, checked, disabledUnchecked, disabledChecked))
-}
-
-fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String> =
-        resources.getStringArray(arrayRes)
 
 @ColorInt
 fun Context.extractColor(attribute: IntArray): Int {
@@ -145,13 +126,19 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 inline fun <reified T : View> Context.inflate(
-        @LayoutRes layout: Int,
-        root: ViewGroup,
-        attachToRoot: Boolean = false
+    @LayoutRes layout: Int,
+    root: ViewGroup,
+    attachToRoot: Boolean = false
                                              ): T =
-        LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
+    LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
 
-fun Context.getAppName(): String = string(R.string.app_name, "KAU Extensions").orEmpty()
+fun Context.getAppName(): String {
+    return try {
+        getString(R.string.app_name).orEmpty()
+    } catch (ignored: Exception) {
+        "KAU Extensions"
+    }
+}
 
 fun Context.getAppVersionCode(): Int {
     return try {
@@ -172,7 +159,7 @@ fun Context.getAppVersion(): String {
 fun Context.isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
 fun Context.getSharedPrefs(name: String): SharedPreferences =
-        getSharedPreferences(name, Context.MODE_PRIVATE)
+    getSharedPreferences(name, Context.MODE_PRIVATE)
 
 val Context.isInHorizontalMode: Boolean
     get() = currentRotation == 90 || currentRotation == 270
@@ -205,7 +192,7 @@ fun Context.getStatusBarHeight(force: Boolean = false): Int {
     val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
     if (resourceId > 0) result = resources.getDimensionPixelSize(resourceId)
     
-    val dimenResult = dimenPixelSize(R.dimen.status_bar_height)
+    val dimenResult = resources.getDimensionPixelSize(R.dimen.status_bar_height)
     //if our dimension is 0 return 0 because on those devices we don't need the height
     return if (dimenResult == 0 && !force) {
         0
@@ -217,30 +204,79 @@ fun Context.getStatusBarHeight(force: Boolean = false): Int {
 
 fun Context.getUriFromResource(id: Int): Uri? {
     return Uri.parse(
-            "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
-                    "${resources.getResourcePackageName(id)}/" +
-                    "${resources.getResourceTypeName(id)}/" + resources.getResourceEntryName(id))
+        "${ContentResolver.SCHEME_ANDROID_RESOURCE}://" +
+            "${resources.getResourcePackageName(id)}/" +
+            "${resources.getResourceTypeName(id)}/" + resources.getResourceEntryName(id))
 }
 
-fun Context.getBitmap(name: String): Bitmap? = getBitmapDrawable(name)?.bitmap
+fun Context.bitmap(name: String): Bitmap? = bitmapDrawable(name)?.bitmap
 
-fun Context.getBitmapDrawable(name: String): BitmapDrawable? {
+fun Context.bitmapDrawable(name: String): BitmapDrawable? {
     try {
-        return ResourcesCompat.getDrawable(resources, getResource(name), null) as? BitmapDrawable
+        return ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
     } catch (e: Exception) {
         throw Resources.NotFoundException("Icon with name ${this} could not be found")
     }
 }
 
-fun Context.getDrawable(name: String): Drawable? {
+fun Context.drawable(name: String): Drawable? {
     try {
-        return ContextCompat.getDrawable(this, getResource(name))
+        return ContextCompat.getDrawable(this, resource(name))
     } catch (e: Exception) {
         throw Resources.NotFoundException("Icon with name ${this} could not be found")
     }
 }
 
-fun Context.getResource(name: String): Int {
+fun Context.resource(name: String): Int {
     val res = resources.getIdentifier(name, "drawable", packageName)
     return if (res != 0) res else 0
 }
+
+fun Context.string(@StringRes res: Int, fallback: String = ""): String =
+    try {
+        getString(res) ?: fallback
+    } catch (ignored: Exception) {
+        fallback
+    }
+
+fun Context.string(@StringRes res: Int, vararg args: String, fallback: String = ""): String =
+    try {
+        getString(res, args) ?: fallback
+    } catch (ignored: Exception) {
+        fallback
+    }
+
+fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+    try {
+        resources.getStringArray(arrayRes)
+    } catch (ignored: Exception) {
+        null
+    }
+
+fun Context.boolean(@BoolRes res: Int, fallback: Boolean = false): Boolean =
+    try {
+        resources.getBoolean(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
+
+fun Context.int(@IntegerRes res: Int, fallback: Int = 0): Int =
+    try {
+        resources.getInteger(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
+
+fun Context.dimen(@DimenRes res: Int, fallback: Float = 0.0F): Float =
+    try {
+        resources.getDimension(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
+
+fun Context.dimenPixelSize(@DimenRes res: Int, fallback: Int = 0): Int =
+    try {
+        resources.getDimensionPixelSize(res)
+    } catch (ignored: Exception) {
+        fallback
+    }

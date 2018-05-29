@@ -27,11 +27,11 @@ import java.lang.ref.WeakReference
  * Thanks to James Fenn
  */
 class DownloadThread(
-        context: Context,
-        private val downloadId: Long,
-        private val downloadManager: DownloadManager,
-        private val destFile: File?,
-        private val listener: DownloadListener? = null
+    context: Context,
+    private val downloadId: Long,
+    private val downloadManager: DownloadManager,
+    private val destFile: File?,
+    private val listener: DownloadListener? = null
                     ) : Thread() {
     
     private var weakRef: WeakReference<Context>? = null
@@ -75,10 +75,10 @@ class DownloadThread(
                             }
                         }
                         progress = ((it.getInt(
-                                it.getColumnIndex(
-                                        DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)) * 100L)
-                                / it.getInt(
-                                it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))).toInt()
+                            it.getColumnIndex(
+                                DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)) * 100L)
+                            / it.getInt(
+                            it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))).toInt()
                     } catch (e: CursorIndexOutOfBoundsException) {
                         e.printStackTrace()
                         
@@ -87,7 +87,7 @@ class DownloadThread(
                             if (fileExists) listener?.onSuccess(destFile)
                             else
                                 listener?.onFailure(
-                                        Exception("File was not downloaded successfully"))
+                                    Exception("File was not downloaded successfully"))
                         }
                         return
                     }

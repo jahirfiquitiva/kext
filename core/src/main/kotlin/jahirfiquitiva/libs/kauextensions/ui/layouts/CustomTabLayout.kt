@@ -25,19 +25,19 @@ open class CustomTabLayout : TabLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-            : super(context, attributeSet, defStyleAttr)
+        : super(context, attributeSet, defStyleAttr)
     
     fun setTabsIconsColors(@ColorInt unselectedColor: Int, @ColorInt selectedColor: Int) {
         (0 until tabCount)
-                .map { getTabAt(it) }
-                .forEach { tab ->
-                    tab?.let {
-                        if (it.isSelected) {
-                            it.icon = it.icon?.tint(selectedColor)
-                        } else {
-                            it.icon = it.icon?.tint(unselectedColor)
-                        }
+            .map { getTabAt(it) }
+            .forEach { tab ->
+                tab?.let {
+                    if (it.isSelected) {
+                        it.icon = it.icon?.tint(selectedColor)
+                    } else {
+                        it.icon = it.icon?.tint(unselectedColor)
                     }
                 }
+            }
     }
 }

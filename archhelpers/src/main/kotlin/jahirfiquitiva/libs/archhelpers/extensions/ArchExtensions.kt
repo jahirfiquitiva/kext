@@ -26,12 +26,12 @@ import android.support.v4.app.FragmentActivity
  */
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T =
-        ViewModelProviders.of(this)[T::class.java]
+    ViewModelProviders.of(this)[T::class.java]
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(): T =
-        ViewModelProviders.of(this)[T::class.java]
+    ViewModelProviders.of(this)[T::class.java]
 
 inline fun <reified T : ViewModel> FragmentActivity.lazyViewModel(): Lazy<T> =
-        lazy { getViewModel<T>() }
+    lazy { getViewModel<T>() }
 
 inline fun <reified T : ViewModel> Fragment.lazyViewModel(): Lazy<T> = lazy { getViewModel<T>() }

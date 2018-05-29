@@ -24,32 +24,27 @@ import android.support.annotation.IntegerRes
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import ca.allanwang.kau.utils.boolean
-import ca.allanwang.kau.utils.dimen
-import ca.allanwang.kau.utils.dimenPixelSize
-import ca.allanwang.kau.utils.integer
-import ca.allanwang.kau.utils.string
 
 inline fun <reified T : View> RecyclerView.ViewHolder.bind(@IdRes res: Int): Lazy<T?> =
-        lazy { itemView.findViewById<T>(res) }
+    lazy { itemView.findViewById<T>(res) }
 
 val RecyclerView.ViewHolder.context: Context
     get() = itemView.context
 
 fun RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String = ""): String =
-        itemView.context.string(stringRes, fallback) ?: fallback
+    itemView.context.string(stringRes, fallback)
 
-fun RecyclerView.ViewHolder.stringArray(@ArrayRes arrayRes: Int): Array<String> =
-        itemView.context.stringArray(arrayRes)
+fun RecyclerView.ViewHolder.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+    itemView.context.stringArray(arrayRes)
 
 fun RecyclerView.ViewHolder.boolean(@BoolRes bool: Int): Boolean =
-        itemView.context.boolean(bool)
+    itemView.context.boolean(bool)
 
-fun RecyclerView.ViewHolder.integer(@IntegerRes id: Int): Int =
-        itemView.context.integer(id)
+fun RecyclerView.ViewHolder.int(@IntegerRes id: Int): Int =
+    itemView.context.int(id)
 
 fun RecyclerView.ViewHolder.dimen(@DimenRes id: Int): Float =
-        itemView.context.dimen(id)
+    itemView.context.dimen(id)
 
 fun RecyclerView.ViewHolder.dimenPixelSize(@DimenRes id: Int): Int =
-        itemView.context.dimenPixelSize(id)
+    itemView.context.dimenPixelSize(id)

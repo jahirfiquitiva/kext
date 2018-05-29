@@ -36,8 +36,8 @@ val Palette.bestSwatch: Palette.Swatch?
     }
 
 private fun getBestPaletteSwatch(swatches: List<Palette.Swatch>): Palette.Swatch =
-        Collections.max<Palette.Swatch>(swatches) { opt1, opt2 ->
-            val a = opt1?.population ?: 0
-            val b = opt2?.population ?: 0
-            a - b
-        }
+    Collections.max<Palette.Swatch>(swatches) { opt1, opt2 ->
+        val a = opt1?.population ?: 0
+        val b = opt2?.population ?: 0
+        a - b
+    }

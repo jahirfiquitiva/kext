@@ -32,8 +32,8 @@ abstract class ActivityWFragments<Configs : Konfigurations> : ThemedActivity<Con
             val manager = supportFragmentManager.beginTransaction()
             if (configs.animationsEnabled) {
                 manager.setCustomAnimations(
-                        R.anim.abc_fade_in, R.anim.abc_fade_out,
-                        R.anim.abc_popup_enter, R.anim.abc_popup_exit)
+                    R.anim.abc_fade_in, R.anim.abc_fade_out,
+                    R.anim.abc_popup_enter, R.anim.abc_popup_exit)
             }
             if (tag != null) manager.replace(fragmentsContainer(), f, tag)
             else manager.replace(fragmentsContainer(), f)

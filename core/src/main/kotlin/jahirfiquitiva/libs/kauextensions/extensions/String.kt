@@ -18,8 +18,8 @@ package jahirfiquitiva.libs.kauextensions.extensions
 fun String.hasContent() = isNotBlank() && isNotEmpty()
 
 fun String.formatCorrectly() =
-        replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ")
-                .replace("\\p{Z}".toRegex(), "_")
+    replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ")
+        .replace("\\p{Z}".toRegex(), "_")
 
 fun String.toTitleCase(): String {
     val titleCase = StringBuilder()

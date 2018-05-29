@@ -19,7 +19,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 fun JSONObject.string(tag: String, default: String = ""): String =
-        optString(tag, default) ?: default
+    optString(tag, default) ?: default
 
 fun JSONObject.boolean(tag: String, default: Boolean = false): Boolean = optBoolean(tag, default)
 
@@ -34,7 +34,7 @@ fun JSONObject.obj(tag: String): JSONObject? = optJSONObject(tag) ?: null
 fun JSONObject.array(tag: String): JSONArray? = optJSONArray(tag) ?: null
 
 fun JSONArray.string(index: Int, default: String = ""): String =
-        optString(index, default) ?: default
+    optString(index, default) ?: default
 
 fun JSONArray.boolean(index: Int, default: Boolean = false): Boolean = optBoolean(index, default)
 

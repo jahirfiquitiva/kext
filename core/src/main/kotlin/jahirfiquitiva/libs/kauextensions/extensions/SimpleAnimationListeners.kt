@@ -15,6 +15,7 @@
  */
 package jahirfiquitiva.libs.kauextensions.extensions
 
+import android.animation.Animator
 import android.view.animation.Animation
 
 abstract class SimpleAnimationListener : Animation.AnimationListener {
@@ -32,5 +33,23 @@ abstract class SimpleAnimationListener : Animation.AnimationListener {
     
     override fun onAnimationStart(animation: Animation?) {
         animation?.let { onStart(it) }
+    }
+}
+
+abstract class SimpleAnimatorListener : Animator.AnimatorListener {
+    open fun onStart(animator: Animator) = Unit
+    open fun onEnd(animator: Animator) = Unit
+    open fun onRepeat(animator: Animator) = Unit
+    
+    override fun onAnimationRepeat(animator: Animator?) {
+        animator?.let { onRepeat(it) }
+    }
+    
+    override fun onAnimationEnd(animator: Animator?) {
+        animator?.let { onEnd(it) }
+    }
+    
+    override fun onAnimationStart(animator: Animator?) {
+        animator?.let { onStart(it) }
     }
 }

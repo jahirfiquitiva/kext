@@ -34,18 +34,9 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import jahirfiquitiva.libs.kauextensions.ui.graphics.ObservableColorMatrix
 
-inline val View.isNotVisible: Boolean
-    get() = visibility != View.VISIBLE
-
-inline val View.isNotInvisible: Boolean
-    get() = visibility != View.INVISIBLE
-
-inline val View.isNotGone: Boolean
-    get() = visibility != View.GONE
-
 fun View.buildSnackbar(
-        @StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG,
-        builder: Snackbar.() -> Unit = {}
+    @StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG,
+    builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
     snackbar.builder()
@@ -53,8 +44,8 @@ fun View.buildSnackbar(
 }
 
 fun View.buildSnackbar(
-        text: String, duration: Int = Snackbar.LENGTH_LONG,
-        builder: Snackbar.() -> Unit = {}
+    text: String, duration: Int = Snackbar.LENGTH_LONG,
+    builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
     snackbar.builder()
@@ -75,17 +66,17 @@ fun ImageView.animateColorTransition(onFaded: () -> Unit = {}) {
     saturation.duration = 1500L
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         saturation.interpolator = AnimationUtils.loadInterpolator(
-                context,
-                android.R.interpolator.fast_out_slow_in)
+            context,
+            android.R.interpolator.fast_out_slow_in)
     }
     saturation.addListener(
-            object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    super.onAnimationEnd(animation)
-                    clearColorFilter()
-                    setHasTransientState(false)
-                }
-            })
+        object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                super.onAnimationEnd(animation)
+                clearColorFilter()
+                setHasTransientState(false)
+            }
+        })
     saturation.start()
     onFaded()
 }
@@ -118,31 +109,31 @@ private fun getAllChildren(v: View): ArrayList<View> {
  */
 @Suppress("UNCHECKED_CAST")
 fun <T> createAnimator(
-        evaluator: TypeEvaluator<*>, vararg values: T,
-        onConfig: ValueAnimator.() -> Unit = {},
-        onUpdate: (T) -> Unit
+    evaluator: TypeEvaluator<*>, vararg values: T,
+    onConfig: ValueAnimator.() -> Unit = {},
+    onUpdate: (T) -> Unit
                       ): ValueAnimator =
-        ValueAnimator.ofObject(evaluator, *values).apply {
-            addUpdateListener { onUpdate(it.animatedValue as T) }
-            onConfig(this)
-        }
+    ValueAnimator.ofObject(evaluator, *values).apply {
+        addUpdateListener { onUpdate(it.animatedValue as T) }
+        onConfig(this)
+    }
 
 fun animateSmoothly(
-        @ColorInt startColor: Int, @ColorInt endColor: Int,
-        doUpdate: (Int) -> Unit
+    @ColorInt startColor: Int, @ColorInt endColor: Int,
+    doUpdate: (Int) -> Unit
                    ): ValueAnimator =
-        createAnimator(
-                ArgbEvaluator(),
-                startColor, endColor,
-                onConfig = {
-                    duration = 1000
-                    repeatMode = ValueAnimator.REVERSE
-                    repeatCount = ValueAnimator.INFINITE
-                    start()
-                },
-                onUpdate = doUpdate)
+    createAnimator(
+        ArgbEvaluator(),
+        startColor, endColor,
+        onConfig = {
+            duration = 1000
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            start()
+        },
+        onUpdate = doUpdate)
 
 fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
 
 fun View.postDelayed(delay: Long, action: () -> Unit) =
-        postDelayed(action, delay)
+    postDelayed(action, delay)

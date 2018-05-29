@@ -18,19 +18,6 @@ package jahirfiquitiva.libs.archhelpers.ui.fragments.presenters
 import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresenter
 
 interface ViewModelFragmentPresenter<in T> : FragmentPresenter<T> {
-    @Deprecated("Use lazyViewModel() extension instead")
-    open fun initViewModel() {
-    }
-    
-    @Deprecated("Use registerObservers() instead", ReplaceWith("registerObservers()"))
-    open fun registerObserver() {
-        registerObservers()
-    }
-    
-    @Deprecated("Use unregisterObservers() instead", ReplaceWith("unregisterObservers()"))
-    open fun unregisterObserver() {
-    }
-    
     fun registerObservers()
     fun loadDataFromViewModel()
     fun unregisterObservers()

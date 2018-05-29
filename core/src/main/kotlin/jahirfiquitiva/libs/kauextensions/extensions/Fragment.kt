@@ -24,29 +24,11 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
-@Deprecated("Use one of safeActv(...) methods", ReplaceWith("safeActv()"))
-val Fragment.actv: FragmentActivity
-    get() = activity ?: throw IllegalStateException("Activity was null!")
-
-@Deprecated("Use one of safeCtxt(...) methods", ReplaceWith("safeCtxt()"))
-val Fragment.ctxt: Context
-    get() = context ?: throw IllegalStateException("Context was null!")
-
-fun Fragment.actv(canThrowException: Boolean = false, todo: (FragmentActivity) -> Unit) {
-    activity?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
-            "Activity was null!")
-}
-
-fun Fragment.ctxt(canThrowException: Boolean = false, todo: (Context) -> Unit) {
-    context?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
-            "Context was null!")
-}
-
-fun Fragment.withActv(canThrowException: Boolean = false, todo: FragmentActivity.() -> Unit) {
+fun Fragment.activity(canThrowException: Boolean = false, todo: FragmentActivity.() -> Unit) {
     activity?.todo() ?: if (canThrowException) throw IllegalStateException("Activity was null!")
 }
 
-fun Fragment.withCtxt(canThrowException: Boolean = false, todo: Context.() -> Unit) {
+fun Fragment.context(canThrowException: Boolean = false, todo: Context.() -> Unit) {
     context?.todo() ?: if (canThrowException) throw IllegalStateException("Context was null!")
 }
 
@@ -64,10 +46,10 @@ interface SafeAccess<in T> {
 }
 
 fun Fragment.string(@StringRes stringRes: Int, fallback: String): String =
-        if (stringRes > 0) getString(stringRes) else fallback
+    if (stringRes != 0) getString(stringRes) else fallback
 
 fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String> =
-        resources.getStringArray(arrayRes)
+    resources.getStringArray(arrayRes)
 
 fun Fragment.boolean(@BoolRes bool: Int) = resources.getBoolean(bool)
 

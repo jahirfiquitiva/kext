@@ -44,7 +44,7 @@ import android.widget.OverScroller;
  * ImageView with methods to allow zoom gestures in it
  *
  * @author Not me. I took this class from a gist a long time ago and I cannot remember its author,
- *         otherwise I would credit him/her here. Thanks anyways for sharing this.
+ * otherwise I would credit him/her here. Thanks anyways for sharing this.
  */
 @SuppressLint("ClickableViewAccessibility")
 public class ZoomableImageView extends AppCompatImageView {
@@ -195,8 +195,8 @@ public class ZoomableImageView extends AppCompatImageView {
     public void setScaleType(ScaleType type) {
         if (type == ScaleType.FIT_START || type == ScaleType.FIT_END) {
             throw new UnsupportedOperationException(
-                    "ZoomableImageView does not support FIT_START or" +
-                            " FIT_END");
+                "ZoomableImageView does not support FIT_START or" +
+                    " FIT_END");
         }
         if (type == ScaleType.MATRIX) {
             super.setScaleType(ScaleType.MATRIX);
@@ -307,7 +307,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * Enables zooming beyond the min or max scales
      *
      * @param enable
-     *         Whether zooming beyond the min or max scales should be enabled or not
+     *     Whether zooming beyond the min or max scales should be enabled or not
      */
     public void enableScaleBeyondLimits(boolean enable) {
         superMinMultiplier = enable ? .75F : 1F;
@@ -327,7 +327,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * Set the max zoom multiplier. Default value: 3.
      *
      * @param max
-     *         max zoom multiplier.
+     *     max zoom multiplier.
      */
     public void setMaxZoom(float max) {
         maxScale = max;
@@ -347,7 +347,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * Set the min zoom multiplier. Default value: 1.
      *
      * @param min
-     *         min zoom multiplier.
+     *     min zoom multiplier.
      */
     public void setMinZoom(float min) {
         minScale = min;
@@ -526,7 +526,7 @@ public class ZoomableImageView extends AppCompatImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Drawable drawable = getDrawable();
         if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight
-                () == 0) {
+            () == 0) {
             setMeasuredDimension(0, 0);
             return;
         }
@@ -557,7 +557,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private void fitImageToView() {
         Drawable drawable = getDrawable();
         if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight
-                () == 0) {
+            () == 0) {
             return;
         }
         if (matrix == null || prevMatrix == null) {
@@ -589,7 +589,7 @@ public class ZoomableImageView extends AppCompatImageView {
                 // FIT_START and FIT_END not supported
                 //
                 throw new UnsupportedOperationException("ZoomableImageView does not support " +
-                                                                "FIT_START or FIT_END");
+                                                            "FIT_START or FIT_END");
 
         }
         //
@@ -677,22 +677,22 @@ public class ZoomableImageView extends AppCompatImageView {
      * post-rotation.
      *
      * @param axis
-     *         Matrix.MTRANS_X or Matrix.MTRANS_Y
+     *     Matrix.MTRANS_X or Matrix.MTRANS_Y
      * @param trans
-     *         the value of trans in that axis before the rotation
+     *     the value of trans in that axis before the rotation
      * @param prevImageSize
-     *         the width/height of the image before the rotation
+     *     the width/height of the image before the rotation
      * @param imageSize
-     *         width/height of the image after rotation
+     *     width/height of the image after rotation
      * @param prevViewSize
-     *         width/height of view before rotation
+     *     width/height of view before rotation
      * @param viewSize
-     *         width/height of view after rotation
+     *     width/height of view after rotation
      * @param drawableSize
-     *         width/height of drawable
+     *     width/height of drawable
      */
     private void translateMatrixAfterRotate(int axis, float trans, float prevImageSize, float
-            imageSize, int prevViewSize, int viewSize, int drawableSize) {
+        imageSize, int prevViewSize, int viewSize, int drawableSize) {
         if (imageSize < viewSize) {
             //
             // The width/height of image is less than the view's width/height. Center it.
@@ -743,7 +743,7 @@ public class ZoomableImageView extends AppCompatImageView {
     }
 
     private void scaleImage(double deltaScale, float focusX, float focusY, boolean
-            stretchImageToSuper) {
+        stretchImageToSuper) {
         float lowerScale, upperScale;
         if (stretchImageToSuper) {
             lowerScale = superMinScale;
@@ -771,12 +771,12 @@ public class ZoomableImageView extends AppCompatImageView {
      * the drawable that the imageview contain
      *
      * @param x
-     *         x-coordinate of touch event
+     *     x-coordinate of touch event
      * @param y
-     *         y-coordinate of touch event
+     *     y-coordinate of touch event
      * @param clipToBitmap
-     *         Touch event may occur within view, but outside image content. True, to clip return
-     *         value to the bounds of the bitmap size.
+     *     Touch event may occur within view, but outside image content. True, to clip return
+     *     value to the bounds of the bitmap size.
      *
      * @return Coordinates of the point touched, in the coordinate system of the original drawable.
      */
@@ -800,9 +800,9 @@ public class ZoomableImageView extends AppCompatImageView {
      * drawable's coordinate system to the view's coordinate system.
      *
      * @param bx
-     *         x-coordinate in original bitmap coordinate system
+     *     x-coordinate in original bitmap coordinate system
      * @param by
-     *         y-coordinate in original bitmap coordinate system
+     *     y-coordinate in original bitmap coordinate system
      *
      * @return Coordinates of the point in the view's coordinate system.
      */
@@ -830,7 +830,7 @@ public class ZoomableImageView extends AppCompatImageView {
         float[] n = new float[9];
         matrix.getValues(n);
         Log.d(DEBUG, "Scale: " + n[Matrix.MSCALE_X] + " TransX: " + n[Matrix.MTRANS_X] + " " +
-                "TransY: " + n[Matrix.MTRANS_Y]);
+            "TransY: " + n[Matrix.MTRANS_Y]);
     }
 
     private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
@@ -1028,7 +1028,7 @@ public class ZoomableImageView extends AppCompatImageView {
         private final float bitmapY;
         private final boolean stretchImageToSuper;
         private final AccelerateDecelerateInterpolator interpolator = new
-                AccelerateDecelerateInterpolator();
+            AccelerateDecelerateInterpolator();
         private final PointF startTouch;
         private final PointF endTouch;
 
@@ -1191,7 +1191,7 @@ public class ZoomableImageView extends AppCompatImageView {
         }
 
         public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int
-                maxX, int minY, int maxY) {
+            maxX, int minY, int maxY) {
             overScroller.fling(startX, startY, velocityX, velocityY, minX, maxX, minY, maxY);
         }
 

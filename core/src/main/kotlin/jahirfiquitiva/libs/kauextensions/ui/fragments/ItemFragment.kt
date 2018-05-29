@@ -25,9 +25,9 @@ import jahirfiquitiva.libs.kauextensions.ui.fragments.presenters.FragmentPresent
 abstract class ItemFragment<in T> : Fragment(), FragmentPresenter<T> {
     
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
                              ): View? {
         return if (getContentLayout() != 0) {
             try {

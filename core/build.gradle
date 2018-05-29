@@ -72,15 +72,6 @@ dependencies {
     api libraries.design
     // Kotlin
     api libraries.kotlin
-    // KAU
-    api(libraries.kau) {
-        transitive = true
-        exclude group: 'com.google.code'
-        exclude group: 'org.jetbrains.kotlin'
-        exclude group: 'com.android.support'
-        exclude group: 'com.mikepenz'
-        exclude group: 'com.afollestad.material-dialogs'
-    }
 }
 
 configurations {

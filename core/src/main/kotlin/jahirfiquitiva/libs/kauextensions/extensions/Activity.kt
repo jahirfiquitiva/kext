@@ -34,18 +34,18 @@ import ca.allanwang.kau.utils.statusBarLight
  * https://medium.com/@quiro91/improving-findviewbyid-with-kotlin-4cf2f8f779bb
  */
 inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T?> =
-        lazy { findViewById<T>(res) }
+    lazy { findViewById<T>(res) }
 
 inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T?>? =
-        view?.let { lazy { it.findViewById<T>(res) } }
+    view?.let { lazy { it.findViewById<T>(res) } }
 
 inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> =
-        lazy { findViewById<T>(res) }
+    lazy { findViewById<T>(res) }
 
 @Deprecated("Use enableTranslucentStatusBar()", ReplaceWith("enableTranslucentStatusBar()"))
 fun Activity.setupStatusBarStyle(
-        translucent: Boolean = true,
-        lightMode: Boolean = primaryDarkColor.isColorLight()
+    translucent: Boolean = true,
+    lightMode: Boolean = primaryDarkColor.isColorLight()
                                 ) {
     enableTranslucentStatusBar(translucent)
     statusBarLight = lightMode
@@ -75,8 +75,8 @@ inline var Activity.navigationBarLight: Boolean
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val flags = window.decorView.systemUiVisibility
             window.decorView.systemUiVisibility =
-                    if (value) flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                    else flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+                if (value) flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                else flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
         }
     }
 

@@ -37,7 +37,7 @@ open class MaterialIconView : AppCompatImageView {
     }
     
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-            : super(context, attributeSet, defStyleAttr) {
+        : super(context, attributeSet, defStyleAttr) {
         init(context, attributeSet)
     }
     
@@ -52,7 +52,7 @@ open class MaterialIconView : AppCompatImageView {
     
     override fun setImageDrawable(drawable: Drawable?) {
         super.setImageDrawable(
-                drawable?.applyColorFilter(
-                        if (isActive) context.activeIconsColor else context.inactiveIconsColor))
+            drawable?.applyColorFilter(
+                if (isActive) context.activeIconsColor else context.inactiveIconsColor))
     }
 }

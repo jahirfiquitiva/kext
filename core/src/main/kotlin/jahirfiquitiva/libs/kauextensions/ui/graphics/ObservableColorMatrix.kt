@@ -16,7 +16,6 @@
 package jahirfiquitiva.libs.kauextensions.ui.graphics
 
 import android.graphics.ColorMatrix
-import android.util.FloatProperty
 import android.util.Property
 
 /**
@@ -26,22 +25,32 @@ import android.util.Property
  */
 class ObservableColorMatrix : ColorMatrix() {
     
-    private var mSaturation = 1F
+    private var saturation = 1F
     
     override fun setSaturation(sat: Float) {
-        mSaturation = sat
+        saturation = sat
         super.setSaturation(sat)
     }
     
     companion object {
         @JvmField
         val SATURATION: Property<ObservableColorMatrix, Float> =
-                object : FloatProperty<ObservableColorMatrix>("saturation") {
-                    override fun setValue(cm: ObservableColorMatrix, value: Float) {
-                        cm.setSaturation(value)
-                    }
-                    
-                    override operator fun get(cm: ObservableColorMatrix): Float? = cm.mSaturation
+            object : FloatPropertyCompat<ObservableColorMatrix>("saturation") {
+                override fun setValue(obj: ObservableColorMatrix, value: Float) {
+                    obj.setSaturation(value)
                 }
+                
+                override operator fun get(cm: ObservableColorMatrix): Float? = cm.saturation
+            }
+    }
+}
+
+internal abstract class FloatPropertyCompat<T>(name: String) :
+    Property<T, Float>(Float::class.java, name) {
+    
+    abstract fun setValue(obj: T, value: Float)
+    
+    override fun set(`object`: T, value: Float?) {
+        setValue(`object`, value ?: 0.0F)
     }
 }

@@ -46,7 +46,7 @@ open class SplitButtonsLayout : LinearLayout {
     }
     
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-            : super(context, attributeSet, defStyleAttr) {
+        : super(context, attributeSet, defStyleAttr) {
         init()
     }
     
@@ -64,8 +64,8 @@ open class SplitButtonsLayout : LinearLayout {
     fun addButton(text: String, link: String, fillAvailableSpace: Boolean = false) {
         if (hasAllButtons()) {
             Log.e(
-                    "SplitButtonsLayout",
-                    "Cannot add more buttons. $buttonCount buttons have already been added")
+                "SplitButtonsLayout",
+                "Cannot add more buttons. $buttonCount buttons have already been added")
             return
         }
         val button: AppCompatButton = context.inflate(R.layout.item_split_button, this)
@@ -73,8 +73,8 @@ open class SplitButtonsLayout : LinearLayout {
             LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         } else {
             LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT)
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
         }
         button.maxLines = 1
         button.ellipsize = TextUtils.TruncateAt.END

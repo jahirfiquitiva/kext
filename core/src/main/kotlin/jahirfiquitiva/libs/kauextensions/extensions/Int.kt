@@ -22,7 +22,7 @@ import ca.allanwang.kau.utils.withAlpha
 
 @ColorInt
 fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int =
-        withAlpha((255 * factor).toInt())
+    withAlpha((255 * factor).toInt())
 
 fun Int.isColorLight(darkness: Float = 0.5F): Boolean = !isColorDark(darkness)
 

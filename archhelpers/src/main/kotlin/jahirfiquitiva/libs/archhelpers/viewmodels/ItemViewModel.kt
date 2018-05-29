@@ -36,13 +36,13 @@ abstract class ItemViewModel<in Parameter, Result> : ViewModel() {
         if (!taskStarted || forceLoad) {
             cancelTask(true)
             task = QAsync<Parameter, Result>(
-                    WeakReference(parameter),
-                    object : QAsync.Callback<Parameter, Result>() {
-                        override fun doLoad(param: Parameter): Result? =
-                                safeInternalLoad(param, forceLoad)
-                        
-                        override fun onSuccess(result: Result) = postResult(result)
-                    })
+                WeakReference(parameter),
+                object : QAsync.Callback<Parameter, Result>() {
+                    override fun doLoad(param: Parameter): Result? =
+                        safeInternalLoad(param, forceLoad)
+                    
+                    override fun onSuccess(result: Result) = postResult(result)
+                })
             task?.execute()
             taskStarted = true
         }

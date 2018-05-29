@@ -34,8 +34,8 @@ import jahirfiquitiva.libs.kauextensions.R
 import java.lang.reflect.Field
 
 fun Toolbar.tint(
-        @ColorInt titleColor: Int, @ColorInt subtitleColor: Int = titleColor,
-        @ColorInt iconsColor: Int = titleColor, forceShowIcons: Boolean = false
+    @ColorInt titleColor: Int, @ColorInt subtitleColor: Int = titleColor,
+    @ColorInt iconsColor: Int = titleColor, forceShowIcons: Boolean = false
                 ) {
     
     (0..childCount).forEach { i ->
@@ -48,19 +48,19 @@ fun Toolbar.tint(
             //Step 2: Changing the color of any ActionMenuViews - icons that are not back
             // button, nor text, nor overflow menu icon.
             (0..v.childCount)
-                    .map {
-                        v.getChildAt(it)
-                    }
-                    .filterIsInstance<ActionMenuItemView>()
-                    .forEach { innerView ->
-                        innerView.compoundDrawables.forEach {
-                            if (it != null) {
-                                innerView.post {
-                                    it.applyColorFilter(iconsColor)
-                                }
+                .map {
+                    v.getChildAt(it)
+                }
+                .filterIsInstance<ActionMenuItemView>()
+                .forEach { innerView ->
+                    innerView.compoundDrawables.forEach {
+                        if (it != null) {
+                            innerView.post {
+                                it.applyColorFilter(iconsColor)
                             }
                         }
                     }
+                }
         }
     }
     
@@ -97,8 +97,8 @@ fun Menu.tint(@ColorInt iconsColor: Int, forceShowIcons: Boolean = false) {
     if (forceShowIcons) {
         try {
             val setOptionalIconsVisible = javaClass.getDeclaredMethod(
-                    "setOptionalIconsVisible",
-                    kotlin.Boolean::class.javaPrimitiveType)
+                "setOptionalIconsVisible",
+                kotlin.Boolean::class.javaPrimitiveType)
             if (!setOptionalIconsVisible.isAccessible) setOptionalIconsVisible.isAccessible = true
             setOptionalIconsVisible.invoke(this, true)
         } catch (ignored: Exception) {
@@ -124,7 +124,7 @@ fun SearchView.tint(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintCol
         val mSearchSrcTextView = mSearchSrcTextViewField.get(this) as? EditText
         mSearchSrcTextView?.setTextColor(tintColor)
         mSearchSrcTextView?.setHintTextColor(
-                if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor)
+            if (hintColor == tintColor) hintColor.withAlpha(0.5F) else hintColor)
         mSearchSrcTextView?.tint(tintColor)
         
         var field = cls.getDeclaredField("mSearchButton")
@@ -170,9 +170,9 @@ fun EditText.tint(@ColorInt color: Int) {
         fCursorDrawable.isAccessible = true
         val drawables = arrayOfNulls<Drawable>(2)
         drawables[0] =
-                ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
+            ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
         drawables[1] =
-                ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
+            ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
         fCursorDrawable.set(editor, drawables)
     } catch (e: Exception) {
         e.printStackTrace()

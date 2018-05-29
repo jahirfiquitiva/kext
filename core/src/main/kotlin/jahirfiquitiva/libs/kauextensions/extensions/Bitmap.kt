@@ -30,11 +30,11 @@ fun Bitmap.isColorDark() = !isColorLight()
 fun Bitmap.isColorLight(): Boolean = generatePalette()?.isColorLight() ?: false
 
 fun Bitmap.generatePalette(resizeArea: Int = -1): Palette? =
-        try {
-            Palette.from(this).resizeBitmapArea(resizeArea).generate()
-        } catch (e: Exception) {
-            null
-        }
+    try {
+        Palette.from(this).resizeBitmapArea(resizeArea).generate()
+    } catch (e: Exception) {
+        null
+    }
 
 val Bitmap.bestSwatch: Palette.Swatch?
     get() = generatePalette()?.bestSwatch
@@ -59,8 +59,8 @@ fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): U
         if (uri == null) uri = context.getUriFromResource(context.getResource(name))
         if (uri == null)
             uri = Uri.parse(
-                    ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
-                            "/" + context.getResource(name).toString())
+                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
+                    "/" + context.getResource(name).toString())
         return uri
     } catch (e: Exception) {
         return null

@@ -16,25 +16,26 @@
 package jahirfiquitiva.libs.archhelpers.tasks
 
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.lang.ref.WeakReference
 import java.util.concurrent.Future
 
 open class QAsync<Parameter, Result>(
-        private val param: WeakReference<Parameter>,
-        private val callback: Callback<Parameter, Result>
+    private val param: WeakReference<Parameter>,
+    private val callback: Callback<Parameter, Result>
                                     ) {
     
     private var task: Future<*>? = null
     
     fun execute() {
         if (task != null) cancel(true)
+        
         task = doAsync {
             val realParam = param.get()
             realParam?.let {
                 val result = callback.doLoad(it)
                 result?.let {
-                    uiThread { callback.onSuccess(result) }
+                    callback.onSuccess(it)
+                    // uiThread { callback.onSuccess(it) }
                 } ?: callback.onError(NullPointerException("Result was null!"))
             } ?: callback.onError(NullPointerException("Parameter was null!"))
         }

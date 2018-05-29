@@ -30,7 +30,7 @@ open class CustomCardView : CardView {
     }
     
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-            : super(context, attributeSet, defStyleAttr) {
+        : super(context, attributeSet, defStyleAttr) {
         init()
     }
     
