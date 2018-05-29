@@ -1,8 +1,11 @@
 package ca.allanwang.kau.utils
 
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import jahirfiquitiva.libs.kext.extensions.string
 
 fun <T : View> T.visible(): T {
     visibility = View.VISIBLE
@@ -34,3 +37,19 @@ inline val View.isGone: Boolean get() = visibility == View.GONE
 
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
+
+fun View.snackbar(
+    text: String,
+    duration: Int = Snackbar.LENGTH_SHORT,
+    builder: Snackbar.() -> Unit = {}
+                 ): Snackbar {
+    val snackbar = Snackbar.make(this, text, duration)
+    snackbar.builder()
+    snackbar.show()
+    return snackbar
+}
+
+fun View.snackbar(
+    @StringRes textId: Int, duration: Int = Snackbar.LENGTH_SHORT,
+    builder: Snackbar.() -> Unit = {}
+                 ) = snackbar(context.string(textId), duration, builder)

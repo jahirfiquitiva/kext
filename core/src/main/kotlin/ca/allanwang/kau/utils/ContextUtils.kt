@@ -11,7 +11,10 @@ import android.os.Build
 import android.os.Handler
 import android.support.annotation.AttrRes
 import android.support.annotation.IntRange
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
 import android.view.View
+import android.view.ViewGroup
 import jahirfiquitiva.libs.kext.extensions.showToast
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -59,6 +62,24 @@ inline var Activity.navigationBarColor: Int
     set(value) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.navigationBarColor = value
     }
+
+/**
+ * Returns the content view of this Activity if set, null otherwise.
+ */
+inline val Activity.contentView: View?
+    get() = findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
+
+fun Activity.snackbar(
+    text: String,
+    duration: Int = Snackbar.LENGTH_SHORT,
+    builder: Snackbar.() -> Unit = {}
+                     ) = contentView!!.snackbar(text, duration, builder)
+
+fun Activity.snackbar(
+    @StringRes textId: Int,
+    duration: Int = Snackbar.LENGTH_SHORT,
+    builder: Snackbar.() -> Unit = {}
+                     ) = contentView!!.snackbar(textId, duration, builder)
 
 fun Context.resolveColor(@AttrRes attr: Int, fallback: Int = 0): Int {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
