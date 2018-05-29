@@ -24,9 +24,11 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
+@Deprecated("Careful! Use activity {} instead", ReplaceWith("activity()"))
 val Fragment.actv: FragmentActivity
     get() = activity!!
 
+@Deprecated("Careful! Use context {} instead", ReplaceWith("context()"))
 val Fragment.ctxt: Context
     get() = context!!
 
