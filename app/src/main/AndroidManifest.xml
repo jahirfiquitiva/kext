@@ -15,7 +15,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="jahirfiquitiva.apps.kauextensions">
+          package="jahirfiquitiva.apps.kext">
 
     <application
             android:allowBackup="true"
