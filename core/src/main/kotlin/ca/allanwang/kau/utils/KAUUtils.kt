@@ -3,12 +3,15 @@ package ca.allanwang.kau.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import android.support.annotation.AttrRes
 import android.support.annotation.IntRange
 import android.view.View
+import jahirfiquitiva.libs.kext.extensions.showToast
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -136,3 +139,16 @@ inline val Context.isMobileDataConnected: Boolean
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return (activeNetworkInfo?.type ?: -1) == ConnectivityManager.TYPE_MOBILE
     }
+
+/**
+ * Opens a url
+ * If given a series of links, will open the first one that isn't null
+ */
+fun Context.openLink(vararg url: String?) {
+    val link = url.firstOrNull { !it.isNullOrBlank() } ?: return
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+    if (browserIntent.resolveActivity(packageManager) != null)
+        startActivity(browserIntent)
+    else
+        showToast("Cannot find a browser")
+}

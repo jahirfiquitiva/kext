@@ -85,32 +85,32 @@ val Context.chipsIconsColor: Int
     get() = activeIconsColor
 
 @ColorInt
-fun Context.getPrimaryTextColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getPrimaryTextColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     if (color.isColorDark(darkness)) Color.parseColor("#ffffffff")
     else Color.parseColor("#de000000")
 
 @ColorInt
-fun Context.getSecondaryTextColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getSecondaryTextColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     if (color.isColorDark(darkness)) Color.parseColor("#b3ffffff")
     else Color.parseColor("#8a000000")
 
 @ColorInt
-fun Context.getDisabledTextColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getDisabledTextColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     if (color.isColorDark(darkness)) Color.parseColor("#80ffffff")
     else Color.parseColor("#61000000")
 
 @ColorInt
-fun Context.getActiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getActiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     if (color.isColorDark(darkness)) Color.parseColor("#ffffffff")
     else Color.parseColor("#8a000000")
 
 @ColorInt
-fun Context.getInactiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getInactiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     getDisabledTextColorFor(color, darkness)
 
 @SuppressLint("PrivateResource")
 @ColorInt
-fun Context.getRippleColorFor(@ColorInt color: Int, darkness: Float = 0.5F): Int =
+fun Context.getRippleColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     ContextCompat.getColor(
         this,
         if (color.isColorDark(darkness)) R.color.ripple_material_light

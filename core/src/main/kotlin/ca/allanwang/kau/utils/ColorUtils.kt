@@ -22,6 +22,7 @@ import android.widget.RadioButton
 import android.widget.SeekBar
 import android.widget.TextView
 import jahirfiquitiva.libs.kext.R
+import kotlin.math.roundToInt
 
 /**
  * Utils originally created by Allan Wang
@@ -32,7 +33,7 @@ import jahirfiquitiva.libs.kext.R
  */
 
 inline val Int.isColorDark: Boolean
-    get() = isColorDark(0.5f)
+    get() = isColorDark(0.6F)
 
 fun Int.isColorDark(minDarkness: Float): Boolean =
     ((0.299 * Color.red(this) + 0.587 * Color.green(this) + 0.114 * Color.blue(
@@ -95,11 +96,15 @@ fun Int.blendWith(@ColorInt color: Int, @FloatRange(from = 0.0, to = 1.0) ratio:
 }
 
 @ColorInt
-fun Int.withAlpha(@IntRange(from = 0L, to = 255L) alpha: Int): Int =
+fun Int.withAlpha(@IntRange(from = 0, to = 255) alpha: Int): Int =
     Color.argb(alpha, Color.red(this), Color.green(this), Color.blue(this))
 
 @ColorInt
-fun Int.withMinAlpha(@IntRange(from = 0L, to = 255L) alpha: Int): Int = Color.argb(
+fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) alpha: Float): Int =
+    Color.argb((alpha * 255).roundToInt(), Color.red(this), Color.green(this), Color.blue(this))
+
+@ColorInt
+fun Int.withMinAlpha(@IntRange(from = 0, to = 255) alpha: Int): Int = Color.argb(
     Math.max(alpha, Color.alpha(this)), Color.red(this), Color.green(this), Color.blue(this))
 
 @ColorInt

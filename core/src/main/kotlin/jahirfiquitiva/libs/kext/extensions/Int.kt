@@ -15,16 +15,9 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
-import android.support.annotation.ColorInt
-import android.support.annotation.FloatRange
 import ca.allanwang.kau.utils.isColorDark
-import ca.allanwang.kau.utils.withAlpha
 
-@ColorInt
-fun Int.withAlpha(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int =
-    withAlpha((255 * factor).toInt())
-
-fun Int.isColorLight(darkness: Float = 0.5F): Boolean = !isColorDark(darkness)
+fun Int.isColorLight(darkness: Float = 0.6F): Boolean = !isColorDark(darkness)
 
 val Int.isColorLight: Boolean
     get() = !isColorDark
