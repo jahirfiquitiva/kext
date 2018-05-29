@@ -24,6 +24,12 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
+val Fragment.actv: FragmentActivity
+    get() = activity!!
+
+val Fragment.ctxt: Context
+    get() = context!!
+
 fun Fragment.activity(canThrowException: Boolean = false, todo: FragmentActivity.() -> Unit) {
     activity?.todo() ?: if (canThrowException) throw IllegalStateException("Activity was null!")
 }
@@ -32,11 +38,11 @@ fun Fragment.context(canThrowException: Boolean = false, todo: Context.() -> Uni
     context?.todo() ?: if (canThrowException) throw IllegalStateException("Context was null!")
 }
 
-fun Fragment.actv(safeAccess: SafeAccess<FragmentActivity>) {
+fun Fragment.activity(safeAccess: SafeAccess<FragmentActivity>) {
     activity?.let { safeAccess.ifNotNull(it) } ?: safeAccess.ifNull()
 }
 
-fun Fragment.ctxt(safeAccess: SafeAccess<Context>) {
+fun Fragment.context(safeAccess: SafeAccess<Context>) {
     context?.let { safeAccess.ifNotNull(it) } ?: safeAccess.ifNull()
 }
 
