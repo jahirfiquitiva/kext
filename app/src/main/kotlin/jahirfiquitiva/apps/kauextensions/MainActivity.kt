@@ -19,20 +19,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
-import ca.allanwang.kau.utils.toast
 import jahirfiquitiva.libs.kauextensions.extensions.bind
-import jahirfiquitiva.libs.kauextensions.extensions.getPrimaryTextColorFor
-import jahirfiquitiva.libs.kauextensions.extensions.hideAllItems
-import jahirfiquitiva.libs.kauextensions.extensions.primaryColor
-import jahirfiquitiva.libs.kauextensions.extensions.showAllItems
 import jahirfiquitiva.libs.kauextensions.extensions.tint
-import jahirfiquitiva.libs.kauextensions.ui.widgets.CustomSearchView
 
 class MainActivity : AppCompatActivity() {
-    
-    private var searchView: CustomSearchView? = null
     
     private val toolbar: Toolbar? by bind(R.id.toolbar)
     
@@ -46,24 +37,6 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        
-        menu?.let {
-            // searchView = bindSearchView(it, R.id.search)
-            val searchItem = it.findItem(R.id.search)
-            searchView = searchItem.actionView as CustomSearchView?
-            searchView?.onExpand = {
-                it.hideAllItems()
-                toast("Expanded")
-            }
-            searchView?.onCollapse = {
-                it.showAllItems()
-                toast("Collapsed")
-            }
-            searchView?.onQueryChanged = { Log.d("KAUExt", "Query changed: $it") }
-            searchView?.onQuerySubmit = { Log.d("KAUExt", "Query submit: $it") }
-            searchView?.bindToItem(searchItem)
-            searchView?.tint(getPrimaryTextColorFor(primaryColor, 0.7F))
-        }
         menu?.tint(Color.WHITE)
         toolbar?.tint(Color.WHITE, Color.WHITE, Color.WHITE)
         return super.onCreateOptionsMenu(menu)
