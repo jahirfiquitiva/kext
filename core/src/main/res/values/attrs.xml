@@ -16,7 +16,7 @@
   -->
 <resources>
     <declare-styleable name="Theme">
-        <attr name="isDark" format="reference|boolean"/>
+        <attr name="isDarkTheme" format="reference|boolean"/>
     </declare-styleable>
 
     <declare-styleable name="FixedElevationAppBarLayout">

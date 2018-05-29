@@ -56,11 +56,11 @@ fun Bitmap.getUri(context: Context, name: String, extension: String = ".png"): U
         fos.close()
         
         var uri = iconFile.getUri(context)
-        if (uri == null) uri = context.getUriFromResource(context.getResource(name))
+        if (uri == null) uri = context.getUriFromResource(context.resource(name))
         if (uri == null)
             uri = Uri.parse(
-                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.packageName +
-                    "/" + context.getResource(name).toString())
+                "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${context.packageName}/" +
+                    "${context.resource(name)}")
         return uri
     } catch (e: Exception) {
         return null
