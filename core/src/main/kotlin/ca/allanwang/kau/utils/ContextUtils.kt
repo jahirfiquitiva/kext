@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.support.annotation.AttrRes
 import android.support.annotation.IntRange
 import android.view.View
@@ -123,4 +124,8 @@ fun Number.round(@IntRange(from = 1L) decimalCount: Int): String {
     val formatter = DecimalFormat(expression.toString())
     formatter.roundingMode = RoundingMode.HALF_UP
     return formatter.format(this)
+}
+
+fun postDelayed(delay: Long, action: () -> Unit) {
+    Handler().postDelayed(action, delay)
 }
