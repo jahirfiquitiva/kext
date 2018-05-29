@@ -1,10 +1,10 @@
-# KAUExtensions
+# kext
 
 [![JitPack Badge](https://jitpack.io/v/jahirfiquitiva/KAUExtensions.svg)](https://jitpack.io/#jahirfiquitiva/KAUExtensions)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/645b9213563542d4ac0d5bbc76d3180a)](https://www.codacy.com/app/jahirfiquitiva/KAUExtensions?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jahirfiquitiva/KAUExtensions&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/jahirfiquitiva/KAUExtensions.svg?branch=master)](https://travis-ci.org/jahirfiquitiva/KAUExtensions)
 
-Additional extensions for [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
+A bunch of Kotlin extensions to be used in my android apps, which also contains a few extensions from [Allan Wang](https://github.com/AllanWang)'s [KAU library](https://github.com/AllanWang/KAU)
 
 ## Documentation
 
@@ -25,11 +25,11 @@ allprojects {
 Add the dependency
 ```groovy
 dependencies {
-    compile 'me.jahirfiquitiva.KAUExtensions:core:{last-version}'
+    implementation 'com.jahirfiquitiva.kext:core:{last-version}'
 	// Only if you use/need ViewModels and/or Lifecycle from Android Architecture Components
-    compile 'me.jahirfiquitiva.KAUExtensions:archhelpers:{last-version}'
+    implementation 'com.jahirfiquitiva.kext:archhelpers:{last-version}'
     // Only if you use/need ZoomableImageView
-    compile 'me.jahirfiquitiva.KAUExtensions:ziv:{last-version}'
+    implementation 'com.jahirfiquitiva.kext:ziv:{last-version}'
 }
 ```
 
@@ -37,7 +37,7 @@ dependencies {
 ## License
 
 
-	Copyright (c) 2017 Jahir Fiquitiva
+	Copyright (c) 2018 Jahir Fiquitiva
 
 	Licensed under the CreativeCommons Attribution-ShareAlike 
 	4.0 International License. You may not use this file except in compliance 
