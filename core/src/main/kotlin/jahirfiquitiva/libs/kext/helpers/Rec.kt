@@ -1,40 +1,46 @@
 package jahirfiquitiva.libs.kext.helpers
 
 import android.util.Log
+import jahirfiquitiva.libs.kext.extensions.hasContent
 
-open class Rec(val tag: String = "kext", val canLog: Boolean = true) {
-    fun i(message: String, throwable: Throwable? = null) {
-        if (canLog) {
-            if (throwable != null) Log.i(tag, message, throwable)
-            else Log.i(tag, message)
-        }
+open class Rec(private val tag: String = "kext", private val canLog: Boolean = true) {
+    
+    fun v(message: String?, throwable: Throwable? = null) {
+        log(Log.VERBOSE, message, throwable)
     }
     
-    fun d(message: String, throwable: Throwable? = null) {
-        if (canLog) {
-            if (throwable != null) Log.d(tag, message, throwable)
-            else Log.d(tag, message)
-        }
+    fun i(message: String?, throwable: Throwable? = null) {
+        log(Log.ASSERT, message, throwable)
     }
     
-    fun w(message: String, throwable: Throwable? = null) {
-        if (canLog) {
-            if (throwable != null) Log.w(tag, message, throwable)
-            else Log.w(tag, message)
-        }
+    fun d(message: String?, throwable: Throwable? = null) {
+        log(Log.DEBUG, message, throwable)
     }
     
-    fun e(message: String, throwable: Throwable? = null) {
-        if (canLog) {
-            if (throwable != null) Log.e(tag, message, throwable)
-            else Log.e(tag, message)
-        }
+    fun w(message: String?, throwable: Throwable? = null) {
+        log(Log.WARN, message, throwable)
     }
     
-    fun wtf(message: String, throwable: Throwable? = null) {
-        if (canLog) {
-            if (throwable != null) Log.wtf(tag, message, throwable)
-            else Log.wtf(tag, message)
+    fun e(message: String?, throwable: Throwable? = null) {
+        log(Log.ERROR, message, throwable)
+    }
+    
+    fun wtf(message: String?, throwable: Throwable? = null) {
+        log(Log.ASSERT, message, throwable)
+    }
+    
+    fun print(priority: Int, message: String?, throwable: Throwable? = null) {
+        log(priority, message, throwable)
+    }
+    
+    private fun log(priority: Int, message: String?, throwable: Throwable? = null) {
+        val actMessage = message.orEmpty()
+        if (canLog && actMessage.hasContent()) {
+            when {
+                throwable != null -> Log.e(tag, actMessage, throwable)
+                priority !in (Log.VERBOSE..Log.ERROR) -> Log.wtf(tag, actMessage)
+                else -> Log.println(priority, tag, actMessage)
+            }
         }
     }
 }
