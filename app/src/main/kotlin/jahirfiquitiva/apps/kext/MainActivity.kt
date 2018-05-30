@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
+import ca.allanwang.kau.utils.toast
 import jahirfiquitiva.libs.kext.extensions.bind
 import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor
 import jahirfiquitiva.libs.kext.extensions.hideAllItems
@@ -53,11 +54,11 @@ class MainActivity : AppCompatActivity() {
             searchView = searchItem.actionView as CustomSearchView?
             searchView?.onExpand = {
                 it.hideAllItems()
-                showToast("Expanded")
+                toast("Expanded")
             }
             searchView?.onCollapse = {
                 it.showAllItems()
-                showToast("Collapsed")
+                toast("Collapsed")
             }
             searchView?.onQueryChanged = { Log.d("KAUExt", "Query changed: $it") }
             searchView?.onQuerySubmit = { Log.d("KAUExt", "Query submit: $it") }
