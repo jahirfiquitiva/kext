@@ -111,22 +111,6 @@ fun Context.extractDrawable(@AttrRes drawableAttributeId: Int): Drawable {
     return drawable
 }
 
-fun Context.showToast(@StringRes textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
-    if (isOnMainThread()) {
-        Toast.makeText(this, textRes, duration).show()
-    } else {
-        (this as? Activity)?.runOnUiThread { Toast.makeText(this, textRes, duration).show() }
-    }
-}
-
-fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
-    if (isOnMainThread()) {
-        Toast.makeText(this, text, duration).show()
-    } else {
-        (this as? Activity)?.runOnUiThread { Toast.makeText(this, text, duration).show() }
-    }
-}
-
 inline fun <reified T : View> Context.inflate(
     @LayoutRes layout: Int,
     root: ViewGroup,

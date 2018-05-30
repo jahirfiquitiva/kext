@@ -16,7 +16,7 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import jahirfiquitiva.libs.kext.extensions.showToast
+import jahirfiquitiva.libs.kext.extensions.isOnMainThread
 import jahirfiquitiva.libs.kext.extensions.string
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -88,7 +88,11 @@ fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
     toast(string(id), duration)
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
-    Toast.makeText(this, text, duration).show()
+    if (isOnMainThread()) {
+        Toast.makeText(this, text, duration).show()
+    } else {
+        (this as? Activity)?.runOnUiThread { Toast.makeText(this, text, duration).show() }
+    }
 
 fun Context.resolveColor(@AttrRes attr: Int, fallback: Int = 0): Int {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
@@ -144,8 +148,7 @@ fun Context.openLink(vararg url: String?) {
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
     if (browserIntent.resolveActivity(packageManager) != null)
         startActivity(browserIntent)
-    else
-        showToast("Cannot find a browser")
+    else toast("Cannot find a browser")
 }
 
 fun Number.round(@IntRange(from = 1L) decimalCount: Int): String {
