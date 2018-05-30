@@ -2,9 +2,11 @@ package ca.allanwang.kau.utils
 
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.ViewDragHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import jahirfiquitiva.libs.kext.extensions.string
 
 fun <T : View> T.visible(): T {
@@ -53,3 +55,114 @@ fun View.snackbar(
     @StringRes textId: Int, duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ) = snackbar(context.string(textId), duration, builder)
+
+fun View.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
+    context.toast(id, duration)
+
+fun View.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
+    context.toast(text, duration)
+
+/**
+ * Set left margin to a value in px
+ */
+fun View.setMarginLeft(margin: Int) = setMargins(margin, KAU_LEFT)
+
+/**
+ * Set top margin to a value in px
+ */
+fun View.setMarginTop(margin: Int) = setMargins(margin, KAU_TOP)
+
+/**
+ * Set right margin to a value in px
+ */
+fun View.setMarginRight(margin: Int) = setMargins(margin, KAU_RIGHT)
+
+/**
+ * Set bottom margin to a value in px
+ */
+fun View.setMarginBottom(margin: Int) = setMargins(margin, KAU_BOTTOM)
+
+/**
+ * Set left and right margins to a value in px
+ */
+fun View.setMarginHorizontal(margin: Int) = setMargins(margin, KAU_HORIZONTAL)
+
+/**
+ * Set top and bottom margins to a value in px
+ */
+fun View.setMarginVertical(margin: Int) = setMargins(margin, KAU_VERTICAL)
+
+/**
+ * Set all margins to a value in px
+ */
+fun View.setMargin(margin: Int) = setMargins(margin, KAU_ALL)
+
+/**
+ * Base margin setter
+ * returns true if setting is successful, false otherwise
+ */
+private fun View.setMargins(margin: Int, flag: Int): Boolean {
+    val p = (layoutParams as? ViewGroup.MarginLayoutParams) ?: return false
+    p.setMargins(
+        if (flag and KAU_LEFT > 0) margin else p.leftMargin,
+        if (flag and KAU_TOP > 0) margin else p.topMargin,
+        if (flag and KAU_RIGHT > 0) margin else p.rightMargin,
+        if (flag and KAU_BOTTOM > 0) margin else p.bottomMargin
+                )
+    return true
+}
+
+/**
+ * Set left padding to a value in px
+ */
+fun View.setPaddingLeft(padding: Int) = setPadding(padding, KAU_LEFT)
+
+/**
+ * Set top padding to a value in px
+ */
+fun View.setPaddingTop(padding: Int) = setPadding(padding, KAU_TOP)
+
+/**
+ * Set right padding to a value in px
+ */
+fun View.setPaddingRight(padding: Int) = setPadding(padding, KAU_RIGHT)
+
+/**
+ * Set bottom padding to a value in px
+ */
+fun View.setPaddingBottom(padding: Int) = setPadding(padding, KAU_BOTTOM)
+
+/**
+ * Set left and right padding to a value in px
+ */
+fun View.setPaddingHorizontal(padding: Int) = setPadding(padding, KAU_HORIZONTAL)
+
+/**
+ * Set top and bottom padding to a value in px
+ */
+fun View.setPaddingVertical(padding: Int) = setPadding(padding, KAU_VERTICAL)
+
+/**
+ * Set all padding to a value in px
+ */
+fun View.setPadding(padding: Int) = setPadding(padding, KAU_ALL)
+
+/**
+ * Base padding setter
+ */
+private fun View.setPadding(padding: Int, flag: Int) {
+    setPadding(
+        if (flag and KAU_LEFT > 0) padding else paddingLeft,
+        if (flag and KAU_TOP > 0) padding else paddingTop,
+        if (flag and KAU_RIGHT > 0) padding else paddingRight,
+        if (flag and KAU_BOTTOM > 0) padding else paddingBottom
+              )
+}
+
+const val KAU_LEFT = ViewDragHelper.EDGE_LEFT
+const val KAU_RIGHT = ViewDragHelper.EDGE_RIGHT
+const val KAU_TOP = ViewDragHelper.EDGE_TOP
+const val KAU_BOTTOM = ViewDragHelper.EDGE_BOTTOM
+const val KAU_HORIZONTAL = KAU_LEFT or KAU_RIGHT
+const val KAU_VERTICAL = KAU_TOP or KAU_BOTTOM
+const val KAU_ALL = KAU_HORIZONTAL or KAU_VERTICAL

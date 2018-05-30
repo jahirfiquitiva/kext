@@ -31,7 +31,9 @@ import android.support.annotation.ArrayRes
 import android.support.annotation.AttrRes
 import android.support.annotation.BoolRes
 import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
+import android.support.annotation.DrawableRes
 import android.support.annotation.IntegerRes
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
@@ -227,10 +229,14 @@ fun Context.drawable(name: String): Drawable? {
     }
 }
 
+fun Context.drawable(@DrawableRes res: Int): Drawable? = ContextCompat.getDrawable(this, res)
+
 fun Context.resource(name: String): Int {
     val res = resources.getIdentifier(name, "drawable", packageName)
     return if (res != 0) res else 0
 }
+
+fun Context.color(@ColorRes res: Int): Int = ContextCompat.getColor(this, res)
 
 fun Context.string(@StringRes res: Int, fallback: String = ""): String =
     try {

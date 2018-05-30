@@ -15,7 +15,9 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import jahirfiquitiva.libs.kext.extensions.showToast
+import jahirfiquitiva.libs.kext.extensions.string
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -80,6 +82,13 @@ fun Activity.snackbar(
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                      ) = contentView!!.snackbar(textId, duration, builder)
+
+//Toast helpers
+fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
+    toast(string(id), duration)
+
+fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
+    Toast.makeText(this, text, duration).show()
 
 fun Context.resolveColor(@AttrRes attr: Int, fallback: Int = 0): Int {
     val a = theme.obtainStyledAttributes(intArrayOf(attr))
