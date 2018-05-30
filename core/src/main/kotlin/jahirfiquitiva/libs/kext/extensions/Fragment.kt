@@ -32,12 +32,14 @@ val Fragment.actv: FragmentActivity
 val Fragment.ctxt: Context
     get() = context!!
 
-fun Fragment.activity(canThrowException: Boolean = false, todo: FragmentActivity.() -> Unit) {
-    activity?.todo() ?: if (canThrowException) throw IllegalStateException("Activity was null!")
+fun Fragment.activity(canThrowException: Boolean = false, todo: (FragmentActivity) -> Unit) {
+    activity?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
+        "Activity was null!")
 }
 
-fun Fragment.context(canThrowException: Boolean = false, todo: Context.() -> Unit) {
-    context?.todo() ?: if (canThrowException) throw IllegalStateException("Context was null!")
+fun Fragment.context(canThrowException: Boolean = false, todo: (Context) -> Unit) {
+    context?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
+        "Context was null!")
 }
 
 fun Fragment.activity(safeAccess: SafeAccess<FragmentActivity>) {
