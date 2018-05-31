@@ -35,7 +35,7 @@ import android.widget.ImageView
 import jahirfiquitiva.libs.kext.ui.graphics.ObservableColorMatrix
 
 fun View.buildSnackbar(
-    @StringRes text: Int, duration: Int = Snackbar.LENGTH_LONG,
+    @StringRes text: Int, duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
@@ -44,7 +44,7 @@ fun View.buildSnackbar(
 }
 
 fun View.buildSnackbar(
-    text: String, duration: Int = Snackbar.LENGTH_LONG,
+    text: String, duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
@@ -66,8 +66,7 @@ fun ImageView.animateColorTransition(onFaded: () -> Unit = {}) {
     saturation.duration = 1500L
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         saturation.interpolator = AnimationUtils.loadInterpolator(
-            context,
-            android.R.interpolator.fast_out_slow_in)
+            context, android.R.interpolator.fast_out_slow_in)
     }
     saturation.addListener(
         object : AnimatorListenerAdapter() {

@@ -27,7 +27,6 @@ import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor
 import jahirfiquitiva.libs.kext.extensions.hideAllItems
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.showAllItems
-import jahirfiquitiva.libs.kext.extensions.showToast
 import jahirfiquitiva.libs.kext.extensions.tint
 import jahirfiquitiva.libs.kext.ui.widgets.CustomSearchView
 
