@@ -229,13 +229,6 @@ fun Context.string(@StringRes res: Int, fallback: String = ""): String =
         fallback
     }
 
-fun Context.string(@StringRes res: Int, vararg args: String, fallback: String = ""): String =
-    try {
-        getString(res, args) ?: fallback
-    } catch (ignored: Exception) {
-        fallback
-    }
-
 fun Context.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
     try {
         resources.getStringArray(arrayRes)
