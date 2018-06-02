@@ -9,7 +9,7 @@ open class Rec(private val tag: String = "kext", private val canLog: Boolean = t
     }
     
     fun i(message: String?, throwable: Throwable? = null) {
-        log(Log.ASSERT, message, throwable)
+        log(Log.INFO, message, throwable)
     }
     
     fun d(message: String?, throwable: Throwable? = null) {
