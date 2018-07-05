@@ -24,5 +24,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class jahirfiquitiva.libs.** { *; }
--keep class !android.support.v7.internal.view.menu**,** {*;}
+-keep class android.support.v7.view.menu** {*;}
 -keep class android.support.v7.graphics.** {*;}
