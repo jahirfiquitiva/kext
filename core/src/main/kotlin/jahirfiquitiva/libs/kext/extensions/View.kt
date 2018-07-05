@@ -16,23 +16,11 @@
 
 package jahirfiquitiva.libs.kext.extensions
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.TypeEvaluator
-import android.animation.ValueAnimator
-import android.graphics.ColorMatrixColorFilter
-import android.os.Build
-import android.support.annotation.ColorInt
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import jahirfiquitiva.libs.kext.ui.graphics.ObservableColorMatrix
 
 fun View.buildSnackbar(
     @StringRes text: Int, duration: Int = Snackbar.LENGTH_SHORT,
@@ -50,34 +38,6 @@ fun View.buildSnackbar(
     val snackbar = Snackbar.make(this, text, duration)
     snackbar.builder()
     return snackbar
-}
-
-/**
- * Credits to Mysplash
- * https://goo.gl/M2sqE2
- */
-fun ImageView.animateColorTransition(onFaded: () -> Unit = {}) {
-    setHasTransientState(true)
-    val matrix = ObservableColorMatrix()
-    val saturation = ObjectAnimator.ofFloat(matrix, ObservableColorMatrix.SATURATION, 0F, 1F)
-    saturation.addUpdateListener {
-        colorFilter = ColorMatrixColorFilter(matrix)
-    }
-    saturation.duration = 1500L
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        saturation.interpolator = AnimationUtils.loadInterpolator(
-            context, android.R.interpolator.fast_out_slow_in)
-    }
-    saturation.addListener(
-        object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
-                super.onAnimationEnd(animation)
-                clearColorFilter()
-                setHasTransientState(false)
-            }
-        })
-    saturation.start()
-    onFaded()
 }
 
 fun View.clearChildrenAnimations() {
@@ -101,36 +61,6 @@ private fun getAllChildren(v: View): ArrayList<View> {
     }
     return result
 }
-
-/**
- * Credits to:
- * https://medium.com/@pablisco/smooth-loading-617995a7b8d3
- */
-@Suppress("UNCHECKED_CAST")
-fun <T> createAnimator(
-    evaluator: TypeEvaluator<*>, vararg values: T,
-    onConfig: ValueAnimator.() -> Unit = {},
-    onUpdate: (T) -> Unit
-                      ): ValueAnimator =
-    ValueAnimator.ofObject(evaluator, *values).apply {
-        addUpdateListener { onUpdate(it.animatedValue as T) }
-        onConfig(this)
-    }
-
-fun animateSmoothly(
-    @ColorInt startColor: Int, @ColorInt endColor: Int,
-    doUpdate: (Int) -> Unit
-                   ): ValueAnimator =
-    createAnimator(
-        ArgbEvaluator(),
-        startColor, endColor,
-        onConfig = {
-            duration = 1000
-            repeatMode = ValueAnimator.REVERSE
-            repeatCount = ValueAnimator.INFINITE
-            start()
-        },
-        onUpdate = doUpdate)
 
 fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
 
