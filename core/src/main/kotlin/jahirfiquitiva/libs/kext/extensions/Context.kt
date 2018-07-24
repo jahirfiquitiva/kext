@@ -15,12 +15,10 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
-import android.app.Activity
 import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -44,10 +42,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import ca.allanwang.kau.utils.resolveBoolean
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.Rec
 import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
 val Context.isFirstRun: Boolean
@@ -197,20 +195,18 @@ fun Context.getUriFromResource(id: Int): Uri? {
 
 fun Context.bitmap(name: String): Bitmap? = bitmapDrawable(name)?.bitmap
 
-fun Context.bitmapDrawable(name: String): BitmapDrawable? {
-    try {
-        return ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
-    } catch (e: Exception) {
-        throw Resources.NotFoundException("Icon with name ${this} could not be found")
-    }
+fun Context.bitmapDrawable(name: String): BitmapDrawable? = try {
+    ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
+} catch (e: Exception) {
+    Rec().e("BitmapDrawable with name ${this} could not be found")
+    null
 }
 
-fun Context.drawable(name: String): Drawable? {
-    try {
-        return ContextCompat.getDrawable(this, resource(name))
-    } catch (e: Exception) {
-        throw Resources.NotFoundException("Icon with name ${this} could not be found")
-    }
+fun Context.drawable(name: String): Drawable? = try {
+    ContextCompat.getDrawable(this, resource(name))
+} catch (e: Exception) {
+    Rec().e("Drawable with name ${this} could not be found")
+    null
 }
 
 fun Context.drawable(@DrawableRes res: Int): Drawable? = ContextCompat.getDrawable(this, res)
