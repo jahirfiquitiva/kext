@@ -195,28 +195,42 @@ fun Context.getUriFromResource(id: Int): Uri? {
 
 fun Context.bitmap(name: String): Bitmap? = bitmapDrawable(name)?.bitmap
 
-fun Context.bitmapDrawable(name: String): BitmapDrawable? = try {
-    ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
-} catch (e: Exception) {
-    Rec().e("BitmapDrawable with name ${this} could not be found")
-    null
-}
+fun Context.bitmapDrawable(name: String): BitmapDrawable? =
+    try {
+        ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
+    } catch (e: Exception) {
+        Rec().e("BitmapDrawable with name '$name' could not be found")
+        null
+    }
 
-fun Context.drawable(name: String): Drawable? = try {
-    ContextCompat.getDrawable(this, resource(name))
-} catch (e: Exception) {
-    Rec().e("Drawable with name ${this} could not be found")
-    null
-}
+fun Context.drawable(name: String): Drawable? =
+    try {
+        ContextCompat.getDrawable(this, resource(name))
+    } catch (e: Exception) {
+        Rec().e("Drawable with name '$name' could not be found")
+        null
+    }
 
-fun Context.drawable(@DrawableRes res: Int): Drawable? = ContextCompat.getDrawable(this, res)
+fun Context.drawable(@DrawableRes res: Int): Drawable? =
+    try {
+        ContextCompat.getDrawable(this, res)
+    } catch (e: Exception) {
+        null
+    }
 
+@DrawableRes
 fun Context.resource(name: String): Int {
     val res = resources.getIdentifier(name, "drawable", packageName)
     return if (res != 0) res else 0
 }
 
-fun Context.color(@ColorRes res: Int): Int = ContextCompat.getColor(this, res)
+@ColorInt
+fun Context.color(@ColorRes res: Int): Int =
+    try {
+        ContextCompat.getColor(this, res)
+    } catch (e: Exception) {
+        0
+    }
 
 fun Context.string(@StringRes res: Int, fallback: String = ""): String =
     try {
