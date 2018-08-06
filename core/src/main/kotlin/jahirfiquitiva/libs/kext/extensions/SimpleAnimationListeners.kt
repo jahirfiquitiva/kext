@@ -40,6 +40,7 @@ abstract class SimpleAnimatorListener : Animator.AnimatorListener {
     open fun onStart(animator: Animator) = Unit
     open fun onEnd(animator: Animator) = Unit
     open fun onRepeat(animator: Animator) = Unit
+    open fun onCancel(animator: Animator) = onEnd(animator)
     
     override fun onAnimationRepeat(animator: Animator?) {
         animator?.let { onRepeat(it) }
@@ -51,5 +52,9 @@ abstract class SimpleAnimatorListener : Animator.AnimatorListener {
     
     override fun onAnimationStart(animator: Animator?) {
         animator?.let { onStart(it) }
+    }
+    
+    override fun onAnimationCancel(animator: Animator?) {
+        animator?.let { onCancel(it) }
     }
 }
