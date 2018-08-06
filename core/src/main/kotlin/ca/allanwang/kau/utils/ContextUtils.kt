@@ -29,6 +29,21 @@ import java.text.DecimalFormat
  * Anyway, full credits go to Allan, for these awesome extensions
  */
 
+/**
+ * Restarts an activity from itself with a fade animation
+ * Keeps its existing extra bundles and has a intentBuilder to accept other parameters
+ */
+inline fun Activity.restart(intentBuilder: Intent.() -> Unit = {}) {
+    val i = Intent(this, this::class.java)
+    val oldExtras = intent.extras
+    if (oldExtras != null) i.putExtras(oldExtras)
+    i.intentBuilder()
+    startActivity(i)
+    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    finish()
+    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+}
+
 inline var Activity.statusBarColor: Int
     @SuppressLint("NewApi")
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor else Color.BLACK
