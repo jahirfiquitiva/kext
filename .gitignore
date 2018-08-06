@@ -78,6 +78,7 @@ proguard/
 !/.idea/copyright
 /.idea/dictionaries
 /.idea/libraries
+/.idea/caches
 /.idea/markdown-navigator
 /.idea/*.xml
 #gradle.properties

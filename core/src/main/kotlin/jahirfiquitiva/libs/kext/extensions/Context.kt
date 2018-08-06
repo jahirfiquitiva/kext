@@ -214,7 +214,7 @@ fun Context.drawable(name: String): Drawable? =
 fun Context.drawable(@DrawableRes res: Int): Drawable? =
     try {
         ContextCompat.getDrawable(this, res)
-    } catch (e: Exception) {
+    } catch (ignored: Exception) {
         null
     }
 
@@ -228,7 +228,7 @@ fun Context.resource(name: String): Int {
 fun Context.color(@ColorRes res: Int): Int =
     try {
         ContextCompat.getColor(this, res)
-    } catch (e: Exception) {
+    } catch (ignored: Exception) {
         0
     }
 

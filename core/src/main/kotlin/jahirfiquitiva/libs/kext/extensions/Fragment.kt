@@ -55,16 +55,44 @@ interface SafeAccess<in T> {
     fun ifNull() {}
 }
 
-fun Fragment.string(@StringRes stringRes: Int, fallback: String): String =
-    if (stringRes != 0) getString(stringRes) else fallback
+fun Fragment.string(@StringRes res: Int, fallback: String = ""): String =
+    try {
+        if (res != 0) getString(res) else fallback
+    } catch (ignored: Exception) {
+        fallback
+    }
 
-fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String> =
-    resources.getStringArray(arrayRes)
+fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+    try {
+        resources.getStringArray(arrayRes)
+    } catch (ignored: Exception) {
+        null
+    }
 
-fun Fragment.boolean(@BoolRes bool: Int) = resources.getBoolean(bool)
+fun Fragment.boolean(@BoolRes res: Int, fallback: Boolean = false) =
+    try {
+        resources.getBoolean(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
 
-fun Fragment.integer(@IntegerRes id: Int): Int = resources.getInteger(id)
+fun Fragment.int(@IntegerRes res: Int, fallback: Int = 0): Int =
+    try {
+        resources.getInteger(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
 
-fun Fragment.dimen(@DimenRes id: Int): Float = resources.getDimension(id)
+fun Fragment.dimen(@DimenRes res: Int, fallback: Float = 0.0F): Float =
+    try {
+        resources.getDimension(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
 
-fun Fragment.dimenPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)
+fun Fragment.dimenPixelSize(@DimenRes res: Int, fallback: Int = 0): Int =
+    try {
+        resources.getDimensionPixelSize(res)
+    } catch (ignored: Exception) {
+        fallback
+    }
