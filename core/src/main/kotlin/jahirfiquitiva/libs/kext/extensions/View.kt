@@ -21,6 +21,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 
 fun View.buildSnackbar(
     @StringRes text: Int, duration: Int = Snackbar.LENGTH_SHORT,
@@ -66,3 +67,6 @@ fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
 
 fun View.postDelayed(delay: Long, action: () -> Unit) =
     postDelayed(action, delay)
+
+val EditText.content: String
+    get() = text?.toString() ?: ""
