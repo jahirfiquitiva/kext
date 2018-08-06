@@ -35,8 +35,7 @@ import java.text.DecimalFormat
  */
 inline fun Activity.restart(intentBuilder: Intent.() -> Unit = {}) {
     val i = Intent(this, this::class.java)
-    val oldExtras = intent.extras
-    if (oldExtras != null) i.putExtras(oldExtras)
+    intent?.extras?.let { i.putExtras(it) }
     i.intentBuilder()
     startActivity(i)
     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

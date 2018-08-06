@@ -15,7 +15,6 @@
  */
 package jahirfiquitiva.libs.kext.ui.activities
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +23,7 @@ import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
+import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
 import jahirfiquitiva.libs.kext.extensions.isColorLight
@@ -83,14 +83,7 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     }
     
     private fun postRecreate() {
-        Handler().post {
-            val i = Intent(this, this::class.java)
-            intent?.extras?.let { i.putExtras(it) }
-            startActivity(i)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            finish()
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }
+        Handler().post { restart() }
     }
     
     private fun setCustomTheme() {
