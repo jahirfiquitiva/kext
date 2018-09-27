@@ -27,24 +27,24 @@ class GridSpacingItemDecoration(
                                ) : RecyclerView.ItemDecoration() {
     
     override fun getItemOffsets(
-        outRect: Rect?,
-        view: View?,
-        parent: RecyclerView?,
-        state: RecyclerView.State?
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
                                ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val position = parent?.getChildAdapterPosition(view) ?: -1
+        val position = parent.getChildAdapterPosition(view)
         if (position < 0) return
         val column = position % spanCount
         if (includeEdge) {
-            outRect?.left = spacing - column * spacing / spanCount
-            outRect?.right = (column + 1) * spacing / spanCount
-            if (position < spanCount) outRect?.top = spacing
-            outRect?.bottom = spacing
+            outRect.left = spacing - column * spacing / spanCount
+            outRect.right = (column + 1) * spacing / spanCount
+            if (position < spanCount) outRect.top = spacing
+            outRect.bottom = spacing
         } else {
-            outRect?.left = column * spacing / spanCount
-            outRect?.right = spacing - (column + 1) * spacing / spanCount
-            if (position >= spanCount) outRect?.top = spacing
+            outRect.left = column * spacing / spanCount
+            outRect.right = spacing - (column + 1) * spacing / spanCount
+            if (position >= spanCount) outRect.top = spacing
         }
     }
 }
