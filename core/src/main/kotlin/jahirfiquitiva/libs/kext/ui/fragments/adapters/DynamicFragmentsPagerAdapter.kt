@@ -98,8 +98,10 @@ abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager
      * @param position position of the item in the adapter
      * @return fragment instance
      */
-    fun getItemAt(position: Int): Fragment {
-        return frags.get(position)
+    fun getItemAt(position: Int): Fragment? = try {
+        frags.get(position)
+    } catch (e: Exception) {
+        null
     }
     
     /**
@@ -131,4 +133,13 @@ abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager
         return STATE_PAGE_KEY_PREFIX + position
     }
     
+    fun post(index: Int, what: (Fragment) -> Unit) {
+        getItemAt(index)?.let { what(it) }
+    }
+    
+    fun forEach(what: (Int, Fragment) -> Unit) {
+        for (i in 0 until frags.size()) {
+            getItemAt(i)?.let { what(i, it) }
+        }
+    }
 }
