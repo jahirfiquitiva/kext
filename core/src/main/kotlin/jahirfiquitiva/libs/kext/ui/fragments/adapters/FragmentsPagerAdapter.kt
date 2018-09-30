@@ -20,27 +20,33 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 
-class FragmentsPagerAdapter(manager: FragmentManager, vararg fragments: Fragment) :
-    FragmentStatePagerAdapter(manager) {
+class FragmentsPagerAdapter : FragmentStatePagerAdapter {
     
     private val frags = ArrayList<Fragment?>()
     
-    init {
-        this.frags.clear()
+    constructor(manager: FragmentManager, vararg fragments: Fragment) : super(manager) {
+        clear()
+        this.frags.addAll(fragments)
+    }
+    
+    constructor(manager: FragmentManager, fragments: ArrayList<Fragment>) : super(manager) {
+        clear()
         this.frags.addAll(fragments)
     }
     
     fun getFragments(): ArrayList<Fragment?> = frags
     
     fun addAll(vararg fragments: Fragment) {
-        this.frags.clear()
+        clear()
         this.frags.addAll(fragments)
     }
     
     fun addAll(fragments: ArrayList<Fragment>) {
-        this.frags.clear()
+        clear()
         this.frags.addAll(fragments)
     }
+    
+    fun getFragmentIndex(obj: Any) = getItemPosition(obj)
     
     override fun getItemPosition(obj: Any): Int {
         if (obj !is Fragment) return -1
@@ -48,6 +54,8 @@ class FragmentsPagerAdapter(manager: FragmentManager, vararg fragments: Fragment
         return if (index < 0) PagerAdapter.POSITION_NONE
         else index
     }
+    
+    fun getFragment(index: Int) = getItem(index)
     
     override fun getItem(index: Int): Fragment? {
         return try {
@@ -78,8 +86,40 @@ class FragmentsPagerAdapter(manager: FragmentManager, vararg fragments: Fragment
         }
     }
     
-    fun removeItemAt(index: Int) {
+    fun removeFragment(tag: String) {
+        for (frag in frags) {
+            if (frag?.tag == tag) {
+                removeFragment(frag)
+                break
+            }
+        }
+    }
+    
+    fun removeFragmentAt(index: Int) {
         frags[index]?.let { removeFragment(it) }
+    }
+    
+    fun clear() {
+        for (frag in frags) {
+            frag?.onDestroy()
+            frags.remove(frag)
+        }
+        frags.clear()
+        notifyDataSetChanged()
+    }
+    
+    fun post(tag: String, what: (Fragment) -> Unit) {
+        try {
+            frags.firstOrNull { it?.tag == tag }?.let { what(it) }
+        } catch (e: Exception) {
+        }
+    }
+    
+    fun post(index: Int, what: (Fragment) -> Unit) {
+        try {
+            frags[index]?.let { what(it) }
+        } catch (e: Exception) {
+        }
     }
     
     override fun getCount(): Int = frags.size
