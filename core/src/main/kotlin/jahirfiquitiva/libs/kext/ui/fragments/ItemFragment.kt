@@ -24,20 +24,26 @@ import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
 
 abstract class ItemFragment<in T> : Fragment(), FragmentPresenter<T> {
     
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { manageArguments(it) }
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
                              ): View? {
-        return if (getContentLayout() != 0) {
-            try {
-                val contentView = inflater.inflate(getContentLayout(), container, false)
-                contentView?.let { initUI(it) }
-                contentView
-            } catch (e: Exception) {
-                super.onCreateView(inflater, container, savedInstanceState)
-            }
-        } else super.onCreateView(inflater, container, savedInstanceState)
+        return try {
+            view ?: inflater.inflate(getContentLayout(), container, false)
+        } catch (e: Exception) {
+            super.onCreateView(inflater, container, savedInstanceState)
+        }
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI(view)
     }
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -45,5 +51,6 @@ abstract class ItemFragment<in T> : Fragment(), FragmentPresenter<T> {
         onRestoreInstanceState(savedInstanceState)
     }
     
+    open fun manageArguments(arguments: Bundle) {}
     open fun onRestoreInstanceState(savedInstanceState: Bundle?) {}
 }
