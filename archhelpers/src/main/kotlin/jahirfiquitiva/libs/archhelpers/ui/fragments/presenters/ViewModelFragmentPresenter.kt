@@ -20,5 +20,5 @@ import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
 interface ViewModelFragmentPresenter<in T> : FragmentPresenter<T> {
     fun registerObservers()
     fun loadDataFromViewModel()
-    fun unregisterObservers()
+    fun unregisterObservers() {}
 }

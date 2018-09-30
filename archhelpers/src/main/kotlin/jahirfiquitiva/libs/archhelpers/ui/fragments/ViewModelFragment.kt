@@ -34,11 +34,6 @@ abstract class ViewModelFragment<in T> : ItemFragment<T>(), ViewModelFragmentPre
     
     abstract fun initViewModels()
     
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterObservers()
-    }
-    
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && autoStartLoad() && allowReloadAfterVisibleToUser())

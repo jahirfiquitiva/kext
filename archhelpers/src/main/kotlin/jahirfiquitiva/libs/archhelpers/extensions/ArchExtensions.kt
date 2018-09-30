@@ -20,16 +20,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
-/**
- * Extensions based on:
- * https://antonioleiva.com/architecture-components-kotlin/
- */
-
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T =
     ViewModelProviders.of(this)[T::class.java]
 
-inline fun <reified T : ViewModel> Fragment.getViewModel(): T =
-    ViewModelProviders.of(this)[T::class.java]
+inline fun <reified T : ViewModel> Fragment.getViewModel(): T {
+    return activity?.let {
+        ViewModelProviders.of(it)[T::class.java]
+    } ?: ViewModelProviders.of(this)[T::class.java]
+}
 
 inline fun <reified T : ViewModel> FragmentActivity.lazyViewModel(): Lazy<T> =
     lazy { getViewModel<T>() }
