@@ -227,8 +227,14 @@ abstract class DynamicFragmentsPagerAdapter(private val fragmentManager: Fragmen
     
     fun post(index: Int, what: (Fragment) -> Unit) {
         try {
-            getItem(index)?.let { what(it) }
+            fragments.get(getItemId(index))?.let { what(it) }
         } catch (e: Exception) {
+        }
+    }
+    
+    fun post(what: (Int, Fragment) -> Unit) {
+        for (i in 0 until fragments.size()) {
+            fragments.get(getItemId(i))?.let { what(i, it) }
         }
     }
     
