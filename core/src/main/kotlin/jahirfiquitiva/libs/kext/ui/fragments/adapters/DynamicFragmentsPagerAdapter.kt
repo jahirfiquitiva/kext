@@ -15,13 +15,18 @@
  */
 package jahirfiquitiva.libs.kext.ui.fragments.adapters
 
+import android.annotation.SuppressLint
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log
 import android.util.SparseArray;
 import android.view.ViewGroup;
+
+@Deprecated("Use DynamicFragmentsPagerAdapter instead", ReplaceWith("DynamicFragmentsPagerAdapter"))
+typealias FragmentsPagerAdapter = DynamicFragmentsPagerAdapter
 
 abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager) :
     FragmentStatePagerAdapter(manager) {
@@ -53,17 +58,18 @@ abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager
     }
     
     override fun restoreState(state: Parcelable?, loader: ClassLoader?) {
-        val bundle = state as Bundle?
-        val pages = bundle!!.getInt(STATE_PAGES)
-        if (0 < pages) {
-            for (i in 0 until pages) {
-                val position = bundle.getInt(createCacheIndex(i))
-                val f = manager.getFragment(bundle, createCacheKey(position))
-                frags.put(position, f)
+        (state as? Bundle)?.let {
+            val pages = it.getInt(STATE_PAGES)
+            if (0 < pages) {
+                for (i in 0 until pages) {
+                    val position = it.getInt(createCacheIndex(i))
+                    val f = manager.getFragment(it, createCacheKey(position))
+                    frags.put(position, f)
+                }
             }
+            val p = it.getParcelable<Parcelable>(STATE_SUPER_STATE)
+            super.restoreState(p, loader)
         }
-        val p = bundle.getParcelable<Parcelable>(STATE_SUPER_STATE)
-        super.restoreState(p, loader)
     }
     
     /**
@@ -78,7 +84,11 @@ abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager
      * @param position position of the item in the adapter
      * @return fragment instance
      */
+    @SuppressLint("LongLogTag")
     override fun getItem(position: Int): Fragment {
+        Log.w(
+            "DynamicFragmentsPagerAdapter",
+            "Use getItemAt() because you're recreating the fragment, instead of getting the existent instance.")
         val f = createItem(position)
         // We should cache fragments manually to access to them later
         frags.put(position, f)
@@ -142,4 +152,6 @@ abstract class DynamicFragmentsPagerAdapter(private val manager: FragmentManager
             getItemAt(i)?.let { what(i, it) }
         }
     }
+    
+    operator fun get(index: Int): Fragment? = getItemAt(index)
 }
