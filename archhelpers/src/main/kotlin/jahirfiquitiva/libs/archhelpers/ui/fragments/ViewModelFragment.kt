@@ -17,18 +17,22 @@ package jahirfiquitiva.libs.archhelpers.ui.fragments
 
 import android.os.Bundle
 import jahirfiquitiva.libs.archhelpers.ui.fragments.presenters.ViewModelFragmentPresenter
+import jahirfiquitiva.libs.kext.helpers.Rec
 import jahirfiquitiva.libs.kext.ui.fragments.ItemFragment
 
 abstract class ViewModelFragment<in T> : ItemFragment<T>(), ViewModelFragmentPresenter<T> {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initVM()
+        try {
+            initViewModels()
+            registerObservers()
+            if (autoStartLoad()) loadDataFromViewModel()
+        } catch (e: Exception) {
+            Rec().e(e.message, e)
+        }
     }
     
-    private fun initVM() {
-        registerObservers()
-        if (autoStartLoad()) loadDataFromViewModel()
-    }
+    abstract fun initViewModels()
     
     override fun onDestroy() {
         super.onDestroy()
