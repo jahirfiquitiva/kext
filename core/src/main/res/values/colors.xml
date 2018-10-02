@@ -15,9 +15,6 @@
   limitations under the License.
   -->
 <resources>
-    <dimen name="status_bar_height">0dp</dimen>
-    <dimen name="kau_dialog_margin">24dp</dimen>
-    <dimen name="kau_dialog_margin_bottom">16dp</dimen>
-    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
-    <dimen name="bottom_sheet_top_padding">8dp</dimen>
+    <color name="light_theme_card_background">#ffffff</color>
+    <color name="dark_theme_card_background">#424242</color>
 </resources>
