@@ -28,6 +28,7 @@ import jahirfiquitiva.libs.kext.extensions.usesDarkTheme
  * and doesn't dim the navigation bar
  *
  * Credits: https://gist.github.com/ArthurNagy/1c4a64e6c8a7ddfca58638a9453e4aed
+ * 
  */
 open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
     
