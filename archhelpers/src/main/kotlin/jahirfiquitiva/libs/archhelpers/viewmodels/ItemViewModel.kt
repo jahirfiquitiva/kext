@@ -54,7 +54,7 @@ abstract class ItemViewModel<in Parameter, Result> : ViewModel() {
         taskStarted = false
     }
     
-    private fun destroy(owner: LifecycleOwner, interrupt: Boolean = true) {
+    fun destroy(owner: LifecycleOwner, interrupt: Boolean = true) {
         cancelTask(interrupt)
         data.removeObservers(owner)
         customObserver = null
