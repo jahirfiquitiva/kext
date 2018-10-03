@@ -24,6 +24,10 @@
         <item name="android:background">@drawable/dark_rounded_bottom_sheet_bg</item>
     </style>
 
+    <style name="BottomSheet.Amoled" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/amoled_rounded_bottom_sheet_bg</item>
+    </style>
+
     <style name="BottomSheetDialog.Light" parent="@style/Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet.Light</item>
@@ -32,5 +36,9 @@
     <style name="BottomSheetDialog.Dark" parent="@style/Theme.Design.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet.Dark</item>
+    </style>
+
+    <style name="BottomSheetDialog.Amoled" parent="@style/BottomSheetDialog.Dark">
+        <item name="bottomSheetStyle">@style/BottomSheet.Amoled</item>
     </style>
 </resources>

@@ -21,6 +21,7 @@ import android.content.SharedPreferences
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.getSharedPrefs
 import jahirfiquitiva.libs.kext.extensions.int
+import jahirfiquitiva.libs.kext.ui.ThemeKey
 
 open class Konfigurations(name: String, private val context: Context) {
     val prefs: SharedPreferences = context.getSharedPrefs(name)
@@ -31,7 +32,7 @@ open class Konfigurations(name: String, private val context: Context) {
         get() = prefs.getBoolean(IS_FIRST_RUN, true)
         set(value) = prefsEditor.putBoolean(IS_FIRST_RUN, value).apply()
     
-    var currentTheme: Int
+    @ThemeKey var currentTheme: Int
         get() = prefs.getInt(THEME, context.int(R.integer.default_theme))
         set(theme) = prefsEditor.putInt(THEME, theme).apply()
     

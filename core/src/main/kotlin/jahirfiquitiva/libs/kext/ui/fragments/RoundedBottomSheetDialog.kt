@@ -17,10 +17,19 @@ package jahirfiquitiva.libs.kext.ui.fragments
 
 import android.app.Dialog
 import android.os.Bundle
+import android.support.annotation.StyleRes
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.BottomSheetDialogFragment
 import jahirfiquitiva.libs.kext.R
-import jahirfiquitiva.libs.kext.extensions.usesDarkTheme
+import jahirfiquitiva.libs.kext.helpers.AMOLED
+import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
+import jahirfiquitiva.libs.kext.helpers.AUTO_DARK
+import jahirfiquitiva.libs.kext.helpers.DARK
+import jahirfiquitiva.libs.kext.helpers.LIGHT
+import jahirfiquitiva.libs.kext.helpers.TRANSPARENT
+import jahirfiquitiva.libs.kext.ui.ThemeKey
+import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
+import java.util.Calendar
 
 /**
  * BottomSheetDialog fragment that uses a custom
@@ -32,9 +41,23 @@ import jahirfiquitiva.libs.kext.extensions.usesDarkTheme
  */
 open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
     
-    override fun getTheme(): Int =
-        if (context?.usesDarkTheme == true) R.style.BottomSheetDialog_Dark
-        else R.style.BottomSheetDialog_Light
+    override fun getTheme(): Int {
+        @ThemeKey val currentTheme = (activity as? ThemedActivity<*>)?.getThemeKey() ?: LIGHT
+        val c = Calendar.getInstance()
+        val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
+        return when (currentTheme) {
+            LIGHT -> styleForLightTheme
+            DARK -> styleForDarkTheme
+            AMOLED, TRANSPARENT -> styleForAmoledTheme
+            AUTO_DARK -> if (hourOfDay in 7..18) styleForLightTheme else styleForDarkTheme
+            AUTO_AMOLED -> if (hourOfDay in 7..18) styleForLightTheme else styleForAmoledTheme
+            else -> styleForLightTheme
+        }
+    }
+    
+    @StyleRes open val styleForLightTheme: Int = R.style.BottomSheetDialog_Light
+    @StyleRes open val styleForDarkTheme: Int = R.style.BottomSheetDialog_Dark
+    @StyleRes open val styleForAmoledTheme: Int = R.style.BottomSheetDialog_Amoled
     
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         BottomSheetDialog(requireContext(), theme)

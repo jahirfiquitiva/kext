@@ -29,4 +29,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/dark_theme_card_background</item>
     </style>
+
+    <style name="BottomSheetDialog.Amoled" parent="@style/BottomSheetDialog.Dark">
+        <item name="bottomSheetStyle">@style/BottomSheet.Amoled</item>
+    </style>
 </resources>

@@ -36,6 +36,7 @@ import jahirfiquitiva.libs.kext.helpers.DARK
 import jahirfiquitiva.libs.kext.helpers.Konfigurations
 import jahirfiquitiva.libs.kext.helpers.LIGHT
 import jahirfiquitiva.libs.kext.helpers.TRANSPARENT
+import jahirfiquitiva.libs.kext.ui.ThemeKey
 import java.util.Calendar
 
 abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity() {
@@ -106,6 +107,9 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
             else -> false
         }
     }
+    
+    @ThemeKey
+    fun getThemeKey(): Int = configs.currentTheme
     
     @StyleRes
     private fun getCustomTheme(): Int {
