@@ -17,4 +17,5 @@
 <resources>
     <color name="light_theme_card_background">#ffffff</color>
     <color name="dark_theme_card_background">#424242</color>
+    <color name="amoled_theme_card_background">#101010</color>
 </resources>
