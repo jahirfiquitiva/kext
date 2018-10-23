@@ -73,7 +73,7 @@ val Context.rippleColor: Int
     @SuppressLint("PrivateResource")
     get() = ContextCompat.getColor(
         this,
-        if (usesDarkTheme) R.color.ripple_material_light else R.color.ripple_material_dark)
+        if (usesDarkTheme) R.color.ripple_material_dark else R.color.ripple_material_light)
 
 val Context.overlayColor: Int
     get() = if (usesDarkTheme) Color.parseColor("#40ffffff") else Color.parseColor("#4d000000")
@@ -113,8 +113,8 @@ fun Context.getInactiveIconsColorFor(@ColorInt color: Int, darkness: Float = 0.6
 fun Context.getRippleColorFor(@ColorInt color: Int, darkness: Float = 0.6F): Int =
     ContextCompat.getColor(
         this,
-        if (color.isColorDark(darkness)) R.color.ripple_material_light
-        else R.color.ripple_material_dark)
+        if (color.isColorDark(darkness)) R.color.ripple_material_dark
+        else R.color.ripple_material_light)
 
 val Context.thumbnailColor
     get() = if (usesDarkTheme) Color.parseColor("#3dffffff") else Color.parseColor("#3d000000")
