@@ -15,7 +15,11 @@
  */
 package jahirfiquitiva.libs.kext.ui.activities
 
+import android.app.ActivityManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.ColorInt
@@ -26,9 +30,14 @@ import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
+import jahirfiquitiva.libs.kext.extensions.getAppIcon
+import jahirfiquitiva.libs.kext.extensions.getAppIconResId
+import jahirfiquitiva.libs.kext.extensions.getAppName
 import jahirfiquitiva.libs.kext.extensions.isColorLight
 import jahirfiquitiva.libs.kext.extensions.navigationBarLight
+import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.primaryDarkColor
+import jahirfiquitiva.libs.kext.extensions.toBitmap
 import jahirfiquitiva.libs.kext.helpers.AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_DARK
@@ -95,6 +104,20 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         val navColor = getCorrectNavbarColor()
         navigationBarColor = navColor
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && forceTintRecents()) {
+            var bm: Bitmap? = null
+            val resId = recentsIconRes()
+            val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && resId != null) {
+                ActivityManager.TaskDescription(recentsTitle(), resId, recentsColor())
+            } else {
+                bm = recentsIcon()?.toBitmap()
+                @Suppress("DEPRECATION")
+                ActivityManager.TaskDescription(recentsTitle(), bm, recentsColor())
+            }
+            setTaskDescription(td)
+            bm?.recycle()
+        }
     }
     
     open fun usesDarkTheme(): Boolean {
@@ -140,4 +163,9 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     }
     
     open fun forceNavBarTint(): Boolean = false
+    open fun forceTintRecents(): Boolean = true
+    open fun recentsIconRes(): Int? = getAppIconResId(packageName)
+    open fun recentsIcon(): Drawable? = getAppIcon(packageName)
+    open fun recentsTitle(): String = getAppName()
+    open fun recentsColor(): Int = primaryColor
 }
