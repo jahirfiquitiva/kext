@@ -18,7 +18,7 @@ package com.jahirfiquitiva.dons.viewmodels
 import com.anjlab.android.iab.v3.BillingProcessor
 import jahirfiquitiva.libs.archhelpers.viewmodels.ListViewModel
 
-class IAPsViewModel : ListViewModel<Array<String>, IAPItem>() {
+internal class IAPsViewModel : ListViewModel<Array<String>, IAPItem>() {
     var iapBillingProcessor: BillingProcessor? = null
     override fun internalLoad(param: Array<String>): ArrayList<IAPItem> {
         val iaps = ArrayList<IAPItem>()

@@ -17,6 +17,7 @@ package com.jahirfiquitiva.dons.activities
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.support.design.widget.Snackbar
 import ca.allanwang.kau.utils.snackbar
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
@@ -109,9 +110,16 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
     private fun showLicensedSnack(update: Boolean, force: Boolean = false) {
         configs.functional = true
         if (!update || force) {
-            snackbar(getString(R.string.license_valid, getAppName()))
-        } else if (update) {
-            onAppLicensed()
+            snackbar(getString(R.string.license_valid, getAppName())) {
+                addCallback(object : Snackbar.Callback() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        super.onDismissed(transientBottomBar, event)
+                        onAppLicensed(update)
+                    }
+                })
+            }
+        } else {
+            onAppLicensed(update)
         }
     }
     
@@ -149,7 +157,8 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
         }
     }
     
-    private fun loadIAPItems() {
+    @Suppress("unused")
+    fun loadIAPItems() {
         billingProcessor?.let { it ->
             if (!it.isInitialized) it.initialize()
             if (it.isInitialized) {
@@ -202,7 +211,7 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
     open fun checkLPF(): Boolean = true
     open fun checkStores(): Boolean = true
     
-    abstract fun onAppLicensed()
+    open fun onAppLicensed(isUpdate: Boolean) {}
     abstract fun onAppNotLicensed(pirateAppName: String?)
     abstract fun onLicenseError(error: String)
     
