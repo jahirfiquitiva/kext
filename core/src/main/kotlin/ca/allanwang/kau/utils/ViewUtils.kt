@@ -1,13 +1,20 @@
 package ca.allanwang.kau.utils
 
+import android.graphics.Color
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.widget.ViewDragHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.extensions.bind
+import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor
 import jahirfiquitiva.libs.kext.extensions.string
+import jahirfiquitiva.libs.kext.helpers.AMOLED
+import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
 fun <T : View> T.visible(): T {
     visibility = View.VISIBLE
@@ -47,6 +54,13 @@ fun View.snackbar(
                  ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
     snackbar.builder()
+    (context as? ThemedActivity<*>)?.let {
+        if (it.getThemeKey() == AMOLED)
+            snackbar.view.setBackgroundColor(it.cardBackgroundColor)
+    }
+    val snackText: TextView? by snackbar.view.bind(R.id.snackbar_text)
+    snackText?.setTextColor(Color.WHITE)
+    snackText?.maxLines = 3
     snackbar.show()
     return snackbar
 }

@@ -43,6 +43,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import ca.allanwang.kau.utils.resolveBoolean
+import com.afollestad.materialdialogs.MaterialDialog
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.helpers.Konfigurations
 import jahirfiquitiva.libs.kext.helpers.Rec
@@ -170,6 +171,12 @@ val Context.isLowRamDevice: Boolean
         }
         return lowRAMDevice
     }
+
+inline fun Context.mdDialog(action: MaterialDialog.Builder.() -> Unit = {}): MaterialDialog {
+    val builder = MaterialDialog.Builder(this)
+    builder.action()
+    return builder.build()
+}
 
 fun Context.getStatusBarHeight(force: Boolean = false): Int {
     var result = 0
