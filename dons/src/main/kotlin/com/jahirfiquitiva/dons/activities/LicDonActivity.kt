@@ -207,6 +207,14 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
         onIAPsError(errorCode, error.toString())
     }
     
+    fun purchase(productId: String) {
+        try {
+            billingProcessor?.purchase(this, productId)
+        } catch (e: Exception) {
+            onIAPsError(0, e.message)
+        }
+    }
+    
     open fun amazonInstallsEnabled(): Boolean = false
     open fun checkLPF(): Boolean = true
     open fun checkStores(): Boolean = true
@@ -215,7 +223,7 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
     abstract fun onAppNotLicensed(pirateAppName: String?)
     abstract fun onLicenseError(error: String)
     
-    open fun enableIAPs(): Boolean = false
+    abstract fun enableIAPs(): Boolean
     abstract fun onIAPsLoaded(items: ArrayList<IAPItem>)
     abstract fun onIAPPurchased(productId: String)
     abstract fun onIAPsError(code: Int = 0, reason: String? = null)
