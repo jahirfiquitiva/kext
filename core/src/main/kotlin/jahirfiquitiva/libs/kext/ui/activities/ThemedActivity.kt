@@ -119,10 +119,11 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
                         null
                     }
                     @Suppress("DEPRECATION")
-                    ActivityManager.TaskDescription(recentsTitle(), bm, recentsColor())
+                    ActivityManager.TaskDescription(
+                        recentsTitle(), bm?.copy(bm.config, true), recentsColor())
                 }
-                doSafely { setTaskDescription(td) }
-                doSafely { bm?.recycle() }
+                setTaskDescription(td)
+                postDelayed(50) { doSafely { bm?.recycle() } }
             }
         }
     }
