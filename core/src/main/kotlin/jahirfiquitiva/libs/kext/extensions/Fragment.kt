@@ -16,37 +16,37 @@
 package jahirfiquitiva.libs.kext.extensions
 
 import android.content.Context
-import android.support.annotation.ArrayRes
-import android.support.annotation.BoolRes
-import android.support.annotation.DimenRes
-import android.support.annotation.IntegerRes
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.ArrayRes
+import androidx.annotation.BoolRes
+import androidx.annotation.DimenRes
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 
 @Deprecated("Careful! Use activity {} instead", ReplaceWith("activity()"))
-val Fragment.actv: FragmentActivity
+val androidx.fragment.app.Fragment.actv: androidx.fragment.app.FragmentActivity
     get() = activity!!
 
 @Deprecated("Careful! Use context {} instead", ReplaceWith("context()"))
-val Fragment.ctxt: Context
+val androidx.fragment.app.Fragment.ctxt: Context
     get() = context!!
 
-fun Fragment.activity(canThrowException: Boolean = false, todo: (FragmentActivity) -> Unit) {
+fun androidx.fragment.app.Fragment.activity(canThrowException: Boolean = false, todo: (androidx.fragment.app.FragmentActivity) -> Unit) {
     activity?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
         "Activity was null!")
 }
 
-fun Fragment.context(canThrowException: Boolean = false, todo: (Context) -> Unit) {
+fun androidx.fragment.app.Fragment.context(canThrowException: Boolean = false, todo: (Context) -> Unit) {
     context?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
         "Context was null!")
 }
 
-fun Fragment.activity(safeAccess: SafeAccess<FragmentActivity>) {
+fun androidx.fragment.app.Fragment.activity(safeAccess: SafeAccess<androidx.fragment.app.FragmentActivity>) {
     activity?.let { safeAccess.ifNotNull(it) } ?: safeAccess.ifNull()
 }
 
-fun Fragment.context(safeAccess: SafeAccess<Context>) {
+fun androidx.fragment.app.Fragment.context(safeAccess: SafeAccess<Context>) {
     context?.let { safeAccess.ifNotNull(it) } ?: safeAccess.ifNull()
 }
 
@@ -55,42 +55,42 @@ interface SafeAccess<in T> {
     fun ifNull() {}
 }
 
-fun Fragment.string(@StringRes res: Int, fallback: String = ""): String =
+fun androidx.fragment.app.Fragment.string(@StringRes res: Int, fallback: String = ""): String =
     try {
         if (res != 0) getString(res) else fallback
     } catch (ignored: Exception) {
         fallback
     }
 
-fun Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+fun androidx.fragment.app.Fragment.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
     try {
         resources.getStringArray(arrayRes)
     } catch (ignored: Exception) {
         null
     }
 
-fun Fragment.boolean(@BoolRes res: Int, fallback: Boolean = false) =
+fun androidx.fragment.app.Fragment.boolean(@BoolRes res: Int, fallback: Boolean = false) =
     try {
         resources.getBoolean(res)
     } catch (ignored: Exception) {
         fallback
     }
 
-fun Fragment.int(@IntegerRes res: Int, fallback: Int = 0): Int =
+fun androidx.fragment.app.Fragment.int(@IntegerRes res: Int, fallback: Int = 0): Int =
     try {
         resources.getInteger(res)
     } catch (ignored: Exception) {
         fallback
     }
 
-fun Fragment.dimen(@DimenRes res: Int, fallback: Float = 0.0F): Float =
+fun androidx.fragment.app.Fragment.dimen(@DimenRes res: Int, fallback: Float = 0.0F): Float =
     try {
         resources.getDimension(res)
     } catch (ignored: Exception) {
         fallback
     }
 
-fun Fragment.dimenPixelSize(@DimenRes res: Int, fallback: Int = 0): Int =
+fun androidx.fragment.app.Fragment.dimenPixelSize(@DimenRes res: Int, fallback: Int = 0): Int =
     try {
         resources.getDimensionPixelSize(res)
     } catch (ignored: Exception) {

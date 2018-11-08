@@ -16,8 +16,8 @@
 package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
-import android.support.annotation.IntRange
-import android.support.v7.widget.AppCompatButton
+import androidx.annotation.IntRange
+import androidx.appcompat.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log

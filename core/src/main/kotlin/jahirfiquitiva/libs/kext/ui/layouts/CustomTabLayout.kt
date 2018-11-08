@@ -16,8 +16,8 @@
 package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.design.widget.TabLayout
+import androidx.annotation.ColorInt
+import com.google.android.material.tabs.TabLayout
 import android.util.AttributeSet
 import ca.allanwang.kau.utils.tint
 

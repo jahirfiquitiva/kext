@@ -16,13 +16,13 @@
 package jahirfiquitiva.libs.kext.ui.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
 
-abstract class ItemFragment<in T> : Fragment(), FragmentPresenter<T> {
+abstract class ItemFragment<in T> : androidx.fragment.app.Fragment(), FragmentPresenter<T> {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

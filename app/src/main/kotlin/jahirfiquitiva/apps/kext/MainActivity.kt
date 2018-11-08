@@ -17,7 +17,7 @@ package jahirfiquitiva.apps.kext
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import ca.allanwang.kau.utils.toast

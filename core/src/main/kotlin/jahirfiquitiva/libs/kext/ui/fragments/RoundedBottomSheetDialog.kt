@@ -17,9 +17,9 @@ package jahirfiquitiva.libs.kext.ui.fragments
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.annotation.StyleRes
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.BottomSheetDialogFragment
+import androidx.annotation.StyleRes
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.helpers.AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED

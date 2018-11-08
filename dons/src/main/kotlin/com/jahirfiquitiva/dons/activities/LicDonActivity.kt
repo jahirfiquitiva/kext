@@ -15,9 +15,9 @@
  */
 package com.jahirfiquitiva.dons.activities
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import ca.allanwang.kau.utils.snackbar
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails

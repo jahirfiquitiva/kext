@@ -16,9 +16,9 @@
 
 package jahirfiquitiva.libs.kext.extensions
 
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -63,7 +63,7 @@ private fun getAllChildren(v: View): ArrayList<View> {
     return result
 }
 
-fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
+fun androidx.recyclerview.widget.RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
 
 fun View.postDelayed(delay: Long, action: () -> Unit) =
     postDelayed(action, delay)

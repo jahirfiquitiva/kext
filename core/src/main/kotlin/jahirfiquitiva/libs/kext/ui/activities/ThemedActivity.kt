@@ -20,10 +20,10 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.ColorInt
-import android.support.annotation.StyleRes
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
+import androidx.annotation.ColorInt
+import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor

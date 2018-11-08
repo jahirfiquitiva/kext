@@ -16,11 +16,11 @@
 package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
-import android.support.v7.widget.CardView
+import androidx.cardview.widget.CardView
 import android.util.AttributeSet
 import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor
 
-open class CustomCardView : CardView {
+open class CustomCardView : androidx.cardview.widget.CardView {
     constructor(context: Context) : super(context) {
         init()
     }

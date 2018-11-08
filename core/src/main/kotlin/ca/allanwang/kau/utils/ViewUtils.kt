@@ -1,9 +1,9 @@
 package ca.allanwang.kau.utils
 
 import android.graphics.Color
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.ViewDragHelper
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
+import androidx.customview.widget.ViewDragHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -173,10 +173,10 @@ private fun View.setPadding(padding: Int, flag: Int) {
               )
 }
 
-const val KAU_LEFT = ViewDragHelper.EDGE_LEFT
-const val KAU_RIGHT = ViewDragHelper.EDGE_RIGHT
-const val KAU_TOP = ViewDragHelper.EDGE_TOP
-const val KAU_BOTTOM = ViewDragHelper.EDGE_BOTTOM
+const val KAU_LEFT = androidx.customview.widget.ViewDragHelper.EDGE_LEFT
+const val KAU_RIGHT = androidx.customview.widget.ViewDragHelper.EDGE_RIGHT
+const val KAU_TOP = androidx.customview.widget.ViewDragHelper.EDGE_TOP
+const val KAU_BOTTOM = androidx.customview.widget.ViewDragHelper.EDGE_BOTTOM
 const val KAU_HORIZONTAL = KAU_LEFT or KAU_RIGHT
 const val KAU_VERTICAL = KAU_TOP or KAU_BOTTOM
 const val KAU_ALL = KAU_HORIZONTAL or KAU_VERTICAL

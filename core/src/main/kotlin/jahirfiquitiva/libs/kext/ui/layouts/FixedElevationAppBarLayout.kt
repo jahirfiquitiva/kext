@@ -17,8 +17,8 @@ package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.design.widget.AppBarLayout
+import androidx.annotation.RequiresApi
+import com.google.android.material.appbar.AppBarLayout
 import android.util.AttributeSet
 import ca.allanwang.kau.utils.dpToPx
 import jahirfiquitiva.libs.kext.R

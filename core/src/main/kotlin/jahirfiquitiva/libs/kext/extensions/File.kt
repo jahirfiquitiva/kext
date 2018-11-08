@@ -17,7 +17,7 @@ package jahirfiquitiva.libs.kext.extensions
 
 import android.content.Context
 import android.net.Uri
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import java.io.File
 
 fun File.getUri(context: Context): Uri? {

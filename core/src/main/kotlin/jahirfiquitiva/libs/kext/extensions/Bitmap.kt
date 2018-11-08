@@ -20,8 +20,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
-import android.support.v7.graphics.Palette
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.palette.graphics.Palette
 import java.io.File
 import java.io.FileOutputStream
 
@@ -29,14 +29,14 @@ fun Bitmap.isColorDark() = !isColorLight()
 
 fun Bitmap.isColorLight(): Boolean = generatePalette()?.isColorLight() ?: false
 
-fun Bitmap.generatePalette(resizeArea: Int = -1): Palette? =
+fun Bitmap.generatePalette(resizeArea: Int = -1): androidx.palette.graphics.Palette? =
     try {
-        Palette.from(this).resizeBitmapArea(resizeArea).generate()
+        androidx.palette.graphics.Palette.from(this).resizeBitmapArea(resizeArea).generate()
     } catch (e: Exception) {
         null
     }
 
-val Bitmap.bestSwatch: Palette.Swatch?
+val Bitmap.bestSwatch: androidx.palette.graphics.Palette.Swatch?
     get() = generatePalette()?.bestSwatch
 
 fun Bitmap.createRoundedDrawable(context: Context): Drawable {

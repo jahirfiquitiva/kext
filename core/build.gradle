@@ -66,10 +66,11 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support Libraries
+    api libraries.appcompat
     api libraries.recyclerview
     api libraries.cardview
     api libraries.palette
-    api libraries.design
+    api libraries.material
     // Kotlin
     api libraries.kotlin
     // Material Dialogs

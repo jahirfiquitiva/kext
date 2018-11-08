@@ -2,11 +2,11 @@ package ca.allanwang.kau.utils
 
 import android.content.Context
 import android.content.res.XmlResourceParser
-import android.support.annotation.ColorInt
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.annotation.XmlRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.annotation.XmlRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -92,7 +92,7 @@ class ChangelogAdapter(
     private val items: List<Pair<String, ChangelogType>>,
     @ColorInt val textColor: Int? = null
                       ) :
-    RecyclerView.Adapter<ChangelogAdapter.ChangelogVH>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ChangelogAdapter.ChangelogVH>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ChangelogVH(parent.inflate(items[viewType].second.layout))
@@ -111,7 +111,7 @@ class ChangelogAdapter(
     
     override fun getItemCount() = items.size
     
-    class ChangelogVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ChangelogVH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val text: TextView? by bind(R.id.kau_changelog_text)
         val bullet: TextView? by bind(R.id.kau_changelog_bullet)
     }

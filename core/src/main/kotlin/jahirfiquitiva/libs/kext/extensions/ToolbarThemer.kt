@@ -17,13 +17,13 @@ package jahirfiquitiva.libs.kext.extensions
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
-import android.support.v7.view.menu.ActionMenuItemView
-import android.support.v7.widget.ActionMenuView
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.appcompat.widget.ActionMenuView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.widget.EditText

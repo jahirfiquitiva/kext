@@ -18,8 +18,8 @@ package jahirfiquitiva.libs.kext.extensions
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import ca.allanwang.kau.utils.isColorDark
 import jahirfiquitiva.libs.kext.R
 

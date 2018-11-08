@@ -15,7 +15,7 @@
  */
 package jahirfiquitiva.libs.kext.ui
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 import jahirfiquitiva.libs.kext.helpers.AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_DARK

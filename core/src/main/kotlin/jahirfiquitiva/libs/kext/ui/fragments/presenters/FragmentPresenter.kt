@@ -15,7 +15,7 @@
  */
 package jahirfiquitiva.libs.kext.ui.fragments.presenters
 
-import android.support.annotation.LayoutRes
+import androidx.annotation.LayoutRes
 import android.view.View
 
 interface FragmentPresenter<in T> {

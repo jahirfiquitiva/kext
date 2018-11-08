@@ -15,10 +15,10 @@
  */
 package jahirfiquitiva.libs.archhelpers.viewmodels
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import jahirfiquitiva.libs.archhelpers.tasks.QAsync
 import java.lang.ref.WeakReference
 

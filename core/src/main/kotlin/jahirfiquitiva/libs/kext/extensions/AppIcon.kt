@@ -5,8 +5,8 @@ import android.content.pm.ApplicationInfo
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.annotation.DrawableRes
-import android.support.v4.content.res.ResourcesCompat
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import android.util.DisplayMetrics
 
 @DrawableRes
