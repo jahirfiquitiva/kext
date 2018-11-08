@@ -27,6 +27,7 @@ import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
+import ca.allanwang.kau.utils.postDelayed
 import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
@@ -106,17 +107,23 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && forceTintRecents()) {
-            var bm: Bitmap? = null
-            val resId = recentsIconRes()
-            val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && resId != null) {
-                ActivityManager.TaskDescription(recentsTitle(), resId, recentsColor())
-            } else {
-                bm = recentsIcon()?.toBitmap()
-                @Suppress("DEPRECATION")
-                ActivityManager.TaskDescription(recentsTitle(), bm, recentsColor())
+            postDelayed(25) {
+                var bm: Bitmap? = null
+                val resId = recentsIconRes()
+                val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && resId != null) {
+                    ActivityManager.TaskDescription(recentsTitle(), resId, recentsColor())
+                } else {
+                    bm = try {
+                        recentsIcon()?.toBitmap()
+                    } catch (e: Exception) {
+                        null
+                    }
+                    @Suppress("DEPRECATION")
+                    ActivityManager.TaskDescription(recentsTitle(), bm, recentsColor())
+                }
+                doSafely { setTaskDescription(td) }
+                doSafely { bm?.recycle() }
             }
-            setTaskDescription(td)
-            bm?.recycle()
         }
     }
     
@@ -159,6 +166,13 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
             primaryDarkColor
         } else {
             Color.parseColor("#000000")
+        }
+    }
+    
+    private fun doSafely(what: () -> Unit) {
+        try {
+            what()
+        } catch (ignored: Exception) {
         }
     }
     
