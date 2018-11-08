@@ -17,7 +17,6 @@ package jahirfiquitiva.libs.kext.ui.activities
 
 import android.app.ActivityManager
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -26,18 +25,15 @@ import android.support.annotation.StyleRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import ca.allanwang.kau.utils.navigationBarColor
-import ca.allanwang.kau.utils.postDelayed
 import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
-import jahirfiquitiva.libs.kext.extensions.getAppIcon
+import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.extensions.getAppIconResId
-import jahirfiquitiva.libs.kext.extensions.getAppName
 import jahirfiquitiva.libs.kext.extensions.isColorLight
 import jahirfiquitiva.libs.kext.extensions.navigationBarLight
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.primaryDarkColor
-import jahirfiquitiva.libs.kext.extensions.toBitmap
 import jahirfiquitiva.libs.kext.helpers.AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_DARK
@@ -96,6 +92,7 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         Handler().post { restart() }
     }
     
+    @Suppress("DEPRECATION")
     private fun setCustomTheme() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         setTheme(getCustomTheme())
@@ -106,23 +103,13 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && forceTintRecents()) {
-            postDelayed(25) {
-                val resId = recentsIconRes()
-                val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && resId != null) {
-                    ActivityManager.TaskDescription(recentsTitle(), resId, recentsColor())
-                } else {
-                    val bm = try {
-                        recentsIcon()?.toBitmap()
-                    } catch (e: Exception) {
-                        null
-                    }
-                    @Suppress("DEPRECATION")
-                    ActivityManager.TaskDescription(
-                        recentsTitle(), bm?.copy(bm.config, true), recentsColor())
-                }
-                setTaskDescription(td)
-                // postDelayed(50) { doSafely { bm?.recycle() } }
+            val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                ActivityManager.TaskDescription(
+                    null, getAppIconResId(packageName) ?: 0, recentsColor().withAlpha(1F))
+            } else {
+                ActivityManager.TaskDescription(null, null, recentsColor().withAlpha(1F))
             }
+            setTaskDescription(td)
         }
     }
     
@@ -177,8 +164,5 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
     
     open fun forceNavBarTint(): Boolean = false
     open fun forceTintRecents(): Boolean = true
-    open fun recentsIconRes(): Int? = getAppIconResId(packageName)
-    open fun recentsIcon(): Drawable? = getAppIcon(packageName)
-    open fun recentsTitle(): String = getAppName()
     open fun recentsColor(): Int = primaryColor
 }

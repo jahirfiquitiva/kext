@@ -15,7 +15,7 @@
  */
 ext.details = [
         // Core app details
-        appId   : 'KAUExtensions',
+        appId   : 'KEXT',
         appGroup: 'jahirfiquitiva.apps',
         libGroup: 'jahirfiquitiva.libs',
 ]

@@ -17,20 +17,29 @@ package jahirfiquitiva.apps.kext
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import ca.allanwang.kau.utils.toast
 import jahirfiquitiva.libs.kext.extensions.bind
+import jahirfiquitiva.libs.kext.extensions.getAppName
 import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor
 import jahirfiquitiva.libs.kext.extensions.hideAllItems
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.showAllItems
 import jahirfiquitiva.libs.kext.extensions.tint
+import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 import jahirfiquitiva.libs.kext.ui.widgets.CustomSearchView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ThemedActivity<Konfigurations>() {
+    
+    override fun lightTheme(): Int = R.style.AppTheme
+    override fun darkTheme(): Int = R.style.AppTheme
+    
+    override val configs: Konfigurations by lazy { Konfigurations("kext", this) }
+    
+    override fun recentsColor(): Int = Color.parseColor("#4285F4")
     
     private var searchView: CustomSearchView? = null
     

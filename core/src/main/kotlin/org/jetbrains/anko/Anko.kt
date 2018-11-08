@@ -16,10 +16,10 @@
 
 package org.jetbrains.anko
 
-import android.app.Fragment
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
 import java.lang.ref.WeakReference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

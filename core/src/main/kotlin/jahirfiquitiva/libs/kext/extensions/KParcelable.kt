@@ -41,10 +41,10 @@ inline fun <reified T> parcelableCreator(
     }
 
 inline fun <reified T> parcelableClassLoaderCreator(
-    crossinline create: (Parcel, ClassLoader) -> T
+    crossinline create: (Parcel, ClassLoader?) -> T
                                                    ) =
     object : Parcelable.ClassLoaderCreator<T> {
-        override fun createFromParcel(source: Parcel, loader: ClassLoader) =
+        override fun createFromParcel(source: Parcel, loader: ClassLoader?) =
             create(source, loader)
         
         override fun createFromParcel(source: Parcel) =
@@ -106,5 +106,5 @@ fun <T : Parcelable> Parcel.writeTypedObjectCompat(value: T?, parcelableFlags: I
 inline fun <reified T> Parcel.readArrayListOf(): ArrayList<T> =
     arrayListOf<T>().apply { readList(this, T::class.java.classLoader) }
 
-inline fun <reified T : Parcelable> Parcel.readParcelable(): T =
+inline fun <reified T : Parcelable> Parcel.readParcelable(): T? =
     readParcelable(T::class.java.classLoader)

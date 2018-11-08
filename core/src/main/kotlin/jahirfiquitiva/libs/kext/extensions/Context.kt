@@ -102,7 +102,7 @@ fun Context.extractColor(attribute: IntArray): Int {
     return color
 }
 
-fun Context.extractDrawable(@AttrRes drawableAttributeId: Int): Drawable {
+fun Context.extractDrawable(@AttrRes drawableAttributeId: Int): Drawable? {
     val typedValue = TypedValue()
     val a = obtainStyledAttributes(typedValue.data, intArrayOf(drawableAttributeId))
     val drawable = a.getDrawable(0)
@@ -125,9 +125,14 @@ fun Context.getAppName(): String {
     }
 }
 
-fun Context.getAppVersionCode(): Int {
+@Suppress("DEPRECATION")
+fun Context.getAppVersionCode(): Long {
     return try {
-        packageManager.getPackageInfo(packageName, 0).versionCode
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            packageManager.getPackageInfo(packageName, 0).longVersionCode
+        } else {
+            packageManager.getPackageInfo(packageName, 0).versionCode.toLong()
+        }
     } catch (e: Exception) {
         -1
     }

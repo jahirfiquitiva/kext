@@ -40,9 +40,9 @@ open class Konfigurations(name: String, private val context: Context) {
         get() = prefs.getBoolean(COLORED_NAVBAR, true)
         set(colored) = prefsEditor.putBoolean(COLORED_NAVBAR, colored).apply()
     
-    var lastVersion: Int
-        get() = prefs.getInt(LAST_VERSION, -1)
-        set(lastVersion) = prefsEditor.putInt(LAST_VERSION, lastVersion).apply()
+    var lastVersion: Long
+        get() = prefs.getLong(LAST_VERSION, -1)
+        set(lastVersion) = prefsEditor.putLong(LAST_VERSION, lastVersion).apply()
     
     var animationsEnabled: Boolean
         get() = prefs.getBoolean(ANIMATIONS_ENABLED, true)
