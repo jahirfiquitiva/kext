@@ -22,7 +22,6 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
-import androidx.palette.graphics.Palette
 
 fun Drawable.applyColorFilter(@ColorInt color: Int): Drawable {
     val newFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)

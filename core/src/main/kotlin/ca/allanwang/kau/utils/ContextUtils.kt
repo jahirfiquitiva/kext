@@ -4,18 +4,19 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.IntRange
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import jahirfiquitiva.libs.kext.extensions.isOnMainThread
 import jahirfiquitiva.libs.kext.extensions.string
 import java.math.RoundingMode
@@ -28,6 +29,19 @@ import java.text.DecimalFormat
  * at a 100%.
  * Anyway, full credits go to Allan, for these awesome extensions
  */
+
+fun Context.isAppInstalled(packageName: String): Boolean = try {
+    packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+    true
+} catch (e: Exception) {
+    false
+}
+
+fun Context.isAppEnabled(packageName: String): Boolean = try {
+    packageManager.getApplicationInfo(packageName, 0).enabled
+} catch (e: Exception) {
+    false
+}
 
 /**
  * Restarts an activity from itself with a fade animation

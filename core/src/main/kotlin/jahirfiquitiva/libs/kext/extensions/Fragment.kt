@@ -21,8 +21,6 @@ import androidx.annotation.BoolRes
 import androidx.annotation.DimenRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 
 @Deprecated("Careful! Use activity {} instead", ReplaceWith("activity()"))
 val androidx.fragment.app.Fragment.actv: androidx.fragment.app.FragmentActivity
@@ -32,12 +30,18 @@ val androidx.fragment.app.Fragment.actv: androidx.fragment.app.FragmentActivity
 val androidx.fragment.app.Fragment.ctxt: Context
     get() = context!!
 
-fun androidx.fragment.app.Fragment.activity(canThrowException: Boolean = false, todo: (androidx.fragment.app.FragmentActivity) -> Unit) {
+fun androidx.fragment.app.Fragment.activity(
+    canThrowException: Boolean = false,
+    todo: (androidx.fragment.app.FragmentActivity) -> Unit
+                                           ) {
     activity?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
         "Activity was null!")
 }
 
-fun androidx.fragment.app.Fragment.context(canThrowException: Boolean = false, todo: (Context) -> Unit) {
+fun androidx.fragment.app.Fragment.context(
+    canThrowException: Boolean = false,
+    todo: (Context) -> Unit
+                                          ) {
     context?.let { todo(it) } ?: if (canThrowException) throw IllegalStateException(
         "Context was null!")
 }

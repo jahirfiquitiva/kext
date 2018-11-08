@@ -17,10 +17,10 @@ package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
-import com.google.android.material.appbar.AppBarLayout
 import android.util.AttributeSet
+import androidx.annotation.RequiresApi
 import ca.allanwang.kau.utils.dpToPx
+import com.google.android.material.appbar.AppBarLayout
 import jahirfiquitiva.libs.kext.R
 
 open class FixedElevationAppBarLayout : AppBarLayout {

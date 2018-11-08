@@ -1,14 +1,14 @@
 package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
-import androidx.annotation.ColorInt
-import androidx.appcompat.widget.SearchView
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
+import androidx.appcompat.widget.SearchView
 import ca.allanwang.kau.utils.gone
 import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor

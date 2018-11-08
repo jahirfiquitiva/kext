@@ -16,9 +16,9 @@
 package jahirfiquitiva.libs.kext.extensions
 
 import android.graphics.drawable.Drawable
-import androidx.annotation.DrawableRes
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.DrawableRes
 
 @Deprecated("Use Menu.setItemVisibility() instead", ReplaceWith("setItemVisibility()"))
 fun Menu.changeOptionVisibility(id: Int, visible: Boolean) {

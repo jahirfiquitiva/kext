@@ -21,23 +21,24 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.os.Build
-import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.IdRes
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
 
 inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T?> = lazy { findView<T>(res) }
 
-inline fun <reified T : View> androidx.fragment.app.Fragment.bind(@IdRes res: Int): Lazy<T?>? = lazy { findView<T>(res) }
+inline fun <reified T : View> androidx.fragment.app.Fragment.bind(@IdRes res: Int): Lazy<T?>? =
+    lazy { findView<T>(res) }
 
 inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> = lazy { findView<T>(res) }
 
 inline fun <reified T : View> Activity.findView(@IdRes res: Int): T? = findViewById(res)
 
-inline fun <reified T : View> androidx.fragment.app.Fragment.findView(@IdRes res: Int): T? = view?.findView(res)
+inline fun <reified T : View> androidx.fragment.app.Fragment.findView(@IdRes res: Int): T? =
+    view?.findView(res)
 
 inline fun <reified T : View> View.findView(@IdRes res: Int): T? = findViewById(res)
 

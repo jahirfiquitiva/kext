@@ -17,7 +17,6 @@
 package jahirfiquitiva.libs.kext.ui.decorations
 
 import android.graphics.Rect
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
 class GridSpacingItemDecoration(

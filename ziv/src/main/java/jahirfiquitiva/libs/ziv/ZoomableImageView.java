@@ -30,7 +30,6 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -40,6 +39,8 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * ImageView with methods to allow zoom gestures in it
  *
@@ -48,7 +49,7 @@ import android.widget.OverScroller;
  */
 @SuppressLint("ClickableViewAccessibility")
 public class ZoomableImageView extends AppCompatImageView {
-
+    
     private static final String DEBUG = "DEBUG";
     //
     // SuperMin and SuperMax multipliers. Determine how much the image can be
@@ -63,7 +64,7 @@ public class ZoomableImageView extends AppCompatImageView {
     // when the image is stretched to fit view.
     //
     private float normalizedScale;
-
+    
     //
     // Matrix applied to image. MSCALE_X and MSCALE_Y should always be equal.
     // MTRANS_X and MTRANS_Y are the other values used. prevMatrix is the matrix
@@ -102,22 +103,22 @@ public class ZoomableImageView extends AppCompatImageView {
     private View.OnTouchListener userTouchListener = null;
     private OnZoomableImageViewListener touchImageViewListener = null;
     private OnSingleTapListener singleTapListener = null;
-
+    
     public ZoomableImageView(Context context) {
         super(context);
         sharedConstructing(context);
     }
-
+    
     public ZoomableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         sharedConstructing(context);
     }
-
+    
     public ZoomableImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         sharedConstructing(context);
     }
-
+    
     private void sharedConstructing(Context context) {
         super.setClickable(true);
         this.context = context;
@@ -140,57 +141,57 @@ public class ZoomableImageView extends AppCompatImageView {
         onDrawReady = false;
         super.setOnTouchListener(new PrivateOnTouchListener());
     }
-
+    
     @Override
     public void setOnTouchListener(OnTouchListener l) {
         userTouchListener = l;
     }
-
+    
     public void setOnZoomableImageViewListener(OnZoomableImageViewListener l) {
         touchImageViewListener = l;
     }
-
+    
     public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener l) {
         doubleTapListener = l;
     }
-
+    
     public void setOnSingleTapListener(OnSingleTapListener l) {
         singleTapListener = l;
     }
-
+    
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
         savePreviousImageValues();
         fitImageToView();
     }
-
+    
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
         savePreviousImageValues();
         fitImageToView();
     }
-
+    
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
         savePreviousImageValues();
         fitImageToView();
     }
-
+    
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
         savePreviousImageValues();
         fitImageToView();
     }
-
+    
     @Override
     public ScaleType getScaleType() {
         return mScaleType;
     }
-
+    
     @Override
     public void setScaleType(ScaleType type) {
         if (type == ScaleType.FIT_START || type == ScaleType.FIT_END) {
@@ -200,7 +201,7 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         if (type == ScaleType.MATRIX) {
             super.setScaleType(ScaleType.MATRIX);
-
+            
         } else {
             mScaleType = type;
             if (onDrawReady) {
@@ -212,7 +213,7 @@ public class ZoomableImageView extends AppCompatImageView {
             }
         }
     }
-
+    
     /**
      * Returns false if image is in initial, unzoomed state. False, otherwise.
      *
@@ -221,7 +222,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private boolean isZoomed() {
         return normalizedScale != 1;
     }
-
+    
     /**
      * Return a Rect representing the zoomed image.
      *
@@ -237,7 +238,7 @@ public class ZoomableImageView extends AppCompatImageView {
         float h = getDrawable().getIntrinsicHeight();
         return new RectF(topLeft.x / w, topLeft.y / h, bottomRight.x / w, bottomRight.y / h);
     }
-
+    
     /**
      * Save the current matrix and view dimensions in the prevMatrix and prevView variables.
      */
@@ -251,7 +252,7 @@ public class ZoomableImageView extends AppCompatImageView {
             prevViewWidth = viewWidth;
         }
     }
-
+    
     @Override
     public Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
@@ -266,7 +267,7 @@ public class ZoomableImageView extends AppCompatImageView {
         bundle.putBoolean("imageRendered", imageRenderedAtLeastOnce);
         return bundle;
     }
-
+    
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
@@ -284,7 +285,7 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         super.onRestoreInstanceState(state);
     }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         onDrawReady = true;
@@ -296,13 +297,13 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         super.onDraw(canvas);
     }
-
+    
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         savePreviousImageValues();
     }
-
+    
     /**
      * Enables zooming beyond the min or max scales
      *
@@ -313,7 +314,7 @@ public class ZoomableImageView extends AppCompatImageView {
         superMinMultiplier = enable ? .75F : 1F;
         superMaxMultiplier = enable ? 1.25F : 1F;
     }
-
+    
     /**
      * Get the max zoom multiplier.
      *
@@ -322,7 +323,7 @@ public class ZoomableImageView extends AppCompatImageView {
     public float getMaxZoom() {
         return maxScale;
     }
-
+    
     /**
      * Set the max zoom multiplier. Default value: 3.
      *
@@ -333,7 +334,7 @@ public class ZoomableImageView extends AppCompatImageView {
         maxScale = max;
         superMaxScale = superMaxMultiplier * maxScale;
     }
-
+    
     /**
      * Get the min zoom multiplier.
      *
@@ -342,7 +343,7 @@ public class ZoomableImageView extends AppCompatImageView {
     public float getMinZoom() {
         return minScale;
     }
-
+    
     /**
      * Set the min zoom multiplier. Default value: 1.
      *
@@ -353,7 +354,7 @@ public class ZoomableImageView extends AppCompatImageView {
         minScale = min;
         superMinScale = superMinMultiplier * minScale;
     }
-
+    
     /**
      * Get the current zoom. This is the zoom relative to the initial scale, not the original
      * resource.
@@ -363,7 +364,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private float getCurrentZoom() {
         return normalizedScale;
     }
-
+    
     /**
      * Reset zoom and translation to initial state.
      */
@@ -371,14 +372,14 @@ public class ZoomableImageView extends AppCompatImageView {
         normalizedScale = 1;
         fitImageToView();
     }
-
+    
     /**
      * Set zoom to the specified scale. Image will be centered by default.
      */
     public void setZoom(float scale) {
         setZoom(scale, 0.5f, 0.5f);
     }
-
+    
     /**
      * Set zoom to the specified scale. Image will be centered around the point (focusX, focusY).
      * These floats range from 0 to 1 and denote the focus point as a fraction from the left and top
@@ -388,7 +389,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private void setZoom(float scale, float focusX, float focusY) {
         setZoom(scale, focusX, focusY, mScaleType);
     }
-
+    
     /**
      * Set zoom to the specified scale. Image will be centered around the point (focusX, focusY).
      * These floats range from 0 to 1 and denote the focus point as a fraction from the left and top
@@ -417,7 +418,7 @@ public class ZoomableImageView extends AppCompatImageView {
         fixTrans();
         setImageMatrix(matrix);
     }
-
+    
     /**
      * Set zoom parameters equal to another ZoomableImageView. Including scale, position, and
      * ScaleType.
@@ -427,7 +428,7 @@ public class ZoomableImageView extends AppCompatImageView {
         if (center == null) return;
         setZoom(img.getCurrentZoom(), center.x, center.y, img.getScaleType());
     }
-
+    
     /**
      * Return the point at the center of the zoomed image. The PointF coordinates range in value
      * between 0 and 1 and the focus point is denoted as a fraction from the left and top of the
@@ -448,7 +449,7 @@ public class ZoomableImageView extends AppCompatImageView {
         point.y /= drawableHeight;
         return point;
     }
-
+    
     /**
      * Set the focus point of the zoomed image. The focus points are denoted as a fraction from the
      * left and top of the view. The focus points can range in value between 0 and 1.
@@ -456,7 +457,7 @@ public class ZoomableImageView extends AppCompatImageView {
     public void setScrollPosition(float focusX, float focusY) {
         setZoom(normalizedScale, focusX, focusY);
     }
-
+    
     /**
      * Performs boundary checking and fixes the image matrix if it is out of bounds.
      */
@@ -470,7 +471,7 @@ public class ZoomableImageView extends AppCompatImageView {
             matrix.postTranslate(fixTransX, fixTransY);
         }
     }
-
+    
     /**
      * When transitioning from zooming from focus to zoom from center (or vice versa) the image can
      * become unaligned within the view. This is apparent when zooming quickly. When the content
@@ -489,13 +490,13 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         matrix.setValues(m);
     }
-
+    
     private float getFixTrans(float trans, float viewSize, float contentSize) {
         float minTrans, maxTrans;
         if (contentSize <= viewSize) {
             minTrans = 0;
             maxTrans = viewSize - contentSize;
-
+            
         } else {
             minTrans = viewSize - contentSize;
             maxTrans = 0;
@@ -506,22 +507,22 @@ public class ZoomableImageView extends AppCompatImageView {
             return -trans + maxTrans;
         return 0;
     }
-
+    
     private float getFixDragTrans(float delta, float viewSize, float contentSize) {
         if (contentSize <= viewSize) {
             return 0;
         }
         return delta;
     }
-
+    
     private float getImageWidth() {
         return matchViewWidth * normalizedScale;
     }
-
+    
     private float getImageHeight() {
         return matchViewHeight * normalizedScale;
     }
-
+    
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         Drawable drawable = getDrawable();
@@ -548,7 +549,7 @@ public class ZoomableImageView extends AppCompatImageView {
         //
         fitImageToView();
     }
-
+    
     /**
      * If the normalizedScale is equal to 1, then the image is made to fit the screen. Otherwise, it
      * is made to fit the screen according to the dimensions of the previous image matrix. This
@@ -590,7 +591,7 @@ public class ZoomableImageView extends AppCompatImageView {
                 //
                 throw new UnsupportedOperationException("ZoomableImageView does not support " +
                                                             "FIT_START or FIT_END");
-
+            
         }
         //
         // Center the image
@@ -648,7 +649,7 @@ public class ZoomableImageView extends AppCompatImageView {
         fixTrans();
         setImageMatrix(matrix);
     }
-
+    
     /**
      * Set view dimensions based on layout params
      */
@@ -670,7 +671,7 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         return viewSize;
     }
-
+    
     /**
      * After rotating, the matrix needs to be translated. This function finds the area of image
      * which was previously centered and adjusts translations so that is again the center,
@@ -698,13 +699,13 @@ public class ZoomableImageView extends AppCompatImageView {
             // The width/height of image is less than the view's width/height. Center it.
             //
             m[axis] = (viewSize - (drawableSize * m[Matrix.MSCALE_X])) * 0.5f;
-
+            
         } else if (trans > 0) {
             //
             // The image is larger than the view, but was not before rotation. Center it.
             //
             m[axis] = -((imageSize - viewSize) * 0.5f);
-
+            
         } else {
             //
             // Find the area of the image which was previously centered in the view. Determine
@@ -717,38 +718,38 @@ public class ZoomableImageView extends AppCompatImageView {
             m[axis] = -((percentage * imageSize) - (viewSize * 0.5f));
         }
     }
-
+    
     private void setState(State state) {
         this.state = state;
     }
-
+    
     public boolean canScrollHorizontallyFroyo(int direction) {
         return canScrollHorizontally(direction);
     }
-
+    
     @Override
     public boolean canScrollHorizontally(int direction) {
         matrix.getValues(m);
         float x = m[Matrix.MTRANS_X];
         if (getImageWidth() < viewWidth) {
             return false;
-
+            
         } else if (x >= -1 && direction < 0) {
             return false;
-
+            
         } else if (Math.abs(x) + viewWidth + 1 >= getImageWidth() && direction > 0) {
             return false;
         }
         return true;
     }
-
+    
     private void scaleImage(double deltaScale, float focusX, float focusY, boolean
         stretchImageToSuper) {
         float lowerScale, upperScale;
         if (stretchImageToSuper) {
             lowerScale = superMinScale;
             upperScale = superMaxScale;
-
+            
         } else {
             lowerScale = minScale;
             upperScale = maxScale;
@@ -765,7 +766,7 @@ public class ZoomableImageView extends AppCompatImageView {
         matrix.postScale((float) deltaScale, (float) deltaScale, focusX, focusY);
         fixScaleTrans();
     }
-
+    
     /**
      * This function will transform the coordinates in the touch event to the coordinate system of
      * the drawable that the imageview contain
@@ -794,7 +795,7 @@ public class ZoomableImageView extends AppCompatImageView {
         }
         return new PointF(finalX, finalY);
     }
-
+    
     /**
      * Inverse of transformCoordTouchToBitmap. This function will transform the coordinates in the
      * drawable's coordinate system to the view's coordinate system.
@@ -816,7 +817,7 @@ public class ZoomableImageView extends AppCompatImageView {
         float finalY = m[Matrix.MTRANS_Y] + getImageHeight() * py;
         return new PointF(finalX, finalY);
     }
-
+    
     @TargetApi(VERSION_CODES.JELLY_BEAN)
     private void compatPostOnAnimation(Runnable runnable) {
         if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
@@ -825,25 +826,25 @@ public class ZoomableImageView extends AppCompatImageView {
             postDelayed(runnable, 1000 / 60);
         }
     }
-
+    
     private void printMatrixInfo() {
         float[] n = new float[9];
         matrix.getValues(n);
         Log.d(DEBUG, "Scale: " + n[Matrix.MSCALE_X] + " TransX: " + n[Matrix.MTRANS_X] + " " +
             "TransY: " + n[Matrix.MTRANS_Y]);
     }
-
+    
     private enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
-
+    
     public interface OnZoomableImageViewListener {
         void onMove();
     }
-
+    
     @SuppressWarnings("SameReturnValue")
     public interface OnSingleTapListener {
         boolean onSingleTap();
     }
-
+    
     /**
      * Gesture Listener detects a single click or long click and passes that on to the view's
      * listener.
@@ -851,7 +852,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * @author Ortiz
      */
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-
+        
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             if (doubleTapListener != null) {
@@ -862,12 +863,12 @@ public class ZoomableImageView extends AppCompatImageView {
             }
             return performClick();
         }
-
+        
         @Override
         public void onLongPress(MotionEvent e) {
             performLongClick();
         }
-
+        
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (fling != null) {
@@ -881,7 +882,7 @@ public class ZoomableImageView extends AppCompatImageView {
             compatPostOnAnimation(fling);
             return super.onFling(e1, e2, velocityX, velocityY);
         }
-
+        
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             boolean consumed = false;
@@ -896,13 +897,13 @@ public class ZoomableImageView extends AppCompatImageView {
             }
             return consumed;
         }
-
+        
         @Override
         public boolean onDoubleTapEvent(MotionEvent e) {
             return doubleTapListener != null && doubleTapListener.onDoubleTapEvent(e);
         }
     }
-
+    
     /**
      * Responsible for all touch events. Handles the heavy lifting of drag and also sends touch
      * events to Scale Detector and Gesture Detector.
@@ -910,12 +911,12 @@ public class ZoomableImageView extends AppCompatImageView {
      * @author Ortiz
      */
     private class PrivateOnTouchListener implements OnTouchListener {
-
+        
         //
         // Remember last point position for dragging
         //
         private final PointF last = new PointF();
-
+        
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             mScaleDetector.onTouchEvent(event);
@@ -965,20 +966,20 @@ public class ZoomableImageView extends AppCompatImageView {
             return true;
         }
     }
-
+    
     /**
      * ScaleListener detects user two finger scaling and scales image.
      *
      * @author Ortiz
      */
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-
+        
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             setState(State.ZOOM);
             return true;
         }
-
+        
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             scaleImage(detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY(), true);
@@ -990,7 +991,7 @@ public class ZoomableImageView extends AppCompatImageView {
             }
             return true;
         }
-
+        
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
             super.onScaleEnd(detector);
@@ -1011,7 +1012,7 @@ public class ZoomableImageView extends AppCompatImageView {
             }
         }
     }
-
+    
     /**
      * DoubleTapZoom calls a series of runnables which apply an animated zoom in/out graphic to the
      * image.
@@ -1019,7 +1020,7 @@ public class ZoomableImageView extends AppCompatImageView {
      * @author Ortiz
      */
     private class DoubleTapZoom implements Runnable {
-
+        
         private static final float ZOOM_TIME = 500;
         private final long startTime;
         private final float startZoom;
@@ -1031,7 +1032,7 @@ public class ZoomableImageView extends AppCompatImageView {
             AccelerateDecelerateInterpolator();
         private final PointF startTouch;
         private final PointF endTouch;
-
+        
         DoubleTapZoom(float targetZoom, float focusX, float focusY, boolean stretchImageToSuper) {
             setState(State.ANIMATE_ZOOM);
             startTime = System.currentTimeMillis();
@@ -1047,7 +1048,7 @@ public class ZoomableImageView extends AppCompatImageView {
             startTouch = transformCoordBitmapToTouch(bitmapX, bitmapY);
             endTouch = new PointF(viewWidth / 2, viewHeight / 2);
         }
-
+        
         @Override
         public void run() {
             float t = interpolate();
@@ -1075,7 +1076,7 @@ public class ZoomableImageView extends AppCompatImageView {
                 setState(State.NONE);
             }
         }
-
+        
         /**
          * Interpolate between where the image should start and end in order to translate the image
          * so that the point that is touched is what ends up centered at the end of the zoom.
@@ -1086,7 +1087,7 @@ public class ZoomableImageView extends AppCompatImageView {
             PointF curr = transformCoordBitmapToTouch(bitmapX, bitmapY);
             matrix.postTranslate(targetX - curr.x, targetY - curr.y);
         }
-
+        
         /**
          * Use interpolator to get t
          */
@@ -1096,7 +1097,7 @@ public class ZoomableImageView extends AppCompatImageView {
             elapsed = Math.min(1f, elapsed);
             return interpolator.getInterpolation(elapsed);
         }
-
+        
         /**
          * Interpolate the current targeted zoom and get the delta from the current zoom.
          */
@@ -1105,7 +1106,7 @@ public class ZoomableImageView extends AppCompatImageView {
             return zoom / normalizedScale;
         }
     }
-
+    
     /**
      * Fling launches sequential runnables which apply the fling graphic to the image. The values
      * for the translation are interpolated by the Scroller.
@@ -1113,11 +1114,11 @@ public class ZoomableImageView extends AppCompatImageView {
      * @author Ortiz
      */
     private class Fling implements Runnable {
-
+        
         private CompatScroller scroller;
         private int currX;
         private int currY;
-
+        
         Fling(int velocityX, int velocityY) {
             setState(State.FLING);
             scroller = new CompatScroller(context);
@@ -1128,14 +1129,14 @@ public class ZoomableImageView extends AppCompatImageView {
             if (getImageWidth() > viewWidth) {
                 minX = viewWidth - (int) getImageWidth();
                 maxX = 0;
-
+                
             } else {
                 minX = maxX = startX;
             }
             if (getImageHeight() > viewHeight) {
                 minY = viewHeight - (int) getImageHeight();
                 maxY = 0;
-
+                
             } else {
                 minY = maxY = startY;
             }
@@ -1144,14 +1145,14 @@ public class ZoomableImageView extends AppCompatImageView {
             currX = startX;
             currY = startY;
         }
-
+        
         public void cancelFling() {
             if (scroller != null) {
                 setState(State.NONE);
                 scroller.forceFinished(true);
             }
         }
-
+        
         @Override
         public void run() {
             //
@@ -1180,50 +1181,50 @@ public class ZoomableImageView extends AppCompatImageView {
             }
         }
     }
-
+    
     @TargetApi(VERSION_CODES.GINGERBREAD)
     private class CompatScroller {
-
+        
         private final OverScroller overScroller;
-
+        
         public CompatScroller(Context context) {
             this.overScroller = new OverScroller(context);
         }
-
+        
         public void fling(int startX, int startY, int velocityX, int velocityY, int minX, int
             maxX, int minY, int maxY) {
             overScroller.fling(startX, startY, velocityX, velocityY, minX, maxX, minY, maxY);
         }
-
+        
         @SuppressWarnings("SameParameterValue")
         public void forceFinished(boolean finished) {
             overScroller.forceFinished(finished);
         }
-
+        
         public boolean isFinished() {
             return overScroller.isFinished();
         }
-
+        
         public boolean computeScrollOffset() {
             overScroller.computeScrollOffset();
             return overScroller.computeScrollOffset();
         }
-
+        
         public int getCurrX() {
             return overScroller.getCurrX();
         }
-
+        
         public int getCurrY() {
             return overScroller.getCurrY();
         }
     }
-
+    
     private class ZoomVariables {
         public final float scale;
         public final float focusX;
         public final float focusY;
         public final ScaleType scaleType;
-
+        
         public ZoomVariables(float scale, float focusX, float focusY, ScaleType scaleType) {
             this.scale = scale;
             this.focusX = focusX;

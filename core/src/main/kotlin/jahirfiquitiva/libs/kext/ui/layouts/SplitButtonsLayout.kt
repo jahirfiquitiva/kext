@@ -16,13 +16,13 @@
 package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
-import androidx.annotation.IntRange
-import androidx.appcompat.widget.AppCompatButton
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.IntRange
+import androidx.appcompat.widget.AppCompatButton
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.inflate
 

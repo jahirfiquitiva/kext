@@ -5,9 +5,9 @@ import android.content.pm.ApplicationInfo
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.DisplayMetrics
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
-import android.util.DisplayMetrics
 
 @DrawableRes
 fun Context.getAppIconResId(pkg: String): Int? {

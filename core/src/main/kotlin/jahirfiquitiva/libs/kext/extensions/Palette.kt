@@ -15,7 +15,6 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
-import androidx.palette.graphics.Palette
 import java.util.Collections
 
 fun androidx.palette.graphics.Palette.isColorDark() = !isColorLight()

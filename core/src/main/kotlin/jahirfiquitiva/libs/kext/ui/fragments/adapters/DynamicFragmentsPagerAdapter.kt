@@ -16,14 +16,11 @@
 package jahirfiquitiva.libs.kext.ui.fragments.adapters
 
 import android.annotation.SuppressLint
-import android.os.Bundle;
-import android.os.Parcelable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
-import android.util.SparseArray;
-import android.view.ViewGroup;
+import android.util.SparseArray
+import android.view.ViewGroup
 
 @Deprecated("Use DynamicFragmentsPagerAdapter instead", ReplaceWith("DynamicFragmentsPagerAdapter"))
 typealias FragmentsPagerAdapter = DynamicFragmentsPagerAdapter

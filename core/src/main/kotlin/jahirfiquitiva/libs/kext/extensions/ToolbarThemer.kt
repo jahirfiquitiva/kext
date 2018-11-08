@@ -17,19 +17,19 @@ package jahirfiquitiva.libs.kext.extensions
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
-import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.appcompat.widget.ActionMenuView
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.appcompat.widget.ActionMenuView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.R
 import java.lang.reflect.Field

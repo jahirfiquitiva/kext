@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Jahir Fiquitiva
+ * Copyright (c) 2018.
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.archhelpers.ui.fragments.presenters
-
-import jahirfiquitiva.libs.kext.ui.fragments.presenters.FragmentPresenter
+package jahirfiquitiva.libs.kext.ui.fragments.presenters
 
 interface ViewModelFragmentPresenter<in T> : FragmentPresenter<T> {
     fun registerObservers()

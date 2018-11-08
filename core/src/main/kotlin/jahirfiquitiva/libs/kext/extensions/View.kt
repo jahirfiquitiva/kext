@@ -16,12 +16,11 @@
 
 package jahirfiquitiva.libs.kext.extensions
 
-import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
 fun View.buildSnackbar(
     @StringRes text: Int, duration: Int = Snackbar.LENGTH_SHORT,

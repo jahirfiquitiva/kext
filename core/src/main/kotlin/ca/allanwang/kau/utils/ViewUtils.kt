@@ -1,14 +1,13 @@
 package ca.allanwang.kau.utils
 
 import android.graphics.Color
-import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
-import androidx.customview.widget.ViewDragHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.bind
 import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor

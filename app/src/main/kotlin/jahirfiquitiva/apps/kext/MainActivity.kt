@@ -17,12 +17,11 @@ package jahirfiquitiva.apps.kext
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.Menu
+import androidx.appcompat.widget.Toolbar
 import ca.allanwang.kau.utils.toast
 import jahirfiquitiva.libs.kext.extensions.bind
-import jahirfiquitiva.libs.kext.extensions.getAppName
 import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor
 import jahirfiquitiva.libs.kext.extensions.hideAllItems
 import jahirfiquitiva.libs.kext.extensions.primaryColor

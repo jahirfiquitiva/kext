@@ -16,8 +16,8 @@
 package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
-import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatImageView
 import jahirfiquitiva.libs.kext.R
 
 open class VerticalImageView : AppCompatImageView {

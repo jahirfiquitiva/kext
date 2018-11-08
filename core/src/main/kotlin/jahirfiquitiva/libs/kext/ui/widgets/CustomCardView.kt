@@ -16,7 +16,6 @@
 package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
-import androidx.cardview.widget.CardView
 import android.util.AttributeSet
 import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor
 

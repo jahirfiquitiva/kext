@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.archhelpers.ui.adapters.presenters
+package jahirfiquitiva.libs.kext.ui.adapters.presenters
 
 interface ListAdapterPresenter<T> {
     fun addAll(newItems: ArrayList<T>)

@@ -17,7 +17,6 @@ package jahirfiquitiva.libs.kext.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.fragment.app.Fragment
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.helpers.Konfigurations
 

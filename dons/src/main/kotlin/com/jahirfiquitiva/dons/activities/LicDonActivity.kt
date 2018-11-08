@@ -15,9 +15,8 @@
  */
 package com.jahirfiquitiva.dons.activities
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.ViewModelProviders
 import ca.allanwang.kau.utils.snackbar
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
@@ -30,6 +29,7 @@ import com.github.javiersantos.piracychecker.enums.PiracyCheckerError
 import com.github.javiersantos.piracychecker.enums.PirateApp
 import com.github.javiersantos.piracychecker.onError
 import com.github.javiersantos.piracychecker.piracyChecker
+import com.google.android.material.snackbar.Snackbar
 import com.jahirfiquitiva.dons.R
 import com.jahirfiquitiva.dons.utils.LicKonfigurations
 import com.jahirfiquitiva.dons.viewmodels.IAPItem

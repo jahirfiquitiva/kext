@@ -17,8 +17,6 @@ package jahirfiquitiva.libs.archhelpers.extensions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 
 inline fun <reified T : ViewModel> androidx.fragment.app.FragmentActivity.getViewModel(): T =
     ViewModelProviders.of(this)[T::class.java]
@@ -32,4 +30,5 @@ inline fun <reified T : ViewModel> androidx.fragment.app.Fragment.getViewModel()
 inline fun <reified T : ViewModel> androidx.fragment.app.FragmentActivity.lazyViewModel(): Lazy<T> =
     lazy { getViewModel<T>() }
 
-inline fun <reified T : ViewModel> androidx.fragment.app.Fragment.lazyViewModel(): Lazy<T> = lazy { getViewModel<T>() }
+inline fun <reified T : ViewModel> androidx.fragment.app.Fragment.lazyViewModel(): Lazy<T> =
+    lazy { getViewModel<T>() }

@@ -16,10 +16,10 @@
 package jahirfiquitiva.libs.kext.ui.layouts
 
 import android.content.Context
-import androidx.annotation.ColorInt
-import com.google.android.material.tabs.TabLayout
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
 import ca.allanwang.kau.utils.tint
+import com.google.android.material.tabs.TabLayout
 
 open class CustomTabLayout : TabLayout {
     constructor(context: Context) : super(context)

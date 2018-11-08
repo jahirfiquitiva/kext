@@ -16,25 +16,33 @@
 package jahirfiquitiva.libs.kext.extensions
 
 import android.content.Context
+import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.BoolRes
 import androidx.annotation.DimenRes
 import androidx.annotation.IdRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
-import androidx.recyclerview.widget.RecyclerView
-import android.view.View
 
-inline fun <reified T : View> androidx.recyclerview.widget.RecyclerView.ViewHolder.bind(@IdRes res: Int): Lazy<T?> =
+inline fun <reified T : View> androidx.recyclerview.widget.RecyclerView.ViewHolder.bind(
+    @IdRes
+    res: Int
+                                                                                       ): Lazy<T?> =
     lazy { itemView.findViewById<T>(res) }
 
 val androidx.recyclerview.widget.RecyclerView.ViewHolder.context: Context
     get() = itemView.context
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String = ""): String =
+fun androidx.recyclerview.widget.RecyclerView.ViewHolder.string(
+    @StringRes
+    stringRes: Int, fallback: String = ""
+                                                               ): String =
     itemView.context.string(stringRes, fallback)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+fun androidx.recyclerview.widget.RecyclerView.ViewHolder.stringArray(
+    @ArrayRes
+    arrayRes: Int
+                                                                    ): Array<String>? =
     itemView.context.stringArray(arrayRes)
 
 fun androidx.recyclerview.widget.RecyclerView.ViewHolder.boolean(@BoolRes bool: Int): Boolean =

@@ -25,6 +25,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Looper
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
@@ -37,11 +42,6 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import ca.allanwang.kau.utils.resolveBoolean
 import com.afollestad.materialdialogs.MaterialDialog
 import jahirfiquitiva.libs.kext.R
@@ -177,10 +177,10 @@ val Context.isLowRamDevice: Boolean
         return lowRAMDevice
     }
 
-inline fun Context.mdDialog(action: MaterialDialog.Builder.() -> Unit = {}): MaterialDialog {
-    val builder = MaterialDialog.Builder(this)
+inline fun Context.mdDialog(action: MaterialDialog.() -> Unit = {}): MaterialDialog {
+    val builder = MaterialDialog(this)
     builder.action()
-    return builder.build()
+    return builder
 }
 
 fun Context.getStatusBarHeight(force: Boolean = false): Int {

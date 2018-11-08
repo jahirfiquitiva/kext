@@ -17,8 +17,8 @@ package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatImageView
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.activeIconsColor
 import jahirfiquitiva.libs.kext.extensions.applyColorFilter

@@ -2,15 +2,15 @@ package ca.allanwang.kau.utils
 
 import android.content.Context
 import android.content.res.XmlResourceParser
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.annotation.XmlRes
-import androidx.recyclerview.widget.RecyclerView
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.customListAdapter
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.bind
 import jahirfiquitiva.libs.kext.extensions.string
@@ -36,7 +36,7 @@ fun Context.showChangelog(
     @StringRes title: Int,
     @StringRes btnText: Int,
     @ColorInt textColor: Int? = null,
-    customize: MaterialDialog.Builder.() -> Unit = {}
+    customize: MaterialDialog.() -> Unit = {}
                          ) {
     showChangelog(xmlRes, string(title), string(btnText), textColor, customize)
 }
@@ -46,15 +46,15 @@ fun Context.showChangelog(
     title: String,
     btnText: String,
     @ColorInt textColor: Int? = null,
-    customize: MaterialDialog.Builder.() -> Unit = {}
+    customize: MaterialDialog.() -> Unit = {}
                          ) {
     doAsync {
         val items = parse(this@showChangelog, xmlRes)
         uiThread {
-            val builder = MaterialDialog.Builder(this@showChangelog)
-                .title(title)
-                .positiveText(btnText)
-                .adapter(ChangelogAdapter(items, textColor), null)
+            val builder = MaterialDialog(this@showChangelog)
+                .title(text = title)
+                .positiveButton(text = btnText)
+                .customListAdapter(ChangelogAdapter(items, textColor))
             builder.customize()
             builder.show()
         }
@@ -111,7 +111,8 @@ class ChangelogAdapter(
     
     override fun getItemCount() = items.size
     
-    class ChangelogVH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ChangelogVH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(
+        itemView) {
         val text: TextView? by bind(R.id.kau_changelog_text)
         val bullet: TextView? by bind(R.id.kau_changelog_bullet)
     }

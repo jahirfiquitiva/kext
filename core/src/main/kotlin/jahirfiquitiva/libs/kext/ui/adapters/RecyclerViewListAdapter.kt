@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.archhelpers.ui.adapters
+package jahirfiquitiva.libs.kext.ui.adapters
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import jahirfiquitiva.libs.archhelpers.ui.adapters.presenters.ListAdapterPresenter
 import jahirfiquitiva.libs.kext.extensions.clearChildrenAnimations
+import jahirfiquitiva.libs.kext.ui.adapters.presenters.ListAdapterPresenter
 
-abstract class RecyclerViewListAdapter<T, VH : androidx.recyclerview.widget.RecyclerView.ViewHolder>(private val maxLoad: Int = -1) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<VH>(), ListAdapterPresenter<T> {
+abstract class RecyclerViewListAdapter<T, VH : RecyclerView.ViewHolder>(
+    private val maxLoad: Int = -1
+                                                                       ) :
+    RecyclerView.Adapter<VH>(), ListAdapterPresenter<T> {
     private var lastAnimatedPosition = -1
     
     val list = ArrayList<T>()

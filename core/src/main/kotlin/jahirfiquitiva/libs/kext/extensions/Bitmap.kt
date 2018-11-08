@@ -21,7 +21,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.palette.graphics.Palette
 import java.io.File
 import java.io.FileOutputStream
 

@@ -7,13 +7,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.annotation.FloatRange
-import androidx.annotation.IntRange
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.Toolbar
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
@@ -21,6 +14,13 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import jahirfiquitiva.libs.kext.R
 import kotlin.math.roundToInt
 

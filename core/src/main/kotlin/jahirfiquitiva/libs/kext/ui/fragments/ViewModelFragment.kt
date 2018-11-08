@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Jahir Fiquitiva
+ * Copyright (c) 2018.
  *
  * Licensed under the CreativeCommons Attribution-ShareAlike
  * 4.0 International License. You may not use this file except in compliance
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jahirfiquitiva.libs.archhelpers.ui.fragments
+package jahirfiquitiva.libs.kext.ui.fragments
 
 import android.os.Bundle
-import jahirfiquitiva.libs.archhelpers.ui.fragments.presenters.ViewModelFragmentPresenter
+import jahirfiquitiva.libs.kext.ui.fragments.presenters.ViewModelFragmentPresenter
 import jahirfiquitiva.libs.kext.helpers.Rec
-import jahirfiquitiva.libs.kext.ui.fragments.ItemFragment
 
 abstract class ViewModelFragment<in T> : ItemFragment<T>(), ViewModelFragmentPresenter<T> {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
