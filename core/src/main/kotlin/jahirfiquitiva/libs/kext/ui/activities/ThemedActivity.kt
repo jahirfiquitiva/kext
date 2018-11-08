@@ -16,7 +16,6 @@
 package jahirfiquitiva.libs.kext.ui.activities
 
 import android.app.ActivityManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -108,12 +107,11 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && forceTintRecents()) {
             postDelayed(25) {
-                var bm: Bitmap? = null
                 val resId = recentsIconRes()
                 val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && resId != null) {
                     ActivityManager.TaskDescription(recentsTitle(), resId, recentsColor())
                 } else {
-                    bm = try {
+                    val bm = try {
                         recentsIcon()?.toBitmap()
                     } catch (e: Exception) {
                         null
@@ -123,7 +121,7 @@ abstract class ThemedActivity<out Configs : Konfigurations> : AppCompatActivity(
                         recentsTitle(), bm?.copy(bm.config, true), recentsColor())
                 }
                 setTaskDescription(td)
-                postDelayed(50) { doSafely { bm?.recycle() } }
+                // postDelayed(50) { doSafely { bm?.recycle() } }
             }
         }
     }
