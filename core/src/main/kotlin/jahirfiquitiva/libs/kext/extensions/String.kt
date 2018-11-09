@@ -15,6 +15,21 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
+import android.content.Context
+import android.os.Build
+import android.text.Html
+import androidx.annotation.StringRes
+
+fun Context.formatHtml(@StringRes res: Int): CharSequence = string(res).formatHtml()
+
+@Suppress("DEPRECATION")
+fun String.formatHtml(): CharSequence =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT)
+    } else {
+        Html.fromHtml(this)
+    }
+
 fun String.hasContent() = isNotBlank() && isNotEmpty()
 
 fun String.formatCorrectly() =
