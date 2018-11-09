@@ -112,7 +112,7 @@ fun Context.extractDrawable(@AttrRes drawableAttributeId: Int): Drawable? {
 
 inline fun <reified T : View> Context.inflate(
     @LayoutRes layout: Int,
-    root: ViewGroup,
+    root: ViewGroup? = null,
     attachToRoot: Boolean = false
                                              ): T =
     LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
