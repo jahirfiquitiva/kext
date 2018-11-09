@@ -27,16 +27,16 @@ import jahirfiquitiva.libs.kext.extensions.hideAllItems
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.showAllItems
 import jahirfiquitiva.libs.kext.extensions.tint
-import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.Prefs
 import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 import jahirfiquitiva.libs.kext.ui.widgets.CustomSearchView
 
-class MainActivity : ThemedActivity<Konfigurations>() {
+class MainActivity : ThemedActivity<Prefs>() {
     
     override fun lightTheme(): Int = R.style.AppTheme
     override fun darkTheme(): Int = R.style.AppTheme
     
-    override val configs: Konfigurations by lazy { Konfigurations("kext", this) }
+    override val prefs: Prefs by lazy { Prefs("kext", this) }
     
     override fun recentsColor(): Int = Color.parseColor("#4285F4")
     

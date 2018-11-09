@@ -31,6 +31,7 @@ fun String.formatHtml(): CharSequence =
     }
 
 fun String.hasContent() = isNotBlank() && isNotEmpty()
+fun CharSequence.hasContent() = toString().hasContent()
 
 fun String.formatCorrectly() =
     replace("[^\\w\\s]+".toRegex(), " ").trim().replace(" +".toRegex(), " ")

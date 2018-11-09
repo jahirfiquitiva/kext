@@ -43,26 +43,25 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import ca.allanwang.kau.utils.resolveBoolean
-import com.afollestad.materialdialogs.MaterialDialog
 import jahirfiquitiva.libs.kext.R
-import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.Prefs
 import jahirfiquitiva.libs.kext.helpers.Rec
 import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
 val Context.isFirstRun: Boolean
     get() {
-        val konfigs = Konfigurations("kau_ext", this)
-        val isIt = konfigs.isFirstRun
-        konfigs.isFirstRun = false
+        val prefs = (this as? ThemedActivity<*>)?.prefs ?: Prefs("kau_ext", this)
+        val isIt = prefs.isFirstRun
+        prefs.isFirstRun = false
         return isIt
     }
 
 val Context.isUpdate: Boolean
     get() {
-        val konfigs = Konfigurations("kau_ext", this)
+        val prefs = (this as? ThemedActivity<*>)?.prefs ?: Prefs("kau_ext", this)
         val thisVersion = getAppVersionCode()
-        val prevVersion = konfigs.lastVersion
-        konfigs.lastVersion = thisVersion
+        val prevVersion = prefs.lastVersion
+        prefs.lastVersion = thisVersion
         return thisVersion > prevVersion
     }
 
@@ -117,12 +116,28 @@ inline fun <reified T : View> Context.inflate(
                                              ): T =
     LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
 
-fun Context.getAppName(): String {
-    return try {
-        getString(R.string.app_name).orEmpty()
-    } catch (ignored: Exception) {
-        "KAU Extensions"
+fun Context.getAppName(@StringRes defName: Int = 0): String = getAppName(string(defName))
+
+fun Context.getAppName(defName: String = ""): String {
+    var name: String = try {
+        (packageManager?.getApplicationLabel(applicationInfo) ?: "").toString()
+    } catch (e: Exception) {
+        ""
     }
+    if (name.hasContent()) return name
+    
+    val stringRes = applicationInfo?.labelRes ?: 0
+    name = if (stringRes == 0) {
+        applicationInfo?.nonLocalizedLabel?.toString() ?: ""
+    } else {
+        string(stringRes)
+    }
+    
+    if (name.hasContent()) return name
+    if (defName.hasContent()) return defName
+    
+    val def = string(R.string.app_name)
+    return if (def.hasContent()) def else "Unknown"
 }
 
 @Suppress("DEPRECATION")
@@ -176,12 +191,6 @@ val Context.isLowRamDevice: Boolean
         }
         return lowRAMDevice
     }
-
-inline fun Context.mdDialog(action: MaterialDialog.() -> Unit = {}): MaterialDialog {
-    val builder = MaterialDialog(this)
-    builder.action()
-    return builder
-}
 
 fun Context.getStatusBarHeight(force: Boolean = false): Int {
     var result = 0

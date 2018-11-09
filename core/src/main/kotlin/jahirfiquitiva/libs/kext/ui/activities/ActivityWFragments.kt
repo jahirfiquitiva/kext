@@ -18,9 +18,9 @@ package jahirfiquitiva.libs.kext.ui.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import jahirfiquitiva.libs.kext.R
-import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.Prefs
 
-abstract class ActivityWFragments<Configs : Konfigurations> : ThemedActivity<Configs>() {
+abstract class ActivityWFragments<P : Prefs> : ThemedActivity<P>() {
     open fun fragmentsContainer() = 0
     open fun reportResultToFragment() = false
     
@@ -29,7 +29,7 @@ abstract class ActivityWFragments<Configs : Konfigurations> : ThemedActivity<Con
         if (fragmentsContainer() == 0) return
         try {
             val manager = supportFragmentManager.beginTransaction()
-            if (configs.animationsEnabled) {
+            if (prefs.animationsEnabled) {
                 manager.setCustomAnimations(
                     R.anim.abc_fade_in, R.anim.abc_fade_out,
                     R.anim.abc_popup_enter, R.anim.abc_popup_exit)

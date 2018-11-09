@@ -16,15 +16,18 @@
 package com.jahirfiquitiva.dons.utils
 
 import android.content.Context
-import jahirfiquitiva.libs.kext.helpers.Konfigurations
+import jahirfiquitiva.libs.kext.helpers.Prefs
 
-open class LicKonfigurations(name: String, context: Context) : Konfigurations(name, context) {
+@Deprecated("LicKonfigurations is a long and with-typo name.", ReplaceWith("LicPrefs"))
+typealias LicKonfigurations = LicPrefs
+
+open class LicPrefs(name: String, context: Context) : Prefs(name, context) {
     
     var functional: Boolean
-        get() = prefs.getBoolean(
-            FUNCTIONAL_APP, false)
-        set(value) = prefsEditor.putBoolean(
-            FUNCTIONAL_APP, value).apply()
+        get() = prefs.getBoolean(FUNCTIONAL_APP, defaultFunctionalState())
+        set(value) = prefsEditor.putBoolean(FUNCTIONAL_APP, value).apply()
+    
+    open fun defaultFunctionalState(): Boolean = false
     
     companion object {
         private const val FUNCTIONAL_APP = "functional_app"

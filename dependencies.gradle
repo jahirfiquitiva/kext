@@ -34,7 +34,7 @@ ext.versions = [
         // Dependencies
         androidX   : '1.0.0',
         lifecycle  : '2.0.0',
-        dialogs    : '2.0.0-beta4'
+        dialogs    : '2.0.0-beta5'
 ]
 
 ext.gradlePlugins = [

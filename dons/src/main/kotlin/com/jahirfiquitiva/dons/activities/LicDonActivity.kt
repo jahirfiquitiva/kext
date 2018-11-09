@@ -17,7 +17,6 @@ package com.jahirfiquitiva.dons.activities
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
-import ca.allanwang.kau.utils.snackbar
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.github.javiersantos.piracychecker.PiracyChecker
@@ -25,23 +24,19 @@ import com.github.javiersantos.piracychecker.allow
 import com.github.javiersantos.piracychecker.callback
 import com.github.javiersantos.piracychecker.doNotAllow
 import com.github.javiersantos.piracychecker.enums.InstallerID
-import com.github.javiersantos.piracychecker.enums.PiracyCheckerError
-import com.github.javiersantos.piracychecker.enums.PirateApp
 import com.github.javiersantos.piracychecker.onError
 import com.github.javiersantos.piracychecker.piracyChecker
-import com.google.android.material.snackbar.Snackbar
 import com.jahirfiquitiva.dons.R
-import com.jahirfiquitiva.dons.utils.LicKonfigurations
+import com.jahirfiquitiva.dons.utils.LicPrefs
 import com.jahirfiquitiva.dons.viewmodels.IAPItem
 import com.jahirfiquitiva.dons.viewmodels.IAPsViewModel
-import jahirfiquitiva.libs.kext.extensions.getAppName
 import jahirfiquitiva.libs.kext.extensions.hasContent
 import jahirfiquitiva.libs.kext.extensions.isUpdate
 import jahirfiquitiva.libs.kext.extensions.stringArray
 import jahirfiquitiva.libs.kext.ui.activities.ActivityWFragments
 
-abstract class LicDonActivity<Configs : LicKonfigurations> :
-    ActivityWFragments<Configs>(), BillingProcessor.IBillingHandler {
+abstract class LicDonActivity<LP : LicPrefs> : ActivityWFragments<LP>(),
+                                               BillingProcessor.IBillingHandler {
     
     private var checker: PiracyChecker? = null
     private var billingProcessor: BillingProcessor? = null
@@ -72,19 +67,29 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
     @Suppress("unused")
     fun startLicenseCheck(force: Boolean = false) {
         val update = isUpdate
-        if (update || !configs.functional || force) {
+        if (update || !prefs.functional || force) {
             checker = getLicenseChecker()
             checker?.let {
                 with(it) {
                     callback {
-                        allow { showLicensedSnack(update, force) }
-                        doNotAllow { _, app -> showNotLicensedDialog(app) }
-                        onError { error -> showLicenseErrorDialog(error) }
+                        allow {
+                            prefs.functional = true
+                            onAppLicensed(update || force)
+                        }
+                        doNotAllow { _, app ->
+                            prefs.functional = false
+                            onAppNotLicensed(app?.name ?: "")
+                        }
+                        onError { error ->
+                            prefs.functional = false
+                            onLicenseError(error.toString())
+                        }
                     }
                     start()
                 }
             } ?: {
-                showLicensedSnack(update, force)
+                prefs.functional = true
+                onAppLicensed(update || force)
             }()
         }
     }
@@ -105,32 +110,6 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
             enableFoldersCheck(false)
             enableAPKCheck(false)
         }
-    }
-    
-    private fun showLicensedSnack(update: Boolean, force: Boolean = false) {
-        configs.functional = true
-        if (!update || force) {
-            snackbar(getString(R.string.license_valid, getAppName())) {
-                addCallback(object : Snackbar.Callback() {
-                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                        super.onDismissed(transientBottomBar, event)
-                        onAppLicensed(update)
-                    }
-                })
-            }
-        } else {
-            onAppLicensed(update)
-        }
-    }
-    
-    private fun showNotLicensedDialog(pirateApp: PirateApp?) {
-        configs.functional = false
-        onAppNotLicensed(pirateApp?.name)
-    }
-    
-    private fun showLicenseErrorDialog(error: PiracyCheckerError) {
-        configs.functional = false
-        onLicenseError(error.toString())
     }
     
     // IAPs
@@ -172,18 +151,15 @@ abstract class LicDonActivity<Configs : LicKonfigurations> :
                     }
                     iapsViewModel.destroy(this)
                 }
-                iapsViewModel.loadData(
-                    stringArray(
-                        R.array.iaps_items) ?: arrayOf(""), true)
+                iapsViewModel.loadData(stringArray(R.array.iaps_items) ?: arrayOf(""), true)
             }
         }
     }
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         billingProcessor?.let {
-            if (!(it.handleActivityResult(requestCode, resultCode, data))) {
+            if (!(it.handleActivityResult(requestCode, resultCode, data)))
                 super.onActivityResult(requestCode, resultCode, data)
-            }
         } ?: { super.onActivityResult(requestCode, resultCode, data) }()
     }
     

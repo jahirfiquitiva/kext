@@ -15,9 +15,5 @@
   -->
 <resources>
     <string name="app_name">dons</string>
-
     <string-array name="iaps_items" />
-
-    <!-- License -->
-    <string name="license_valid">License valid. Thanks for downloading %1$s. Enjoy!</string>
 </resources>
