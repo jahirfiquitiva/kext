@@ -66,9 +66,8 @@ android {
 
 ext {
     IAPS = "1.0.44"
-    CHECKER = "b1803da"
+    CHECKER = "8b7a4c7"
 }
-
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
