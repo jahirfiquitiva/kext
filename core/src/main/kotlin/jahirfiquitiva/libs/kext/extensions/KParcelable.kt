@@ -103,6 +103,9 @@ fun <T : Parcelable> Parcel.readTypedObjectCompat(c: Parcelable.Creator<T>) =
 fun <T : Parcelable> Parcel.writeTypedObjectCompat(value: T?, parcelableFlags: Int) =
     writeNullable(value) { it.writeToParcel(this, parcelableFlags) }
 
+inline fun <reified T> Parcel.readArrayOf(): Array<T> =
+    arrayOf<T>().apply { readArray(T::class.java.classLoader) }
+
 inline fun <reified T> Parcel.readArrayListOf(): ArrayList<T> =
     arrayListOf<T>().apply { readList(this, T::class.java.classLoader) }
 
