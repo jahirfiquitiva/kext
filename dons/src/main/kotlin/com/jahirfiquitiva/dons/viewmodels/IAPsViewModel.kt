@@ -15,7 +15,6 @@
  */
 package com.jahirfiquitiva.dons.viewmodels
 
-import android.util.Log
 import com.anjlab.android.iab.v3.BillingProcessor
 import jahirfiquitiva.libs.archhelpers.viewmodels.ListViewModel
 
@@ -28,8 +27,8 @@ internal class IAPsViewModel : ListViewModel<Array<String>, IAPItem>() {
                 val id = it
                 val item = iapBillingProcessor?.getPurchaseListingDetails(id)
                 item?.let {
-                    Log.d("kext", it.title)
-                    val name = it.title.substring(0, it.title.lastIndexOf("(")).trim()
+                    val max = it.title.indexOf("(")
+                    val name = it.title.substring(0, if (max > 0) max else it.title.length).trim()
                     iaps.add(IAPItem(id, name, it.priceText.trim()))
                 }
             }
