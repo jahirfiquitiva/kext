@@ -147,17 +147,17 @@ inline val Context.isNetworkAvailable: Boolean
     @SuppressLint("MissingPermission")
     get() {
         val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo?.isConnectedOrConnecting ?: false
+            getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+        return activeNetworkInfo?.isConnected ?: false
     }
 
 inline val Context.isWifiConnected: Boolean
     @SuppressLint("MissingPermission")
     get() {
         val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
         return (activeNetworkInfo?.type ?: -1) == ConnectivityManager.TYPE_WIFI
     }
 
@@ -165,8 +165,8 @@ inline val Context.isMobileDataConnected: Boolean
     @SuppressLint("MissingPermission")
     get() {
         val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
         return (activeNetworkInfo?.type ?: -1) == ConnectivityManager.TYPE_MOBILE
     }
 

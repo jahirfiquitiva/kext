@@ -114,27 +114,27 @@ fun Activity.themeRecents(@ColorInt recentsColor: Int, force: Boolean = false) {
 }
 
 fun Context.getUsableScreenSize(): Point {
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = windowManager.defaultDisplay
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+    val display = windowManager?.defaultDisplay
     val size = Point()
-    display.getSize(size)
+    display?.getSize(size)
     return size
 }
 
 @Suppress("DEPRECATION")
 fun Context.getRealScreenSize(): Point {
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = windowManager.defaultDisplay
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+    val display = windowManager?.defaultDisplay
     val size = Point()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        display.getRealSize(size)
+        display?.getRealSize(size)
     } else {
         try {
-            size.x = Display::class.java.getMethod("getRawWidth").invoke(display) as Int
-            size.y = Display::class.java.getMethod("getRawHeight").invoke(display) as Int
+            size.x = Display::class.java.getMethod("getRawWidth").invoke(display) as? Int ?: 0
+            size.y = Display::class.java.getMethod("getRawHeight").invoke(display) as? Int ?: 0
         } catch (ignored: Exception) {
-            size.x = display.width
-            size.y = display.height
+            size.x = display?.width ?: 0
+            size.y = display?.height ?: 0
         }
     }
     return size

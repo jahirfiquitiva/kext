@@ -1,5 +1,8 @@
 -keep public class android.app.ActivityTransitionCoordinator
 
+-keep class com.github.javiersantos.**
+-dontwarn com.github.javiersantos.**
+
 -keep class com.google.**
 -keep class autovalue.shaded.com.google.**
 -keep class com.android.vending.billing.**

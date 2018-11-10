@@ -28,6 +28,7 @@ import androidx.appcompat.widget.ActionMenuView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import ca.allanwang.kau.utils.tint
 import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.R
 import java.lang.reflect.Field
@@ -67,8 +68,8 @@ fun Toolbar.tint(
     try {
         val field = Toolbar::class.java.getDeclaredField("mCollapseIcon")
         field.isAccessible = true
-        val collapseIcon = field.get(this) as Drawable
-        field.set(this, collapseIcon.applyColorFilter(iconsColor))
+        val collapseIcon = field.get(this) as? Drawable
+        field.set(this, collapseIcon?.applyColorFilter(iconsColor))
     } catch (e: Exception) {
     }
     
@@ -111,8 +112,8 @@ private fun Toolbar.setOverflowButtonColor(@ColorInt color: Int) {
     val outViews = ArrayList<View>()
     findViewsWithText(outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION)
     if (outViews.isEmpty()) return
-    val overflow = outViews[0] as AppCompatImageView
-    overflow.setImageDrawable(overflow.drawable.applyColorFilter(color))
+    val overflow = outViews[0] as? AppCompatImageView
+    overflow?.setImageDrawable(overflow.drawable.applyColorFilter(color))
 }
 
 fun SearchView.tint(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintColor) {
@@ -137,19 +138,19 @@ fun SearchView.tint(@ColorInt tintColor: Int, @ColorInt hintColor: Int = tintCol
         
         field = cls.getDeclaredField("mSearchPlate")
         field.isAccessible = true
-        (field.get(this) as View).background.applyColorFilter(tintColor)
+        (field.get(this) as? View)?.background?.applyColorFilter(tintColor)
         
         field = cls.getDeclaredField("mSearchHintIcon")
         field.isAccessible = true
-        field.set(this, (field.get(this) as Drawable).applyColorFilter(tintColor))
+        field.set(this, (field.get(this) as? Drawable)?.applyColorFilter(tintColor))
     } catch (e: Exception) {
     }
 }
 
 private fun tintImageView(target: Any, field: Field, tintColor: Int) {
     field.isAccessible = true
-    val imageView = field.get(target) as ImageView
-    imageView.tint(tintColor)
+    val imageView = field.get(target) as? ImageView
+    imageView?.tint(tintColor)
 }
 
 fun ImageView.tint(@ColorInt color: Int) {

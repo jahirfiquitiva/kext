@@ -113,8 +113,8 @@ inline fun <reified T : View> Context.inflate(
     @LayoutRes layout: Int,
     root: ViewGroup? = null,
     attachToRoot: Boolean = false
-                                             ): T =
-    LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
+                                             ): T? =
+    LayoutInflater.from(this).inflate(layout, root, attachToRoot) as? T
 
 fun Context.getAppName(defName: String = ""): String {
     var name: String = try {
@@ -172,19 +172,19 @@ val Context.isInPortraitMode: Boolean
 
 val Context.currentRotation: Int
     get() {
-        val display = (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-        return display.rotation * 90
+        val display = (getSystemService(Context.WINDOW_SERVICE) as? WindowManager)?.defaultDisplay
+        return (display?.rotation ?: 0) * 90
     }
 
 val Context.isLowRamDevice: Boolean
     get() {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
         val lowRAMDevice: Boolean
         lowRAMDevice = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            activityManager.isLowRamDevice
+            activityManager?.isLowRamDevice ?: true
         } else {
             val memInfo = ActivityManager.MemoryInfo()
-            activityManager.getMemoryInfo(memInfo)
+            activityManager?.getMemoryInfo(memInfo)
             memInfo.lowMemory
         }
         return lowRAMDevice
