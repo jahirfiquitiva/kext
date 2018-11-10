@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.IntRange
@@ -97,21 +96,23 @@ inline var Activity.navigationBarColor: Int
  * Returns the content view of this Activity if set, null otherwise.
  */
 inline val Activity.contentView: View?
-    get() = findViewById<ViewGroup>(android.R.id.content)?.getChildAt(0)
+    get() = findViewById(android.R.id.content)
 
 fun Activity.snackbar(
     text: String,
     duration: Int = Snackbar.LENGTH_SHORT,
     from: View? = null,
     builder: Snackbar.() -> Unit = {}
-                     ) = (from ?: contentView)?.snackbar(text, duration, builder)
+                     ): Snackbar? =
+    (from ?: contentView)?.snackbar(text, duration, builder)
 
 fun Activity.snackbar(
     @StringRes textId: Int,
     duration: Int = Snackbar.LENGTH_SHORT,
     from: View? = null,
     builder: Snackbar.() -> Unit = {}
-                     ) = (from ?: contentView)?.snackbar(textId, duration, builder)
+                     ): Snackbar? =
+    (from ?: contentView)?.snackbar(textId, duration, builder)
 
 //Toast helpers
 fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =

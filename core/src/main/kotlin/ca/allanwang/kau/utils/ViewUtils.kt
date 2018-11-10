@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.customview.widget.ViewDragHelper
 import com.google.android.material.snackbar.Snackbar
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.bind
@@ -65,7 +66,8 @@ fun View.snackbar(
 }
 
 fun View.snackbar(
-    @StringRes textId: Int, duration: Int = Snackbar.LENGTH_SHORT,
+    @StringRes textId: Int,
+    duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ) = snackbar(context.string(textId), duration, builder)
 
@@ -117,11 +119,10 @@ fun View.setMargin(margin: Int) = setMargins(margin, KAU_ALL)
 private fun View.setMargins(margin: Int, flag: Int): Boolean {
     val p = (layoutParams as? ViewGroup.MarginLayoutParams) ?: return false
     p.setMargins(
-        if (flag and KAU_LEFT > 0) margin else p.leftMargin,
-        if (flag and KAU_TOP > 0) margin else p.topMargin,
-        if (flag and KAU_RIGHT > 0) margin else p.rightMargin,
-        if (flag and KAU_BOTTOM > 0) margin else p.bottomMargin
-                )
+        if (flag and KAU_LEFT >= 0) margin else p.leftMargin,
+        if (flag and KAU_TOP >= 0) margin else p.topMargin,
+        if (flag and KAU_RIGHT >= 0) margin else p.rightMargin,
+        if (flag and KAU_BOTTOM >= 0) margin else p.bottomMargin)
     return true
 }
 
@@ -165,17 +166,16 @@ fun View.setPadding(padding: Int) = setPadding(padding, KAU_ALL)
  */
 private fun View.setPadding(padding: Int, flag: Int) {
     setPadding(
-        if (flag and KAU_LEFT > 0) padding else paddingLeft,
-        if (flag and KAU_TOP > 0) padding else paddingTop,
-        if (flag and KAU_RIGHT > 0) padding else paddingRight,
-        if (flag and KAU_BOTTOM > 0) padding else paddingBottom
-              )
+        if (flag and KAU_LEFT >= 0) padding else paddingLeft,
+        if (flag and KAU_TOP >= 0) padding else paddingTop,
+        if (flag and KAU_RIGHT >= 0) padding else paddingRight,
+        if (flag and KAU_BOTTOM >= 0) padding else paddingBottom)
 }
 
-const val KAU_LEFT = androidx.customview.widget.ViewDragHelper.EDGE_LEFT
-const val KAU_RIGHT = androidx.customview.widget.ViewDragHelper.EDGE_RIGHT
-const val KAU_TOP = androidx.customview.widget.ViewDragHelper.EDGE_TOP
-const val KAU_BOTTOM = androidx.customview.widget.ViewDragHelper.EDGE_BOTTOM
+const val KAU_LEFT = ViewDragHelper.EDGE_LEFT
+const val KAU_RIGHT = ViewDragHelper.EDGE_RIGHT
+const val KAU_TOP = ViewDragHelper.EDGE_TOP
+const val KAU_BOTTOM = ViewDragHelper.EDGE_BOTTOM
 const val KAU_HORIZONTAL = KAU_LEFT or KAU_RIGHT
 const val KAU_VERTICAL = KAU_TOP or KAU_BOTTOM
 const val KAU_ALL = KAU_HORIZONTAL or KAU_VERTICAL
