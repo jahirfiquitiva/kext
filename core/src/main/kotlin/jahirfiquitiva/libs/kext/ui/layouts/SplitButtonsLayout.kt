@@ -68,7 +68,7 @@ open class SplitButtonsLayout : LinearLayout {
                 "Cannot add more buttons. $buttonCount buttons have already been added")
             return
         }
-        val button: AppCompatButton = context.inflate(R.layout.item_split_button, this)
+        val button: AppCompatButton? = context.inflate(R.layout.item_split_button, this)
         val lParams: LayoutParams = if (fillAvailableSpace) {
             LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F)
         } else {
@@ -76,12 +76,12 @@ open class SplitButtonsLayout : LinearLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-        button.maxLines = 1
-        button.ellipsize = TextUtils.TruncateAt.END
-        button.id = childCount
-        button.text = text
-        button.tag = link
-        addView(button, lParams)
+        button?.maxLines = 1
+        button?.ellipsize = TextUtils.TruncateAt.END
+        button?.id = childCount
+        button?.text = text
+        button?.tag = link
+        button?.let { addView(it, lParams) }
     }
     
     fun hasAllButtons(): Boolean = childCount == buttonCount

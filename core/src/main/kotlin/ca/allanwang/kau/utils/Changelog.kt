@@ -111,8 +111,7 @@ class ChangelogAdapter(
     
     override fun getItemCount() = items.size
     
-    class ChangelogVH(itemView: View) : RecyclerView.ViewHolder(
-        itemView) {
+    class ChangelogVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView? by bind(R.id.kau_changelog_text)
         val bullet: TextView? by bind(R.id.kau_changelog_bullet)
     }
