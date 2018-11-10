@@ -102,14 +102,16 @@ inline val Activity.contentView: View?
 fun Activity.snackbar(
     text: String,
     duration: Int = Snackbar.LENGTH_SHORT,
+    from: View? = null,
     builder: Snackbar.() -> Unit = {}
-                     ) = contentView!!.snackbar(text, duration, builder)
+                     ) = (from ?: contentView)?.snackbar(text, duration, builder)
 
 fun Activity.snackbar(
     @StringRes textId: Int,
     duration: Int = Snackbar.LENGTH_SHORT,
+    from: View? = null,
     builder: Snackbar.() -> Unit = {}
-                     ) = contentView!!.snackbar(textId, duration, builder)
+                     ) = (from ?: contentView)?.snackbar(textId, duration, builder)
 
 //Toast helpers
 fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
