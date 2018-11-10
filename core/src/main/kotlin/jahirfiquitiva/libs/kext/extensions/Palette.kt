@@ -15,13 +15,14 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
+import androidx.palette.graphics.Palette
 import java.util.Collections
 
-fun androidx.palette.graphics.Palette.isColorDark() = !isColorLight()
+fun Palette.isColorDark() = !isColorLight()
 
-fun androidx.palette.graphics.Palette.isColorLight() = bestSwatch?.rgb?.isColorLight() ?: false
+fun Palette.isColorLight() = bestSwatch?.rgb?.isColorLight() ?: false
 
-val androidx.palette.graphics.Palette.bestSwatch: androidx.palette.graphics.Palette.Swatch?
+val Palette.bestSwatch: Palette.Swatch?
     get() {
         dominantSwatch?.let { return it }
         vibrantSwatch?.let { return it }
@@ -34,8 +35,8 @@ val androidx.palette.graphics.Palette.bestSwatch: androidx.palette.graphics.Pale
         return null
     }
 
-private fun getBestPaletteSwatch(swatches: List<androidx.palette.graphics.Palette.Swatch>): androidx.palette.graphics.Palette.Swatch =
-    Collections.max<androidx.palette.graphics.Palette.Swatch>(swatches) { opt1, opt2 ->
+private fun getBestPaletteSwatch(swatches: List<Palette.Swatch>): androidx.palette.graphics.Palette.Swatch =
+    Collections.max<Palette.Swatch>(swatches) { opt1, opt2 ->
         val a = opt1?.population ?: 0
         val b = opt2?.population ?: 0
         a - b

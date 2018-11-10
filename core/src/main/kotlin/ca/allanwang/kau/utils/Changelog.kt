@@ -9,6 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.annotation.XmlRes
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.customListAdapter
 import jahirfiquitiva.libs.kext.R
@@ -91,8 +92,7 @@ fun parse(context: Context, @XmlRes xmlRes: Int): List<Pair<String, ChangelogTyp
 class ChangelogAdapter(
     private val items: List<Pair<String, ChangelogType>>,
     @ColorInt val textColor: Int? = null
-                      ) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ChangelogAdapter.ChangelogVH>() {
+                      ) : RecyclerView.Adapter<ChangelogAdapter.ChangelogVH>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ChangelogVH(parent.inflate(items[viewType].second.layout))
@@ -111,7 +111,7 @@ class ChangelogAdapter(
     
     override fun getItemCount() = items.size
     
-    class ChangelogVH(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(
+    class ChangelogVH(itemView: View) : RecyclerView.ViewHolder(
         itemView) {
         val text: TextView? by bind(R.id.kau_changelog_text)
         val bullet: TextView? by bind(R.id.kau_changelog_bullet)

@@ -41,8 +41,7 @@ inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> = lazy { find
 
 inline fun <reified T : View> Activity.findView(@IdRes res: Int): T? = findViewById(res)
 
-inline fun <reified T : View> androidx.fragment.app.Fragment.findView(@IdRes res: Int): T? =
-    view?.findView(res)
+inline fun <reified T : View> Fragment.findView(@IdRes res: Int): T? = view?.findView(res)
 
 inline fun <reified T : View> View.findView(@IdRes res: Int): T? = findViewById(res)
 

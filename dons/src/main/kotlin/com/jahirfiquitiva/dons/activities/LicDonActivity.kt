@@ -103,12 +103,10 @@ abstract class LicDonActivity<LP : LicPrefs> : ActivityWFragments<LP>(),
             enableInstallerId(InstallerID.GOOGLE_PLAY)
             if (amazonInstallsEnabled())
                 enableInstallerId(InstallerID.AMAZON_APP_STORE)
-            enableUnauthorizedAppsCheck(checkLPF())
-            enableStoresCheck(checkStores())
-            enableDebugCheck(true)
-            enableEmulatorCheck(true)
-            enableFoldersCheck(false)
-            enableAPKCheck(false)
+            if (checkLPF()) enableUnauthorizedAppsCheck()
+            if (checkStores()) enableStoresCheck()
+            enableDebugCheck()
+            enableEmulatorCheck(false)
         }
     }
     

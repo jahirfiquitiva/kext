@@ -18,18 +18,19 @@ package jahirfiquitiva.libs.kext.ui.decorations
 
 import android.graphics.Rect
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 class GridSpacingItemDecoration(
     private val spanCount: Int,
     private val spacing: Int,
     private val includeEdge: Boolean = true
-                               ) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+                               ) : RecyclerView.ItemDecoration() {
     
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
-        parent: androidx.recyclerview.widget.RecyclerView,
-        state: androidx.recyclerview.widget.RecyclerView.State
+        parent: RecyclerView,
+        state: RecyclerView.State
                                ) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)

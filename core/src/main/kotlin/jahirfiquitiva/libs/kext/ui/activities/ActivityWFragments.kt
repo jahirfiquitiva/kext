@@ -17,6 +17,7 @@ package jahirfiquitiva.libs.kext.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.fragment.app.Fragment
 import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.helpers.Prefs
 
@@ -25,7 +26,7 @@ abstract class ActivityWFragments<P : Prefs> : ThemedActivity<P>() {
     open fun reportResultToFragment() = false
     
     @SuppressLint("PrivateResource")
-    open fun changeFragment(f: androidx.fragment.app.Fragment, tag: String? = null) {
+    open fun changeFragment(f: Fragment, tag: String? = null) {
         if (fragmentsContainer() == 0) return
         try {
             val manager = supportFragmentManager.beginTransaction()
@@ -41,7 +42,8 @@ abstract class ActivityWFragments<P : Prefs> : ThemedActivity<P>() {
         }
     }
     
-    fun getCurrentFragment(): androidx.fragment.app.Fragment? {
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun getCurrentFragment(): Fragment? {
         return try {
             supportFragmentManager?.findFragmentById(fragmentsContainer())
         } catch (e: Exception) {

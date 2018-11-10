@@ -16,10 +16,13 @@
 package jahirfiquitiva.libs.kext.ui.widgets
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
+import androidx.cardview.widget.CardView
 import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor
 
-open class CustomCardView : androidx.cardview.widget.CardView {
+open class CustomCardView : CardView {
     constructor(context: Context) : super(context) {
         init()
     }
@@ -38,10 +41,22 @@ open class CustomCardView : androidx.cardview.widget.CardView {
     }
     
     override fun setBackgroundColor(color: Int) {
-        setCardBackgroundColor(color)
+        forceSetCardBackgroundColor(context.cardBackgroundColor)
     }
     
-    override fun setCardBackgroundColor(color: Int) {
-        super.setCardBackgroundColor(context.cardBackgroundColor)
+    override fun setCardBackgroundColor(@ColorInt color: Int) {
+        forceSetCardBackgroundColor(context.cardBackgroundColor)
+    }
+    
+    override fun setCardBackgroundColor(color: ColorStateList?) {
+        forceSetCardBackgroundColor(ColorStateList.valueOf(context.cardBackgroundColor))
+    }
+    
+    fun forceSetCardBackgroundColor(@ColorInt color: Int) {
+        super.setCardBackgroundColor(color)
+    }
+    
+    fun forceSetCardBackgroundColor(color: ColorStateList?) {
+        super.setCardBackgroundColor(color)
     }
 }

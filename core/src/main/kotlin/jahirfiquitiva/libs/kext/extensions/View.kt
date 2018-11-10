@@ -20,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
 fun View.buildSnackbar(
@@ -61,8 +62,6 @@ private fun getAllChildren(v: View): ArrayList<View> {
     }
     return result
 }
-
-fun androidx.recyclerview.widget.RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
 
 fun View.postDelayed(delay: Long, action: () -> Unit) =
     postDelayed(action, delay)

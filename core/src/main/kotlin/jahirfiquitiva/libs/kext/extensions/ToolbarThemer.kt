@@ -22,14 +22,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.appcompat.widget.ActionMenuView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import ca.allanwang.kau.utils.withAlpha
 import jahirfiquitiva.libs.kext.R
 import java.lang.reflect.Field
@@ -156,26 +154,4 @@ private fun tintImageView(target: Any, field: Field, tintColor: Int) {
 
 fun ImageView.tint(@ColorInt color: Int) {
     if (drawable != null) setImageDrawable(drawable.applyColorFilter(color))
-}
-
-fun EditText.tint(@ColorInt color: Int) {
-    try {
-        val fCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-        fCursorDrawableRes.isAccessible = true
-        val mCursorDrawableRes = fCursorDrawableRes.getInt(this)
-        val fEditor = TextView::class.java.getDeclaredField("mEditor")
-        fEditor.isAccessible = true
-        val editor = fEditor.get(this)
-        val clazz = editor.javaClass
-        val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
-        fCursorDrawable.isAccessible = true
-        val drawables = arrayOfNulls<Drawable>(2)
-        drawables[0] =
-            ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
-        drawables[1] =
-            ContextCompat.getDrawable(context, mCursorDrawableRes)?.applyColorFilter(color)
-        fCursorDrawable.set(editor, drawables)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
 }

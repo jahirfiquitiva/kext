@@ -223,11 +223,11 @@ fun EditText.tintCursor(@ColorInt color: Int) {
         val clazz = editor.javaClass
         val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
         fCursorDrawable.isAccessible = true
-        val drawables: Array<Drawable?> = Array(2, {
+        val drawables: Array<Drawable?> = Array(2) {
             val drawable = ContextCompat.getDrawable(context, mCursorDrawableRes)
             drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
             drawable
-        })
+        }
         fCursorDrawable.set(editor, drawables)
     } catch (e: Exception) {
         e.printStackTrace()

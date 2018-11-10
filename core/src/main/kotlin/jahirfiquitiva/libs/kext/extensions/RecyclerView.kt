@@ -23,36 +23,26 @@ import androidx.annotation.DimenRes
 import androidx.annotation.IdRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 
-inline fun <reified T : View> androidx.recyclerview.widget.RecyclerView.ViewHolder.bind(
-    @IdRes
-    res: Int
-                                                                                       ): Lazy<T?> =
+fun RecyclerView.Adapter<*>.isEmpty(): Boolean = itemCount <= 0
+
+inline fun <reified T : View> RecyclerView.ViewHolder.bind(@IdRes res: Int): Lazy<T?> =
     lazy { itemView.findViewById<T>(res) }
 
-val androidx.recyclerview.widget.RecyclerView.ViewHolder.context: Context
+val RecyclerView.ViewHolder.context: Context
     get() = itemView.context
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.string(
-    @StringRes
-    stringRes: Int, fallback: String = ""
-                                                               ): String =
-    itemView.context.string(stringRes, fallback)
+fun RecyclerView.ViewHolder.string(@StringRes stringRes: Int, fallback: String = ""): String =
+    context.string(stringRes, fallback)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.stringArray(
-    @ArrayRes
-    arrayRes: Int
-                                                                    ): Array<String>? =
-    itemView.context.stringArray(arrayRes)
+fun RecyclerView.ViewHolder.stringArray(@ArrayRes arrayRes: Int): Array<String>? =
+    context.stringArray(arrayRes)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.boolean(@BoolRes bool: Int): Boolean =
-    itemView.context.boolean(bool)
+fun RecyclerView.ViewHolder.boolean(@BoolRes bool: Int): Boolean = context.boolean(bool)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.int(@IntegerRes id: Int): Int =
-    itemView.context.int(id)
+fun RecyclerView.ViewHolder.int(@IntegerRes id: Int): Int = context.int(id)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.dimen(@DimenRes id: Int): Float =
-    itemView.context.dimen(id)
+fun RecyclerView.ViewHolder.dimen(@DimenRes id: Int): Float = context.dimen(id)
 
-fun androidx.recyclerview.widget.RecyclerView.ViewHolder.dimenPixelSize(@DimenRes id: Int): Int =
-    itemView.context.dimenPixelSize(id)
+fun RecyclerView.ViewHolder.dimenPixelSize(@DimenRes id: Int): Int = context.dimenPixelSize(id)
