@@ -116,8 +116,6 @@ inline fun <reified T : View> Context.inflate(
                                              ): T =
     LayoutInflater.from(this).inflate(layout, root, attachToRoot) as T
 
-fun Context.getAppName(@StringRes defName: Int = 0): String = getAppName(string(defName))
-
 fun Context.getAppName(defName: String = ""): String {
     var name: String = try {
         (packageManager?.getApplicationLabel(applicationInfo) ?: "").toString()
