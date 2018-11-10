@@ -15,9 +15,7 @@
  */
 package jahirfiquitiva.libs.kext.ui.activities
 
-import android.app.ActivityManager
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.ColorInt
@@ -28,12 +26,11 @@ import ca.allanwang.kau.utils.navigationBarColor
 import ca.allanwang.kau.utils.restart
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
-import ca.allanwang.kau.utils.withAlpha
-import jahirfiquitiva.libs.kext.extensions.getAppIconResId
 import jahirfiquitiva.libs.kext.extensions.isColorLight
 import jahirfiquitiva.libs.kext.extensions.navigationBarLight
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.primaryDarkColor
+import jahirfiquitiva.libs.kext.extensions.themeRecents
 import jahirfiquitiva.libs.kext.helpers.AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_AMOLED
 import jahirfiquitiva.libs.kext.helpers.AUTO_DARK
@@ -105,16 +102,7 @@ abstract class ThemedActivity<out P : Prefs> : AppCompatActivity() {
         val navColor = getCorrectNavbarColor()
         navigationBarColor = navColor
         if (autoTintNavigationBar()) navigationBarLight = navColor.isColorLight
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && forceTintRecents()) {
-            val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ActivityManager.TaskDescription(
-                    null, getAppIconResId(packageName) ?: 0, recentsColor().withAlpha(1F))
-            } else {
-                ActivityManager.TaskDescription(null, null, recentsColor().withAlpha(1F))
-            }
-            setTaskDescription(td)
-        }
+        themeRecents(recentsColor(), forceTintRecents())
     }
     
     open fun usesDarkTheme(): Boolean {

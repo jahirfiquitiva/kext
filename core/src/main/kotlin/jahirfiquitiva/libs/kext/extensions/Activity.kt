@@ -17,6 +17,7 @@ package jahirfiquitiva.libs.kext.extensions
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
@@ -24,13 +25,16 @@ import android.os.Build
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import ca.allanwang.kau.utils.statusBarColor
 import ca.allanwang.kau.utils.statusBarLight
+import ca.allanwang.kau.utils.withAlpha
 
 inline fun <reified T : View> Activity.bind(@IdRes res: Int): Lazy<T?> = lazy { findView<T>(res) }
 
-inline fun <reified T : View> androidx.fragment.app.Fragment.bind(@IdRes res: Int): Lazy<T?>? =
+inline fun <reified T : View> Fragment.bind(@IdRes res: Int): Lazy<T?>? =
     lazy { findView<T>(res) }
 
 inline fun <reified T : View> View.bind(@IdRes res: Int): Lazy<T?> = lazy { findView<T>(res) }
@@ -96,6 +100,19 @@ val Activity.navigationBarHeight: Int
         }
         return height
     }
+
+@Suppress("DEPRECATION")
+fun Activity.themeRecents(@ColorInt recentsColor: Int, force: Boolean = false) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && force) {
+        val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ActivityManager.TaskDescription(
+                null, getAppIconResId(packageName) ?: 0, recentsColor.withAlpha(1F))
+        } else {
+            ActivityManager.TaskDescription(null, null, recentsColor.withAlpha(1F))
+        }
+        setTaskDescription(td)
+    }
+}
 
 fun Context.getUsableScreenSize(): Point {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
