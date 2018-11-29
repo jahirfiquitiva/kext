@@ -21,11 +21,12 @@ import androidx.annotation.ColorInt
 import ca.allanwang.kau.utils.tint
 import com.google.android.material.tabs.TabLayout
 
-open class CustomTabLayout : TabLayout {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr)
+open class CustomTabLayout @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                    ) :
+    TabLayout(context, attributeSet, style) {
     
     fun setTabsIconsColors(@ColorInt unselectedColor: Int, @ColorInt selectedColor: Int) {
         (0 until tabCount)

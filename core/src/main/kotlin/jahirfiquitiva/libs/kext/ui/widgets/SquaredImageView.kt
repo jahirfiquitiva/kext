@@ -19,11 +19,12 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
-open class SquaredImageView : AppCompatImageView {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr)
+open class SquaredImageView @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                     ) :
+    AppCompatImageView(context, attributeSet, style) {
     
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

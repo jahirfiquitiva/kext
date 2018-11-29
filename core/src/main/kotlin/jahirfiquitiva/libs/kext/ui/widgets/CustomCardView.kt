@@ -22,17 +22,14 @@ import androidx.annotation.ColorInt
 import androidx.cardview.widget.CardView
 import jahirfiquitiva.libs.kext.extensions.cardBackgroundColor
 
-open class CustomCardView : CardView {
-    constructor(context: Context) : super(context) {
-        init()
-    }
+open class CustomCardView @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                   ) :
+    CardView(context, attributeSet, style) {
     
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        init()
-    }
-    
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr) {
+    init {
         init()
     }
     

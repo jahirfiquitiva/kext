@@ -24,24 +24,24 @@ import jahirfiquitiva.libs.kext.extensions.activeIconsColor
 import jahirfiquitiva.libs.kext.extensions.applyColorFilter
 import jahirfiquitiva.libs.kext.extensions.inactiveIconsColor
 
-open class MaterialIconView : AppCompatImageView {
+open class MaterialIconView @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                     ) :
+    AppCompatImageView(context, attributeSet, style) {
+    
     var isActive = true
         set(value) {
             field = value
             setImageDrawable(drawable)
         }
     
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+    init {
         init(context, attributeSet)
     }
     
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr) {
-        init(context, attributeSet)
-    }
-    
-    private fun init(context: Context, attributeSet: AttributeSet) {
+    private fun init(context: Context, attributeSet: AttributeSet?) {
         val a = context.obtainStyledAttributes(attributeSet, R.styleable.MaterialIconView, 0, 0)
         try {
             isActive = a.getBoolean(R.styleable.MaterialIconView_active, true)

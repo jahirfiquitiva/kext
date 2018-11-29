@@ -17,7 +17,12 @@ import jahirfiquitiva.libs.kext.extensions.getPrimaryTextColorFor
 import jahirfiquitiva.libs.kext.extensions.primaryColor
 import jahirfiquitiva.libs.kext.extensions.tint
 
-class CustomSearchView : SearchView {
+class CustomSearchView @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                ) :
+    SearchView(context, attributeSet, style) {
     
     private var tintColor: Int = 0
     
@@ -30,16 +35,7 @@ class CustomSearchView : SearchView {
     var onQueryChanged: (query: String) -> Unit = {}
     var onQuerySubmit: (query: String) -> Unit = {}
     
-    constructor(context: Context) : super(context) {
-        init()
-    }
-    
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        init()
-    }
-    
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr) {
+    init {
         init()
     }
     

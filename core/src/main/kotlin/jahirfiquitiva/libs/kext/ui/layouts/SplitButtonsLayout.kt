@@ -29,7 +29,12 @@ import jahirfiquitiva.libs.kext.extensions.inflate
 /**
  * Originally created by Aidan Follestad
  */
-open class SplitButtonsLayout : LinearLayout {
+open class SplitButtonsLayout @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    style: Int = 0
+                                                       ) :
+    LinearLayout(context, attributeSet, style) {
     
     var buttonCount: Int = 0
         set(@IntRange(from = 0, to = 4) value) {
@@ -37,16 +42,7 @@ open class SplitButtonsLayout : LinearLayout {
             weightSum = value.toFloat()
         }
     
-    constructor(context: Context) : super(context) {
-        init()
-    }
-    
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        init()
-    }
-    
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int)
-        : super(context, attributeSet, defStyleAttr) {
+    init {
         init()
     }
     
@@ -54,8 +50,8 @@ open class SplitButtonsLayout : LinearLayout {
         orientation = HORIZONTAL
         if (isInEditMode) {
             buttonCount = 2
-            addButton("Website", "https://github.com/jahirfiquitiva/kext")
-            addButton("Google+", "https://google.com/+JahirFiquitivaR")
+            addButton("GitHub", "https://github.com/jahirfiquitiva/kext")
+            addButton("Website", "https://jahir.xyz/")
         }
     }
     

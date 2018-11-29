@@ -23,16 +23,19 @@ import ca.allanwang.kau.utils.dpToPx
 import com.google.android.material.appbar.AppBarLayout
 import jahirfiquitiva.libs.kext.R
 
-open class FixedElevationAppBarLayout : AppBarLayout {
+open class FixedElevationAppBarLayout @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null
+                                                               ) :
+    AppBarLayout(context, attributeSet) {
     
     private var fElevation: Int = 4
     
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+    init {
         init(context, attributeSet)
     }
     
-    private fun init(context: Context, attrs: AttributeSet) {
+    private fun init(context: Context, attrs: AttributeSet?) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.FixedElevationAppBarLayout, 0, 0)
         try {
             fElevation = a.getDimensionPixelSize(
