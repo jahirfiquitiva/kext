@@ -119,10 +119,10 @@ fun View.setMargin(margin: Int) = setMargins(margin, KAU_ALL)
 private fun View.setMargins(margin: Int, flag: Int): Boolean {
     val p = (layoutParams as? ViewGroup.MarginLayoutParams) ?: return false
     p.setMargins(
-        if (flag and KAU_LEFT >= 0) margin else p.leftMargin,
-        if (flag and KAU_TOP >= 0) margin else p.topMargin,
-        if (flag and KAU_RIGHT >= 0) margin else p.rightMargin,
-        if (flag and KAU_BOTTOM >= 0) margin else p.bottomMargin)
+        if (flag and KAU_LEFT > 0) margin else p.leftMargin,
+        if (flag and KAU_TOP > 0) margin else p.topMargin,
+        if (flag and KAU_RIGHT > 0) margin else p.rightMargin,
+        if (flag and KAU_BOTTOM > 0) margin else p.bottomMargin)
     return true
 }
 
@@ -166,10 +166,10 @@ fun View.setPadding(padding: Int) = setPadding(padding, KAU_ALL)
  */
 private fun View.setPadding(padding: Int, flag: Int) {
     setPadding(
-        if (flag and KAU_LEFT >= 0) padding else paddingLeft,
-        if (flag and KAU_TOP >= 0) padding else paddingTop,
-        if (flag and KAU_RIGHT >= 0) padding else paddingRight,
-        if (flag and KAU_BOTTOM >= 0) padding else paddingBottom)
+        if (flag and KAU_LEFT > 0) padding else paddingLeft,
+        if (flag and KAU_TOP > 0) padding else paddingTop,
+        if (flag and KAU_RIGHT > 0) padding else paddingRight,
+        if (flag and KAU_BOTTOM > 0) padding else paddingBottom)
 }
 
 const val KAU_LEFT = ViewDragHelper.EDGE_LEFT
