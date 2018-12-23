@@ -20,8 +20,10 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.list.ItemListener
+import com.afollestad.materialdialogs.list.MultiChoiceListener
 import com.afollestad.materialdialogs.list.SingleChoiceListener
 import com.afollestad.materialdialogs.list.listItems
+import com.afollestad.materialdialogs.list.listItemsMultiChoice
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 
 inline fun Context.mdDialog(config: MaterialDialog.() -> Unit = {}): MaterialDialog {
@@ -35,32 +37,84 @@ val MaterialDialog.customView: View?
 
 fun <T> MaterialDialog.items(
     items: Array<T>?,
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
     listener: ItemListener = { _, _, _ -> }
                             ): MaterialDialog =
-    listItems(items = items?.map { "$it" }, selection = listener)
+    listItems(
+        items = items?.map { "$it" },
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
+        selection = listener)
 
 fun <T> MaterialDialog.items(
     items: ArrayList<T>?,
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
     listener: ItemListener = { _, _, _ -> }
                             ): MaterialDialog =
-    listItems(items = items?.map { "$it" }, selection = listener)
+    listItems(
+        items = items?.map { "$it" },
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
+        selection = listener)
 
 fun <T> MaterialDialog.itemsSingleChoice(
     items: Array<T>?,
     initialSelection: Int = 0,
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
     listener: SingleChoiceListener = { _, _, _ -> }
                                         ): MaterialDialog =
     listItemsSingleChoice(
         items = items?.map { "$it" },
         initialSelection = initialSelection,
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
         selection = listener)
 
 fun <T> MaterialDialog.itemsSingleChoice(
     items: ArrayList<T>?,
     initialSelection: Int = 0,
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
     listener: SingleChoiceListener = { _, _, _ -> }
                                         ): MaterialDialog =
     listItemsSingleChoice(
         items = items?.map { "$it" },
         initialSelection = initialSelection,
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
+        selection = listener)
+
+fun <T> MaterialDialog.itemsMultiChoice(
+    items: Array<T>?,
+    initialSelection: IntArray = intArrayOf(),
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
+    allowEmptySelection: Boolean = false,
+    listener: MultiChoiceListener = { _, _, _ -> }
+                                       ): MaterialDialog =
+    listItemsMultiChoice(
+        items = items?.map { "$it" },
+        initialSelection = initialSelection,
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
+        allowEmptySelection = allowEmptySelection,
+        selection = listener)
+
+fun <T> MaterialDialog.itemsMultiChoice(
+    items: ArrayList<T>?,
+    initialSelection: IntArray = intArrayOf(),
+    disabledIndices: IntArray? = null,
+    waitForPositiveButton: Boolean = true,
+    allowEmptySelection: Boolean = false,
+    listener: MultiChoiceListener = { _, _, _ -> }
+                                       ): MaterialDialog =
+    listItemsMultiChoice(
+        items = items?.map { "$it" },
+        initialSelection = initialSelection,
+        disabledIndices = disabledIndices,
+        waitForPositiveButton = waitForPositiveButton,
+        allowEmptySelection = allowEmptySelection,
         selection = listener)
