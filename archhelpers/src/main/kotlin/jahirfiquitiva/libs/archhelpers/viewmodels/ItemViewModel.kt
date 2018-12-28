@@ -48,7 +48,7 @@ abstract class ItemViewModel<in Parameter, Result> : ViewModel() {
         }
     }
     
-    private fun cancelTask(interrupt: Boolean = false) {
+    fun cancelTask(interrupt: Boolean = true) {
         task?.cancel(interrupt)
         task = null
         taskStarted = false
