@@ -16,28 +16,69 @@
 
 package jahirfiquitiva.libs.kext.extensions
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import jahirfiquitiva.libs.kext.R
+import jahirfiquitiva.libs.kext.helpers.AMOLED
+import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
+@SuppressLint("PrivateResource")
 fun View.buildSnackbar(
-    @StringRes text: Int, duration: Int = Snackbar.LENGTH_SHORT,
+    @StringRes text: Int,
+    @ColorInt textColor: Int = Color.WHITE,
+    @ColorInt actionColor: Int = context.accentColor,
+    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
+    margin: Int = 0,
+    duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
-    val snackbar = Snackbar.make(this, text, duration)
-    snackbar.builder()
-    return snackbar
+    return buildSnackbar(
+        context.string(text), textColor, actionColor, backgroundColor, margin, duration, builder)
 }
 
+@SuppressLint("PrivateResource")
 fun View.buildSnackbar(
-    text: String, duration: Int = Snackbar.LENGTH_SHORT,
+    text: String,
+    @ColorInt textColor: Int = Color.WHITE,
+    @ColorInt actionColor: Int = context.accentColor,
+    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
+    margin: Int = 0,
+    duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
     val snackbar = Snackbar.make(this, text, duration)
     snackbar.builder()
+    
+    val snackText: TextView? by snackbar.view.bind(R.id.snackbar_text)
+    snackText?.setTextColor(textColor)
+    snackText?.maxLines = 3
+    
+    snackbar.setActionTextColor(actionColor)
+    snackbar.view.setBackgroundColor(backgroundColor)
+    
+    (context as? ThemedActivity<*>)?.let {
+        if (it.getThemeKey() == AMOLED)
+            snackbar.view.setBackgroundColor(it.cardBackgroundColor)
+    }
+    
+    try {
+        val params = snackbar.view.layoutParams as? ViewGroup.MarginLayoutParams
+        params?.setMargins(
+            params.leftMargin + margin,
+            params.topMargin,
+            params.rightMargin + margin,
+            params.bottomMargin + margin)
+        snackbar.view.layoutParams = params
+    } catch (e: Exception) {
+    }
+    
     return snackbar
 }
 
