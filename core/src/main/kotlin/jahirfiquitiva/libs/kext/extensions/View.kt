@@ -16,7 +16,6 @@
 
 package jahirfiquitiva.libs.kext.extensions
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
@@ -26,29 +25,22 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import jahirfiquitiva.libs.kext.R
-import jahirfiquitiva.libs.kext.helpers.AMOLED
-import jahirfiquitiva.libs.kext.ui.activities.ThemedActivity
 
-@SuppressLint("PrivateResource")
 fun View.buildSnackbar(
     @StringRes text: Int,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
-    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
-    return buildSnackbar(
-        context.string(text), textColor, actionColor, backgroundColor, margin, duration, builder)
+    return buildSnackbar(context.string(text), textColor, actionColor, margin, duration, builder)
 }
 
-@SuppressLint("PrivateResource")
 fun View.buildSnackbar(
     text: String,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
-    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
@@ -61,12 +53,6 @@ fun View.buildSnackbar(
     snackText?.maxLines = 3
     
     snackbar.setActionTextColor(actionColor)
-    snackbar.view.setBackgroundColor(backgroundColor)
-    
-    (context as? ThemedActivity<*>)?.let {
-        if (it.getThemeKey() == AMOLED)
-            snackbar.view.setBackgroundColor(it.cardBackgroundColor)
-    }
     
     try {
         val params = snackbar.view.layoutParams as? ViewGroup.MarginLayoutParams

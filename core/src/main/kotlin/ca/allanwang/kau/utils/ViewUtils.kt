@@ -1,6 +1,5 @@
 package ca.allanwang.kau.utils
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.customview.widget.ViewDragHelper
 import com.google.android.material.snackbar.Snackbar
-import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.accentColor
 import jahirfiquitiva.libs.kext.extensions.buildSnackbar
-import jahirfiquitiva.libs.kext.extensions.color
 import jahirfiquitiva.libs.kext.extensions.string
 
 fun <T : View> T.visible(): T {
@@ -47,34 +44,28 @@ inline val View.isGone: Boolean get() = visibility == View.GONE
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 
-@SuppressLint("PrivateResource")
 fun View.snackbar(
     text: String,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
-    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ): Snackbar {
-    val snackbar =
-        buildSnackbar(text, textColor, actionColor, backgroundColor, margin, duration, builder)
+    val snackbar = buildSnackbar(text, textColor, actionColor, margin, duration, builder)
     snackbar.show()
     return snackbar
 }
 
-@SuppressLint("PrivateResource")
 fun View.snackbar(
     @StringRes text: Int,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
-    @ColorInt backgroundColor: Int = context.color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ) =
-    snackbar(
-        context.string(text), textColor, actionColor, backgroundColor, margin, duration, builder)
+    snackbar(context.string(text), textColor, actionColor, margin, duration, builder)
 
 fun View.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
     context.toast(id, duration)

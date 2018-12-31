@@ -17,10 +17,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
-import jahirfiquitiva.libs.kext.R
 import jahirfiquitiva.libs.kext.extensions.accentColor
 import jahirfiquitiva.libs.kext.extensions.buildSnackbar
-import jahirfiquitiva.libs.kext.extensions.color
 import jahirfiquitiva.libs.kext.extensions.isOnMainThread
 import jahirfiquitiva.libs.kext.extensions.string
 import java.math.RoundingMode
@@ -103,63 +101,52 @@ inline var Activity.navigationBarColor: Int
 inline val Activity.contentView: View?
     get() = findViewById(android.R.id.content)
 
-@SuppressLint("PrivateResource")
 fun Activity.buildSnackbar(
     text: String,
     from: View? = null,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
-    @ColorInt backgroundColor: Int = color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                           ): Snackbar? =
-    (from ?: contentView)?.buildSnackbar(
-        text, textColor, actionColor, backgroundColor, margin, duration, builder)
+    (from ?: contentView)?.buildSnackbar(text, textColor, actionColor, margin, duration, builder)
 
-@SuppressLint("PrivateResource")
 fun Activity.buildSnackbar(
     @StringRes text: Int,
     from: View? = null,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
-    @ColorInt backgroundColor: Int = color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                           ): Snackbar? =
-    buildSnackbar(
-        string(text), from, textColor, actionColor, backgroundColor, margin, duration, builder)
+    buildSnackbar(string(text), from, textColor, actionColor, margin, duration, builder)
 
-@SuppressLint("PrivateResource")
 fun Activity.snackbar(
     text: String,
     from: View? = null,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
-    @ColorInt backgroundColor: Int = color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                      ): Snackbar? {
-    val snackbar = buildSnackbar(
-        text, from, textColor, actionColor, backgroundColor, margin, duration, builder)
+    val snackbar = buildSnackbar(text, from, textColor, actionColor, margin, duration, builder)
     snackbar?.show()
     return snackbar
 }
 
-@SuppressLint("PrivateResource")
 fun Activity.snackbar(
     @StringRes text: Int,
     from: View? = null,
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
-    @ColorInt backgroundColor: Int = color(R.color.design_snackbar_background_color),
     margin: Int = 0,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                      ): Snackbar? =
-    snackbar(string(text), from, textColor, actionColor, backgroundColor, margin, duration, builder)
+    snackbar(string(text), from, textColor, actionColor, margin, duration, builder)
 
 //Toast helpers
 fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
