@@ -107,10 +107,12 @@ fun Activity.buildSnackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                           ): Snackbar? =
-    (from ?: contentView)?.buildSnackbar(text, textColor, actionColor, margin, duration, builder)
+    (from ?: contentView)?.buildSnackbar(
+        text, textColor, actionColor, margin, bottomMargin, duration, builder)
 
 fun Activity.buildSnackbar(
     @StringRes text: Int,
@@ -118,10 +120,12 @@ fun Activity.buildSnackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                           ): Snackbar? =
-    buildSnackbar(string(text), from, textColor, actionColor, margin, duration, builder)
+    buildSnackbar(
+        string(text), from, textColor, actionColor, margin, bottomMargin, duration, builder)
 
 fun Activity.snackbar(
     text: String,
@@ -129,10 +133,12 @@ fun Activity.snackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                      ): Snackbar? {
-    val snackbar = buildSnackbar(text, from, textColor, actionColor, margin, duration, builder)
+    val snackbar =
+        buildSnackbar(text, from, textColor, actionColor, margin, bottomMargin, duration, builder)
     snackbar?.show()
     return snackbar
 }
@@ -143,10 +149,11 @@ fun Activity.snackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                      ): Snackbar? =
-    snackbar(string(text), from, textColor, actionColor, margin, duration, builder)
+    snackbar(string(text), from, textColor, actionColor, margin, bottomMargin, duration, builder)
 
 //Toast helpers
 fun Context.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =

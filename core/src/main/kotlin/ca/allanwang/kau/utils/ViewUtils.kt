@@ -49,10 +49,12 @@ fun View.snackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ): Snackbar {
-    val snackbar = buildSnackbar(text, textColor, actionColor, margin, duration, builder)
+    val snackbar =
+        buildSnackbar(text, textColor, actionColor, margin, bottomMargin, duration, builder)
     snackbar.show()
     return snackbar
 }
@@ -62,10 +64,11 @@ fun View.snackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                  ) =
-    snackbar(context.string(text), textColor, actionColor, margin, duration, builder)
+    snackbar(context.string(text), textColor, actionColor, margin, bottomMargin, duration, builder)
 
 fun View.toast(@StringRes id: Int, duration: Int = Toast.LENGTH_SHORT) =
     context.toast(id, duration)

@@ -31,10 +31,12 @@ fun View.buildSnackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
-    return buildSnackbar(context.string(text), textColor, actionColor, margin, duration, builder)
+    return buildSnackbar(
+        context.string(text), textColor, actionColor, margin, bottomMargin, duration, builder)
 }
 
 fun View.buildSnackbar(
@@ -42,6 +44,7 @@ fun View.buildSnackbar(
     @ColorInt textColor: Int = Color.WHITE,
     @ColorInt actionColor: Int = context.accentColor,
     margin: Int = 0,
+    bottomMargin: Int = margin,
     duration: Int = Snackbar.LENGTH_SHORT,
     builder: Snackbar.() -> Unit = {}
                       ): Snackbar {
@@ -60,7 +63,7 @@ fun View.buildSnackbar(
             params.leftMargin + margin,
             params.topMargin,
             params.rightMargin + margin,
-            params.bottomMargin + margin)
+            params.bottomMargin + bottomMargin)
         snackbar.view.layoutParams = params
     } catch (e: Exception) {
     }
