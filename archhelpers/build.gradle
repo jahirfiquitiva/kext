@@ -82,6 +82,9 @@ dependencies {
     }
     annotationProcessor libraries.lifecycleCompiler
     kapt libraries.lifecycleCompiler
+    // Material Dialogs
+    implementation libraries.dialogs
+    implementation libraries.dialogsLifecycle
 }
 
 configurations {

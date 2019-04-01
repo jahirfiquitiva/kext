@@ -17,6 +17,7 @@ package jahirfiquitiva.libs.kext.extensions
 
 import android.content.Context
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.list.ItemListener
