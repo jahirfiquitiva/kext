@@ -20,11 +20,11 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class GridSpacingItemDecoration(
+open class GridSpacingItemDecoration(
     private val spanCount: Int,
     private val spacing: Int,
     private val includeEdge: Boolean = true
-                               ) : RecyclerView.ItemDecoration() {
+                                    ) : RecyclerView.ItemDecoration() {
     
     override fun getItemOffsets(
         outRect: Rect,
