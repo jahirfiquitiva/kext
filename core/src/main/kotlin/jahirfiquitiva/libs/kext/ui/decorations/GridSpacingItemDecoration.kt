@@ -33,6 +33,10 @@ open class GridSpacingItemDecoration(
         state: RecyclerView.State
                                ) {
         super.getItemOffsets(outRect, view, parent, state)
+        internalOffsetsSetup(outRect, view, parent)
+    }
+    
+    open fun internalOffsetsSetup(outRect: Rect, view: View, parent: RecyclerView) {
         val position = parent.getChildAdapterPosition(view)
         if (position < 0) return
         val column = position % spanCount
