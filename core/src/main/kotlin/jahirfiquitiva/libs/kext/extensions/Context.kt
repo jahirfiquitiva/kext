@@ -214,21 +214,25 @@ fun Context.getUriFromResource(id: Int): Uri? {
 
 fun Context.bitmap(name: String): Bitmap? = bitmapDrawable(name)?.bitmap
 
-fun Context.bitmapDrawable(name: String): BitmapDrawable? =
-    try {
+fun Context.bitmapDrawable(name: String, logError: Boolean = false): BitmapDrawable? {
+    if (!name.hasContent()) return null
+    return try {
         ResourcesCompat.getDrawable(resources, resource(name), null) as? BitmapDrawable
     } catch (e: Exception) {
-        Rec().e("BitmapDrawable with name '$name' could not be found")
+        if (logError) Rec().e("BitmapDrawable with name '$name' could not be found")
         null
     }
+}
 
-fun Context.drawable(name: String): Drawable? =
-    try {
+fun Context.drawable(name: String, logError: Boolean = false): Drawable? {
+    if (!name.hasContent()) return null
+    return try {
         ContextCompat.getDrawable(this, resource(name))
     } catch (e: Exception) {
-        Rec().e("Drawable with name '$name' could not be found")
+        if (logError) Rec().e("Drawable with name '$name' could not be found")
         null
     }
+}
 
 fun Context.drawable(@DrawableRes res: Int): Drawable? =
     try {
