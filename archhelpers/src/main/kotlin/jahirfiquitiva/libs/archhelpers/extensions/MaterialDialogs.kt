@@ -15,13 +15,13 @@
  */
 package jahirfiquitiva.libs.archhelpers.extensions
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import jahirfiquitiva.libs.kext.extensions.mdDialog
 
-inline fun AppCompatActivity.mdDialog(config: MaterialDialog.() -> Unit = {}): MaterialDialog {
+inline fun FragmentActivity.mdDialog(config: MaterialDialog.() -> Unit = {}): MaterialDialog {
     return mdDialog {
         config()
         lifecycleOwner(this@mdDialog)
