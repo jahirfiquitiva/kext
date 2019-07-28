@@ -107,7 +107,7 @@ inline fun <reified T> Parcel.readArrayOf(): Array<T> =
     arrayOf<T>().apply { readArray(T::class.java.classLoader) }
 
 inline fun <reified T> Parcel.readArrayListOf(): ArrayList<T> =
-    arrayListOf<T>().apply { readList(this, T::class.java.classLoader) }
+    arrayListOf<T>().apply { readList(this.toList(), T::class.java.classLoader) }
 
 inline fun <reified T : Parcelable> Parcel.readParcelable(): T? =
     readParcelable(T::class.java.classLoader)
