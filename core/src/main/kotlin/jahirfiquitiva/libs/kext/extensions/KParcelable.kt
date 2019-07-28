@@ -15,6 +15,7 @@
  */
 package jahirfiquitiva.libs.kext.extensions
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import java.math.BigDecimal
@@ -55,9 +56,19 @@ inline fun <reified T> parcelableClassLoaderCreator(
 
 // Parcel extensions
 
-fun Parcel.readBoolean() = readInt() != 0
+fun Parcel.readBooleanCompat() =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        readBoolean()
+    } else {
+        readInt() != 0
+    }
 
-fun Parcel.writeBoolean(value: Boolean) = writeInt(if (value) 1 else 0)
+fun Parcel.writeBooleanCompat(value: Boolean) =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        writeBoolean(value)
+    } else {
+        writeInt(if (value) 1 else 0)
+    }
 
 inline fun <reified T : Enum<T>> Parcel.readEnum() =
     readInt().let { if (it >= 0) enumValues<T>()[it] else null }
