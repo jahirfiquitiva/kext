@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.CheckBox
@@ -229,21 +230,27 @@ fun EditText.tint(@ColorInt color: Int) {
 
 fun EditText.tintCursor(@ColorInt color: Int) {
     try {
-        val fCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-        fCursorDrawableRes.isAccessible = true
-        val mCursorDrawableRes = fCursorDrawableRes.getInt(this)
-        val fEditor = TextView::class.java.getDeclaredField("mEditor")
-        fEditor.isAccessible = true
-        val editor = fEditor.get(this)
-        val clazz = editor.javaClass
-        val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
-        fCursorDrawable.isAccessible = true
-        val drawables: Array<Drawable?> = Array(2) {
-            val drawable = ContextCompat.getDrawable(context, mCursorDrawableRes)
-            drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-            drawable
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            val fCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            fCursorDrawableRes.isAccessible = true
+            val mCursorDrawableRes = fCursorDrawableRes.getInt(this)
+            val fEditor = TextView::class.java.getDeclaredField("mEditor")
+            fEditor.isAccessible = true
+            val editor = fEditor.get(this)
+            val clazz = editor.javaClass
+            val fCursorDrawable = clazz.getDeclaredField("mCursorDrawable")
+            fCursorDrawable.isAccessible = true
+            val drawables: Array<Drawable?> = Array(2) {
+                val drawable = ContextCompat.getDrawable(context, mCursorDrawableRes)
+                drawable?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+                drawable
+            }
+            fCursorDrawable.set(editor, drawables)
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                textCursorDrawable = null
+            }
         }
-        fCursorDrawable.set(editor, drawables)
     } catch (e: Exception) {
         e.printStackTrace()
     }
