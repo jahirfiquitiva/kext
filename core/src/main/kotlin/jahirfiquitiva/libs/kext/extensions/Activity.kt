@@ -103,13 +103,7 @@ val Activity.navigationBarHeight: Int
 @Suppress("DEPRECATION")
 fun Activity.themeRecents(@ColorInt recentsColor: Int, force: Boolean = false) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && force) {
-        val td = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ActivityManager.TaskDescription(
-                null, getAppIconResId(packageName) ?: 0, recentsColor.withAlpha(1F))
-        } else {
-            ActivityManager.TaskDescription(null, null, recentsColor.withAlpha(1F))
-        }
-        setTaskDescription(td)
+        setTaskDescription(ActivityManager.TaskDescription(null, null, recentsColor.withAlpha(1F)))
     }
 }
 
